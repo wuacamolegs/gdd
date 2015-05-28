@@ -1,4 +1,7 @@
 ----- Script creación esquema y tablas -----
+CREATE SCHEMA [OOZMA_KAPPA] AUTHORIZATION [gd];
+GO
+BEGIN TRANSACTION
 
 USE [GD1C2015]
 
@@ -18,16 +21,20 @@ CREATE TABLE [OOZMA_KAPPA].[User](
 
 CREATE TABLE [OOZMA_KAPPA].[Transferencia](
 	[transferencia_id] [int] NOT NULL,
-	[transferencia_origen_cuenta] [int] NOT NULL,
-	[transferencia_destino_cuenta] [int] NOT NULL,
+	[transferencia_origen_cuenta_id] [int] NOT NULL,
+	[transferencia_destino_cuenta_id] [int] NOT NULL,
 	[transferencia_importe] [int] NOT NULL,
 	[transferencia_costo] [int] NOT NULL,
 )
+
+--- TABLA TIPO_DOCUMENTO ---
 
 CREATE TABLE [OOZMA_KAPPA].[Tipo_documento](
 	[tipo_documento_id] [int] NOT NULL,
 	[tipo_documento_descripcion] [varchar](50) NOT NULL,
 )
+
+--- TABLA TIPO_CUENTA ---
 
 CREATE TABLE [OOZMA_KAPPA].[Tipo_cuenta](
 	[tipo_cuenta_id] [int] NOT NULL,
@@ -113,7 +120,7 @@ CREATE TABLE [OOZMA_KAPPA].[Cuenta](
 	[cuenta_cliente_id] [int] NOT NULL,
 	[cuenta_pais_id] [int] NOT NULL,
 	[cuenta_moneda_id] [int] NOT NULL,
-	[cuenta_tipo_cueta_id] [int] NOT NULL,
+	[cuenta_tipo_cuenta_id] [int] NOT NULL,
 	[cuenta_estado] [int] NOT NULL,
 	[cuenta_saldo] [int] NOT NULL,
 	[cuenta_fecha_apertura] [datetime] NOT NULL,
@@ -155,10 +162,12 @@ CREATE TABLE [OOZMA_KAPPA].[Banco](
 	[banco_direccion] [varchar](50) NOT NULL,
 )
 
-CREATE TABLE [OOZMA_KAPPA].[Admin](
+CREATE TABLE [OOZMA_KAPPA].[Administrador](
 	[administrador_id] [int] NOT NULL,
 	[administrador_rol] [int] NOT NULL,
 	[administrador_estado] [int] NOT NULL,
 	[administrador_username] [varchar](50) NOT NULL,
 	[administrador_user_id] [int] NOT NULL,
 )
+
+COMMIT

@@ -56,7 +56,7 @@ ADD PRIMARY KEY ([cheque_id]);
 ALTER TABLE [OOZMA_KAPPA].[Banco]
 ADD PRIMARY KEY ([banco_id]);	
 
-ALTER TABLE [OOZMA_KAPPA].[Admin]
+ALTER TABLE [OOZMA_KAPPA].[Administrador]
 ADD PRIMARY KEY ([administrador_id]);	
 
 COMMIT
