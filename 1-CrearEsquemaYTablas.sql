@@ -10,11 +10,11 @@ USE [GD1C2015]
 CREATE TABLE [OOZMA_KAPPA].[User](
 	[user_id] int IDENTITY (1,1),
 	[user_username] [varchar](50) NOT NULL,
-	[user_rol] [int] NOT NULL,
+	[user_password] [nvarchar] (64) NOT NULL,
 	[user_fecha_creacion] [datetime] NOT NULL,
 	[user_fecha_ultima_modificacion] [datetime] NOT NULL,
-	[user_pregunta_secreta] [varchar](50) NOT NULL,
-	[user_respuesta_secreta] [varchar](50) NOT NULL,
+	[user_pregunta_secreta] [nvarchar](64) NOT NULL,
+	[user_respuesta_secreta] [nvarchar](64) NOT NULL,
 )
 
 --- TABLA TRANSFERENCIA ---
@@ -102,21 +102,64 @@ CREATE TABLE [OOZMA_KAPPA].[Item_factura](
 	[item_factura_fecha] [datetime] NOT NULL,
 )
 
+-- TABLA ROL --
+
+CREATE TABLE [OOZMA_KAPPA].[Rol](
+	[rol_id] int IDENTITY (1,1),
+	[rol_nombre] [nvarchar](50) NOT NULL,
+	[rol_estado] [varchar](50) NOT NULL,
+)
+
+INSERT INTO [OOZMA_KAPPA].[Rol] (rol_nombre, rol_estado) VALUES ('Administrador','Activo');
+INSERT INTO [OOZMA_KAPPA].[Rol] (rol_nombre, rol_estado) VALUES ('Cliente','Activo');
+
+
+-- TABLA USUARIO_ROL --
+
+CREATE TABLE [OOZMA_KAPPA].[Usuario_rol](
+	[usuario_rol_id] int IDENTITY (1,1),
+	[usuario_id] int,
+	[rol_id] int,
+)
+
 --- TABLA FUNCIONALIDADES_CLIENTES ---
 
-CREATE TABLE [OOZMA_KAPPA].[Funcionalidades_clientes](
-	[funcionalidades_cliente_id] int IDENTITY (1,1),
-	[funcionalidades_cliente_nombre] [varchar](50) NOT NULL,
-	[funcionalidades_cliente_descripcion] [varchar](50) NOT NULL,
+CREATE TABLE [OOZMA_KAPPA].[Funcionalidades_rol](
+	[funcionalidades_rol_id] int IDENTITY (1,1),
+	[funcionalidad_id] [int] NOT NULL,
+	[rol_id] [int] NOT NULL,
 )
+
+INSERT INTO [OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUES (1,2); --EL DOS ES CLIENTE
+INSERT INTO [OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUES (2,2);
+INSERT INTO [OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUES (3,2);
+INSERT INTO [OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUES (4,2);
+INSERT INTO [OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUES (5,2);
+INSERT INTO [OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUES (6,2);
+INSERT INTO [OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUES (7,2);
+INSERT INTO [OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUES (8,2);
+INSERT INTO [OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUES (9,2);
+
 
 --- TABLA FUNCIONALIDADES_ADMINISTRADOR ---
 
-CREATE TABLE [OOZMA_KAPPA].[Funcionalidades_administrador](
-	[funciononalidades_admin_id] int IDENTITY (1,1),
-	[funcionalidades_admin_nombre] [varchar](50) NOT NULL,
-	[funcionalidades_admin_detalle] [varchar](50) NOT NULL,
+CREATE TABLE [OOZMA_KAPPA].[Funcionalidades](
+	[funcionalidades_id] int IDENTITY (1,1),
+	[funcionalidades_nombre] [varchar](50) NOT NULL,
 )
+
+INSERT INTO [OOZMA_KAPPA].[Funcionalidades] (funcionalidades_nombre) VALUES ('Login y Seguridad');
+INSERT INTO [OOZMA_KAPPA].[Funcionalidades] (funcionalidades_nombre) VALUES ('ABM de Rol');
+INSERT INTO [OOZMA_KAPPA].[Funcionalidades] (funcionalidades_nombre) VALUES ('ABM de Usuario');
+INSERT INTO [OOZMA_KAPPA].[Funcionalidades] (funcionalidades_nombre) VALUES ('ABM de Cliente');
+INSERT INTO [OOZMA_KAPPA].[Funcionalidades] (funcionalidades_nombre) VALUES ('ABM de Cuenta');
+INSERT INTO [OOZMA_KAPPA].[Funcionalidades] (funcionalidades_nombre) VALUES ('Depositos');
+INSERT INTO [OOZMA_KAPPA].[Funcionalidades] (funcionalidades_nombre) VALUES ('Retiro de Efectivo');
+INSERT INTO [OOZMA_KAPPA].[Funcionalidades] (funcionalidades_nombre) VALUES ('Transferencias entre cuentas');
+INSERT INTO [OOZMA_KAPPA].[Funcionalidades] (funcionalidades_nombre) VALUES ('Facturacion de Costos');
+INSERT INTO [OOZMA_KAPPA].[Funcionalidades] (funcionalidades_nombre) VALUES ('Consulta de saldos');
+INSERT INTO [OOZMA_KAPPA].[Funcionalidades] (funcionalidades_nombre) VALUES ('Listado Estadistico');
+
 
 --- TABLA FACTURA ---
 
@@ -160,7 +203,6 @@ CREATE TABLE [OOZMA_KAPPA].[Cuenta](
 CREATE TABLE [OOZMA_KAPPA].[Cliente](
 	[cliente_id] int IDENTITY (1,1),
 	[cliente_user_id] [int] NOT NULL,
-	[cliente_rol] [int] NOT NULL,
 	[cliente_apellido] [varchar](50) NOT NULL,
 	[cliente_nombre] [varchar](50) NOT NULL,
 	[cliente_fecha_nacimiento] [datetime] NOT NULL,
@@ -200,10 +242,12 @@ CREATE TABLE [OOZMA_KAPPA].[Banco](
 
 CREATE TABLE [OOZMA_KAPPA].[Administrador](
 	[administrador_id] int IDENTITY (1,1),
-	[administrador_rol] [int] NOT NULL,
 	[administrador_estado] [int] NOT NULL,
 	[administrador_username] [varchar](50) NOT NULL,
 	[administrador_user_id] [int] NOT NULL,
 )
 
 COMMIT
+
+
+

@@ -5,6 +5,9 @@ BEGIN TRANSACTION
 ALTER TABLE [OOZMA_KAPPA].[User]
 ADD PRIMARY KEY ([user_id]);
 
+ALTER TABLE [OOZMA_KAPPA].[Usuario_rol]
+ADD PRIMARY KEY ([usuario_rol_id]);
+
 ALTER TABLE [OOZMA_KAPPA].[Transferencia]
 ADD PRIMARY KEY ([transferencia_id]);
 
@@ -16,6 +19,9 @@ ADD PRIMARY KEY ([tipo_cuenta_id]);
 
 ALTER TABLE [OOZMA_KAPPA].[Tarjeta]
 ADD PRIMARY KEY ([tarjeta_id]);
+
+ALTER TABLE [OOZMA_KAPPA].[Rol]
+ADD PRIMARY KEY ([rol_id]);
 
 ALTER TABLE [OOZMA_KAPPA].[Retiro]
 ADD PRIMARY KEY ([retiro_id]);
@@ -32,11 +38,11 @@ ADD PRIMARY KEY ([login_id]);
 ALTER TABLE [OOZMA_KAPPA].[Item_factura]
 ADD PRIMARY KEY ([item_factura_id]);	
 
-ALTER TABLE [OOZMA_KAPPA].[Funcionalidades_clientes]
-ADD PRIMARY KEY ([funcionalidades_cliente_id]);	
+ALTER TABLE [OOZMA_KAPPA].[Funcionalidades_rol]
+ADD PRIMARY KEY ([funcionalidades_rol_id]);	
 
-ALTER TABLE [OOZMA_KAPPA].[Funcionalidades_administrador]
-ADD PRIMARY KEY ([funciononalidades_admin_id]);	
+ALTER TABLE [OOZMA_KAPPA].[Funcionalidades]
+ADD PRIMARY KEY ([funcionalidades_id]);	
 
 ALTER TABLE [OOZMA_KAPPA].[Factura]
 ADD PRIMARY KEY ([factura_numero]);	

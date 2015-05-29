@@ -1,0 +1,24 @@
+item_factura_id
+no podemos hacer que la descripcion sea la PK, porque en la tabla vamos a tener todas las transferencias de todas las facturas.
+
+
+funcionalidades_administrador/cliente
+tiene que tener detalle de la funcionalidad?? lo dice el tp? o lo suponemos nosotros.
+por ahora lo saco, dsp lo agregamos de ultima.
+
+funcionalidades_clientes
+'Asociar/Desasociar tarjetas de credito' es una funcionalidad mas? o esta dentro de una de las de la lista?
+La agregue solo en clientes. si es una funcionalidad mas hay que agregarla tmb a administrador. AUNQUE AL PRINCIPIO DICE QUE LAS FUNCIONALIDADES SON ESAS QUE NOMBRA Y NADA MAS.
+
+
+preguntas y respuestas encriptadas
+--UNA VEZ QUE TENGAMOS VISUAL C#, AHI SE HACE LA ENCRIPTACION. TENDRIAMOS QUE ENCRIPTAR UN USUARIO NUEVO Y VER QUE DA ESA RESPUESTA Y COPIARLAS EN EL SCRIPT
+
+
+ROL ----> 1 CLIENTE
+ROL ----> 0 ADMINISTRADOR
+
+agregar en la estrategia que le pusimos a todos los usuarios la contrasena 
+user que encriptada es 04f8996da763b7a969b1028ee3007569eaf3a635486ddab211d512c85b9df8fb
+y la respuesta secreta es azul que encriptada es a4bd1d3a69aa0ea6ffb1298c8c26be4b333526cae7d27f2362f89857157701ce
+PAGINA PARA ENCRIPTAR http://www.xorbin.com/tools/sha256-hash-calculator
