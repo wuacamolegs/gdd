@@ -94,6 +94,20 @@ COMMIT
  SET IDENTITY_INSERT [OOZMA_KAPPA].[Deposito] OFF
  
  COMMIT
+ 
+ 
+   -- TABLA FACTURA --
+ 
+ BEGIN TRANSACTION
+ INSERT INTO [OOZMA_KAPPA].[Factura] (factura_numero, factura_importe, factura_fecha, factura_cliente_id, factura_items_id)(
+	SELECT Factura_Numero
+	, (SELECT SUM(item_factura_costo) FROM OOZMA_KAPPA.Item_factura, gd_esquema.Maestra HAVING item_factura_id = Factura_Numero)
+    , Factura_Fecha
+	, (SELECT cliente_id FROM OOZMA_KAPPA.Cliente WHERE cliente_nombre = Cli_Nombre AND cliente_apellido = Cli_Apellido AND cliente_fecha_nacimiento = Cli_Fecha_Nac)
+	, (SELECT item_factura_id FROM OOZMA_KAPPA.Item_factura, gd_esquema.Maestra WHERE item_factura_id = Factura_Numero)
+ FROM gd_esquema.Maestra
+ WHERE Factura_Numero IS NOT NULL);
+ COMMIT
 
 
 
