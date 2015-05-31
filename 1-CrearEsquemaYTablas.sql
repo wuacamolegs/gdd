@@ -25,6 +25,7 @@ CREATE TABLE [OOZMA_KAPPA].[Transferencia](
 	[transferencia_destino_cuenta_id] numeric(18, 0)NOT NULL,
 	[transferencia_importe] numeric(18, 2)NOT NULL,
 	[transferencia_costo] numeric(18, 2)NOT NULL,
+	[transferencia_fecha] datetime NOT NULL,
 )
 
 --- TABLA TIPO_DOCUMENTO ---
@@ -229,7 +230,7 @@ CREATE TABLE [OOZMA_KAPPA].[Cheque](
 	[cheque_fecha] [datetime] NOT NULL,
 	[cheque_importe] numeric(18, 2)NOT NULL,
 	[cheque_banco_id] numeric(18, 0)NOT NULL,
-	[cheque_destino_cliente_id] numeric(18, 0)NOT NULL,
+	
 )
 
 --- TABLA BANCO ---

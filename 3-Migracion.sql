@@ -70,8 +70,28 @@ INSERT INTO [OOZMA_KAPPA].Usuario_rol (usuario_id,rol_id)(
 
 COMMIT
 
+---- TABLA TRANFERENCIA ---
 
--- TABLA ADMIN --
+BEGIN TRANSACTION
+ 
+INSERT INTO [OOZMA_KAPPA].[Tranferencia] (tranferencia_origen_cuenta_id, tranferencia_destino_cuenta_id,
+											 tranferencia_importe, tranferencia_costo, transferencia_fecha)(
+	SELECT Cuenta_Numero, Cuenta_Dest_Numero,  Trans_Importe, Trans_Costo_Trans, Transf_Fecha
+	FROM gd_esquema.Maestra	
+	WHERE transferencia_fecha IS NOT NULL
+	);
 
+COMMIT 
+ 
+---TABLA CHEQUES----
+ 
+ 
+BEGIN TRANSACTION
 
+INSERT INTO  [OOZMA_KAPPA].[Cheque] (cheque_id, cheque_cuenta_id, cheque_fecha, cheque_importe, cheque_banco_id)
+SELECT Cheque_Numero, Cuenta_Numero, Cheque_Fecha, Cheque_Importe, Banco_Cogido
+FROM gd_esquema.Maestra	
+WHERE cheque_fecha IS NOT NULL
+	);
 
+ 
