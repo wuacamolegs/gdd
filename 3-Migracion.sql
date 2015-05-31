@@ -108,6 +108,20 @@ COMMIT
  FROM gd_esquema.Maestra
  WHERE Factura_Numero IS NOT NULL);
  COMMIT
+ 
+ 
+  -- TABLA TARJETA --
+ 
+ BEGIN TRANSACTION
+ INSERT INTO [OOZMA_KAPPA].[Tarjeta] (tarjeta_id, tarjeta_codigo_seguridad, tarjeta_fecha_emision, tarjeta_vencimiento, tarjeta_emisor_banco_id)(
+	SELECT Tarjeta_Numero
+	, Tarjeta_Codigo_Seg
+    , Tarjeta_Fecha_Emision
+	, Tarjeta_Fecha_Vencimiento
+	, (SELECT banco_id FROM OOZMA_KAPPA.Banco WHERE banco_id = Banco_Cogido)
+ FROM gd_esquema.Maestra
+ WHERE Tarjeta_Numero IS NOT NULL);
+ COMMIT
 
 
 
