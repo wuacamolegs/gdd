@@ -124,4 +124,14 @@ COMMIT
  COMMIT
 
 
+  -- TABLA TIPO DOCUMENTO --
+ 
+ BEGIN TRANSACTION
+ INSERT INTO [OOZMA_KAPPA].[Tipo_documento] (tipo_documento_id, tipo_documento_descripcion)(
+	SELECT Cli_Tipo_Doc_Cod
+	, Cli_Tipo_Doc_Desc
+ FROM gd_esquema.Maestra
+ WHERE Cli_Tipo_Doc_Cod IS NOT NULL);
+ COMMIT
+
 
