@@ -73,6 +73,7 @@ COMMIT
 ---- TABLA TRANFERENCIA ---
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 BEGIN TRANSACTION
  
 INSERT INTO [OOZMA_KAPPA].[Tranferencia] (tranferencia_origen_cuenta_id, tranferencia_destino_cuenta_id,
@@ -89,6 +90,8 @@ COMMIT
  
 BEGIN TRANSACTION
 =======
+=======
+>>>>>>> origin/master
  -- TABLA DEPOSITO--
  
  BEGIN TRANSACTION
@@ -140,7 +143,20 @@ BEGIN TRANSACTION
  FROM gd_esquema.Maestra
  WHERE Tarjeta_Numero IS NOT NULL);
  COMMIT
+<<<<<<< HEAD
+=======
 
+>>>>>>> origin/master
+
+  -- TABLA TIPO DOCUMENTO --
+ 
+ BEGIN TRANSACTION
+ INSERT INTO [OOZMA_KAPPA].[Tipo_documento] (tipo_documento_id, tipo_documento_descripcion)(
+	SELECT Cli_Tipo_Doc_Cod
+	, Cli_Tipo_Doc_Desc
+ FROM gd_esquema.Maestra
+ WHERE Cli_Tipo_Doc_Cod IS NOT NULL);
+ COMMIT
 
   -- TABLA TIPO DOCUMENTO --
  
