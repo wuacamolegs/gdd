@@ -72,6 +72,7 @@ COMMIT
 
 ---- TABLA TRANFERENCIA ---
 
+<<<<<<< HEAD
 BEGIN TRANSACTION
  
 INSERT INTO [OOZMA_KAPPA].[Tranferencia] (tranferencia_origen_cuenta_id, tranferencia_destino_cuenta_id,
@@ -87,6 +88,70 @@ COMMIT
  
  
 BEGIN TRANSACTION
+=======
+ -- TABLA DEPOSITO--
+ 
+ BEGIN TRANSACTION
+ 
+ SET IDENTITY_INSERT [OOZMA_KAPPA].[Deposito] ON
+ 
+ INSERT INTO [OOZMA_KAPPA].[Deposito] (deposito_id, deposito_cuenta_id, deposito_cliente_id, 
+                                       deposito_importe, deposito_moneda_id, deposito_tarjeta_id,
+                                        deposito_fecha, deposito_costo)(
+	SELECT DISTINCT Deposito_Codigo
+	, Cuenta_Numero
+	, (SELECT cliente_id FROM OOZMA_KAPPA.Cliente, gd_esquema.Maestra WHERE cliente_cuenta_id = Cuenta_Numero)
+	, Deposito_Importe
+	, 1
+	, Tarjeta_Numero
+	, Deposito_Fecha
+	, 200                  -- NO SE DE DONDE SACARLO VER DESP --
+    FROM gd_esquema.Maestra WHERE Deposito_Codigo IS NOT NULL
+	
+ 
+ SET IDENTITY_INSERT [OOZMA_KAPPA].[Deposito] OFF
+ 
+ COMMIT
+ 
+ 
+   -- TABLA FACTURA --
+ 
+ BEGIN TRANSACTION
+ INSERT INTO [OOZMA_KAPPA].[Factura] (factura_numero, factura_importe, factura_fecha, factura_cliente_id, factura_items_id)(
+	SELECT Factura_Numero
+	, (SELECT SUM(item_factura_costo) FROM OOZMA_KAPPA.Item_factura, gd_esquema.Maestra HAVING item_factura_id = Factura_Numero)
+    , Factura_Fecha
+	, (SELECT cliente_id FROM OOZMA_KAPPA.Cliente WHERE cliente_nombre = Cli_Nombre AND cliente_apellido = Cli_Apellido AND cliente_fecha_nacimiento = Cli_Fecha_Nac)
+	, (SELECT item_factura_id FROM OOZMA_KAPPA.Item_factura, gd_esquema.Maestra WHERE item_factura_id = Factura_Numero)
+ FROM gd_esquema.Maestra
+ WHERE Factura_Numero IS NOT NULL);
+ COMMIT
+ 
+ 
+  -- TABLA TARJETA --
+ 
+ BEGIN TRANSACTION
+ INSERT INTO [OOZMA_KAPPA].[Tarjeta] (tarjeta_id, tarjeta_codigo_seguridad, tarjeta_fecha_emision, tarjeta_vencimiento, tarjeta_emisor_banco_id)(
+	SELECT Tarjeta_Numero
+	, Tarjeta_Codigo_Seg
+    , Tarjeta_Fecha_Emision
+	, Tarjeta_Fecha_Vencimiento
+	, (SELECT banco_id FROM OOZMA_KAPPA.Banco WHERE banco_id = Banco_Cogido)
+ FROM gd_esquema.Maestra
+ WHERE Tarjeta_Numero IS NOT NULL);
+ COMMIT
+
+
+  -- TABLA TIPO DOCUMENTO --
+ 
+ BEGIN TRANSACTION
+ INSERT INTO [OOZMA_KAPPA].[Tipo_documento] (tipo_documento_id, tipo_documento_descripcion)(
+	SELECT Cli_Tipo_Doc_Cod
+	, Cli_Tipo_Doc_Desc
+ FROM gd_esquema.Maestra
+ WHERE Cli_Tipo_Doc_Cod IS NOT NULL);
+ COMMIT
+>>>>>>> origin/master
 
 INSERT INTO  [OOZMA_KAPPA].[Cheque] (cheque_id, cheque_cuenta_id, cheque_fecha, cheque_importe, cheque_banco_id)
 SELECT Cheque_Numero, Cuenta_Numero, Cheque_Fecha, Cheque_Importe, Banco_Cogido
