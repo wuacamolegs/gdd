@@ -176,3 +176,21 @@ WHERE cheque_fecha IS NOT NULL
 	);
 
  
+------TABLA RETIRO -----
+
+ BEGIN TRANSACTION
+ INSERT INTO [OOZMA_KAPPA].[Retiro] (retiro_id, retiro_cuenta_id, retiro_importe, retiro_cheque_id, retiro_fecha)(
+	SELECT Retiro_Codigo, Cuenta_Numero, Retiro_Importe, Cheque_Numero, Retiro_Fecha 
+ FROM gd_esquema.Maestra
+ WHERE Retiro_Fecha IS NOT NULL);
+ COMMIT
+ 
+ 
+ ----TABLA CUENTA---- TERMINAR: VER BLOCK DE NOTAS------
+  BEGIN TRANSACTION
+ INSERT INTO [OOZMA_KAPPA].[Cuenta] (cuenta_id, cuenta_cliente_id, cuenta_pais_id, cuenta_moneda_id, cuenta_estado, 
+		cuenta_saldo, cuenta_fecha_apertura, cuenta_fecha_cierre )(
+	SELECT Cuenta_Numero, , Cuenta_Pais_Codigo, , Cuenta_Estado, , Cuenta_Fecha_Creacion, Cuenta_Fecha_Cierre
+ FROM gd_esquema.Maestra
+ WHERE Cuenta_Numero IS NOT NULL);
+ COMMIT

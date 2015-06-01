@@ -66,7 +66,7 @@ CREATE TABLE [OOZMA_KAPPA].[Retiro](
 	[retiro_importe] numeric(18, 2)NOT NULL,
 	[retiro_cheque_id] numeric(18, 0)NOT NULL,
 	[retiro_fecha] [datetime] NOT NULL,
-	[retiro_costo] numeric(18, 0)NOT NULL,
+	
 )
 
 --- TABLA PAIS ---
