@@ -194,3 +194,17 @@ WHERE cheque_fecha IS NOT NULL
  FROM gd_esquema.Maestra
  WHERE Cuenta_Numero IS NOT NULL);
  COMMIT
+ 
+ 
+ -----TABLA CLIENTE-----TERMINAR
+ 
+ 
+ BEGIN TRANSACTION
+ INSERT INTO [OOZMA_KAPPA].[Cliente] ( cliente_user_id, cliente_apellido, cliente_nombre, cliente_fecha_nacimiento,
+				cliente_tipo_documento_id, cliente_numero_documento, cliente_pais_residente_id,
+				 cliente_calle, cliente_numero, cliente_piso, cliente_depto, cliente_cuenta_id, cliente_mail )(
+	SELECT , Cli_Apellido, Cli_Nombre, Cli_Fecha_Nac, Cli_Tipo_Doc_Cod, , Cli_Pais_Codigo, Cli_Dom_Calle, Cli_Dom_Nro,
+			 Cli_Dom_Piso, Cli_Dom_Depto, Cuenta_Numero, Cli_Mail
+ FROM gd_esquema.Maestra
+ WHERE Cuenta_Numero IS NOT NULL);
+ COMMIT

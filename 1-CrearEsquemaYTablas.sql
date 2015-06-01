@@ -211,15 +211,13 @@ CREATE TABLE [OOZMA_KAPPA].[Cliente](
 	[cliente_fecha_nacimiento] [datetime] NOT NULL,
 	[cliente_tipo_documento_id] numeric(18, 0)NOT NULL,
 	[cliente_numero_documento] numeric(18, 0)NOT NULL,
-	[cliente_nacionalidad] [varchar](255) NOT NULL,
 	[cliente_pais_residente_id] numeric(18, 0)NOT NULL,
-	[cliente_localidad] [varchar](255) NOT NULL,
 	[cliente_calle] [varchar](255) NOT NULL,
 	[cliente_numero] numeric(18, 0)NOT NULL,
 	[cliente_piso] numeric(18, 0)NOT NULL,
 	[cliente_depto] [varchar](10) NOT NULL,
-	[cliente_estado_civil] [varchar](255) NOT NULL,
 	[cliente_cuenta_id] numeric(18, 0)NOT NULL,
+	[cliente_mail] [varchar](255),
 )
 
 --- TABLA CHEQUE ---
@@ -251,7 +249,5 @@ CREATE TABLE [OOZMA_KAPPA].[Administrador](
 )
 
 COMMIT
-
-
 
 
