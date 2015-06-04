@@ -5,146 +5,91 @@ BEGIN TRANSACTION
 
 USE [GD1C2015]
 
---- TABLA USER ---
 
-CREATE TABLE [OOZMA_KAPPA].[User](
-	[user_id] numeric(18, 0) IDENTITY (1,1),
-	[user_username] [nvarchar](255) NOT NULL,
-	[user_password] [nvarchar] (64) NOT NULL,
-	[user_fecha_creacion] [datetime] NOT NULL,
-	[user_fecha_ultima_modificacion] [datetime] NOT NULL,
-	[user_pregunta_secreta] [nvarchar](64) NOT NULL,
-	[user_respuesta_secreta] [nvarchar](64) NOT NULL,
+--- TABLA ADMINISTRADOR ---
+
+CREATE TABLE [OOZMA_KAPPA].[Administrador](
+	[administrador_id] numeric(18, 0) IDENTITY (1,1),
+	[administrador_estado] numeric(18, 0)NOT NULL,
+	[administrador_username] [varchar](255) NOT NULL,
+	[administrador_usuario_id] numeric(18, 0)NOT NULL,
 )
 
---- TABLA TRANSFERENCIA ---
+--- TABLA BANCO ---
 
-CREATE TABLE [OOZMA_KAPPA].[Transferencia](
-	[transferencia_id] numeric(18, 0) IDENTITY (1,1),
-	[transferencia_origen_cuenta_id] numeric(18, 0)NOT NULL,
-	[transferencia_destino_cuenta_id] numeric(18, 0)NOT NULL,
-	[transferencia_importe] numeric(18, 2)NOT NULL,
-	[transferencia_costo] numeric(18, 2)NOT NULL,
-	[transferencia_fecha] datetime NOT NULL,
+CREATE TABLE [OOZMA_KAPPA].[Banco](
+	[banco_id] numeric(18, 0) NOT NULL,
+	[banco_nombre] [varchar](255) NOT NULL,
+	[banco_direccion] [varchar](255) NOT NULL,
+)
+--- TABLA CHEQUE ---
+
+CREATE TABLE [OOZMA_KAPPA].[Cheque](
+	[cheque_id] numeric(18, 0) IDENTITY (1,1),
+	[cheque_cuenta_id] numeric(18, 0)NOT NULL,
+	[cheque_fecha] [datetime] NOT NULL,
+	[cheque_importe] numeric(18, 2)NOT NULL,
+	[cheque_banco_id] numeric(18, 0)NOT NULL,
+	[cheque_destino_cliente_id] numeric(18, 0)NOT NULL,	--creo que el cliente nos va a falicitar la performance al momento de hacer un cheque. si no cada vez que se hace un cheque hay que recorrer la tabla de clientes tambien para buscar su id. de ultima dsp lo sacamos! 
+)												--y si lo dejamos va a ser mas facil hacer los cheques! 
+
+--- TABLA CLIENTE ---
+
+CREATE TABLE [OOZMA_KAPPA].[Cliente](
+	[cliente_id] numeric(18, 0) IDENTITY (1,1),
+	[cliente_usuario_id] numeric(18, 0)NOT NULL,
+	[cliente_apellido] [varchar](255) NOT NULL,
+	[cliente_nombre] [varchar](255) NOT NULL,
+	[cliente_fecha_nacimiento] [datetime] NOT NULL,
+	[cliente_tipo_documento_id] numeric(18, 0)NOT NULL,
+	[cliente_numero_documento] numeric(18, 0)NOT NULL,
+	[cliente_pais_residente_id] numeric(18, 0)NOT NULL,
+	[cliente_calle] [varchar](255) NOT NULL,
+	[cliente_numero] numeric(18, 0)NOT NULL,
+	[cliente_piso] numeric(18, 0)NOT NULL,
+	[cliente_depto] [varchar](10) NOT NULL,
+	[cliente_cuenta_id] numeric(18, 0)NOT NULL,
+	[cliente_mail] [varchar](255),
 )
 
---- TABLA TIPO_DOCUMENTO ---
+--- TABLA CUENTA ---
 
-CREATE TABLE [OOZMA_KAPPA].[Tipo_documento](
-	[tipo_documento_id] numeric(18, 0) IDENTITY (1,1),
-	[tipo_documento_descripcion] [varchar](255) NOT NULL,
+CREATE TABLE [OOZMA_KAPPA].[Cuenta](
+	[cuenta_id] numeric(18, 0) IDENTITY (1,1),
+	[cuenta_cliente_id] numeric(18, 0)NOT NULL,
+	[cuenta_pais_id] numeric(18, 0)NOT NULL,
+	[cuenta_moneda_id] numeric(18, 0)NOT NULL,
+	[cuenta_tipo_cuenta_id] numeric(18, 0)NOT NULL,
+	[cuenta_estado] numeric(18, 0)NOT NULL,
+	[cuenta_saldo] numeric(18, 0)NOT NULL,
+	[cuenta_fecha_apertura] [datetime] NOT NULL,
+	[cuenta_fecha_cierre] [datetime] NOT NULL,
 )
 
-INSERT INTO[OOZMA_KAPPA].[Tipo_documento] (tipo_documento_descripcion) VALUES ('DNI');
-INSERT INTO[OOZMA_KAPPA].[Tipo_documento] (tipo_documento_descripcion) VALUES ('CI');
-INSERT INTO[OOZMA_KAPPA].[Tipo_documento] (tipo_documento_descripcion) VALUES ('LC');
-INSERT INTO[OOZMA_KAPPA].[Tipo_documento] (tipo_documento_descripcion) VALUES ('LE');
+--- TABLA DEPOSITO ---
 
---- TABLA TIPO_CUENTA ---
-
-CREATE TABLE [OOZMA_KAPPA].[Tipo_cuenta](
-	[tipo_cuenta_id] numeric(18, 0) IDENTITY (1,1),
-	[tipo_cuenta_nombre] [varchar](255) NOT NULL,
-	[tipo_cuenta_costo] numeric(18, 0)NOT NULL,
+CREATE TABLE [OOZMA_KAPPA].[Deposito](
+	[deposito_id] numeric(18, 0) IDENTITY (1,1),
+	[deposito_cuenta_id] numeric(18, 0)NOT NULL,
+	[deposito_cliente_id] numeric(18, 0)NOT NULL,
+	[deposito_importe] numeric(18, 2) NOT NULL,
+	[deposito_moneda_id] numeric(18, 0)NOT NULL,
+	[deposito_tarjeta_id] numeric(18, 0)NOT NULL,
+	[deposito_fecha] [datetime] NOT NULL,
+	[deposito_costo] numeric(18, 0)NOT NULL,
 )
 
---- TABLA TARJETA  ---
+--- TABLA FACTURA ---
 
-CREATE TABLE [OOZMA_KAPPA].[Tarjeta](
-	[tarjeta_id] int IDENTITY (1,1),  --en la tabla tarjeta numero es varchar(16)
-	[tarjeta_codigo_seguridad] varchar(3) NOT NULL,
-	[tarjeta_fecha_emision] [datetime] NOT NULL,
-	[tarjeta_vencimiento] [datetime] NOT NULL,
-	[tarjeta_emisor_banco_id] numeric(18, 0)NOT NULL,
+CREATE TABLE [OOZMA_KAPPA].[Factura](
+	[factura_numero] numeric(18, 0) IDENTITY (1,1),
+	[factura_importe] numeric(18, 0)NOT NULL,
+	[factura_fecha] [datetime] NOT NULL,
+	[factura_cliente_id] numeric(18, 0)NOT NULL,
+	[factura_items_id] numeric(18, 0)NOT NULL,
 )
 
---- TABLA RETIRO ---
-
-CREATE TABLE [OOZMA_KAPPA].[Retiro](
-	[retiro_id] numeric(18, 0) IDENTITY (1,1),
-	[retiro_cuenta_id] numeric(18, 0)NOT NULL,
-	[retiro_importe] numeric(18, 2)NOT NULL,
-	[retiro_cheque_id] numeric(18, 0)NOT NULL,
-	[retiro_fecha] [datetime] NOT NULL,
-	
-)
-
---- TABLA PAIS ---
-
-CREATE TABLE [OOZMA_KAPPA].[Pais](
-	[pais_id] numeric(18, 0) IDENTITY (1,1),
-	[pais_nombre] [varchar](250) NOT NULL,
-)
-
---- TABLA MONEDA ---
-
-CREATE TABLE [OOZMA_KAPPA].[Moneda](
-	[moneda_id] numeric(18, 0) IDENTITY (1,1),
-	[moneda_nombre] [varchar](255) NOT NULL,
-)
-
-INSERT INTO[OOZMA_KAPPA].[Moneda] (moneda_nombre) VALUES ('Dolar');
-
---- TABLA LOGIN ---
-
-CREATE TABLE [OOZMA_KAPPA].[Login](
-	[login_id] numeric(18, 0) IDENTITY (1,1),
-	[login_user_id] numeric(18, 0)NOT NULL,
-	[login_estado] numeric(18, 0)NOT NULL,
-	[login_cant_numeric(18, 0)entos] numeric(18, 0)NOT NULL,
-	[login_fecha_hora] [datetime] NOT NULL,
-)
-
---- TABLA ITEM_FACTURA ---
-
-CREATE TABLE [OOZMA_KAPPA].[Item_factura](
-	[item_factura_id] numeric(18, 0) IDENTITY (1,1),
-	[item_factura_desc] [varchar](255) NOT NULL,
-	[item_factura_costo] numeric(18, 2) NOT NULL,
-	[item_factura_cant] numeric(18, 0)NOT NULL,
-	[item_factura_fecha] [datetime] NOT NULL,
-)
-
--- TABLA ROL --
-
-CREATE TABLE [OOZMA_KAPPA].[Rol](
-	[rol_id] numeric(18, 0) IDENTITY (1,1),
-	[rol_nombre] [nvarchar](255) NOT NULL,
-	[rol_estado] [varchar](255) NOT NULL,
-)
-
-INSERT INTO[OOZMA_KAPPA].[Rol] (rol_nombre, rol_estado) VALUES ('Administrador','Activo');
-INSERT INTO[OOZMA_KAPPA].[Rol] (rol_nombre, rol_estado) VALUES ('Cliente','Activo');
-
-
--- TABLA USUARIO_ROL --
-
-CREATE TABLE [OOZMA_KAPPA].[Usuario_rol](
-	[usuario_rol_id] numeric(18, 0) IDENTITY (1,1),
-	[usuario_id] numeric(18, 0),
-	[rol_id] numeric(18, 0),
-)
-
---- TABLA FUNCIONALIDADES_CLIENTES ---
-
-CREATE TABLE [OOZMA_KAPPA].[Funcionalidades_rol](
-	[funcionalidades_rol_id] numeric(18, 0) IDENTITY (1,1),
-	[funcionalidad_id] numeric(18, 0)NOT NULL,
-	[rol_id] numeric(18, 0)NOT NULL,
-)
-
-INSERT INTO[OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUES (1,2); --EL DOS ES CLIENTE
-INSERT INTO[OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUES (2,2);
-INSERT INTO[OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUES (3,2);
-INSERT INTO[OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUES (4,2);
-INSERT INTO[OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUES (5,2);
-INSERT INTO[OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUES (6,2);
-INSERT INTO[OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUES (7,2);
-INSERT INTO[OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUES (8,2);
-INSERT INTO[OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUES (9,2);
-
-
---- TABLA FUNCIONALIDADES_ADMINISTRADOR ---
+--- TABLA FUNCIONALIDADES ---
 
 CREATE TABLE [OOZMA_KAPPA].[Funcionalidades](
 	[funcionalidades_id] numeric(18, 0) IDENTITY (1,1),
@@ -163,91 +108,155 @@ INSERT INTO[OOZMA_KAPPA].[Funcionalidades] (funcionalidades_nombre) VALUES ('Fac
 INSERT INTO[OOZMA_KAPPA].[Funcionalidades] (funcionalidades_nombre) VALUES ('Consulta de saldos');
 INSERT INTO[OOZMA_KAPPA].[Funcionalidades] (funcionalidades_nombre) VALUES ('Listado Estadistico');
 
+--- TABLA FUNCIONALIDADES_ROL ---
 
---- TABLA FACTURA ---
-
-CREATE TABLE [OOZMA_KAPPA].[Factura](
-	[factura_numero] numeric(18, 0) IDENTITY (1,1),
-	[factura_importe] numeric(18, 0)NOT NULL,
-	[factura_fecha] [datetime] NOT NULL,
-	[factura_cliente_id] numeric(18, 0)NOT NULL,
-	[factura_items_id] numeric(18, 0)NOT NULL,
+CREATE TABLE [OOZMA_KAPPA].[Funcionalidades_rol](
+	[funcionalidades_rol_id] numeric(18, 0) IDENTITY (1,1),
+	[funcionalidad_id] numeric(18, 0)NOT NULL,
+	[rol_id] numeric(18, 0)NOT NULL,
 )
 
---- TABLA DEPOSITO ---
+INSERT INTO[OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUES (1,2); --EL DOS ES CLIENTE
+INSERT INTO[OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUES (2,2);
+INSERT INTO[OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUES (3,2);
+INSERT INTO[OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUES (4,2);
+INSERT INTO[OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUES (5,2);
+INSERT INTO[OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUES (6,2);
+INSERT INTO[OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUES (7,2);
+INSERT INTO[OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUES (8,2);
+INSERT INTO[OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUES (9,2);
 
-CREATE TABLE [OOZMA_KAPPA].[Deposito](
-	[deposito_id] numeric(18, 0) IDENTITY (1,1),
-	[deposito_cuenta_id] numeric(18, 0)NOT NULL,
-	[deposito_cliente_id] numeric(18, 0)NOT NULL,
-	[deposito_importe] numeric(18, 2) NOT NULL,
-	[deposito_moneda_id] numeric(18, 0)NOT NULL,
-	[deposito_tarjeta_id] numeric(18, 0)NOT NULL,
-	[deposito_fecha] [datetime] NOT NULL,
-	[deposito_costo] numeric(18, 0)NOT NULL,
+--- TABLA ITEM_FACTURA ---
+
+CREATE TABLE [OOZMA_KAPPA].[Item_factura](
+	[item_factura_id] numeric(18, 0) IDENTITY (1,1),
+	[item_factura_desc] [varchar](255) NOT NULL,
+	[item_factura_costo] numeric(18, 2) NOT NULL,
+	[item_factura_cant] numeric(18, 0)NOT NULL,
+	[item_factura_fecha] [datetime] NOT NULL,
 )
 
---- TABLA CUENTA ---
+--- TABLA LOGIN ---
 
-CREATE TABLE [OOZMA_KAPPA].[Cuenta](
-	[cuenta_id] numeric(18, 0) IDENTITY (1,1),
-	[cuenta_cliente_id] numeric(18, 0)NOT NULL,
-	[cuenta_pais_id] numeric(18, 0)NOT NULL,
-	[cuenta_moneda_id] numeric(18, 0)NOT NULL,
-	[cuenta_tipo_cuenta_id] numeric(18, 0)NOT NULL,
-	[cuenta_estado] numeric(18, 0)NOT NULL,
-	[cuenta_saldo] numeric(18, 0)NOT NULL,
-	[cuenta_fecha_apertura] [datetime] NOT NULL,
-	[cuenta_fecha_cierre] [datetime] NOT NULL,
+CREATE TABLE [OOZMA_KAPPA].[Login](
+	[login_id] numeric(18, 0) IDENTITY (1,1),
+	[login_usuario_id] numeric(18, 0)NOT NULL,
+	[login_estado] numeric(18, 0)NOT NULL,
+	[login_cant_numeric(18, 0)entos] numeric(18, 0)NOT NULL,
+	[login_fecha_hora] [datetime] NOT NULL,
 )
 
---- TABLA CLIENTE ---
+--- TABLA MONEDA ---
 
-CREATE TABLE [OOZMA_KAPPA].[Cliente](
-	[cliente_id] numeric(18, 0) IDENTITY (1,1),
-	[cliente_user_id] numeric(18, 0)NOT NULL,
-	[cliente_apellido] [varchar](255) NOT NULL,
-	[cliente_nombre] [varchar](255) NOT NULL,
-	[cliente_fecha_nacimiento] [datetime] NOT NULL,
-	[cliente_tipo_documento_id] numeric(18, 0)NOT NULL,
-	[cliente_numero_documento] numeric(18, 0)NOT NULL,
-	[cliente_pais_residente_id] numeric(18, 0)NOT NULL,
-	[cliente_calle] [varchar](255) NOT NULL,
-	[cliente_numero] numeric(18, 0)NOT NULL,
-	[cliente_piso] numeric(18, 0)NOT NULL,
-	[cliente_depto] [varchar](10) NOT NULL,
-	[cliente_cuenta_id] numeric(18, 0)NOT NULL,
-	[cliente_mail] [varchar](255),
+CREATE TABLE [OOZMA_KAPPA].[Moneda](
+	[moneda_id] numeric(18, 0) IDENTITY (1,1),
+	[moneda_nombre] [varchar](255) NOT NULL,
 )
 
---- TABLA CHEQUE ---
+INSERT INTO[OOZMA_KAPPA].[Moneda] (moneda_nombre) VALUES ('Dolar');
 
-CREATE TABLE [OOZMA_KAPPA].[Cheque](
-	[cheque_id] numeric(18, 0) IDENTITY (1,1),
-	[cheque_cuenta_id] numeric(18, 0)NOT NULL,
-	[cheque_fecha] [datetime] NOT NULL,
-	[cheque_importe] numeric(18, 2)NOT NULL,
-	[cheque_banco_id] numeric(18, 0)NOT NULL,
-	
+--- TABLA PAIS ---
+
+CREATE TABLE [OOZMA_KAPPA].[Pais](
+	[pais_id] numeric(18, 0) IDENTITY (1,1),
+	[pais_nombre] [varchar](250) NOT NULL,
 )
 
---- TABLA BANCO ---
+--- TABLA RETIRO ---
 
-CREATE TABLE [OOZMA_KAPPA].[Banco](
-	[banco_id] numeric(18, 0) NOT NULL,
-	[banco_nombre] [varchar](255) NOT NULL,
-	[banco_direccion] [varchar](255) NOT NULL,
+CREATE TABLE [OOZMA_KAPPA].[Retiro](
+	[retiro_id] numeric(18, 0) IDENTITY (1,1),
+	[retiro_cuenta_id] numeric(18, 0)NOT NULL,
+	[retiro_importe] numeric(18, 2)NOT NULL,
+	[retiro_cheque_id] numeric(18, 0)NOT NULL,
+	[retiro_fecha] [datetime] NOT NULL,
+	[retiro_costo] numeric(18, 0)NOT NULL,  --lo vuelvo a agregar porque al momento de hacer la facturacion nos aporta polimorfismo. y si en algun futuro esto llegara a tener un costo mejora la flexibilidad
 )
 
---- TABLA ADMINISTRADOR ---
+-- TABLA ROL --
 
-CREATE TABLE [OOZMA_KAPPA].[Administrador](
-	[administrador_id] numeric(18, 0) IDENTITY (1,1),
-	[administrador_estado] numeric(18, 0)NOT NULL,
-	[administrador_username] [varchar](255) NOT NULL,
-	[administrador_user_id] numeric(18, 0)NOT NULL,
+CREATE TABLE [OOZMA_KAPPA].[Rol](
+	[rol_id] numeric(18, 0) IDENTITY (1,1),
+	[rol_nombre] [nvarchar](255) NOT NULL,
+	[rol_estado] [varchar](255) NOT NULL,
+)
+
+INSERT INTO[OOZMA_KAPPA].[Rol] (rol_nombre, rol_estado) VALUES ('Administrador','Activo');
+INSERT INTO[OOZMA_KAPPA].[Rol] (rol_nombre, rol_estado) VALUES ('Cliente','Activo');
+
+--- TABLA TARJETA  ---
+
+CREATE TABLE [OOZMA_KAPPA].[Tarjeta](
+	[tarjeta_id] int IDENTITY (1,1),  --en la tabla tarjeta numero es varchar(16)
+	[tarjeta_codigo_seguridad] varchar(3) NOT NULL,
+	[tarjeta_fecha_emision] [datetime] NOT NULL,
+	[tarjeta_vencimiento] [datetime] NOT NULL,
+	[tarjeta_emisor_banco_id] numeric(18, 0)NOT NULL,
+)
+
+--- TABLA TIPO_CUENTA ---
+
+CREATE TABLE [OOZMA_KAPPA].[Tipo_cuenta](
+	[tipo_cuenta_id] numeric(18, 0) IDENTITY (1,1),
+	[tipo_cuenta_nombre] [varchar](255) NOT NULL,
+	[tipo_cuenta_costo_transferencia] numeric(18, 0)NOT NULL,
+	[tipo_cuenta_costo_apertura] numeric(18, 0)NOT NULL,
+)
+
+-- los costos se los puse yo (CAMI) --
+INSERT INTO[OOZMA_KAPPA].[Tipo_cuenta](tipo_cuenta_nombre, tipo_cuenta_costo_transferencia,tipo_cuenta_costo_apertura) 
+VALUES ('ORO',500,500);
+INSERT INTO[OOZMA_KAPPA].[Tipo_cuenta](tipo_cuenta_nombre, tipo_cuenta_costo_transferencia,tipo_cuenta_costo_apertura) 
+VALUES ('PLATA',400,400);
+INSERT INTO[OOZMA_KAPPA].[Tipo_cuenta](tipo_cuenta_nombre, tipo_cuenta_costo_transferencia,tipo_cuenta_costo_apertura)
+VALUES ('BRONCE',300,300);
+INSERT INTO[OOZMA_KAPPA].[Tipo_cuenta](tipo_cuenta_nombre, tipo_cuenta_costo_transferencia,tipo_cuenta_costo_apertura)
+VALUES ('GRATUITA',0,0);
+
+--- TABLA TIPO_DOCUMENTO ---
+
+CREATE TABLE [OOZMA_KAPPA].[Tipo_documento](
+	[tipo_documento_id] numeric(18, 0) IDENTITY (1,1),
+	[tipo_documento_descripcion] [varchar](255) NOT NULL,
+)
+
+INSERT INTO[OOZMA_KAPPA].[Tipo_documento] (tipo_documento_descripcion) VALUES ('DNI');
+INSERT INTO[OOZMA_KAPPA].[Tipo_documento] (tipo_documento_descripcion) VALUES ('CI');
+INSERT INTO[OOZMA_KAPPA].[Tipo_documento] (tipo_documento_descripcion) VALUES ('LC');
+INSERT INTO[OOZMA_KAPPA].[Tipo_documento] (tipo_documento_descripcion) VALUES ('LE');
+
+--- TABLA TRANSFERENCIA ---
+
+CREATE TABLE [OOZMA_KAPPA].[Transferencia](
+	[transferencia_id] numeric(18, 0) IDENTITY (1,1),
+	[transferencia_origen_cuenta_id] numeric(18, 0)NOT NULL,
+	[transferencia_destino_cuenta_id] numeric(18, 0)NOT NULL,
+	[transferencia_importe] numeric(18, 2)NOT NULL,
+	[transferencia_costo] numeric(18, 2)NOT NULL,
+	[transferencia_fecha] datetime NOT NULL,
+)
+
+--- TABLA USUARIO ---
+
+CREATE TABLE [OOZMA_KAPPA].[Usuario](
+	[usuario_id] numeric(18, 0) IDENTITY (1,1),
+	[usuario_username] [nvarchar](255) NOT NULL,
+	[usuario_password] [nvarchar] (64) NOT NULL,
+	[usuario_fecha_creacion] [datetime] NOT NULL,
+	[usuario_fecha_ultima_modificacion] [datetime] NOT NULL,
+	[usuario_pregunta_secreta] [nvarchar](64) NOT NULL,
+	[usuario_respuesta_secreta] [nvarchar](64) NOT NULL,
+)
+
+-- TABLA USUARIO_ROL --
+
+CREATE TABLE [OOZMA_KAPPA].[Usuario_rol](
+	[usuario_rol_id] numeric(18, 0) IDENTITY (1,1),
+	[usuario_id] numeric(18, 0),
+	[rol_id] numeric(18, 0),
 )
 
 COMMIT
+
 
 
