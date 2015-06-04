@@ -43,7 +43,7 @@ BEGIN TRANSACTION
 
 BEGIN TRANSACTION
  
-INSERT INTO [OOZMA_KAPPA].[User] ( user_username, user_password, user_fecha_creacion, user_fecha_ultima_modificacion, user_pregunta_secreta, user_respuesta_secreta)(
+INSERT INTO [OOZMA_KAPPA].[Usuario] ( usuario_username, usuario_password, usuario_fecha_creacion, usuario_fecha_ultima_modificacion, usuario_pregunta_secreta, usuario_respuesta_secreta)(
 	SELECT DISTINCT 
 	Cli_Nombre + ' ' + Cli_Apellido
 	,'04f8996da763b7a969b1028ee3007569eaf3a635486ddab211d512c85b9df8fb'
@@ -63,9 +63,9 @@ BEGIN TRANSACTION
  
 INSERT INTO [OOZMA_KAPPA].Usuario_rol (usuario_id,rol_id)(
 	SELECT
-	user_id,
+	usuario_id,
 	2
-	FROM [OOZMA_KAPPA].[User]
+	FROM [OOZMA_KAPPA].[Usuario]
 );
 
 COMMIT
@@ -200,7 +200,7 @@ WHERE cheque_fecha IS NOT NULL
  
  
  BEGIN TRANSACTION
- INSERT INTO [OOZMA_KAPPA].[Cliente] ( cliente_user_id, cliente_apellido, cliente_nombre, cliente_fecha_nacimiento,
+ INSERT INTO [OOZMA_KAPPA].[Cliente] ( cliente_usuario_id, cliente_apellido, cliente_nombre, cliente_fecha_nacimiento,
 				cliente_tipo_documento_id, cliente_numero_documento, cliente_pais_residente_id,
 				 cliente_calle, cliente_numero, cliente_piso, cliente_depto, cliente_cuenta_id, cliente_mail )(
 	SELECT , Cli_Apellido, Cli_Nombre, Cli_Fecha_Nac, Cli_Tipo_Doc_Cod, , Cli_Pais_Codigo, Cli_Dom_Calle, Cli_Dom_Nro,

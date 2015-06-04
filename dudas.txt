@@ -22,3 +22,32 @@ agregar en la estrategia que le pusimos a todos los usuarios la contrasena
 user que encriptada es 04f8996da763b7a969b1028ee3007569eaf3a635486ddab211d512c85b9df8fb
 y la respuesta secreta es azul que encriptada es a4bd1d3a69aa0ea6ffb1298c8c26be4b333526cae7d27f2362f89857157701ce
 PAGINA PARA ENCRIPTAR http://www.xorbin.com/tools/sha256-hash-calculator
+
+
+retiro costo... retiro es solo "retiro de efectivo"? que seria por cheque?
+el costo es cero. no tiene costo hacer un cheche. dejamos el atributo costo o no? 
+
+tabla login
+login fecha y ademas login hora?
+esta el tipo de datos datetime que tiene los dos juntos
+
+tabla clientes
+cliente_numero? no seria mas adecuado cliente_altura? o numero calle? se puede llegar a confundir con numero telefono, o codigo cliente.
+
+
+VER ESTADOS EN TABLAS
+estado 1 2 3 o con un string? NO OLVIDAR QUE DIJO QUE NO HHAGAMOS ESTADO = "CORRECTO" SI NO QUE HAGAMOS ADD PARAMETER O ALGO ASI
+LOGIN
+CUENTAS
+ADMINISTRADOR 
+
+
+el pais que aparece en la descripcion es pais nacimiento, pais actual? supongo que es el actual
+
+
+
+--TABLA PAIS -- 
+habria que agregarle nacionaalidad? o le ponemos al usuario/cliente nacionalidad con el nombre del pais
+
+
+
