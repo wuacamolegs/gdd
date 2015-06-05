@@ -10,7 +10,7 @@ BEGIN TRANSACTION
  FROM gd_esquema.Maestra
  WHERE Banco_Cogido IS NOT NULL);
 COMMIT
- 
+
  -- TABLA ITEM FACTURA --
  
  BEGIN TRANSACTION
@@ -198,7 +198,7 @@ COMMIT
 
 --el cheuqe lo hace un cliente para si mismo, entonces el cliente destino es esa misma persona que lo emite. 
 
- BEGIN TRANSACTION  --NECESITA CUENTA ANTES
+ BEGIN TRANSACTION  --NECESITA CUENTA y CLIENTE ANTES
  
  SET IDENTITY_INSERT [OOZMA_KAPPA].[Cheque] ON
 

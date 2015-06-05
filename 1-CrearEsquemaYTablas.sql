@@ -170,7 +170,6 @@ CREATE TABLE [OOZMA_KAPPA].[Retiro](
 	[retiro_importe] numeric(18, 2)NOT NULL,
 	[retiro_cheque_id] numeric(18, 0)NOT NULL,
 	[retiro_fecha] [datetime] NOT NULL,
-	[retiro_costo] numeric(18, 0)NOT NULL DEFAULT(0),  --lo vuelvo a agregar porque al momento de hacer la facturacion nos aporta polimorfismo. y si en algun futuro esto llegara a tener un costo mejora la flexibilidad
 )
 
 -- TABLA ROL --
