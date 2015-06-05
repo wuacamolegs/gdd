@@ -15,8 +15,8 @@ ADD FOREIGN KEY ([cheque_banco_id])
 REFERENCES [OOZMA_KAPPA].[Banco](banco_id);
 
 ALTER TABLE [OOZMA_KAPPA].[Login]
-ADD FOREIGN KEY ([login_user_id])
-REFERENCES [OOZMA_KAPPA].[User](user_id);
+ADD FOREIGN KEY ([login_usuario_id])
+REFERENCES [OOZMA_KAPPA].[Usuario](usuario_id);
 
 ALTER TABLE [OOZMA_KAPPA].[Transferencia]
 ADD FOREIGN KEY ([transferencia_origen_cuenta_id])
@@ -43,8 +43,8 @@ ADD FOREIGN KEY ([cuenta_tipo_cuenta_id])
 REFERENCES [OOZMA_KAPPA].[Tipo_cuenta](tipo_cuenta_id);
 
 ALTER TABLE [OOZMA_KAPPA].[Administrador]
-ADD FOREIGN KEY ([administrador_user_id])
-REFERENCES [OOZMA_KAPPA].[User](user_id);
+ADD FOREIGN KEY ([administrador_usuario_id])
+REFERENCES [OOZMA_KAPPA].[Usuario](usuario_id);
 
 ALTER TABLE [OOZMA_KAPPA].[Deposito]
 ADD FOREIGN KEY ([deposito_moneda_id])
@@ -63,8 +63,8 @@ ADD FOREIGN KEY ([deposito_tarjeta_id])
 REFERENCES [OOZMA_KAPPA].[Tarjeta](tarjeta_id);
 
 ALTER TABLE [OOZMA_KAPPA].[Cliente]
-ADD FOREIGN KEY ([cliente_user_id])
-REFERENCES [OOZMA_KAPPA].[User](user_id);
+ADD FOREIGN KEY ([cliente_usuario_id])
+REFERENCES [OOZMA_KAPPA].[Usuario](usuario_id);
 
 ALTER TABLE [OOZMA_KAPPA].[Cliente]
 ADD FOREIGN KEY ([cliente_tipo_documento_id])
@@ -74,17 +74,8 @@ ALTER TABLE [OOZMA_KAPPA].[Cliente]
 ADD FOREIGN KEY ([cliente_pais_residente_id])
 REFERENCES [OOZMA_KAPPA].[Pais](pais_id);
 
-ALTER TABLE [OOZMA_KAPPA].[Cliente]
-ADD FOREIGN KEY ([cliente_cuenta_id])
-REFERENCES [OOZMA_KAPPA].[Cuenta](cuenta_id);
-
 ALTER TABLE [OOZMA_KAPPA].[Factura]
 ADD FOREIGN KEY ([factura_cliente_id])
 REFERENCES [OOZMA_KAPPA].[Cliente](cliente_id);
-
-ALTER TABLE [OOZMA_KAPPA].[Tarjeta]
-ADD FOREIGN KEY ([tarjeta_emisor_banco_id])
-REFERENCES [OOZMA_KAPPA].[Banco](banco_id);
-
 
 COMMIT

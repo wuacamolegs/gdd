@@ -238,21 +238,17 @@ COMMIT
  
  SET IDENTITY_INSERT [OOZMA_KAPPA].[Factura] ON
  
- INSERT INTO [OOZMA_KAPPA].[Factura] (factura_numero,factura_fecha, factura_cliente_id)(
-	(SELECT item_factura_factura_numero
-	,item_factura_fecha
+ INSERT INTO [OOZMA_KAPPA].[Factura] (factura_numero,factura_fecha, factura_cliente_id, factura_items_id, factura_importe)(
+	SELECT Factura_Numero
+	,Factura_Fecha
 	,(SELECT cliente_id FROM OOZMA_KAPPA.Cliente WHERE Cli_Nro_Doc = cliente_numero_documento)
-	,item_factura_id
-	,SUM(item_factura_costo)
-	FROM  OOZMA_KAPPA.Item_factura, gd_esquema.Maestra WHERE Factura_Numero IS NOT NULL GROUP BY item_factura_factura_numero, item_factura_id 
+	,(SELECT item_factura_id FROM OOZMA_KAPPA.Item_Factura WHERE Factura_Numero = item_factura_factura_numero)
+	,Item_Factura_Importe
+	FROM  gd_esquema.Maestra WHERE Factura_Numero IS NOT NULL);
  
  SET IDENTITY_INSERT [OOZMA_KAPPA].[Factura] OFF
  
  COMMIT
- --
---VER 
- BEGIN TRANSACTION
+ 
+--como en la tabla maestra solo hay un item factura por factura hago todo uno a uno, no sumo los item y sus importes. mas rapido
 
- UPDATE OOZMA_KAPPA.Factura
-	SET factura_importe = (SELECT SUM(item_factura_costo) FROM OOZMA_KAPPA.Item_factura WHERE item_factura_factura_numero = factura_numero GROUP BY factura_numero)
- COMMIT
