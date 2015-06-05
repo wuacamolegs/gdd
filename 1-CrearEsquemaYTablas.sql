@@ -1,4 +1,5 @@
 ----- Script creación esquema y tablas -----
+
 CREATE SCHEMA [OOZMA_KAPPA] AUTHORIZATION [gd];
 GO
 BEGIN TRANSACTION
