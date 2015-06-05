@@ -50,4 +50,7 @@ el pais que aparece en la descripcion es pais nacimiento, pais actual? supongo q
 habria que agregarle nacionaalidad? o le ponemos al usuario/cliente nacionalidad con el nombre del pais
 
 
+-- TABLA TRANSFERENCIAS --
+
+hay transferencias entre las mismas cuentas... esta bien eso?
 

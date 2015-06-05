@@ -47,8 +47,7 @@ CREATE TABLE [OOZMA_KAPPA].[Cliente](
 	[cliente_calle] [varchar](255) NOT NULL,
 	[cliente_numero] numeric(18, 0)NOT NULL,
 	[cliente_piso] numeric(18, 0)NOT NULL,
-	[cliente_depto] [varchar](10) NOT NULL,
-	[cliente_cuenta_id] numeric(18, 0)NOT NULL,
+	[cliente_depto] [varchar](10) NOT NULL,  --saco cliente cuenta id porq un cliente puede tener varias cuentas. sus varias cuentas se reflejan en la tabla cuentas.
 	[cliente_mail] [varchar](255),
 )
 
@@ -58,11 +57,11 @@ CREATE TABLE [OOZMA_KAPPA].[Cuenta](
 	[cuenta_id] numeric(18, 0) IDENTITY (1,1),
 	[cuenta_cliente_id] numeric(18, 0)NOT NULL,
 	[cuenta_pais_id] numeric(18, 0)NOT NULL,
-	[cuenta_moneda_id] numeric(18, 0)NOT NULL,
+	[cuenta_moneda_id] numeric(18, 0)NOT NULL DEFAULT(1),
 	[cuenta_tipo_cuenta_id] numeric(18, 0)NOT NULL,
-	[cuenta_estado] numeric(18, 0)NOT NULL,
-	[cuenta_saldo] numeric(18, 0)NOT NULL,
-	[cuenta_fecha_apertura] [datetime] NOT NULL,
+	[cuenta_estado] varchar(50) NOT NULL DEFAULT('Habilitada'),
+	[cuenta_saldo] numeric(18, 0)NOT NULL DEFAULT(0),
+	[cuenta_fecha_apertura] [datetime] NOT NULL DEFAULT(getdate()),
 	[cuenta_fecha_cierre] [datetime] NOT NULL,
 )
 
@@ -130,6 +129,7 @@ INSERT INTO[OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUE
 
 CREATE TABLE [OOZMA_KAPPA].[Item_factura](
 	[item_factura_id] numeric(18, 0) IDENTITY (1,1),
+	[item_factura_factura_numero] numeric(18, 0),
 	[item_factura_desc] [varchar](255) NOT NULL,
 	[item_factura_costo] numeric(18, 2) NOT NULL,
 	[item_factura_cant] numeric(18, 0)NOT NULL,
@@ -170,7 +170,7 @@ CREATE TABLE [OOZMA_KAPPA].[Retiro](
 	[retiro_importe] numeric(18, 2)NOT NULL,
 	[retiro_cheque_id] numeric(18, 0)NOT NULL,
 	[retiro_fecha] [datetime] NOT NULL,
-	[retiro_costo] numeric(18, 0)NOT NULL,  --lo vuelvo a agregar porque al momento de hacer la facturacion nos aporta polimorfismo. y si en algun futuro esto llegara a tener un costo mejora la flexibilidad
+	[retiro_costo] numeric(18, 0)NOT NULL DEFAULT(0),  --lo vuelvo a agregar porque al momento de hacer la facturacion nos aporta polimorfismo. y si en algun futuro esto llegara a tener un costo mejora la flexibilidad
 )
 
 -- TABLA ROL --
@@ -187,11 +187,10 @@ INSERT INTO[OOZMA_KAPPA].[Rol] (rol_nombre, rol_estado) VALUES ('Cliente','Activ
 --- TABLA TARJETA  ---
 
 CREATE TABLE [OOZMA_KAPPA].[Tarjeta](
-	[tarjeta_id] int IDENTITY (1,1),  --en la tabla tarjeta numero es varchar(16)
+	[tarjeta_id] numeric(18,0) IDENTITY (1,1),  --en la tabla tarjeta numero es varchar(16)
 	[tarjeta_codigo_seguridad] varchar(3) NOT NULL,
 	[tarjeta_fecha_emision] [datetime] NOT NULL,
 	[tarjeta_vencimiento] [datetime] NOT NULL,
-	[tarjeta_emisor_banco_id] numeric(18, 0)NOT NULL,
 )
 
 --- TABLA TIPO_CUENTA ---
@@ -200,7 +199,7 @@ CREATE TABLE [OOZMA_KAPPA].[Tipo_cuenta](
 	[tipo_cuenta_id] numeric(18, 0) IDENTITY (1,1),
 	[tipo_cuenta_nombre] [varchar](255) NOT NULL,
 	[tipo_cuenta_costo_transferencia] numeric(18, 0)NOT NULL,
-	[tipo_cuenta_costo_apertura] numeric(18, 0)NOT NULL,
+	[tipo_cuenta_costo_apertura] numeric(18, 0)NOT NULL,   --VER QUE NO FALTE NINGUN COSTO
 )
 
 -- los costos se los puse yo (CAMI) --
@@ -240,7 +239,8 @@ CREATE TABLE [OOZMA_KAPPA].[Transferencia](
 
 CREATE TABLE [OOZMA_KAPPA].[Usuario](
 	[usuario_id] numeric(18, 0) IDENTITY (1,1),
-	[usuario_username] [nvarchar](255) NOT NULL,
+	[usuario_username] numeric(18,0) NOT NULL,
+	[usuario_nombreYapellido] [nvarchar](255) NOT NULL,
 	[usuario_password] [nvarchar] (64) NOT NULL,
 	[usuario_fecha_creacion] [datetime] NOT NULL,
 	[usuario_fecha_ultima_modificacion] [datetime] NOT NULL,
