@@ -793,3 +793,38 @@ ALTER TABLE [OOZMA_KAPPA].[Factura]
 ADD FOREIGN KEY ([factura_cliente_id])
 REFERENCES [OOZMA_KAPPA].[Cliente](cliente_id);
 COMMIT
+
+
+BEGIN TRANSACTION
+ALTER TABLE [OOZMA_KAPPA].[Item_factura]
+ADD FOREIGN KEY ([item_factura_factura_numero])
+REFERENCES [OOZMA_KAPPA].[Factura](factura_numero);
+COMMIT
+
+
+BEGIN TRANSACTION
+ALTER TABLE [OOZMA_KAPPA].[Funcionalidades_rol]
+ADD FOREIGN KEY ([funcionalidad_id])
+REFERENCES [OOZMA_KAPPA].[Funcionalidades](funcionalidades_id);
+COMMIT
+
+
+BEGIN TRANSACTION
+ALTER TABLE [OOZMA_KAPPA].[Funcionalidades_rol]
+ADD FOREIGN KEY ([rol_id])
+REFERENCES [OOZMA_KAPPA].[Rol](rol_id);
+COMMIT
+
+
+BEGIN TRANSACTION
+ALTER TABLE [OOZMA_KAPPA].[Usuario_rol]
+ADD FOREIGN KEY ([usuario_id])
+REFERENCES [OOZMA_KAPPA].[Usuario](usuario_id);
+COMMIT
+
+
+BEGIN TRANSACTION
+ALTER TABLE [OOZMA_KAPPA].[Usuario_rol]
+ADD FOREIGN KEY ([rol_id])
+REFERENCES [OOZMA_KAPPA].[Rol](rol_id);
+COMMIT
