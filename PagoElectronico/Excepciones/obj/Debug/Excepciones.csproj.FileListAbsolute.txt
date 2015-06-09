@@ -1,0 +1,5 @@
+A:\Documents\GitHub\gdd\PagoElectronico\Excepciones\bin\Debug\Excepciones.dll
+A:\Documents\GitHub\gdd\PagoElectronico\Excepciones\bin\Debug\Excepciones.pdb
+A:\Documents\GitHub\gdd\PagoElectronico\Excepciones\obj\Debug\ResolveAssemblyReference.cache
+A:\Documents\GitHub\gdd\PagoElectronico\Excepciones\obj\Debug\Excepciones.dll
+A:\Documents\GitHub\gdd\PagoElectronico\Excepciones\obj\Debug\Excepciones.pdb
