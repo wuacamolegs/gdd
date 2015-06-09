@@ -1,0 +1,24 @@
+DROP PROCEDURE ATJ.traerListadoUsuariosCompras;
+DROP PROCEDURE ATJ.traerListadoUsuariosOfertas;
+DROP PROCEDURE ATJ.traerListadoUsuariosCalificacionesRecibidas;
+DROP PROCEDURE ATJ.traerListadoUsuariosCalificacionesOtorgadas;
+DROP PROCEDURE ATJ.traerListadoUsuariosConMayorCantidadDeProductosSinVender;
+DROP PROCEDURE ATJ.traerListadoUsuariosConMayorFacturacion;
+DROP PROCEDURE ATJ.traerListadoUsuariosConMayorCalificacion;
+DROP PROCEDURE ATJ.traerListadoUsuariosConMayorCantDePublicacionesSinCalificar;
+DROP PROCEDURE ATJ.traerListadoUsuariosConMayorCantidadDeProductosSinVenderConFiltros;
+DROP PROCEDURE ATJ.traerListadoPreguntasConRespuestasPorUsuarioYPublicacion;
+DROP PROCEDURE ATJ.traerListadoPreguntasSinRespuestasPorUsuarioYPublicacion;
+DROP PROCEDURE ATJ.updatePreguntaConRespuesta;
+DROP PROCEDURE ATJ.traerListadoFormas_Pago;
+DROP PROCEDURE ATJ.traerListadoFormas_PagoPorId;
+DROP PROCEDURE ATJ.traerListadoPublicacionesMasAntiguasARendirPorUsuario;
+DROP PROCEDURE ATJ.insertFactura_RetornarID;
+DROP PROCEDURE ATJ.insertItem_Factura;
+DROP PROCEDURE ATJ.traerListadoItems_FacturaPorNroFactura;
+DROP PROCEDURE ATJ.traerListadoComprasPorCodigoPublicacion;
+DROP PROCEDURE ATJ.traerListadoOfertasGanadasPorCodigoPublicacion;
+DROP PROCEDURE ATJ.updatePregunta
+
+
+

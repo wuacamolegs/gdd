@@ -1,0 +1,50 @@
+C Sharp con SQL
+
+ADO.net (libreria para trabajar con sql en c sharp)
+|-> tiene un data provider que consta de, entre otros,
+
+ un SQL Data Provider (SQL Server Tools), OLEDB, Borland, Oracle, etc...
+
+A nosotros nos interesa el SQL Data Provider.
+
+
+Los datos que necesito saber para conectarme a la BD son: IP, User, Pass, DB-
+
+El ADO.net me ofrece un SQL CONNECTION en el que yo le paso los datos escritos
+
+ arriba y me genera la conexion a la bd.
+
+Una buena practica es hacer la conexion a SQL con un singleton (una clase estatica que retorne la conexion)
+
+Tambien me ofrece 
+
+un SQL COMMAND, con el cual yo puedo ejecutar querys, procedures, etc, recibiendo como parametro una conexion. 
+
+Como necesito donde contener los datos, tambien me 
+
+ofrece un SQL DATA SET
+El SQL DATA SET posee un DATA TABLE donde puedo representar un conjunto de tablas con sus relaciones (no necesariamente las mismas que la BD)
+
+
+
+Otro objeto que me ofrece es el SQL DATA READER -> es el que me permite leer los datos de una query obtenida, no se usara tanto en este TP pq es mas para 
+transacciones 
+
+de tarjeta de credito y eso. usamos el sql data set o lo que sigue 
+
+SQL DATA ADAPTER: para adaptar los datos (en el sentido de no insertar datos que ya existen y
+
+ esas cosas. esta bueno para prevenir errores o evitarnos
+hacer triggers pero tanteamo, capaz no sirva tanto)
+
+
+
+Cosas del TP:
+
+Requerimientos: DER incluido en estrategia 
+
+- el script de creacion tiene que tener todos los inserts, stored procedure, triggers, TODO lo qe usemos de la
+BD, y NO PUEDE DURAR MAS DE 5 MINUTOS
+
+
+
