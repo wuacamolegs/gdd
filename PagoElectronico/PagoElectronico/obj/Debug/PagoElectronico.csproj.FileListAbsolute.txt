@@ -1,0 +1,9 @@
+A:\Documents\Facultad\Gestion de Datos\TP Utn Pago Electronico 1.1 - 1C 2015\Aplicacion Desktop\PagoElectronico\PagoElectronico\bin\Debug\PagoElectronico.exe
+A:\Documents\Facultad\Gestion de Datos\TP Utn Pago Electronico 1.1 - 1C 2015\Aplicacion Desktop\PagoElectronico\PagoElectronico\bin\Debug\PagoElectronico.pdb
+A:\Documents\Facultad\Gestion de Datos\TP Utn Pago Electronico 1.1 - 1C 2015\Aplicacion Desktop\PagoElectronico\PagoElectronico\obj\Debug\ResolveAssemblyReference.cache
+A:\Documents\Facultad\Gestion de Datos\TP Utn Pago Electronico 1.1 - 1C 2015\Aplicacion Desktop\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Properties.Resources.resources
+A:\Documents\Facultad\Gestion de Datos\TP Utn Pago Electronico 1.1 - 1C 2015\Aplicacion Desktop\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.csproj.GenerateResource.Cache
+A:\Documents\Facultad\Gestion de Datos\TP Utn Pago Electronico 1.1 - 1C 2015\Aplicacion Desktop\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.exe
+A:\Documents\Facultad\Gestion de Datos\TP Utn Pago Electronico 1.1 - 1C 2015\Aplicacion Desktop\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.pdb
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.exe
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.pdb
