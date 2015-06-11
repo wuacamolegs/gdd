@@ -1,0 +1,5 @@
+A:\Documents\GitHub\gdd\PagoElectronico\Utilities\bin\Release\Utilities.dll
+A:\Documents\GitHub\gdd\PagoElectronico\Utilities\bin\Release\Utilities.pdb
+A:\Documents\GitHub\gdd\PagoElectronico\Utilities\obj\Release\ResolveAssemblyReference.cache
+A:\Documents\GitHub\gdd\PagoElectronico\Utilities\obj\Release\Utilities.dll
+A:\Documents\GitHub\gdd\PagoElectronico\Utilities\obj\Release\Utilities.pdb

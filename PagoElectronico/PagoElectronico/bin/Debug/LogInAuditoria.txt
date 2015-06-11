@@ -1,0 +1,15 @@
+ |FECHA|     |USUARIO|  |LOGIN|  |CANTIDAD INTENTOS|
+2015-07-10 - 123 - Fallido - 1
+2015-07-10 - 123 - Fallido - 1
+2015-07-10 - 123 - Fallido - 1
+2015-07-10 - 123 - Fallido - 2
+2015-07-10 - 123 - Exitoso - 0
+2015-07-10 - 123 - Fallido - 1
+2015-07-10 - 123 - Fallido - 2
+2015-07-10 - 123 - Exitoso - 2
+2015-07-10 - 123 - Exitoso - 0
+2015-07-10 - 123 - Exitoso - 0
+2015-07-10 - 123 - Exitoso - 0
+2015-07-10 - 123 - Exitoso - 0
+2015-07-10 - 123 - Exitoso - 0
+2015-07-10 - 123 - Exitoso - 0

@@ -131,7 +131,7 @@ namespace Conexion
 
             if (Tipo == CommandType.StoredProcedure)
             {
-                nombreProcedure = "ATJ." + nombreProcedure;
+                nombreProcedure = "OOZMA_KAPPA." + nombreProcedure;
             }
 
             cmdComand = new SqlCommand(nombreProcedure, _cnnConexion);
@@ -188,7 +188,7 @@ namespace Conexion
 
             if (Tipo == CommandType.StoredProcedure)
             {
-                nombreProcedure = "ATJ." + nombreProcedure;
+                nombreProcedure = "OOZMA_KAPPA." + nombreProcedure;
             }
 
             cmdComando = new SqlCommand(nombreProcedure, _cnnConexion);

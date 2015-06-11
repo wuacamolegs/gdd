@@ -48,11 +48,11 @@ INSERT INTO [OOZMA_KAPPA].[Usuario] ( usuario_username, usuario_nombreYapellido,
 	SELECT DISTINCT 
 	Cli_Nro_Doc
 	,Cli_Nombre + ' ' + Cli_Apellido
-	,'04f8996da763b7a969b1028ee3007569eaf3a635486ddab211d512c85b9df8fb'
+	,'ECE6128060FCDA0AFC43C2D59109C410E89DE2BEF602D70ED62C0640FD795970'  --CONTRASE;A USER
 	,Cuenta_Fecha_Creacion              --HABIAN DICHO QUE NO AGREGUEMOS DIRECTAMENTE LOS STRING, QUE LOS PASEMOS COMO PARAMETRO. COMO SE HACE?
 	,Cuenta_Fecha_Creacion
 	,'Cual es tu color preferido?'
-	,'a4bd1d3a69aa0ea6ffb1298c8c26be4b333526cae7d27f2362f89857157701ce'
+	,'AF4C20351356D258C57B16291CCEB8BAEE3D4DEE410061EA66D7C636EFE075CC'
 	FROM gd_esquema.Maestra	
 	WHERE Cli_Nombre IS NOT NULL
 	);
@@ -252,3 +252,29 @@ COMMIT
  
 --como en la tabla maestra solo hay un item factura por factura hago todo uno a uno, no sumo los item y sus importes. mas rapido
 
+-- CREACION DE USUARIOS DEFAULT admin --
+
+--un usuario con username ADMIN y contrase;a w23e
+-- y varios admin mas por lo que dice el enunciado. tomamos los primeros 5 usuarios de la tabla usuario y los hacemos administradores tambien.
+
+BEGIN TRANSACTION   
+
+INSERT INTO [OOZMA_KAPPA].Usuario
+(usuario_username,usuario_nombreYapellido,usuario_password,usuario_fecha_creacion,usuario_fecha_ultima_modificacion, usuario_pregunta_secreta , usuario_respuesta_secreta)
+ (SELECT 123,
+  'administrador general',
+  '52D77462B24987175C8D7DAB901A5967E927FFC8D0B6E4A234E07A4AEC5E3724', --contrase;a: w23e
+  GETDATE(),GETDATE(),
+  'Color preferido?',
+  'AF4C20351356D258C57B16291CCEB8BAEE3D4DEE410061EA66D7C636EFE075CC'); --RESPUESTA SECRETA azul
+  
+COMMIT
+
+
+BEGIN TRANSACTION
+
+INSERT INTO [OOZMA_KAPPA].Usuario_rol(usuario_id,rol_id) (SELECT DISTINCT usuario_id,1 FROM OOZMA_KAPPA.Usuario WHERE usuario_username = 123);
+
+COMMIT
+
+--YA TODOS LOS USUARIOS DE LA TABLA MAESTRA ESTAN CREADOS CON CONTRASENA : user Y RESPUESTA SECRETA: azul ya encriptadas

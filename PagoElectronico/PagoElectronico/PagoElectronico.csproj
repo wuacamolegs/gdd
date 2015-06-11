@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -90,11 +91,11 @@
     <Compile Include="Facturacion\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form1.cs">
+    <Compile Include="Inicio.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Inicio.Designer.cs">
+      <DependentUpon>Inicio.cs</DependentUpon>
     </Compile>
     <Compile Include="Listados\Form1.cs">
       <SubType>Form</SubType>
@@ -102,14 +103,32 @@
     <Compile Include="Listados\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Login\Form1.cs">
+    <Compile Include="Login\LogIn.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Login\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Login\LogIn.Designer.cs">
+      <DependentUpon>LogIn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Principal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Principal.Designer.cs">
+      <DependentUpon>Principal.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ABM Cliente\Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inicio.resx">
+      <DependentUpon>Inicio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login\LogIn.resx">
+      <DependentUpon>LogIn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Principal.resx">
+      <DependentUpon>Principal.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -141,6 +160,28 @@
     <Compile Include="Transferencias\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\tpChicas\src\FrbaCommerce\Utilities\Utilities.csproj">
+      <Project>{E0B42931-2ACC-413F-8CCB-6583D68C95E9}</Project>
+      <Name>Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Clases\Clases.csproj">
+      <Project>{4E6028A4-BD22-4C52-9C3C-49503A738444}</Project>
+      <Name>Clases</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Conexion\Conexion.csproj">
+      <Project>{D94C51F3-2C13-44B6-A9AA-A675BCBBD601}</Project>
+      <Name>Conexion</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Excepciones\Excepciones.csproj">
+      <Project>{DE5B1F0E-CC46-490C-87CA-E2BD515F1BC7}</Project>
+      <Name>Excepciones</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Log\Log.csproj">
+      <Project>{55F19D4D-2EBC-4BD8-8581-2740D34B9245}</Project>
+      <Name>Log</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

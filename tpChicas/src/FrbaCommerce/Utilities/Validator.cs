@@ -68,7 +68,7 @@ namespace Utilities
         {
             int unAño = Convert.ToInt32(año);
             if (unAño < 1900 || unAño > 2014)
-                return "Tiene que ingresar un año válido, entre 1900 y 2014, para el campo " + nombreCampo + "\n";
+                return "Tiene que ingresar un año válido, entre 1900 y 2015, para el campo " + nombreCampo + "\n";
 
             return string.Empty;
             

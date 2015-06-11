@@ -11,7 +11,7 @@ USE [GD1C2015]
 
 CREATE TABLE [OOZMA_KAPPA].[Administrador](
 	[administrador_id] numeric(18, 0) IDENTITY (1,1),
-	[administrador_estado] numeric(18, 0)NOT NULL,
+	[administrador_estado] numeric(18, 0)NOT NULL,   --SACO EL ATRIBUTO ESTADO. ESTE TIENE QUE IR EN USUARIO!!
 	[administrador_username] [varchar](255) NOT NULL,
 	[administrador_usuario_id] numeric(18, 0)NOT NULL,
 )
@@ -60,11 +60,12 @@ CREATE TABLE [OOZMA_KAPPA].[Cuenta](
 	[cuenta_pais_id] numeric(18, 0)NOT NULL,
 	[cuenta_moneda_id] numeric(18, 0)NOT NULL DEFAULT(1),
 	[cuenta_tipo_cuenta_id] numeric(18, 0)NOT NULL,
-	[cuenta_estado] varchar(50) NOT NULL DEFAULT('Habilitada'),
+	[cuenta_estado] bit NOT NULL DEFAULT(1),  --0 es false , 1 true
 	[cuenta_saldo] numeric(18, 0)NOT NULL DEFAULT(0),
 	[cuenta_fecha_apertura] [datetime] NOT NULL DEFAULT(getdate()),
 	[cuenta_fecha_cierre] [datetime] NOT NULL,
 )
+
 
 --- TABLA DEPOSITO ---
 
@@ -96,7 +97,6 @@ CREATE TABLE [OOZMA_KAPPA].[Funcionalidades](
 	[funcionalidades_nombre] [varchar](255) NOT NULL,
 )
 
-INSERT INTO[OOZMA_KAPPA].[Funcionalidades] (funcionalidades_nombre) VALUES ('Login y Seguridad');
 INSERT INTO[OOZMA_KAPPA].[Funcionalidades] (funcionalidades_nombre) VALUES ('ABM de Rol');
 INSERT INTO[OOZMA_KAPPA].[Funcionalidades] (funcionalidades_nombre) VALUES ('ABM de Usuario');
 INSERT INTO[OOZMA_KAPPA].[Funcionalidades] (funcionalidades_nombre) VALUES ('ABM de Cliente');
@@ -178,7 +178,7 @@ CREATE TABLE [OOZMA_KAPPA].[Retiro](
 CREATE TABLE [OOZMA_KAPPA].[Rol](
 	[rol_id] numeric(18, 0) IDENTITY (1,1),
 	[rol_nombre] [nvarchar](255) NOT NULL,
-	[rol_estado] [varchar](255) NOT NULL,
+	[rol_estado] [varchar](255) NOT NULL DEFAULT('Activo'),   --puede estar activo o no activo
 )
 
 INSERT INTO[OOZMA_KAPPA].[Rol] (rol_nombre, rol_estado) VALUES ('Administrador','Activo');
@@ -245,8 +245,14 @@ CREATE TABLE [OOZMA_KAPPA].[Usuario](
 	[usuario_fecha_creacion] [datetime] NOT NULL,
 	[usuario_fecha_ultima_modificacion] [datetime] NOT NULL,
 	[usuario_pregunta_secreta] [nvarchar](64) NOT NULL,
-	[usuario_respuesta_secreta] [nvarchar](64) NOT NULL,
+	[usuario_respuesta_secreta] [nvarchar](64) NOT NULL,   -- 0 habilitado, 1 deshabilitado
+	[usuario_estado] bit NOT NULL DEFAULT(0),  --puede estar habilitado como no habilitado, ya sea por el estado del rol, o por logins incorrectos
+	--VER QUE PASA CUANDO ESTA DESHABILITADO POR LOGINS, Y UN ROL PASA DE ACTIVO A NO ACTIVO Y LUEGO A ACTIVO OTRA VEZ!! 
+	--tendria que haber un estado para cada cosa? estadoRol, estadoLogin, o solo estadoLogin e ir verificando que el rol este activo o no cuando se quiera iniciar sesion
+	-- CREO QUE VA A CONVENIR que este estado represente solo el login, y que cuando inicie sesion no se muestren los roles inhabilitados y listo.
+	-- TAMBIEN HAY QUE VER QUE PASA CUANDO SE DESACTIVA UNA CUENTA DE UN CLIENTE. SI SE BLOQUEA EL CLINETE O NO.
 )
+
 
 -- TABLA USUARIO_ROL --
 
