@@ -49,47 +49,47 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ABM Cliente\Form1.cs">
+    <Compile Include="ABM Cliente\ABM_de_Cliente.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ABM Cliente\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="ABM Cliente\ABM_de_Cliente.Designer.cs">
+      <DependentUpon>ABM_de_Cliente.cs</DependentUpon>
     </Compile>
-    <Compile Include="ABM Cuenta\Form1.cs">
+    <Compile Include="ABM Cuenta\ABM_de_Cuenta.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ABM Cuenta\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="ABM Cuenta\ABM_de_Cuenta.Designer.cs">
+      <DependentUpon>ABM_de_Cuenta.cs</DependentUpon>
     </Compile>
-    <Compile Include="ABM de Usuario\Form1.cs">
+    <Compile Include="ABM de Usuario\ABM_Usuario.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ABM de Usuario\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="ABM de Usuario\ABM_Usuario.Designer.cs">
+      <DependentUpon>ABM_Usuario.cs</DependentUpon>
     </Compile>
-    <Compile Include="ABM Rol\Form1.cs">
+    <Compile Include="ABM Rol\ABM_Rol.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ABM Rol\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="ABM Rol\ABM_Rol.Designer.cs">
+      <DependentUpon>ABM_Rol.cs</DependentUpon>
     </Compile>
-    <Compile Include="Consulta Saldos\Form1.cs">
+    <Compile Include="Consulta Saldos\Consulta_De_Saldos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Consulta Saldos\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Consulta Saldos\Consulta_De_Saldos.Designer.cs">
+      <DependentUpon>Consulta_De_Saldos.cs</DependentUpon>
     </Compile>
-    <Compile Include="Depositos\Form1.cs">
+    <Compile Include="Depositos\frmDepositos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Depositos\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Depositos\frmDepositos.Designer.cs">
+      <DependentUpon>frmDepositos.cs</DependentUpon>
     </Compile>
-    <Compile Include="Facturacion\Form1.cs">
+    <Compile Include="Facturacion\Facturacion_De_Costos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Facturacion\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Facturacion\Facturacion_De_Costos.Designer.cs">
+      <DependentUpon>Facturacion_De_Costos.cs</DependentUpon>
     </Compile>
     <Compile Include="Inicio.cs">
       <SubType>Form</SubType>
@@ -97,11 +97,11 @@
     <Compile Include="Inicio.Designer.cs">
       <DependentUpon>Inicio.cs</DependentUpon>
     </Compile>
-    <Compile Include="Listados\Form1.cs">
+    <Compile Include="Listados\Listado_Estadistico.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Listados\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Listados\Listado_Estadistico.Designer.cs">
+      <DependentUpon>Listado_Estadistico.cs</DependentUpon>
     </Compile>
     <Compile Include="Login\LogIn.cs">
       <SubType>Form</SubType>
@@ -117,11 +117,32 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="ABM Cliente\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="ABM Cliente\ABM_de_Cliente.resx">
+      <DependentUpon>ABM_de_Cliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ABM Cuenta\ABM_de_Cuenta.resx">
+      <DependentUpon>ABM_de_Cuenta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ABM de Usuario\ABM_Usuario.resx">
+      <DependentUpon>ABM_Usuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ABM Rol\ABM_Rol.resx">
+      <DependentUpon>ABM_Rol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Consulta Saldos\Consulta_De_Saldos.resx">
+      <DependentUpon>Consulta_De_Saldos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Depositos\frmDepositos.resx">
+      <DependentUpon>frmDepositos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Facturacion\Facturacion_De_Costos.resx">
+      <DependentUpon>Facturacion_De_Costos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Inicio.resx">
       <DependentUpon>Inicio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Listados\Listado_Estadistico.resx">
+      <DependentUpon>Listado_Estadistico.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login\LogIn.resx">
       <DependentUpon>LogIn.cs</DependentUpon>
@@ -133,6 +154,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Retiros\Retiro_Efectivo.resx">
+      <DependentUpon>Retiro_Efectivo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transferencias\Transferencias_Entre_Cuentas.resx">
+      <DependentUpon>Transferencias_Entre_Cuentas.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -148,17 +175,17 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Retiros\Form1.cs">
+    <Compile Include="Retiros\Retiro_Efectivo.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Retiros\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Retiros\Retiro_Efectivo.Designer.cs">
+      <DependentUpon>Retiro_Efectivo.cs</DependentUpon>
     </Compile>
-    <Compile Include="Transferencias\Form1.cs">
+    <Compile Include="Transferencias\Transferencias_Entre_Cuentas.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Transferencias\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Transferencias\Transferencias_Entre_Cuentas.Designer.cs">
+      <DependentUpon>Transferencias_Entre_Cuentas.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

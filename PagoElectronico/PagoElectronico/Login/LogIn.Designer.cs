@@ -115,11 +115,11 @@
             this.ClientSize = new System.Drawing.Size(343, 271);
             this.Controls.Add(this.cmbRol);
             this.Controls.Add(this.lblRol);
-            this.Controls.Add(this.btnIngresar);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.txtUsername);
             this.Controls.Add(this.lblPassword);
             this.Controls.Add(this.lblUsername);
+            this.Controls.Add(this.btnIngresar);
             this.Controls.Add(this.btnSelecRol);
             this.Name = "LogIn";
             this.Text = "Pago Electronico - LogIn";

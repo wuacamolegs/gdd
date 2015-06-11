@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Data;
 using System.Data.SqlClient;
+using System.Windows.Forms;
 using Excepciones;
 using Conexion;
 
@@ -69,6 +70,14 @@ namespace Clases
         {
             return "Rol";
         }
+
+        public override void DataRowToObject(DataRow dr)
+        {
+            // Esto es tal cual lo devuelve el stored de la DB
+            this.rol_id = Convert.ToInt32(dr["rol_id"]);
+            this.Nombre = dr["rol_nombre"].ToString();
+            this.Estado = Convert.ToBoolean(dr["rol_estado"]);
+        }
         
         #endregion
 
@@ -95,8 +104,9 @@ namespace Clases
             parameterList.Add(new SqlParameter("@usuario_id", id_Usuario));
         }
 
-        public void setearFuncionalidadesAlRol()
+        public List<Funcionalidad> setearFuncionalidadesAlRol()
         {
+
             DataSet dsFuncionalidades = Funcionalidad.ObtenerFuncionalidadesPorRol(this.rol_id);
             foreach (DataRow dr in dsFuncionalidades.Tables[0].Rows)
             {
@@ -104,6 +114,7 @@ namespace Clases
                 unaFunc.DataRowToObject(dr);
                 this.Funcionalidades.Add(unaFunc);
             }
+            return this.Funcionalidades;
 
 
         }

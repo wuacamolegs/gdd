@@ -1,6 +1,6 @@
 ﻿namespace PagoElectronico.Depositos
 {
-    partial class Form1
+    partial class frmDepositos
     {
         /// <summary>
         /// Required designer variable.
@@ -28,9 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // Depositos
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "Form1";
+            this.ClientSize = new System.Drawing.Size(642, 361);
+            this.Name = "Depositos";
+            this.Text = "PAGO ELECTRONICO - DEPOSITOS";
+            this.ResumeLayout(false);
+
         }
 
         #endregion

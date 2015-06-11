@@ -1,6 +1,6 @@
-﻿namespace PagoElectronico.Listados
+﻿namespace PagoElectronico.Consulta_Saldos
 {
-    partial class Form1
+    partial class Consulta_De_Saldos
     {
         /// <summary>
         /// Required designer variable.
@@ -28,9 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // Consulta_De_Saldos
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "Form1";
+            this.ClientSize = new System.Drawing.Size(695, 428);
+            this.Name = "Consulta_De_Saldos";
+            this.Text = "PAGO ELECTRONICO - CONSULTA DE SALDOS";
+            this.ResumeLayout(false);
+
         }
 
         #endregion

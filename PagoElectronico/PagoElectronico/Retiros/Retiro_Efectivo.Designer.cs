@@ -1,6 +1,6 @@
-﻿namespace PagoElectronico.ABM_Rol
+﻿namespace PagoElectronico.Retiros
 {
-    partial class Form1
+    partial class Retiro_Efectivo
     {
         /// <summary>
         /// Required designer variable.
@@ -28,9 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // Retiro_Efectivo
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "Form1";
+            this.ClientSize = new System.Drawing.Size(608, 355);
+            this.Name = "Retiro_Efectivo";
+            this.Text = "PAGO ELECTRONICO - RETIRO EFECTIVO";
+            this.ResumeLayout(false);
+
         }
 
         #endregion

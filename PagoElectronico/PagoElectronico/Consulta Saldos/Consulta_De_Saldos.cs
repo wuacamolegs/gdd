@@ -6,14 +6,23 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Clases;
 
 namespace PagoElectronico.Consulta_Saldos
 {
-    public partial class Form1 : Form
+    public partial class Consulta_De_Saldos : Form
     {
-        public Form1()
+        public Usuario unUsuario = new Usuario();
+
+        public Consulta_De_Saldos()
         {
             InitializeComponent();
+        }
+     
+        public void abrirConUsuario(Usuario user)
+        {
+            unUsuario = user;
+            this.Show();
         }
     }
 }

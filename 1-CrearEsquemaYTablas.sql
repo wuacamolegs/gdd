@@ -116,15 +116,23 @@ CREATE TABLE [OOZMA_KAPPA].[Funcionalidades_rol](
 	[rol_id] numeric(18, 0)NOT NULL,
 )
 
-INSERT INTO[OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUES (1,2); --EL DOS ES CLIENTE
-INSERT INTO[OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUES (2,2);
-INSERT INTO[OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUES (3,2);
 INSERT INTO[OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUES (4,2);
 INSERT INTO[OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUES (5,2);
 INSERT INTO[OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUES (6,2);
 INSERT INTO[OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUES (7,2);
 INSERT INTO[OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUES (8,2);
-INSERT INTO[OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUES (9,2);
+INSERT INTO[OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUES (9,2);--EL DOS ES CLIENTE
+INSERT INTO[OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUES (1,1);
+INSERT INTO[OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUES (2,1);
+INSERT INTO[OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUES (3,1);
+INSERT INTO[OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUES (4,1);--EL UNO ES ADMIN
+INSERT INTO[OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUES (5,1);
+INSERT INTO[OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUES (6,1);
+INSERT INTO[OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUES (7,1);
+INSERT INTO[OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUES (8,1);
+INSERT INTO[OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUES (9,1);
+INSERT INTO[OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUES (10,1);
+
 
 --- TABLA ITEM_FACTURA ---
 
@@ -178,11 +186,11 @@ CREATE TABLE [OOZMA_KAPPA].[Retiro](
 CREATE TABLE [OOZMA_KAPPA].[Rol](
 	[rol_id] numeric(18, 0) IDENTITY (1,1),
 	[rol_nombre] [nvarchar](255) NOT NULL,
-	[rol_estado] [varchar](255) NOT NULL DEFAULT('Activo'),   --puede estar activo o no activo
+	[rol_estado] bit NOT NULL DEFAULT(0),   --puede estar activo 0 o no activo 1
 )
 
-INSERT INTO[OOZMA_KAPPA].[Rol] (rol_nombre, rol_estado) VALUES ('Administrador','Activo');
-INSERT INTO[OOZMA_KAPPA].[Rol] (rol_nombre, rol_estado) VALUES ('Cliente','Activo');
+INSERT INTO[OOZMA_KAPPA].[Rol] (rol_nombre, rol_estado) VALUES ('Administrador',0);
+INSERT INTO[OOZMA_KAPPA].[Rol] (rol_nombre, rol_estado) VALUES ('Cliente',0);
 
 --- TABLA TARJETA  ---
 
@@ -258,8 +266,9 @@ CREATE TABLE [OOZMA_KAPPA].[Usuario](
 
 CREATE TABLE [OOZMA_KAPPA].[Usuario_rol](
 	[usuario_rol_id] numeric(18, 0) IDENTITY (1,1),
-	[usuario_id] numeric(18, 0),
-	[rol_id] numeric(18, 0),
+	[usuario_id] numeric(18, 0)NOT NULL,
+	[usuario_username] numeric(18,0)NOT NULL,
+	[rol_id] numeric(18, 0)NOT NULL,
 )
 
 COMMIT

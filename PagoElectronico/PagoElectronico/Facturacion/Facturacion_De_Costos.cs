@@ -6,14 +6,26 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Clases;
+
 
 namespace PagoElectronico.Facturacion
 {
-    public partial class Form1 : Form
+    public partial class Facturacion_De_Costos : Form
     {
-        public Form1()
+        public Usuario unUsuario = new Usuario();
+
+
+        public Facturacion_De_Costos()
         {
             InitializeComponent();
         }
+
+        public void abrirConUsuario(Usuario user)
+        {
+            unUsuario = user;
+            this.Show();
+        }
     }
+    
 }

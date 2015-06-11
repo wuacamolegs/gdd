@@ -2,7 +2,6 @@ A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\bin\Release\PagoElectron
 A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\bin\Release\PagoElectronico.exe
 A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\bin\Release\PagoElectronico.pdb
 A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Release\ResolveAssemblyReference.cache
-A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.ABM_Cliente.Form1.resources
 A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.Inicio.resources
 A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.Properties.Resources.resources
 A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.csproj.GenerateResource.Cache
@@ -20,3 +19,4 @@ A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\bin\Release\Clases.pdb
 A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.Principal.resources
 A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\bin\Release\Log.dll
 A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\bin\Release\Log.pdb
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.ABM_Cliente.ABM_Cliente.resources

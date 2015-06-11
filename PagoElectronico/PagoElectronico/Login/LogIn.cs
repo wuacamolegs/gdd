@@ -50,7 +50,7 @@ namespace PagoElectronico.Login
 
         private void btnSelecRol_Click(object sender, EventArgs e)
         {
-
+            AccederAlSistema();
         }
         string claveIngresada = "";
 
@@ -134,7 +134,7 @@ namespace PagoElectronico.Login
         {
             //limpio los intentos y voy a la seleccion de rol del usuario
             intentosFallidos = 0;
-            MessageBox.Show("Se Accedió al sistema, Por favor selecione un rol", "Log In exitoso", MessageBoxButtons.OK);
+            MessageBox.Show("Se Accedió al sistema", "Log In exitoso", MessageBoxButtons.OK);
             SeleccionDeRol();
             
         }
@@ -146,6 +146,7 @@ namespace PagoElectronico.Login
             try
             {
                 //Obtengo los roles del usuario en cuestion. Si no los hay, muestro mensaje de error. 
+                
                 DataSet ds = Rol.ObtenerRolesPorUsuario(user.usuario_id);
                 if (ds.Tables[0].Rows.Count == 0)
                 {
@@ -159,7 +160,7 @@ namespace PagoElectronico.Login
                     if (ds.Tables[0].Rows.Count == 1)
                     {
                         user.AsignarRol(ds);
-                        AccederAlSistema();
+                        AccederAlSistema();        
                     }
                     else
                     {
@@ -217,15 +218,13 @@ namespace PagoElectronico.Login
                 //En el proyecto utilities, creamos un dialog manager que nos permite crear un formulario
                 //del tipo dialog. Lo que quisimos modelar fue una especie de pop up que le mandemos un texto,
                 //nos ofrezca un textbox y nos devuelta el resultado ingresado por el usuario. En este caso,
-                //le vamos a decir que su pass fue autogenerada y que la cambie. Si no ingreso nada, lo deshabilitamos.
+                //le vamos a decir que su pass fue autogenerada y que la cambie.
                 //Sino, la encriptamos y updateamos la password
                 string dialogResult = DialogManager.ShowDialogWithPassword("Este es su primer ingreso en el sistema, por favor, actualice su clave", "Cambio de clave");
 
                 if (string.IsNullOrEmpty(dialogResult))
                 {
-                    user.Deshabilitar();
-                    MessageBox.Show("El usuario ha quedado deshabilitado", "Deshabilitado", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    return;
+                   return;
                 }
 
                 string claveNueva = Encryptor.GetSHA256(dialogResult);

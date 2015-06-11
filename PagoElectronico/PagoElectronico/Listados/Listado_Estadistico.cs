@@ -6,14 +6,26 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Clases;
 
 namespace PagoElectronico.Listados
 {
-    public partial class Form1 : Form
+    public partial class Listado_Estadistico : Form
     {
-        public Form1()
+       public Usuario unUsuario = new Usuario();
+
+
+        public Listado_Estadistico()
         {
             InitializeComponent();
         }
+
+        public void abrirConUsuario(Usuario user)
+        {
+            unUsuario = user;
+            this.Show();
+        }
+    
+    
     }
 }

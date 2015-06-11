@@ -252,6 +252,16 @@ COMMIT
  
 --como en la tabla maestra solo hay un item factura por factura hago todo uno a uno, no sumo los item y sus importes. mas rapido
 
+
+-- TABLA USUARIO ROL -- completo todos los clientes
+
+BEGIN TRANSACTION
+
+INSERT INTO [OOZMA_KAPPA].Usuario_rol(usuario_id,usuario_username, rol_id)(
+SELECT usuario_id, usuario_username, rol_id FROM OOZMA_KAPPA.Usuario, OOZMA_KAPPA.Rol WHERE rol_nombre = 'Cliente' );
+
+COMMIT
+
 -- CREACION DE USUARIOS DEFAULT admin --
 
 --un usuario con username ADMIN y contrase;a w23e
@@ -270,11 +280,13 @@ INSERT INTO [OOZMA_KAPPA].Usuario
   
 COMMIT
 
+--YA TODOS LOS USUARIOS DE LA TABLA MAESTRA ESTAN CREADOS CON CONTRASENA : user Y RESPUESTA SECRETA: azul ya encriptadas
 
-BEGIN TRANSACTION
 
-INSERT INTO [OOZMA_KAPPA].Usuario_rol(usuario_id,rol_id) (SELECT DISTINCT usuario_id,1 FROM OOZMA_KAPPA.Usuario WHERE usuario_username = 123);
+-- TABLA USUARIO ROL --
+
+BEGIN TRANSACTION  --agrego usuario rol del admin
+
+INSERT INTO [OOZMA_KAPPA].Usuario_rol(usuario_id,usuario_username,rol_id) (SELECT DISTINCT usuario_id,123,1 FROM OOZMA_KAPPA.Usuario WHERE usuario_username = 123);
 
 COMMIT
-
---YA TODOS LOS USUARIOS DE LA TABLA MAESTRA ESTAN CREADOS CON CONTRASENA : user Y RESPUESTA SECRETA: azul ya encriptadas

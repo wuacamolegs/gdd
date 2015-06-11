@@ -1,6 +1,6 @@
-﻿namespace PagoElectronico.ABM_Cliente
+﻿namespace PagoElectronico.Listados
 {
-    partial class Form1
+    partial class Listado_Estadistico
     {
         /// <summary>
         /// Required designer variable.
@@ -30,13 +30,13 @@
         {
             this.SuspendLayout();
             // 
-            // Form1
+            // Listado_Estadistico
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(741, 409);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.ClientSize = new System.Drawing.Size(682, 393);
+            this.Name = "Listado_Estadistico";
+            this.Text = "PAGO ELECTRONICO - LISTADO ESTADISTICO";
             this.ResumeLayout(false);
 
         }

@@ -6,14 +6,24 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Clases;
 
 namespace PagoElectronico.Transferencias
 {
-    public partial class Form1 : Form
+    public partial class Transferencias_Entre_Cuentas : Form
     {
-        public Form1()
+        public Usuario unUsuario = new Usuario();
+
+
+        public Transferencias_Entre_Cuentas()
         {
             InitializeComponent();
+        }
+
+        public void abrirConUsuario(Usuario user)
+        {
+            unUsuario = user;
+            this.Show();
         }
     }
 }

@@ -42,8 +42,8 @@ namespace Clases
         public override void DataRowToObject(DataRow dr)
         {
             // Esto es tal cual lo devuelve el stored de la DB
-            this.id_Funcionalidad = Convert.ToInt32(dr["id_Funcionalidad"]);
-            this.Nombre = dr["Nombre"].ToString();
+            this.id_Funcionalidad = Convert.ToInt32(dr["funcionalidades_id"]);
+            this.Nombre = dr["funcionalidades_nombre"].ToString();
         }
 
         public static DataSet ObtenerFuncionalidadesPorRol(int id_Rol)
@@ -64,16 +64,16 @@ namespace Clases
 
         public Funcionalidades? obtenerPorNombre()
         {
-            if (Nombre == "ABM_Rol") return Funcionalidades.ABM_Rol;
-            if (Nombre == "ABM_Usuario") return Funcionalidades.ABM_Usuario;
-            if (Nombre == "ABM_Cliente") return Funcionalidades.ABM_Cliente;
-            if (Nombre == "ABM_Cuenta") return Funcionalidades.ABM_Cuenta;
+            if (Nombre == "ABM de Rol") return Funcionalidades.ABM_Rol;
+            if (Nombre == "ABM de Usuario") return Funcionalidades.ABM_Usuario;
+            if (Nombre == "ABM de Cliente") return Funcionalidades.ABM_Cliente;
+            if (Nombre == "ABM de Cuenta") return Funcionalidades.ABM_Cuenta;
             if (Nombre == "Depositos") return Funcionalidades.Depositos;
-            if (Nombre == "Retiro_Efectivo") return Funcionalidades.Retiro_Efectivo;
-            if (Nombre == "Transferencias_Entre_Cuentas") return Funcionalidades.Transferencias_Entre_Cuentas;
-            if (Nombre == "Facturacion_De_Costos") return Funcionalidades.Facturacion_De_Costos;
-            if (Nombre == "Consulta_De_Saldos") return Funcionalidades.Consulta_De_Saldos;
-            if (Nombre == "Listado_Estadistico") return Funcionalidades.Listado_Estadistico;
+            if (Nombre == "Retiro de Efectivo") return Funcionalidades.Retiro_Efectivo;
+            if (Nombre == "Transferencias entre cuentas") return Funcionalidades.Transferencias_Entre_Cuentas;
+            if (Nombre == "Facturacion de Costos") return Funcionalidades.Facturacion_De_Costos;
+            if (Nombre == "Consulta de saldos") return Funcionalidades.Consulta_De_Saldos;
+            if (Nombre == "Listado Estadistico") return Funcionalidades.Listado_Estadistico;
             return null;
         }
 

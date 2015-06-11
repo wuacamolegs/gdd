@@ -110,8 +110,7 @@ namespace Clases
             this.Username = dr["usuario_username"].ToString();
             this.Password = dr["usuario_password"].ToString();
             this.Estado = Convert.ToBoolean(dr["usuario_estado"]);
-            this.ClaveAutoGenerada = esClaveAutoGenerada(dr);
-        }
+         }
 
         private bool esClaveAutoGenerada(DataRow dr)
         {
@@ -169,7 +168,6 @@ namespace Clases
             parameterList.Add(new SqlParameter("@id_Usuario", this.usuario_id));
             parameterList.Add(new SqlParameter("@Username", this.Username));
             parameterList.Add(new SqlParameter("@Clave", this.Password));
-            parameterList.Add(new SqlParameter("@ClaveAutoGenerada", this.ClaveAutoGenerada));
             parameterList.Add(new SqlParameter("@Estado", this.Estado));
         }
 
