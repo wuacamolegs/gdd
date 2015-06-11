@@ -134,7 +134,6 @@ namespace Clases
             bool @encontroUsuario = false;
 
             setearListaDeParametrosConUsuario();
-            int cantidad = parameterList.Count;
             
             DataSet ds = SQLHelper.ExecuteDataSet("traerUsuarioActivoPorUsername", CommandType.StoredProcedure, parameterList);
             
