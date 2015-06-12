@@ -19,4 +19,13 @@ A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\bin\Release\Clases.pdb
 A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.Principal.resources
 A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\bin\Release\Log.dll
 A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\bin\Release\Log.pdb
-A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.ABM_Cliente.ABM_Cliente.resources
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.ABM_Cliente.ABM_de_Cliente.resources
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.ABM_Cuenta.ABM_de_Cuenta.resources
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.ABM_de_Usuario.ABM_Usuario.resources
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.ABM_Rol.ABM_de_Rol.resources
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.Consulta_Saldos.Consulta_De_Saldos.resources
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.Depositos.frmDepositos.resources
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.Facturacion.Facturacion_De_Costos.resources
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.Listados.Listado_Estadistico.resources
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.Retiros.Retiro_Efectivo.resources
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.Transferencias.Transferencias_Entre_Cuentas.resources

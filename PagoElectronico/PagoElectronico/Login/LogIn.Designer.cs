@@ -119,8 +119,8 @@
             this.Controls.Add(this.txtUsername);
             this.Controls.Add(this.lblPassword);
             this.Controls.Add(this.lblUsername);
-            this.Controls.Add(this.btnIngresar);
             this.Controls.Add(this.btnSelecRol);
+            this.Controls.Add(this.btnIngresar);
             this.Name = "LogIn";
             this.Text = "Pago Electronico - LogIn";
             this.Load += new System.EventHandler(this.LogIn_Load);

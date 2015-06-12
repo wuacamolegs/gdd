@@ -50,6 +50,10 @@ namespace PagoElectronico.Login
 
         private void btnSelecRol_Click(object sender, EventArgs e)
         {
+            Rol rolAAsignar = new Rol();
+            rolAAsignar.rol_id = Convert.ToInt32(cmbRol.SelectedValue);
+            rolAAsignar.Nombre = cmbRol.SelectedText.ToString();
+            user.Rol = rolAAsignar;
             AccederAlSistema();
         }
         string claveIngresada = "";
@@ -64,9 +68,9 @@ namespace PagoElectronico.Login
             }
             
             if(txtUsername.Text == "admin"){
-                user.Username = "123";
+                user.Username = "123";   //TODO: arreglar tema username
             }
-            else{
+            else{                  
             user.Username = txtUsername.Text;}
             user.Password = txtPassword.Text;
             
@@ -102,7 +106,7 @@ namespace PagoElectronico.Login
              else
                 {
                     intentosFallidos = 0;
-                    MessageBox.Show("El usuario es incorrecto. Por favor, ingrese los datos correctamente", "Log In fallido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("El usuario es incorrecto o se encuentra bloqueado. Por favor, ingrese los datos nuevamente", "Log In fallido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
         }
 
@@ -146,31 +150,32 @@ namespace PagoElectronico.Login
             try
             {
                 //Obtengo los roles del usuario en cuestion. Si no los hay, muestro mensaje de error. 
-                
-                DataSet ds = Rol.ObtenerRolesPorUsuario(user.usuario_id);
-                if (ds.Tables[0].Rows.Count == 0)
+                DataSet dsroles = Rol.ObtenerRolesPorUsuario(user.usuario_id);
+
+                if (dsroles.Tables[0].Rows.Count == 0)
                 {
                     MessageBox.Show("El usuario no tiene roles", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
                     //Verifico la cantidad de roles del usuario. Si tiene 1, se lo asigno directamente
-                    //y lo dejo entrar al sistema.
-                    
-                    if (ds.Tables[0].Rows.Count == 1)
+                    //y lo dejo entrar al sistema.                    
+                    if (dsroles.Tables[0].Rows.Count == 1)
                     {
-                        user.AsignarRol(ds);
+                        user.AsignarRol(dsroles);
                         AccederAlSistema();        
                     }
                     else
                     {
                         //Si tiene mas de 1 rol, voy a pedirle que seleccione uno
-          
                         btnSelecRol.Visible = true;
                         lblRol.Visible = true;
                         cmbRol.Visible = true;
                         btnIngresar.Visible = false;
-                        
+                        //Aprovechamos nuestro manager de dropdowns en el proyecto Utilities, y le pedimos que cargue nuestro combo
+                        //Con los nombres de los roles. Vamos a poder seleccionar uno de alli
+                        DropDownListManager.CargarCombo(cmbRol, dsroles.Tables[0], "id_Rol", "Nombre", false, "");
+                       
                     }
                 }
                 
@@ -189,19 +194,12 @@ namespace PagoElectronico.Login
         {
             if (intentosFallidos == maxIntentosFallidos)
             {
-                try
-                {
                     //Si alcanzo la cantidad maxima de fallidos, deshabilito el usuario y le aviso de esto
                     user.Deshabilitar();
                     intentosFallidos = 0;
                     MessageBox.Show("El usuario ha quedado deshabilitado por los reiterados fallos en el inicio de sesion", "Deshabilitacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                catch (NoEntidadException ex)
-                {
-                    //Significa que el username que esta ingresando no existe, no que se equivoca con la password. 
-                    //No deshabilito nada
-                    intentosFallidos = 0;
-                }
+                
+
             }
         }
 

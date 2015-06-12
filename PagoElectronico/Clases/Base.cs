@@ -27,7 +27,7 @@ namespace Clases
         public virtual void DataRowToObject(DataRow dr, bool conEstructurasInternas)
         {
         }
-
+        
         public abstract string NombreTabla();
         public abstract string NombreEntidad();
 

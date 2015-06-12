@@ -290,3 +290,9 @@ BEGIN TRANSACTION  --agrego usuario rol del admin
 INSERT INTO [OOZMA_KAPPA].Usuario_rol(usuario_id,usuario_username,rol_id) (SELECT DISTINCT usuario_id,123,1 FROM OOZMA_KAPPA.Usuario WHERE usuario_username = 123);
 
 COMMIT
+
+BEGIN TRANSACTION  --agrego rol cliente al admin
+
+INSERT INTO [OOZMA_KAPPA].Usuario_rol(usuario_id,usuario_username,rol_id) (SELECT DISTINCT usuario_id,123,2 FROM OOZMA_KAPPA.Usuario WHERE usuario_username = 123);
+
+COMMIT

@@ -25,5 +25,29 @@ namespace PagoElectronico.Retiros
             unUsuario = user;
             this.Show();
         }
+
+        private void Retiro_Efectivo_Load(object sender, EventArgs e)
+        {
+            DataSet dsClientes = ObtenerClientes(unUsuario.usuario_id);
+            DropDownListManager.CargarCombo(cmbRol, dsClientes.Tables[0], "cliente_id", "cliente_documento", false, "");
+
+            Rol rolAAsignar = new Rol();
+            rolAAsignar.rol_id = Convert.ToInt32(cmbRol.SelectedValue);
+            rolAAsignar.Nombre = cmbRol.SelectedText.ToString();
+            user.Rol = rolAAsignar;
+            AccederAlSistema();
+        }
+
+        public DataSet ObtenerClientes()
+        {
+            Cliente unCliente = new Cliente();
+            unRol.setearListaDeParametrosConIdUsuario(id_Usuario);
+            DataSet ds = unRol.TraerListado(unRol.parameterList, "PorId_Usuario");
+            unRol.parameterList.Clear();
+
+
+        }
+       
+        
     }
 }
