@@ -78,7 +78,7 @@ namespace PagoElectronico.ABM_de_Usuario
             rolAAsignar.Nombre = cmbRol.SelectedText.ToString();
             unUsuario.Rol = rolAAsignar;
 
-            unUsuario.Modificar()
+            //unUsuario.Modificar();
                         
             return true;
         }

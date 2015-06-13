@@ -54,6 +54,7 @@ namespace PagoElectronico.Login
             rolAAsignar.rol_id = Convert.ToInt32(cmbRol.SelectedValue);
             rolAAsignar.Nombre = cmbRol.SelectedText.ToString();
             user.Rol = rolAAsignar;
+            user.AsignarRol(rolAAsignar);
             AccederAlSistema();
         }
         string claveIngresada = "";
@@ -71,7 +72,8 @@ namespace PagoElectronico.Login
                 user.Username = "123";   //TODO: arreglar tema username
             }
             else{                  
-            user.Username = txtUsername.Text;}
+            user.Username = txtUsername.Text;
+            }
             user.Password = txtPassword.Text;
             
 
@@ -174,7 +176,8 @@ namespace PagoElectronico.Login
                         btnIngresar.Visible = false;
                         //Aprovechamos nuestro manager de dropdowns en el proyecto Utilities, y le pedimos que cargue nuestro combo
                         //Con los nombres de los roles. Vamos a poder seleccionar uno de alli
-                        DropDownListManager.CargarCombo(cmbRol, dsroles.Tables[0], "id_Rol", "Nombre", false, "");
+
+                        DropDownListManager.CargarCombo(cmbRol, dsroles.Tables[0], "rol_id", "rol_nombre", false, "");
                        
                     }
                 }

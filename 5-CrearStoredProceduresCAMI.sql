@@ -11,7 +11,7 @@ GO
 CREATE PROCEDURE [OOZMA_KAPPA].traerListadoRolesPorId_Usuario
 	@usuario_id nvarchar(255)
 AS
-	SELECT r.rol_id as id_Rol, r.rol_nombre as Nombre FROM OOZMA_KAPPA.Usuario_rol ur, OOZMA_KAPPA.Rol r WHERE usuario_id = @usuario_id  AND ur.rol_id = r.rol_id;
+	SELECT r.rol_id as rol_id, r.rol_nombre as rol_nombre , r.rol_estado as rol_estado FROM OOZMA_KAPPA.Usuario_rol ur, OOZMA_KAPPA.Rol r WHERE usuario_id = @usuario_id  AND ur.rol_id = r.rol_id;
 GO
 
 CREATE PROCEDURE [OOZMA_KAPPA].traerListadoFuncionalidadesPorId_Rol
@@ -43,5 +43,32 @@ CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoRoles]
 AS
 	SELECT rol_id as id_Rol, rol_nombre as Nombre FROM OOZMA_KAPPA.Rol;
 GO
+
+CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoClienteCompleto]
+	@usuario_id numeric(18,0)
+AS
+	SELECT cliente_id as cliente_id,(cliente_apellido +' '+ cliente_nombre) as cliente_nombre, cliente_numero_documento as cliente_documento FROM OOZMA_KAPPA.Cliente;
+GO
+
+CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoClientePorUsuarioID]
+	@usuario_id numeric(18,0)
+AS
+	SELECT cliente_id as cliente_id,(cliente_apellido +' '+ cliente_nombre) as cliente_nombre, cliente_numero_documento as cliente_documento FROM OOZMA_KAPPA.Cliente WHERE cliente_usuario_id = @usuario_id;
+GO
+
+CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoClientePorClienteID]
+	@cliente_id numeric(18,0)
+AS
+	SELECT cliente_id, cliente_nombre, cliente_apellido, cliente_numero_documento, cliente_fecha_nacimiento FROM OOZMA_KAPPA.Cliente WHERE cliente_id = @cliente_id;
+GO
+
+
+CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoCuentaPorClienteID]
+	@cliente_id numeric(18,0)
+AS
+	SELECT cuenta_id as cuenta_numero, cuenta_estado, cuenta_saldo, cuenta_fecha_apertura as fecha_apertura, cuenta_fecha_cierre as fecha_cierre FROM OOZMA_KAPPA.Cuenta WHERE cuenta_cliente_id = @cliente_id;
+GO
+
+
 
 

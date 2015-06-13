@@ -146,7 +146,7 @@ namespace PagoElectronico
         private void rETIROSToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Retiro_Efectivo retiro = new Retiro_Efectivo();
-
+            MessageBox.Show("Mandando Usuario:" + unUsuario.usuario_id + unUsuario.Username, "Error", MessageBoxButtons.OK);
             retiro.abrirConUsuario(unUsuario);
         }
 

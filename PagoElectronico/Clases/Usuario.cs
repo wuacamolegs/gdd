@@ -9,6 +9,7 @@ using System.Configuration;
 using Excepciones;
 using Utilities;
 using System.Windows.Forms;
+using Clases;
 
 
 namespace Clases
@@ -182,6 +183,11 @@ namespace Clases
             this.Rol = new Rol();
             this.Rol.DataRowToObject(ds.Tables[0].Rows[0]);
         }
+
+        public void AsignarRol(Rol unRol) {
+            this.Rol = unRol;
+        }
+
 
         public void Deshabilitar()
         {
