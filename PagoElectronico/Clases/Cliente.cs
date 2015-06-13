@@ -26,8 +26,8 @@ namespace Clases
         private string _apellido;
         private DateTime _fecha_nacimiento;
         private int _documento;
-        private Usuario _usuario;  //el rol que se le asignada al usuario al momento de loguearse
-        
+        private Usuario _usuario;  
+
         #endregion
 
         #region constructor
@@ -133,9 +133,7 @@ namespace Clases
         }
 
         public DataSet ObtenerTodosLosClientes(int unUsuarioID){
-            this.setearListaDeParametrosConUsuario(unUsuarioID);
-            DataSet ds = this.TraerListado(this.parameterList, "Completo");
-            this.parameterList.Clear();
+            DataSet ds = this.TraerListado("Completo");
             return ds;        
         }
 

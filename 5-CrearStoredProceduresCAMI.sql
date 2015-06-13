@@ -45,7 +45,6 @@ AS
 GO
 
 CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoClienteCompleto]
-	@usuario_id numeric(18,0)
 AS
 	SELECT cliente_id as cliente_id,(cliente_apellido +' '+ cliente_nombre) as cliente_nombre, cliente_numero_documento as cliente_documento FROM OOZMA_KAPPA.Cliente;
 GO
@@ -63,12 +62,55 @@ AS
 GO
 
 
-CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoCuentaPorClienteID]
+CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoCuentaActivasPorClienteID]
 	@cliente_id numeric(18,0)
 AS
-	SELECT cuenta_id as cuenta_numero, cuenta_estado, cuenta_saldo, cuenta_fecha_apertura as fecha_apertura, cuenta_fecha_cierre as fecha_cierre FROM OOZMA_KAPPA.Cuenta WHERE cuenta_cliente_id = @cliente_id;
+	SELECT cuenta_id as cuenta_numero, cuenta_estado, cuenta_saldo, cuenta_fecha_apertura as fecha_apertura, cuenta_fecha_cierre as fecha_cierre FROM OOZMA_KAPPA.Cuenta WHERE cuenta_cliente_id = @cliente_id AND cuenta_estado = 1;
+GO
+
+CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoCuentaporCuentaID]
+	@cuenta_id numeric(18,0)
+AS
+	SELECT * FROM [OOZMA_KAPPA].Cuenta ;
 GO
 
 
+CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoBancoCompleto]
+AS
+	SELECT banco_id, (banco_nombre + ' Sucursal : ' + CAST(banco_id as varchar)) as banco_nombre FROM OOZMA_KAPPA.Banco;
+GO
 
 
+CREATE PROCEDURE [OOZMA_KAPPA].[insertCheque_RetornarID]
+	@cheque_cliente_id numeric(18,0),
+	@cheque_cuenta_id numeric(18,0),
+	@cheque_banco_id numeric(18,0),
+	@cheque_fecha dateTime,
+	@cheque_importe numeric(18,0)
+AS
+	INSERT INTO OOZMA_KAPPA.Cheque(cheque_banco_id,cheque_cuenta_id,cheque_destino_cliente_id,cheque_fecha,cheque_importe)
+	VALUES (@cheque_banco_id,@cheque_cuenta_id,@cheque_cliente_id,@cheque_fecha,@cheque_importe );
+	
+	SELECT @@IDENTITY AS cheque_id;
+
+GO
+
+CREATE PROCEDURE [OOZMA_KAPPA].[insertRetiro_RetornarID]
+	@retiro_cheque_id numeric(18,0),
+	@retiro_cuenta_id numeric(18,0),
+	@retiro_fecha dateTime,
+	@retiro_importe numeric(18,0)
+AS
+	INSERT INTO OOZMA_KAPPA.Retiro(retiro_cheque_id, retiro_cuenta_id, retiro_fecha, retiro_importe) 
+	VALUES (@retiro_cheque_id, @retiro_cuenta_id, @retiro_fecha, @retiro_importe) ;
+	
+	SELECT @@IDENTITY AS retiro_id;
+GO
+
+
+select * from OOZMA_KAPPA.Usuario
+
+select * from OOZMA_KAPPA.Retiro
+select * from OOZMA_KAPPA.Cheque
+
+13372098 alarcon lucero

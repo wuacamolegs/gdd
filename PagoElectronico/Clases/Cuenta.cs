@@ -25,9 +25,9 @@ namespace Clases
         private int _saldo;
         private DateTime _fecha_apertura;
         private DateTime _fecha_cierre;
-        private int _cuenta_id;
-        private Usuario _usuario;  //el rol que se le asignada al usuario al momento de loguearse
-        
+        private double _cuenta_id;
+        private Usuario _usuario;  
+
         #endregion
 
         #region constructor
@@ -76,7 +76,7 @@ namespace Clases
             set { _fecha_cierre = value; }
         }
 
-        public int cuenta_id
+        public double cuenta_id
         {
             get { return _cuenta_id; }
             set { _cuenta_id = value; }
@@ -109,9 +109,9 @@ namespace Clases
             // Esto es tal cual lo devuelve el stored de la DB
             this.estado = Convert.ToBoolean(dr["cuenta_estado"]);
             this.saldo = Convert.ToInt32(dr["cuenta_saldo"]);
-            this.cuenta_id = Convert.ToInt32(dr["cuenta_numero"]);
-            this.FechaApertura = Convert.ToDateTime(dr["fecha_apertura"]);
-            this.FechaCierre = Convert.ToDateTime(dr["fecha_cierre"]);
+            this.cuenta_id = Convert.ToDouble(dr["cuenta_id"]);
+            this.FechaApertura = Convert.ToDateTime(dr["cuenta_fecha_apertura"]);
+            this.FechaCierre = Convert.ToDateTime(dr["cuenta_fecha_cierre"]);
         }
 
 
@@ -121,13 +121,25 @@ namespace Clases
             parameterList.Add(new SqlParameter("@cliente_id", clienteID));
         }
 
+        public void setearListaDeParametrosConCuentaID(double cuenta_id)
+        {
+            this.parameterList.Clear();
+            parameterList.Add(new SqlParameter("@cuenta_id", cuenta_id));
+        }
+
         
-        public DataSet TraerCuentasPorClienteID()
+        public DataSet TraerCuentasActivasPorClienteID()
         {
             this.setearListaDeParametrosConClienteID(this.cliente.cliente_id);
-            DataSet ds = this.TraerListado(this.parameterList, "PorClienteID");
+            DataSet ds = this.TraerListado(this.parameterList, "ActivasPorClienteID");
             return ds;
-        
+        }
+
+        public DataSet TraerCuentaPorCuentaID(double cuentaID)
+        {
+            this.setearListaDeParametrosConCuentaID(cuentaID);
+            DataSet ds = this.TraerListado(this.parameterList, "porCuentaID");
+            return ds;
         }
 
 

@@ -48,11 +48,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Banco.cs" />
     <Compile Include="Base.cs" />
+    <Compile Include="Cheque.cs" />
     <Compile Include="Cliente.cs" />
     <Compile Include="Cuenta.cs" />
     <Compile Include="Funcionalidades.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Retiro.cs" />
     <Compile Include="Rol.cs" />
     <Compile Include="Usuario.cs" />
   </ItemGroup>

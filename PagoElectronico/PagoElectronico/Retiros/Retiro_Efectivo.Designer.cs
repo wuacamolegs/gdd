@@ -37,6 +37,10 @@
             this.txtDocumento = new System.Windows.Forms.TextBox();
             this.txtImporte = new System.Windows.Forms.TextBox();
             this.btnAceptar = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.cmbBanco = new System.Windows.Forms.ComboBox();
+            this.txtSaldoActual = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -82,30 +86,31 @@
             // cmbCliente
             // 
             this.cmbCliente.FormattingEnabled = true;
-            this.cmbCliente.Location = new System.Drawing.Point(197, 47);
+            this.cmbCliente.Location = new System.Drawing.Point(199, 47);
             this.cmbCliente.Name = "cmbCliente";
-            this.cmbCliente.Size = new System.Drawing.Size(243, 21);
+            this.cmbCliente.Size = new System.Drawing.Size(241, 21);
             this.cmbCliente.TabIndex = 4;
             this.cmbCliente.SelectedIndexChanged += new System.EventHandler(this.cmbCliente_SelectedIndexChanged);
             // 
             // cmbCuenta
             // 
             this.cmbCuenta.FormattingEnabled = true;
-            this.cmbCuenta.Location = new System.Drawing.Point(197, 98);
+            this.cmbCuenta.Location = new System.Drawing.Point(199, 98);
             this.cmbCuenta.Name = "cmbCuenta";
             this.cmbCuenta.Size = new System.Drawing.Size(241, 21);
             this.cmbCuenta.TabIndex = 5;
+            this.cmbCuenta.SelectedIndexChanged += new System.EventHandler(this.cmbCuenta_SelectedIndexChanged);
             // 
             // txtDocumento
             // 
-            this.txtDocumento.Location = new System.Drawing.Point(197, 155);
+            this.txtDocumento.Location = new System.Drawing.Point(199, 159);
             this.txtDocumento.Name = "txtDocumento";
-            this.txtDocumento.Size = new System.Drawing.Size(243, 20);
+            this.txtDocumento.Size = new System.Drawing.Size(241, 20);
             this.txtDocumento.TabIndex = 6;
             // 
             // txtImporte
             // 
-            this.txtImporte.Location = new System.Drawing.Point(196, 211);
+            this.txtImporte.Location = new System.Drawing.Point(198, 214);
             this.txtImporte.Name = "txtImporte";
             this.txtImporte.Size = new System.Drawing.Size(242, 20);
             this.txtImporte.TabIndex = 7;
@@ -113,7 +118,7 @@
             // btnAceptar
             // 
             this.btnAceptar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAceptar.Location = new System.Drawing.Point(394, 266);
+            this.btnAceptar.Location = new System.Drawing.Point(394, 312);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(113, 54);
             this.btnAceptar.TabIndex = 8;
@@ -121,11 +126,51 @@
             this.btnAceptar.UseVisualStyleBackColor = true;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(57, 273);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(55, 16);
+            this.label5.TabIndex = 9;
+            this.label5.Text = "BANCO";
+            // 
+            // cmbBanco
+            // 
+            this.cmbBanco.FormattingEnabled = true;
+            this.cmbBanco.Location = new System.Drawing.Point(199, 268);
+            this.cmbBanco.Name = "cmbBanco";
+            this.cmbBanco.Size = new System.Drawing.Size(241, 21);
+            this.cmbBanco.TabIndex = 10;
+            // 
+            // txtSaldoActual
+            // 
+            this.txtSaldoActual.BackColor = System.Drawing.SystemColors.Control;
+            this.txtSaldoActual.Location = new System.Drawing.Point(340, 125);
+            this.txtSaldoActual.Name = "txtSaldoActual";
+            this.txtSaldoActual.Size = new System.Drawing.Size(100, 20);
+            this.txtSaldoActual.TabIndex = 11;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(263, 128);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(76, 13);
+            this.label6.TabIndex = 12;
+            this.label6.Text = "Saldo Actual : ";
+            // 
             // Retiro_Efectivo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(519, 332);
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.ClientSize = new System.Drawing.Size(519, 380);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.txtSaldoActual);
+            this.Controls.Add(this.cmbBanco);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.txtImporte);
             this.Controls.Add(this.txtDocumento);
@@ -154,5 +199,9 @@
         private System.Windows.Forms.TextBox txtDocumento;
         private System.Windows.Forms.TextBox txtImporte;
         private System.Windows.Forms.Button btnAceptar;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox cmbBanco;
+        private System.Windows.Forms.TextBox txtSaldoActual;
+        private System.Windows.Forms.Label label6;
     }
 }

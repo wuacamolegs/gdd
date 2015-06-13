@@ -66,6 +66,12 @@ namespace Clases
             return SQLHelper.ExecuteDataSet(_strTraerListado + NombreTabla() + Condiciones, CommandType.StoredProcedure, NombreTabla(), parameterList);
         }
 
+
+        public DataSet TraerListado(string Condiciones)
+        {
+            return SQLHelper.ExecuteDataSet(_strTraerListado + NombreTabla() + Condiciones, CommandType.StoredProcedure, NombreTabla());
+        }
+
         /// <summary>
         /// Libero memoria
         /// </summary>
