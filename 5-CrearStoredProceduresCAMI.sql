@@ -1,4 +1,43 @@
+----- DROP STORED PROCEDURES ------
+
+USE [GD1C2015]
+GO
+DROP PROCEDURE [OOZMA_KAPPA].[insertRetiro_RetornarID]
+GO
+DROP PROCEDURE [OOZMA_KAPPA].[traerListadoCuentaActivasPorClienteID]
+GO
+DROP PROCEDURE [OOZMA_KAPPA].[traerListadoCuentaporCuentaID]
+GO
+DROP PROCEDURE [OOZMA_KAPPA].[traerListadoFuncionalidadesPorId_Rol]
+GO
+DROP PROCEDURE [OOZMA_KAPPA].[traerListadoClienteCompleto]
+GO
+DROP PROCEDURE [OOZMA_KAPPA].[traerListadoClientePorClienteID]
+GO
+DROP PROCEDURE [OOZMA_KAPPA].[traerListadoClientePorUsuarioID]
+GO
+DROP PROCEDURE [OOZMA_KAPPA].[traerListadoRolesPorId_Usuario]
+GO
+DROP PROCEDURE [OOZMA_KAPPA].[insertCheque_RetornarID]
+GO
+DROP PROCEDURE [OOZMA_KAPPA].[deshabilitarUsuario]
+GO
+DROP PROCEDURE [OOZMA_KAPPA].[traerUsuarioActivoPorUsername]
+GO
+DROP PROCEDURE [OOZMA_KAPPA].[updateUsuario]
+GO
+DROP PROCEDURE [OOZMA_KAPPA].[traerListadoBancoCompleto]
+GO
+DROP PROCEDURE [OOZMA_KAPPA].[traerListadoRoles]
+GO
+DROP PROCEDURE [OOZMA_KAPPA].[traerListadoRolesCompleto]
+GO
+
+
 ----- Crear Stored Procedures -----
+BEGIN TRANSACTION
+
+GO
 
 CREATE PROCEDURE [OOZMA_KAPPA].traerUsuarioActivoPorUsername
     @Username nvarchar(255)
@@ -107,10 +146,5 @@ AS
 	SELECT @@IDENTITY AS retiro_id;
 GO
 
+COMMIT
 
-select * from OOZMA_KAPPA.Usuario
-
-select * from OOZMA_KAPPA.Retiro
-select * from OOZMA_KAPPA.Cheque
-
-13372098 alarcon lucero

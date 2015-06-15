@@ -114,6 +114,7 @@ namespace Clases
             this.FechaCierre = Convert.ToDateTime(dr["cuenta_fecha_cierre"]);
         }
 
+        #region setters
 
         public void setearListaDeParametrosConClienteID(int clienteID)
         {
@@ -126,8 +127,17 @@ namespace Clases
             this.parameterList.Clear();
             parameterList.Add(new SqlParameter("@cuenta_id", cuenta_id));
         }
-
         
+        private void setearListaDeParametrosConImporte(int importe)
+        {
+            this.parameterList.Clear();
+            parameterList.Add(new SqlParameter("@importe", importe));
+        }
+
+        #endregion
+
+        #region llamados a la base
+
         public DataSet TraerCuentasActivasPorClienteID()
         {
             this.setearListaDeParametrosConClienteID(this.cliente.cliente_id);
@@ -142,9 +152,13 @@ namespace Clases
             return ds;
         }
 
+        public void GenerarRetiro(int importe)
+        {
+            this.setearListaDeParametrosConImporte(importe);
+            Modificar(parameterList);
+        }
 
-
-
+        #endregion
 
     }
 }

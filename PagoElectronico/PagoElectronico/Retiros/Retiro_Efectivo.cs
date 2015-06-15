@@ -72,8 +72,6 @@ namespace PagoElectronico.Retiros
                     MessageBox.Show("Vuelva a ingresar el numero de documento", "Datos Incorrectos");
                 }
             }
-            MessageBox.Show("comprobando campos", "Datos Incorrectos");
-
         }
 
         #endregion
@@ -157,10 +155,7 @@ namespace PagoElectronico.Retiros
             {
                 MessageBox.Show("No tiene suficiente saldo para realizar el Retiro. Por favor, vuelva a ingresar el importe", "Saldo Insuficiente");
                 txtImporte.Clear();
-            }
-                   
-        
-        
+            }        
         }
 
         private void cmbCuenta_SelectedIndexChanged(object sender, EventArgs e)
@@ -187,8 +182,13 @@ namespace PagoElectronico.Retiros
             retiroActual.Importe = Convert.ToInt32(txtImporte.Text);
             retiroActual.GenerarRetiroDevolverSuID();
 
+            unaCuenta.GenerarRetiro(retiroActual.Importe);
+
             MessageBox.Show("Retiro generado exitosamente", "retiro exitoso");
 
+            txtImporte.Clear();
+            txtDocumento.Clear();
+            
         }
 
 

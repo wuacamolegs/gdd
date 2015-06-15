@@ -91,8 +91,8 @@ namespace PagoElectronico.ABM_Rol
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            ModificarRol abmModificarRol = new ModificarRol();
-            abmModificarRol.abrirConRol(unRol);
+            //ModificarRol abmModificarRol = new ModificarRol();
+            //abmModificarRol.abrirConRol(unRol);
         }
 
 

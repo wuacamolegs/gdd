@@ -36,20 +36,11 @@ namespace PagoElectronico
             loginForm.Show();
         }
 
+        private void btnNuevoUsuario_Click(object sender, EventArgs e)
+        {
+
+        }
 
 
- 
-
-
-
-
-
-
-
-
-
-
-  
-    
     }
 }

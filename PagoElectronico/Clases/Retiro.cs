@@ -22,7 +22,7 @@ namespace Clases
        
         private Cheque _cheque;
         private Cuenta _cuenta;
-        private int _retiro_id;    //TODO: me parece que hay cosas de mas. si en el cheque ya dice el importe y la fecha por ahi no hace falta uqe este en retiro. VER.
+        private double _retiro_id;    //TODO: me parece que hay cosas de mas. si en el cheque ya dice el importe y la fecha por ahi no hace falta uqe este en retiro. VER.
         private DateTime _fecha;
         private int _importe;
         
@@ -63,7 +63,7 @@ namespace Clases
             set { _importe = value; }
         }
 
-        public int Retiro_id
+        public double Retiro_id
         {
             get { return _retiro_id; }
             set { _retiro_id = value; }
@@ -106,7 +106,7 @@ namespace Clases
         {
             this.setearListaParametrosCompleta();
             DataSet ds = this.GuardarYObtenerID(parameterList);
-            this.Retiro_id = Convert.ToInt32(ds.Tables[0].Rows[0]["retiro_id"]);
+            this.Retiro_id = Convert.ToDouble(ds.Tables[0].Rows[0]["retiro_id"]);
         }
 
         public void setearListaParametrosCompleta()

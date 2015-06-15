@@ -114,7 +114,6 @@ namespace Clases
         public void setearListaParametrosCompleta()
         {
             this.parameterList.Clear();
-            parameterList.Add(new SqlParameter("@cheque_id",this.Cheque_id));
             parameterList.Add(new SqlParameter("@cheque_cliente_id",this.Cliente.cliente_id));
             parameterList.Add(new SqlParameter("@cheque_cuenta_id",this.Cuenta.cuenta_id));
             parameterList.Add(new SqlParameter("@cheque_banco_id",this.banco.Banco_id));
@@ -126,7 +125,7 @@ namespace Clases
         {
             this.setearListaParametrosCompleta();
             DataSet ds = this.GuardarYObtenerID(parameterList);
-            //this.Cheque_id = Convert.ToInt32(ds.Tables[0].Rows[0]);
+            this.Cheque_id = Convert.ToInt32(ds.Tables[0].Rows[0]["cheque_id"]);
 
        }
 

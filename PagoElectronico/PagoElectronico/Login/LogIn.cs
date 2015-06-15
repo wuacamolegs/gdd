@@ -205,9 +205,7 @@ namespace PagoElectronico.Login
 
             }
         }
-
-
-
+        
         private void AccederAlSistema()
         {
             //Verifico que la clave no sea la autogenerada. De ser asi, le pido que la cambie. Sino, via libre para 
