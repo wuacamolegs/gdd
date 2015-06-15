@@ -30,8 +30,8 @@ namespace PagoElectronico.ABM_de_Usuario
 
         private void ABM_Usuario_Load(object sender, EventArgs e)
         {
-            DataSet ds = SQLHelper.ExecuteDataSet("traerListadoRoles");
-            DropDownListManager.CargarCombo(cmbRol, ds.Tables[0], "id_Rol", "Nombre", false, "");
+           DataSet ds = SQLHelper.ExecuteDataSet("traerListadoRoles");  //TODO arreglar llamado a traerListado
+           DropDownListManager.CargarCombo(cmbRol, ds.Tables[0], "id_Rol", "Nombre", false, "");
 
         }
 

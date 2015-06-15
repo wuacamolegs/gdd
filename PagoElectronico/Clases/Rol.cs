@@ -120,5 +120,11 @@ namespace Clases
         }
         #endregion
 
+
+        public DataSet traerRoles()
+        {
+            DataSet ds = TraerListado("Completo");
+            return ds;
+        }
     } 
   }
