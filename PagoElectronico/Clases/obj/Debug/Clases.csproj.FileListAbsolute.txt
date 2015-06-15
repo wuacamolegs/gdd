@@ -9,3 +9,14 @@ A:\Documents\GitHub\gdd\PagoElectronico\Clases\bin\Debug\Utilities.pdb
 A:\Documents\GitHub\gdd\PagoElectronico\Clases\bin\Debug\Excepciones.pdb
 A:\Documents\GitHub\gdd\PagoElectronico\Clases\obj\Debug\Clases.dll
 A:\Documents\GitHub\gdd\PagoElectronico\Clases\obj\Debug\Clases.pdb
+E:\gdd\PagoElectronico\Clases\bin\Debug\Clases.dll
+E:\gdd\PagoElectronico\Clases\bin\Debug\Clases.pdb
+E:\gdd\PagoElectronico\Clases\bin\Debug\Conexion.dll
+E:\gdd\PagoElectronico\Clases\bin\Debug\Excepciones.dll
+E:\gdd\PagoElectronico\Clases\bin\Debug\Utilities.dll
+E:\gdd\PagoElectronico\Clases\bin\Debug\Conexion.pdb
+E:\gdd\PagoElectronico\Clases\bin\Debug\Utilities.pdb
+E:\gdd\PagoElectronico\Clases\bin\Debug\Excepciones.pdb
+E:\gdd\PagoElectronico\Clases\obj\Debug\ResolveAssemblyReference.cache
+E:\gdd\PagoElectronico\Clases\obj\Debug\Clases.dll
+E:\gdd\PagoElectronico\Clases\obj\Debug\Clases.pdb
