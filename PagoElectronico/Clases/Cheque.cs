@@ -101,6 +101,8 @@ namespace Clases
         #endregion
 
 
+        #region setters
+
         public override void DataRowToObject(DataRow dr)
         {
             // Esto es tal cual lo devuelve el stored de la DB
@@ -118,8 +120,12 @@ namespace Clases
             parameterList.Add(new SqlParameter("@cheque_cuenta_id",this.Cuenta.cuenta_id));
             parameterList.Add(new SqlParameter("@cheque_banco_id",this.banco.Banco_id));
             parameterList.Add(new SqlParameter("@cheque_fecha", this.Fecha));
-            parameterList.Add(new SqlParameter("@cheque_importe", this.Importe));       
+            parameterList.Add(new SqlParameter("@cheque_importe", this.Importe));
         }
+
+        #endregion
+
+        #region llamados a base
 
         public void GenerarChequeDevolverSuID()
         {
@@ -127,7 +133,9 @@ namespace Clases
             DataSet ds = this.GuardarYObtenerID(parameterList);
             this.Cheque_id = Convert.ToInt32(ds.Tables[0].Rows[0]["cheque_id"]);
 
-       }
+        }
+
+        #endregion
 
 
     }
