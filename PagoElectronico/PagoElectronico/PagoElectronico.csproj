@@ -73,6 +73,12 @@
     <Compile Include="ABM Rol\ABM_Rol.Designer.cs">
       <DependentUpon>ABM_Rol.cs</DependentUpon>
     </Compile>
+    <Compile Include="ABM Rol\frmRol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABM Rol\frmRol.Designer.cs">
+      <DependentUpon>frmRol.cs</DependentUpon>
+    </Compile>
     <Compile Include="Consulta Saldos\Consulta_De_Saldos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -128,6 +134,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ABM Rol\ABM_Rol.resx">
       <DependentUpon>ABM_Rol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ABM Rol\frmRol.resx">
+      <DependentUpon>frmRol.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Consulta Saldos\Consulta_De_Saldos.resx">
       <DependentUpon>Consulta_De_Saldos.cs</DependentUpon>

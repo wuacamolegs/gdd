@@ -67,3 +67,4 @@ E:\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Properties.Reso
 E:\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Retiros.Retiro_Efectivo.resources
 E:\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Transferencias.Transferencias_Entre_Cuentas.resources
 E:\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.csproj.GenerateResource.Cache
+E:\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.ABM_Rol.frmRol.resources
