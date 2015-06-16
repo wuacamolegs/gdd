@@ -34,6 +34,7 @@ namespace Clases
         private int _piso;
         private string _depto;
         private string _mail;
+        private bool _estado;
 
 
         #endregion
@@ -59,17 +60,23 @@ namespace Clases
         }
 
         //SOLO CON LOS FILTROS
-        public Cliente(string unNombre, string unApellido, string unTipoDni, int unDni, string unMail, int paisNacimiento, int paisResidente, string calle, int numero, int piso, int depto )
+        public Cliente(string unNombre, string unApellido, string unTipoDni, int unDni, string unMail, DateTime fechaNacimiento, int paisResidente, string calle, int numero, int piso, string depto )
         {
             this.Apellido = unApellido;
             this.Nombre = unNombre;
             this.TipoDocumento = unTipoDni;
             this.Documento = unDni;
             this.Mail = unMail;
+            this.FechaNacimiento = fechaNacimiento;
+            this.PaisResidente = paisResidente;
+            this.Calle = calle;
+            this.NumeroDireccion = numero;
+            this.PisoDireccion = piso;
+            this.DeptoDireccion = depto;
         }
 
         //TODOS LOS DATOS
-        public Cliente(string unNombre, string unApellido, string unTipoDni, int unDni, string unMail, int paisNacimiento, int paisResidente, string calle, int numero, int piso, int depto)
+        public Cliente(string unNombre, string unApellido, string unTipoDni, int unDni, string unMail)
         {
             this.Apellido = unApellido;
             this.Nombre = unNombre;
@@ -79,10 +86,10 @@ namespace Clases
         }
         
         //A PARTIR USUARIO
-        public Cliente(Usuario user)
+        public Cliente(Usuario usuario, int usuarioID)  //LO TUVE QUE HACER DE OTRA FORMA PORQUE YA HABIA UN CLIENTE(USUARIO USER)
         {   
-            this.Usuario = user;
-            DataSet ds = this.ObtenerClientesPorUsuarioID(this.Usuario.usuario_id);
+            this.Usuario = usuario;
+            DataSet ds = this.ObtenerClientesPorUsuarioID(usuarioID);
             if (ds.Tables[0].Rows.Count > 0)
             {
                 DataRowToObject(ds.Tables[0].Rows[0]);
@@ -169,6 +176,12 @@ namespace Clases
             set { _mail = value; }
         }
 
+        public bool estado
+        {
+            get { return _estado; }
+            set { _estado = value; }
+        }
+
         #endregion
 
         #region metodos publicos
@@ -198,115 +211,26 @@ namespace Clases
                 DataRowToObject(ds.Tables[0].Rows[0]);
             }
         }
-
-        
-        public static DataSet ObtenerClientePorIdUsuario(int unIdUsuario)
-        {
-            Cliente unCliente = new Cliente();
-            unCliente.setearListaDeParametrosConIdUsuario(unIdUsuario);
-            DataSet ds = unCliente.TraerListado(unCliente.parameterList, "PorId_Usuario");
-            unCliente.parameterList.Clear();
-
-            return ds;
-        }
-
         
         public static DataSet obtenerTodosLosClientes()
         {
             Cliente unCliente = new Cliente();
             return unCliente.TraerListado(unCliente.parameterList, "");
         }
-        
-       
+
+
+        //Cuando le pasen este metodo a un cliente antes tienen que crearlo, ahi usar unCliente = new Cliente(unNombre, unApellido, unTipoDni, unDni, unMail); 
+        // y despues basta con llamarlo como this.
         public static DataSet obtenerTodosLosClientesConFiltros(string unNombre, string unApellido, string unTipoDni, int unDni, string unMail)
         {
             Cliente unCliente = new Cliente(unNombre, unApellido, unTipoDni, unDni, unMail);
-            unCliente.setearListaDeParametrosConFiltros(unCliente._cliente_nombre, unCliente._cliente_apellido, unCliente._cliente_tipo_documento_id, unCliente._cliente_numero_documento, unCliente._cliente_mail);
+            unCliente.setearListaDeParametrosConFiltros(unCliente.Nombre, unCliente.Apellido, unCliente.TipoDocumento, unCliente.Documento, unCliente.Mail);
             DataSet ds = unCliente.TraerListado(unCliente.parameterList, "ConFiltros");
             unCliente.parameterList.Clear();
             return ds;
         }
 
-        
-        public void guardarDatosDeClienteNuevo()
-        {
-            setearListaDeParametros();
-            //Guardo tambien en la lista de parametros el id_rol (variable privada de la clase)
-            //Para que tambien se inserte la relacio id_rol id_usuario en la BD
-            setearListaDeParametrosConIdRol();
-           // DataSet ds1 = SQLHelper.ExecuteDataSet("validarTelefonoEnCliente", CommandType.StoredProcedure, parameterList); no tiene telefono
-            DataSet ds2 = SQLHelper.ExecuteDataSet("validarDniEnCliente", CommandType.StoredProcedure, parameterList);
-            //if ((ds1.Tables[0].Rows.Count == 0) && (ds2.Tables[0].Rows.Count == 0))
-            {
-                // se ejecuto un procedure que me traia los clientes where telefono = telfonoIngresado
-                // y otro que me trae los clientes where dni = DniIngresado
-                // solo si los dos ds estan vacios se inserta el usuarioDefault y el cliente en la BD
-                this.Usuario.Id_Usuario = this.Usuario.GuardarYObtenerID();
-                setearListaDeParametrosConIdUsuario(this.Usuario.Id_Usuario);
-                this.Guardar(parameterList);
-            }
-            else
-            {
-                //if (ds1.Tables[0].Rows.Count != 0) throw new Exception("Ya existe un Cliente con este telefono. Por favor, ingrese otro.");
-                if (ds2.Tables[0].Rows.Count != 0) throw new Exception("Ya existe un Cliente con este Dni. Por favor, ingrese otro.");
-            }
-            parameterList.Clear();
-        }
-        
-        
-        public void guardarDatosDeClienteNuevoRegistrado(int id_usuario)
-        {
-            setearListaDeParametrosCompleta();
-            //Guardo tambien en la lista de parametros el id_rol (variable privada de la clase)
-            //Para que tambien se inserte la relacio id_rol id_usuario en la BD
-            setearListaDeParametrosConIdRol();
-            setearListaDeParametrosConIdUsuario(id_usuario);
-          //  DataSet ds1 = SQLHelper.ExecuteDataSet("validarTelefonoEnCliente", CommandType.StoredProcedure, parameterList);
-            DataSet ds2 = SQLHelper.ExecuteDataSet("validarDniEnCliente", CommandType.StoredProcedure, parameterList);
-            if ((ds1.Tables[0].Rows.Count == 0) && (ds2.Tables[0].Rows.Count == 0))
-            {
-                // se ejecuto un procedure que me traia los clientes where telefono = telfonoIngresado
-                // y otro que me trae los clientes where dni = DniIngresado
-                // solo si los dos ds estan vacios se inserta el cliente en la BD                
-                this.Guardar(parameterList);
-            }
-            else
-            {
-                if (ds1.Tables[0].Rows.Count != 0) throw new Exception("Ya existe un Cliente con este telefono. Por favor, ingrese otro.");
-                if (ds2.Tables[0].Rows.Count != 0) throw new Exception("Ya existe un Cliente con este Dni. Por favor, ingrese otro.");
-            }
-            parameterList.Clear();
-        }
-        
-        
-        public void ModificarDatos()
-        {
-            parameterList.Clear();
-            setearListaDeParametrosCompleta();
-            setearListaDeParametrosConIdRol();
-            setearListaDeParametrosConIdCliente();
-         //   DataSet ds1 = SQLHelper.ExecuteDataSet("validarTelefonoEnCliente", CommandType.StoredProcedure, parameterList);
-            DataSet ds2 = SQLHelper.ExecuteDataSet("validarDniEnCliente", CommandType.StoredProcedure, parameterList);
-            if ((ds1.Tables[0].Rows.Count == 0) && (ds2.Tables[0].Rows.Count == 0))
-            {
-                // se ejecuto un procedure que me traia los clientes where telefono = telfonoIngresado
-                // solo si el ds esta vacio se inserta el usuarioDefault y el cliente en la BD
-
-                if (this.Modificar(parameterList))
-                {
-                    parameterList.Clear();
-                }
-            }
-            else
-            {
-              //  if (ds1.Tables[0].Rows.Count != 0) throw new Exception("Ya existe un Cliente con este telefono. Por favor, ingrese otro.");
-                if (ds2.Tables[0].Rows.Count != 0) throw new Exception("Ya existe un Cliente con este Dni. Por favor, ingrese otro.");
-            }
-            parameterList.Clear();
-
-        }
-
-
+           
         public void Eliminar()
         {
             setearListaDeParametrosConIdCliente();
@@ -357,9 +281,7 @@ namespace Clases
             this.FechaNacimiento = Convert.ToDateTime(dr["cliente_fecha_nacimiento"]);
         }
 
-
-
-        public override void DataRowToObject(DataRow dr)
+        public void DataRowToObjectCompleto(DataRow dr)
         {
             // Esto es tal cual lo devuelve el stored de la DB
             this.cliente_id = Convert.ToInt32(dr["cliente_id"]);
@@ -373,7 +295,7 @@ namespace Clases
             this.NumeroDireccion = Convert.ToInt32(dr["cliente_numero"]);
             this.PisoDireccion = Convert.ToInt32(dr["cliente_piso"]);
             this.DeptoDireccion = dr["cliente_depto"].ToString();
-            //this.Activo = Convert.ToBoolean(dr["Activo"]);
+            this.estado = Convert.ToBoolean(dr["cliente_estado"]);  //TODO agregar cliente estado a la bd
         }
 
 
@@ -418,36 +340,36 @@ namespace Clases
 
         private void setearListaDeParametrosConIdCliente()
         {
-            parameterList.Add(new SqlParameter("@id_Cliente", this.id_Cliente));
+            parameterList.Add(new SqlParameter("@id_Cliente", this.cliente_id));
         }
 
 
         private void setearListaDeParametrosCompleta()
         {
-            //parameterList.Add(new SqlParameter("@id_Cliente", this.id_Cliente));
+            parameterList.Add(new SqlParameter("@id_Cliente", this.cliente_id));
             parameterList.Add(new SqlParameter("@Tipo_Dni", this.TipoDocumento));
-            parameterList.Add(new SqlParameter("@Dni", this._cliente_numero_documento));
-            //parameterList.Add(new SqlParameter("@Cuil", this.Cuil));
-            parameterList.Add(new SqlParameter("@Apellido", this._cliente_apellido);
-            parameterList.Add(new SqlParameter("@Nombre", this._cliente_nombre));
-            parameterList.Add(new SqlParameter("@Fecha_nac", this._cliente_fecha_nacimiento));
-            parameterList.Add(new SqlParameter("@Mail", this._cliente_mail));
-            //parameterList.Add(new SqlParameter("@Telefono", this.Telefono));
-            parameterList.Add(new SqlParameter("@Dom_calle", this._cliente_calle));
-            parameterList.Add(new SqlParameter("@Dom_nro_calle", this._cliente_numero));
-            parameterList.Add(new SqlParameter("@Dom_piso", this._cliente_piso));
-            parameterList.Add(new SqlParameter("@Dom_depto", this._cliente_depto));
-            parameterList.Add(new SqlParameter("@Pais_residente", this._cliente_pais_residente_id));
-            //parameterList.Add(new SqlParameter("@Dom_cod_postal", this.Dom_cod_postal));
-            //parameterList.Add(new SqlParameter("@Dom_ciudad", this.Dom_ciudad));
-            //parameterList.Add(new SqlParameter("@Activo", this.Activo));
+            parameterList.Add(new SqlParameter("@Dni", this.Documento));
+
+            parameterList.Add(new SqlParameter("@Apellido", this.Apellido));
+            parameterList.Add(new SqlParameter("@Nombre", this.Nombre));    //TODO: ARREGLAR NOMBRES VARIABLES, TIENEN QUE SER IGUAL A LOS NOMBRES
+            parameterList.Add(new SqlParameter("@Fecha_nac", this.FechaNacimiento)); // DE LAS COLUMNAS DE LAS TABLAS
+            parameterList.Add(new SqlParameter("@Mail", this.Mail));
+
+            parameterList.Add(new SqlParameter("@Dom_calle", this.Calle));
+            parameterList.Add(new SqlParameter("@Dom_nro_calle", this.NumeroDireccion));
+            parameterList.Add(new SqlParameter("@Dom_piso", this.PisoDireccion));
+            parameterList.Add(new SqlParameter("@Dom_depto", this.DeptoDireccion));
+            parameterList.Add(new SqlParameter("@Pais_residente", this.PaisResidente));
+            parameterList.Add(new SqlParameter("@Estado", this.estado));
         }
 
 
-        private void setearListaDeParametrosConIdRol()
-        {
-            parameterList.Add(new SqlParameter("@id_Rol", this.id_Rol));
-        }
+        // NO ASIGNAMOS UN ROL AL CLIENTE. VER..
+
+        // private void setearListaDeParametrosConIdRol()
+        //{
+        //    parameterList.Add(new SqlParameter("@id_Rol", this.id_Rol));
+        //}
 
 
 

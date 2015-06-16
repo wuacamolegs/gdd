@@ -155,7 +155,8 @@ namespace Clases
         public void GenerarRetiro(int importe)
         {
             this.setearListaDeParametrosConImporte(importe);
-            Modificar(parameterList);
+            Modificar(parameterList); //TODO habria que verificar que se modifico correctamente, y en caso contrario borrar el cheque generado
+            //TODO Falta el stored procedure! 
         }
 
         #endregion
