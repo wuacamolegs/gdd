@@ -12,7 +12,10 @@ namespace PagoElectronico.Depositos
 {
     public partial class frmDepositos : Form
     {
-        public Usuario unUsuario = new Usuario();
+        public Usuario unUsuario = new Usuario(); 
+        public Cliente unCliente;
+        public Deposito depositoActual = new Deposito();
+        public Cuenta unaCuenta = new Cuenta();
 
 
         public frmDepositos()
@@ -25,5 +28,12 @@ namespace PagoElectronico.Depositos
             unUsuario = user;
             this.Show();
         }
+
+        private void frmDepositos_Load(object sender, EventArgs e)
+        {
+
+        }
+
+     
     }
 }

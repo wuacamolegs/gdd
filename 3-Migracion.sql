@@ -133,7 +133,7 @@ COMMIT
  
  INSERT INTO [OOZMA_KAPPA].[Deposito] (deposito_id, deposito_cuenta_id, deposito_cliente_id, 
                                        deposito_importe, deposito_moneda_id, deposito_tarjeta_id,
-                                        deposito_fecha, deposito_costo)(
+                                        deposito_fecha)(
 	SELECT DISTINCT Deposito_Codigo
 	, Cuenta_Numero
 	, 0
@@ -141,7 +141,6 @@ COMMIT
 	, 1
 	, Tarjeta_Numero
 	, Deposito_Fecha
-	, 0                  -- NO SE DE DONDE SACARLO VER DESP , en la consigna dice que no tienen comisiones ni no se que--
     FROM gd_esquema.Maestra WHERE Deposito_Codigo IS NOT NULL);
 	
  

@@ -77,8 +77,7 @@ CREATE TABLE [OOZMA_KAPPA].[Deposito](
 	[deposito_moneda_id] numeric(18, 0)NOT NULL,
 	[deposito_tarjeta_id] numeric(18, 0)NOT NULL,
 	[deposito_fecha] [datetime] NOT NULL,
-	[deposito_costo] numeric(18, 0)NOT NULL,
-)
+	)
 
 --- TABLA FACTURA ---
 
