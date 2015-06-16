@@ -186,6 +186,7 @@ namespace PagoElectronico.Retiros
 
             MessageBox.Show("Retiro generado exitosamente", "retiro exitoso");
 
+            
             txtImporte.Clear();
             txtDocumento.Clear();
             
