@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using System.Configuration;
 using Clases;
 using Utilities;
+using Excepciones;
+
 
 
 namespace PagoElectronico.ABM_Rol
@@ -88,11 +90,60 @@ namespace PagoElectronico.ABM_Rol
         {
             return Convert.ToBoolean(((DataRowView)dtgListado.CurrentRow.DataBoundItem)["rol_estado"]);
         }
-
+      
         private void btnModificar_Click(object sender, EventArgs e)
         {
             //ModificarRol abmModificarRol = new ModificarRol();
             //abmModificarRol.abrirConRol(unRol);
+
+            //si el boton tocado es modificar, instancio el rol con los datos de la fila seleccionada y abro el form
+            //configurado con esos datos para editarlos
+            frmRol _frmRol = new frmRol();
+            Rol unRol = new Rol(valorIdSeleccionado(), valorNombreSeleccionado(), valorHabilitadoSeleccionado());
+            _frmRol.AbrirParaModificar(unRol, this);
+        }
+
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+            //si el boton tocado es agregar, abro el frmRol con el metodo abrirParaAgregar, que configurar el form
+            //de forma tal que quede todo listo para realizar el alta
+            frmRol _frmRol = new frmRol();
+            _frmRol.AbrirParaAgregar(this);
+        }
+
+        private void btnDeshab_Click(object sender, EventArgs e)
+        {
+            //si el boton tocado es desactivar, le pregunto si esta seguro de deshabilitarlo.
+            //si toca que si, instancio el rol y lo deshabilito. sino, no hago nada
+            DialogResult dr = MessageBox.Show("¿Está seguro que desea deshabilitar el rol?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dr == DialogResult.Yes)
+            {
+                Rol unRol = new Rol(valorIdSeleccionado(), valorNombreSeleccionado(), valorHabilitadoSeleccionado());
+                unRol.Deshabilitar();
+                MessageBox.Show("El rol ha sido deshabilitado", "Deshabilitado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                CargarListadoDeRoles();
+            }
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            //si toca boton eliminar, le pregunto si esta seguro de eliminarlo
+            //si responde que si, ejecuto la accion (borrado logico), sino, no hago nada
+            DialogResult dr = MessageBox.Show("¿Está seguro que desea eliminar el rol?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dr == DialogResult.Yes)
+            {
+                try
+                {
+                    Rol unRol = new Rol(valorIdSeleccionado(), valorNombreSeleccionado(), valorHabilitadoSeleccionado());
+                    unRol.Eliminar();
+                    MessageBox.Show("El rol sido eliminado", "Deshabilitado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    CargarListadoDeRoles();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
 
