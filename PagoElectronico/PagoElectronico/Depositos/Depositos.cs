@@ -131,51 +131,27 @@ namespace PagoElectronico.Depositos
         //HACER DEPOSITO
         private void realizarAccionesDeposito()
         {
-            int clienteID = Convert.ToInt32(cmbCliente.SelectedValue);
-            DataSet dsCliente = unCliente.TraerClientePorID(clienteID);
-            unCliente.DataRowToObject(dsCliente.Tables[0].Rows[0]);
-
-
-            double cuentaID = Convert.ToDouble(cmbCuenta.SelectedValue);
-            DataSet dsCuenta = unaCuenta.TraerCuentaPorCuentaID(cuentaID);
-            unaCuenta.DataRowToObject(dsCuenta.Tables[0].Rows[0]);
-
-            int importe = Convert.ToInt32(txtImporte.Text);
-            if (importe <= unaCuenta.saldo)
-            {
-                generarDepositoExitoso();
-            }
-            else
-            {
-                
-            }
+            
         }
 
         //HACER DEPOSITO
         private void generarDepositoExitoso()
         {
-            chequeActual.banco.Banco_id = Convert.ToDouble(cmbBanco.SelectedValue);
-            chequeActual.Cliente = unCliente;
-            chequeActual.Cuenta = unaCuenta;
-            chequeActual.Fecha = Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]);
-            chequeActual.Importe = Convert.ToInt32(txtImporte.Text);
-            chequeActual.GenerarChequeDevolverSuID();
-
-            retiroActual.Cheque = chequeActual;
-            retiroActual.Cuenta = unaCuenta;
-            retiroActual.Fecha = Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]);
-            retiroActual.Importe = Convert.ToInt32(txtImporte.Text);
-            retiroActual.GenerarRetiroDevolverSuID();
-
-            unaCuenta.GenerarRetiro(retiroActual.Importe);
-
-            MessageBox.Show("Retiro generado exitosamente", "retiro exitoso");
-
-            
-            txtImporte.Clear();
-            txtDocumento.Clear();
+         
             
         }
+
+
+
+
+
+
+
+
+
+
+
+
 
         private void InitializeComponent()
         {
