@@ -6,6 +6,10 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Configuration;
+using Clases;
+using Utilities;
+
 
 namespace PagoElectronico.ABM_Rol
 {
@@ -240,4 +244,3 @@ namespace PagoElectronico.ABM_Rol
 
         }
     }
-}

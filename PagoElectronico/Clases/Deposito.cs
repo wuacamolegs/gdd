@@ -46,12 +46,14 @@ namespace Clases
 
         #region properties
 
+        
         public Tarjeta Tarjeta
         {
             get { return _tarjeta; }
             set { _tarjeta = value; }
         }
        
+
         public Cuenta Cuenta
         {
             get { return _cuenta; }
