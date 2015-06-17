@@ -2,13 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Data.SqlClient;
-using System.Data;
-using Conexion;
-using System.Configuration;
-using Excepciones;
-using Utilities;
-using System.Windows.Forms;
 
 namespace Clases
 {
@@ -114,7 +107,7 @@ namespace Clases
             this.Deposito_id= Convert.ToInt32(dr["deposito_id"]);
             this.Fecha = Convert.ToDateTime(dr["deposito_fecha"]);
             this.Importe = Convert.ToInt32(dr["deposito_importe"]);
-            this.Tarjeta.tarjeta_id = Convert.ToInt32(dr["deposito_tarjeta_id"]);
+            this.Tarjeta = Convert. //TODO ????????
             this.Cliente.cliente_id = Convert.ToInt32(dr["deposito_cliente_id"]);
         }
 
