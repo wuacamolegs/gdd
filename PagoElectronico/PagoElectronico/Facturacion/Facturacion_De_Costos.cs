@@ -17,6 +17,7 @@ namespace PagoElectronico.Facturacion
     {
         public Usuario unUsuario = new Usuario();
         public Cliente unCliente = new Cliente();
+        public Factura unaFactura = new Factura();
 
 
         public Facturacion_De_Costos()
@@ -28,6 +29,7 @@ namespace PagoElectronico.Facturacion
         {
             unUsuario = user;
             unCliente.Usuario = user;
+            unaFactura.Cliente = unCliente;
             this.Show();
         }
 
@@ -48,17 +50,39 @@ namespace PagoElectronico.Facturacion
             //1. TRANSFERENCIAS
 
             DataSet dsTransferencias = unCliente.TraerTransferenciasAFacturarPorClienteID();
-            cargarDataGrids(dsTransferencias, gridTranseferencia);
+            cargarDataGrids(dsTransferencias, gridTransferencia);
+   
+            int suma = 0;
+                       
+            foreach (DataRow dr in dsTransferencias.Tables[0].Rows)
+            {
+                suma += (Convert.ToInt32(dr["item_factura_costo"]) * Convert.ToInt32(dr["item_factura_cant"])) ;
+            }
+            txtSubTotalTransferencia.Text = Convert.ToString(suma);
 
             //2. COSTOS POR APERTURA CUENTA
 
             DataSet dsAperturaCuenta = unCliente.TraerCostosPorAperturaCuentaAFacturarPorClienteID();
-            cargarDataGrids(dsAperturaCuenta, gridReaperturaCuenta);
+            cargarDataGrids(dsAperturaCuenta, gridAperturaCuenta);
+
+            suma = 0;
+            foreach (DataRow dr in dsAperturaCuenta.Tables[0].Rows)
+            {
+                suma += (Convert.ToInt32(dr["item_factura_costo"]) * Convert.ToInt32(dr["item_factura_cant"]));
+            }
+            txtSubTotalApertura.Text = Convert.ToString(suma);
 
             //3. MODIFICACION TIPO CUENTA
 
             DataSet dsModificacionesTC = unCliente.TraerModificacionesTipoCuentaAFacturarPorClienteID();
             cargarDataGrids(dsModificacionesTC, gridModificacionTipoCuenta);
+
+            suma = 0;
+            foreach (DataRow dr in dsModificacionesTC.Tables[0].Rows)
+            {
+                suma += (Convert.ToInt32(dr["item_factura_costo"]) * Convert.ToInt32(dr["item_factura_cant"]));
+            }
+            txtSubTotalModificacionTC.Text = Convert.ToString(suma);
 
         }
 
@@ -69,28 +93,28 @@ namespace PagoElectronico.Facturacion
             dataGrid.AutoGenerateColumns = false;
 
             DataGridViewTextBoxColumn clmFecha = new DataGridViewTextBoxColumn();
-            clmFecha.Width = 50;
+            clmFecha.Width = 150;
             clmFecha.ReadOnly = true;
             clmFecha.DataPropertyName = "item_factura_fecha";
             clmFecha.HeaderText = "FECHA";
             dataGrid.Columns.Add(clmFecha);
 
             DataGridViewTextBoxColumn clmID = new DataGridViewTextBoxColumn();
-            clmID.Width = 50;
+            clmID.Width = 150;
             clmID.ReadOnly = true;
             clmID.DataPropertyName = "item_factura_id";  
             clmID.HeaderText = "ID item";
             dataGrid.Columns.Add(clmID);
 
             DataGridViewTextBoxColumn clmNombre = new DataGridViewTextBoxColumn();
-            clmNombre.Width = 50;
+            clmNombre.Width = 150;
             clmNombre.ReadOnly = true;
             clmNombre.DataPropertyName = "item_factura_cant";
             clmNombre.HeaderText = "CANTIDAD";
             dataGrid.Columns.Add(clmNombre);
 
-            DataGridViewCheckBoxColumn clmCosto = new DataGridViewCheckBoxColumn();
-            clmCosto.Width = 60;
+            DataGridViewTextBoxColumn clmCosto = new DataGridViewTextBoxColumn();
+            clmCosto.Width = 150;
             clmCosto.ReadOnly = true;
             clmCosto.DataPropertyName = "item_factura_costo";
             clmCosto.HeaderText = "COSTO";
@@ -100,11 +124,6 @@ namespace PagoElectronico.Facturacion
             dataGrid.DataSource = ds.Tables[0];
         }
         
-
-
-
-
-
         #endregion
 
 
@@ -132,7 +151,19 @@ namespace PagoElectronico.Facturacion
 
         #endregion
 
+        private void btnGenerarFactura_Click(object sender, EventArgs e)
+        {
+            //TODO: VALIDAR CAMPOS NO SEAN NULOS, Y QUE SEAN DEL TIPO DATO CORRECTO
 
+            DataSet ds = unaFactura.Cliente.TraerClientePorID(unCliente.cliente_id);
+            unaFactura.Cliente.DataRowToObject(ds.Tables[0].Rows[0]);
+            unaFactura.Fecha = Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]);
+            unaFactura.Importe = Convert.ToInt32(txtSubTotalApertura.Text) + Convert.ToInt32(txtSubTotalModificacionTC.Text) + Convert.ToInt32(txtSubTotalTransferencia.Text);
+
+            Facturas frmFacturas = new Facturas();
+            frmFacturas.AbrirCon(unaFactura, txtSubTotalTransferencia.Text,txtSubTotalApertura.Text, txtSubTotalModificacionTC.Text);
+
+        }
 
 
 

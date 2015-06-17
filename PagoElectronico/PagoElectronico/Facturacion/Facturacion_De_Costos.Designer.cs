@@ -36,23 +36,23 @@
             this.label4 = new System.Windows.Forms.Label();
             this.gridModificacionTipoCuenta = new System.Windows.Forms.DataGridView();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.txtSubTotalReapertura = new System.Windows.Forms.TextBox();
+            this.txtSubTotalApertura = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.gridReaperturaCuenta = new System.Windows.Forms.DataGridView();
+            this.gridAperturaCuenta = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtSubTotalTransferencia = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.gridTranseferencia = new System.Windows.Forms.DataGridView();
+            this.gridTransferencia = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.txtSuscripciones = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnGenerarFactura = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridModificacionTipoCuenta)).BeginInit();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridReaperturaCuenta)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridAperturaCuenta)).BeginInit();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridTranseferencia)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridTransferencia)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -128,23 +128,23 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.txtSubTotalReapertura);
+            this.groupBox3.Controls.Add(this.txtSubTotalApertura);
             this.groupBox3.Controls.Add(this.label3);
-            this.groupBox3.Controls.Add(this.gridReaperturaCuenta);
+            this.groupBox3.Controls.Add(this.gridAperturaCuenta);
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.Location = new System.Drawing.Point(28, 260);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(645, 135);
             this.groupBox3.TabIndex = 0;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "REAPERTURA CUENTA";
+            this.groupBox3.Text = "APERTURA CUENTA";
             // 
-            // txtSubTotalReapertura
+            // txtSubTotalApertura
             // 
-            this.txtSubTotalReapertura.Location = new System.Drawing.Point(552, 104);
-            this.txtSubTotalReapertura.Name = "txtSubTotalReapertura";
-            this.txtSubTotalReapertura.Size = new System.Drawing.Size(75, 22);
-            this.txtSubTotalReapertura.TabIndex = 3;
+            this.txtSubTotalApertura.Location = new System.Drawing.Point(552, 104);
+            this.txtSubTotalApertura.Name = "txtSubTotalApertura";
+            this.txtSubTotalApertura.Size = new System.Drawing.Size(75, 22);
+            this.txtSubTotalApertura.TabIndex = 3;
             // 
             // label3
             // 
@@ -156,19 +156,19 @@
             this.label3.TabIndex = 2;
             this.label3.Text = "SubTotal";
             // 
-            // gridReaperturaCuenta
+            // gridAperturaCuenta
             // 
-            this.gridReaperturaCuenta.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridReaperturaCuenta.Location = new System.Drawing.Point(23, 26);
-            this.gridReaperturaCuenta.Name = "gridReaperturaCuenta";
-            this.gridReaperturaCuenta.Size = new System.Drawing.Size(604, 71);
-            this.gridReaperturaCuenta.TabIndex = 0;
+            this.gridAperturaCuenta.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridAperturaCuenta.Location = new System.Drawing.Point(23, 26);
+            this.gridAperturaCuenta.Name = "gridAperturaCuenta";
+            this.gridAperturaCuenta.Size = new System.Drawing.Size(604, 71);
+            this.gridAperturaCuenta.TabIndex = 0;
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.txtSubTotalTransferencia);
             this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Controls.Add(this.gridTranseferencia);
+            this.groupBox2.Controls.Add(this.gridTransferencia);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(28, 83);
             this.groupBox2.Name = "groupBox2";
@@ -194,13 +194,13 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "SubTotal";
             // 
-            // gridTranseferencia
+            // gridTransferencia
             // 
-            this.gridTranseferencia.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridTranseferencia.Location = new System.Drawing.Point(23, 33);
-            this.gridTranseferencia.Name = "gridTranseferencia";
-            this.gridTranseferencia.Size = new System.Drawing.Size(604, 100);
-            this.gridTranseferencia.TabIndex = 0;
+            this.gridTransferencia.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridTransferencia.Location = new System.Drawing.Point(23, 33);
+            this.gridTransferencia.Name = "gridTransferencia";
+            this.gridTransferencia.Size = new System.Drawing.Size(604, 100);
+            this.gridTransferencia.TabIndex = 0;
             // 
             // label1
             // 
@@ -219,22 +219,23 @@
             this.txtSuscripciones.Size = new System.Drawing.Size(56, 20);
             this.txtSuscripciones.TabIndex = 2;
             // 
-            // button1
+            // btnGenerarFactura
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(560, 583);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(115, 61);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Generar Factura";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnGenerarFactura.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGenerarFactura.Location = new System.Drawing.Point(560, 583);
+            this.btnGenerarFactura.Name = "btnGenerarFactura";
+            this.btnGenerarFactura.Size = new System.Drawing.Size(115, 61);
+            this.btnGenerarFactura.TabIndex = 3;
+            this.btnGenerarFactura.Text = "Generar Factura";
+            this.btnGenerarFactura.UseVisualStyleBackColor = true;
+            this.btnGenerarFactura.Click += new System.EventHandler(this.btnGenerarFactura_Click);
             // 
             // Facturacion_De_Costos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(717, 661);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnGenerarFactura);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.txtSuscripciones);
             this.Controls.Add(this.label1);
@@ -248,10 +249,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridModificacionTipoCuenta)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridReaperturaCuenta)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridAperturaCuenta)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridTranseferencia)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridTransferencia)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -265,16 +266,16 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView gridModificacionTipoCuenta;
-        private System.Windows.Forms.DataGridView gridReaperturaCuenta;
-        private System.Windows.Forms.DataGridView gridTranseferencia;
+        private System.Windows.Forms.DataGridView gridAperturaCuenta;
+        private System.Windows.Forms.DataGridView gridTransferencia;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtSuscripciones;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtSubTotalTransferencia;
         private System.Windows.Forms.TextBox txtSubTotalModificacionTC;
-        private System.Windows.Forms.TextBox txtSubTotalReapertura;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox txtSubTotalApertura;
+        private System.Windows.Forms.Button btnGenerarFactura;
         private System.Windows.Forms.ComboBox cmbCliente;
         private System.Windows.Forms.Label label5;
     }

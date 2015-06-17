@@ -101,7 +101,7 @@ namespace Clases
             this.Fecha = Convert.ToDateTime(dr["item_factura_fecha"]);
             this.Factura.Numero = Convert.ToInt32(dr["item_factura_factura_numero"]);
             this.Descripcion = Convert.ToString(dr["item_factura_desc"]);
-            this.Cantidad = Convert.ToInt32(dr["item_factura_cant"])
+            this.Cantidad = Convert.ToInt32(dr["item_factura_cant"]);
         }
     }
 }

@@ -12,6 +12,21 @@
     <AssemblyName>PagoElectronico</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -67,29 +82,17 @@
     <Compile Include="ABM de Usuario\ABM_Usuario.Designer.cs">
       <DependentUpon>ABM_Usuario.cs</DependentUpon>
     </Compile>
-    <Compile Include="ABM Rol\ABM_Rol.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ABM Rol\ABM_Rol.Designer.cs">
-      <DependentUpon>ABM_Rol.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ABM Rol\frmRol.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ABM Rol\frmRol.Designer.cs">
-      <DependentUpon>frmRol.cs</DependentUpon>
-    </Compile>
     <Compile Include="Consulta Saldos\Consulta_De_Saldos.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Consulta Saldos\Consulta_De_Saldos.Designer.cs">
       <DependentUpon>Consulta_De_Saldos.cs</DependentUpon>
     </Compile>
-    <Compile Include="Depositos\frmDepositos.cs">
+    <Compile Include="Facturacion\Facturas.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Depositos\frmDepositos.Designer.cs">
-      <DependentUpon>frmDepositos.cs</DependentUpon>
+    <Compile Include="Facturacion\Facturas.Designer.cs">
+      <DependentUpon>Facturas.cs</DependentUpon>
     </Compile>
     <Compile Include="Facturacion\Facturacion_De_Costos.cs">
       <SubType>Form</SubType>
@@ -132,17 +135,11 @@
     <EmbeddedResource Include="ABM de Usuario\ABM_Usuario.resx">
       <DependentUpon>ABM_Usuario.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ABM Rol\ABM_Rol.resx">
-      <DependentUpon>ABM_Rol.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ABM Rol\frmRol.resx">
-      <DependentUpon>frmRol.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Consulta Saldos\Consulta_De_Saldos.resx">
       <DependentUpon>Consulta_De_Saldos.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Depositos\frmDepositos.resx">
-      <DependentUpon>frmDepositos.cs</DependentUpon>
+    <EmbeddedResource Include="Facturacion\Facturas.resx">
+      <DependentUpon>Facturas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Facturacion\Facturacion_De_Costos.resx">
       <DependentUpon>Facturacion_De_Costos.cs</DependentUpon>
@@ -218,6 +215,32 @@
       <Project>{55F19D4D-2EBC-4BD8-8581-2740D34B9245}</Project>
       <Name>Log</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ABM Rol\" />
+    <Folder Include="Depositos\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
