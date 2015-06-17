@@ -203,7 +203,7 @@ namespace Clases
         public void CargarObjetoClienteConId()
         {
             //Con el id del cliente me traigo de la BD todos los datos del Cliente
-            setearListaDeParametrosConIdCliente();
+            setearListaDeParametrosConClienteID(this.cliente_id);
             DataSet ds = SQLHelper.ExecuteDataSet("traerClienteConId", CommandType.StoredProcedure, parameterList);
             parameterList.Clear();
             if (ds.Tables[0].Rows.Count == 1)
@@ -233,7 +233,7 @@ namespace Clases
            
         public void Eliminar()
         {
-            setearListaDeParametrosConIdCliente();
+            setearListaDeParametrosConClienteID(this.cliente_id);
             this.Eliminar(parameterList);
             parameterList.Clear();
         }
