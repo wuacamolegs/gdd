@@ -58,7 +58,7 @@ namespace Clases
             set { cuentaDestino = value; }
         }
 
-        public Transferencia Transferencia
+        public Transferencia transferencia
         {
             get { return transferencia_id; }
             set { transferencia_id = value; }
@@ -100,7 +100,7 @@ namespace Clases
 
         public override void DataRowToObject(DataRow dr)
         {
-            this.transferencia_id = Convert.ToInt32(dr[""]);
+            //this.transferencia_id = Convert.ToInt32(dr[""]);
             this.CuentaOrigen.cuenta_id = Convert.ToDouble(dr["transferencia_origen_cuenta_id"]);
             this.CuentaDestino.cuenta_id = Convert.ToDouble(dr["transferencia_destino_cuenta_id"]);
             this.Importe = Convert.ToInt32(dr["transferencia_importe"]);
