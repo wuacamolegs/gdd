@@ -80,7 +80,7 @@ namespace PagoElectronico.Retiros
         {
             
             DataSet ds = new DataSet();
-            if (unUsuario.Rol.rol_id == 1)
+            if (unUsuario.Rol.rol_id == 1) 
             {
                 DataSet dsClientes = unCliente.ObtenerTodosLosClientes(unUsuario.usuario_id);
                 ds = dsClientes;

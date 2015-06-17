@@ -137,11 +137,11 @@ INSERT INTO[OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUE
 
 CREATE TABLE [OOZMA_KAPPA].[Item_factura](
 	[item_factura_id] numeric(18, 0) IDENTITY (1,1),
-	[item_factura_factura_numero] numeric(18, 0),
 	[item_factura_desc] [varchar](255) NOT NULL,
 	[item_factura_costo] numeric(18, 2) NOT NULL,
 	[item_factura_cant] numeric(18, 0)NOT NULL,
 	[item_factura_fecha] [datetime] NOT NULL,
+	[item_facutura_numero_factura] numeric(18,0) NOT NULL,
 )
 
 --- TABLA LOGIN ---

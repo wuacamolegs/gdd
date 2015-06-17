@@ -86,7 +86,7 @@ COMMIT
 
 BEGIN TRANSACTION
 ALTER TABLE [OOZMA_KAPPA].[Factura]
-ADD PRIMARY KEY ([factura_numero]);
+ADD PRIMARY KEY ([factura_numero],[factura_items_id]);
 COMMIT
 	
 

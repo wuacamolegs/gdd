@@ -375,9 +375,21 @@ namespace Clases
 
         #endregion
 
-
         
+        public DataSet TraerTransferenciasAFacturarPorClienteID()
+        {
+            return this.TraerListado("TransferenciasAFacturar");
+        }
 
+        public DataSet TraerCostosPorAperturaCuentaAFacturarPorClienteID()
+        {
+            return this.TraerListado("AperturasCuentaAFacturar");
+        }
+
+        public DataSet TraerModificacionesTipoCuentaAFacturarPorClienteID()
+        {
+            return this.TraerListado("ModificacionesTCAFacturar");
+        }
     }
 }
  
