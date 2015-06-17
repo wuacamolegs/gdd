@@ -146,5 +146,24 @@ AS
 	SELECT @@IDENTITY AS retiro_id;
 GO
 
+CREATE PROCEDURE [OOZMA_KAPPA].[TraerListadoClienteTransferenciasAFacturar]
+	@cliente_id numeric(18,0)
+AS	
+	SELECT item_factura_id, item_factura_desc, item_factura_cant, item_factura_costo, item_factura_fecha FROM OOZMA_KAPPA.Item_factura WHERE item_factura_cliente_id = @cliente_id AND (item_factura_desc = 'Comisión por transferencia.');
+GO
+
+CREATE PROCEDURE [OOZMA_KAPPA].[TraerListadoClienteAperturasCuentaAFacturar]
+	@cliente_id numeric(18,0)
+AS
+	SELECT item_factura_id, item_factura_desc, item_factura_cant, item_factura_costo, item_factura_fecha FROM OOZMA_KAPPA.Item_factura WHERE item_factura_cliente_id = @cliente_id AND (item_factura_desc = 'Apertura Cuenta');
+GO
+
+CREATE PROCEDURE [OOZMA_KAPPA].[TraerListadoClienteModificacionesTCAFacturar]
+	@cliente_id numeric(18,0)
+AS
+	SELECT item_factura_id, item_factura_desc, item_factura_cant, item_factura_costo, item_factura_fecha FROM OOZMA_KAPPA.Item_factura WHERE item_factura_cliente_id = @cliente_id AND (item_factura_desc = 'Modificaciones Tipo Cuenta');
+GO
+
 COMMIT
+
 

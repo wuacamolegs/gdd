@@ -241,7 +241,7 @@ namespace Clases
 
         public DataSet ObtenerClientesPorUsuarioID(int unUsuarioID)
         {
-            this.setearListaDeParametrosConUsuario(unUsuarioID);
+            this.setearListaDeParametrosConUsuarioID(unUsuarioID);
             DataSet ds = this.TraerListado(this.parameterList, "PorUsuarioID");
             this.parameterList.Clear();
             return ds;
@@ -305,7 +305,7 @@ namespace Clases
 
         #region setearListas
 
-        public void setearListaDeParametrosConUsuario(int unUsuario)
+        public void setearListaDeParametrosConUsuarioID(int unUsuario)
         {
             this.parameterList.Clear();
             parameterList.Add(new SqlParameter("@usuario_id",unUsuario)); 
@@ -328,19 +328,6 @@ namespace Clases
             parameterList.Add(new SqlParameter("@Tipo_Dni", TipoDni));
             parameterList.Add(new SqlParameter("@Dni", Dni));
             parameterList.Add(new SqlParameter("@Mail", Mail));
-        }
-
-
-
-        private void setearListaDeParametrosConIdUsuario(int id_Usuario)
-        {
-            parameterList.Add(new SqlParameter("@id_Usuario", id_Usuario));
-        }
-
-
-        private void setearListaDeParametrosConIdCliente()
-        {
-            parameterList.Add(new SqlParameter("@id_Cliente", this.cliente_id));
         }
 
 
@@ -378,17 +365,20 @@ namespace Clases
         
         public DataSet TraerTransferenciasAFacturarPorClienteID()
         {
-            return this.TraerListado("TransferenciasAFacturar");
+            setearListaDeParametrosConClienteID(this.cliente_id);
+            return this.TraerListado(parameterList,"TransferenciasAFacturar"); 
         }
 
         public DataSet TraerCostosPorAperturaCuentaAFacturarPorClienteID()
         {
-            return this.TraerListado("AperturasCuentaAFacturar");
+            setearListaDeParametrosConClienteID(this.cliente_id);
+            return this.TraerListado(parameterList, "AperturasCuentaAFacturar");
         }
 
         public DataSet TraerModificacionesTipoCuentaAFacturarPorClienteID()
         {
-            return this.TraerListado("ModificacionesTCAFacturar");
+            setearListaDeParametrosConClienteID(this.cliente_id);
+            return this.TraerListado(parameterList, "ModificacionesTCAFacturar");
         }
     }
 }

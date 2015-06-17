@@ -141,7 +141,8 @@ CREATE TABLE [OOZMA_KAPPA].[Item_factura](
 	[item_factura_costo] numeric(18, 2) NOT NULL,
 	[item_factura_cant] numeric(18, 0)NOT NULL,
 	[item_factura_fecha] [datetime] NOT NULL,
-	[item_facutura_numero_factura] numeric(18,0) NOT NULL,
+	[item_factura_numero_factura] numeric(18,0) NOT NULL,
+	[item_factura_cliente_id] numeric(18,0) NOT NULL,
 )
 
 --- TABLA LOGIN ---
@@ -198,7 +199,7 @@ CREATE TABLE [OOZMA_KAPPA].[Tarjeta](
 	[tarjeta_codigo_seguridad] varchar(3) NOT NULL,
 	[tarjeta_fecha_emision] [datetime] NOT NULL,
 	[tarjeta_vencimiento] [datetime] NOT NULL,
-	[tarjeta_cuenta_numero] numeric(18,0) IDENTITY(1,1) NOT NULL,
+	[tarjeta_cuenta_numero] numeric(18,0) NOT NULL,
 
 )
 

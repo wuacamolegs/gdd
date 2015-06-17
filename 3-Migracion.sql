@@ -11,19 +11,7 @@ BEGIN TRANSACTION
  WHERE Banco_Cogido IS NOT NULL);
 COMMIT
 
- -- TABLA ITEM FACTURA --
  
- BEGIN TRANSACTION
- INSERT INTO [OOZMA_KAPPA].[Item_factura] (item_factura_numero_factura,item_factura_desc, item_factura_costo, item_factura_cant, item_factura_fecha)(
-	SELECT Factura_Numero,
-	  Item_Factura_Descr
-	  ,Item_Factura_Importe    --como en la tabla maestra solo hay un item factura por factura hago todo uno a uno, no sumo los item y sus importes
-	  ,1
-	  ,Factura_Fecha
- FROM gd_esquema.Maestra
- WHERE Item_Factura_Descr IS NOT NULL);
- COMMIT
-  
  -- TABLA PAIS --
  
  BEGIN TRANSACTION
@@ -85,6 +73,21 @@ COMMIT
 
 	--UN CLIENTE PUEDE TENER ASOCIADAS UNA O VARIAS CUENTAS.. SE PODRIA HACER UNA INTERMEDIA QUE SEA CUENTA - CLIENTE PARA TENER TIPO UN INDICE.
 	--SACO CLIENTE_CUENTA DE TABLA CLIENTE
+ 
+  -- TABLA ITEM FACTURA -- ANTES TIENE QUE IR CLIENTE
+ 
+ BEGIN TRANSACTION
+ INSERT INTO [OOZMA_KAPPA].[Item_factura] (item_factura_numero_factura,item_factura_desc, item_factura_costo, item_factura_cant, item_factura_fecha, item_factura_cliente_id)(
+	SELECT Factura_Numero,
+	  Item_Factura_Descr
+	  ,Item_Factura_Importe    --como en la tabla maestra solo hay un item factura por factura hago todo uno a uno, no sumo los item y sus importes
+	  ,1
+	  ,Factura_Fecha
+	  ,(SELECT cliente_id FROM OOZMA_KAPPA.Cliente WHERE cliente_numero_documento = Cli_Nro_Doc)
+ FROM gd_esquema.Maestra
+ WHERE Item_Factura_Descr IS NOT NULL);
+ COMMIT
+ 
  
  ----TABLA CUENTA----   ANTES TIENE QUE IR CLIENTE
  
@@ -167,8 +170,6 @@ COMMIT
     , Tarjeta_Fecha_Emision
 	, Tarjeta_Fecha_Vencimiento
 	, Cuenta_Numero
---EN LA TABLA MAESTRA SOLO SE LES ASOCIA UN BANCO CUANDO ES UN RETIRO DE EFECTIVO. CREO QUE NO HAY QUE ASOCIAR TARJETAS Y CUENTAS CON UN BANCO!!!
--- y en el tp en la parte de asociar/desasociar no nombra el banco
  FROM gd_esquema.Maestra
  WHERE Tarjeta_Numero IS NOT NULL);
  
