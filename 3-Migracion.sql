@@ -161,11 +161,12 @@ COMMIT
  
  SET IDENTITY_INSERT [OOZMA_KAPPA].[Tarjeta] ON
  
- INSERT INTO [OOZMA_KAPPA].[Tarjeta] (tarjeta_id, tarjeta_codigo_seguridad, tarjeta_fecha_emision, tarjeta_vencimiento)(
+ INSERT INTO [OOZMA_KAPPA].[Tarjeta] (tarjeta_id, tarjeta_codigo_seguridad, tarjeta_fecha_emision, tarjeta_vencimiento, tarjeta_cuenta_numero)(
 	SELECT DISTINCT  CAST(Tarjeta_Numero AS numeric(18,0))
 	, Tarjeta_Codigo_Seg
     , Tarjeta_Fecha_Emision
 	, Tarjeta_Fecha_Vencimiento
+	, Cuenta_Numero
 --EN LA TABLA MAESTRA SOLO SE LES ASOCIA UN BANCO CUANDO ES UN RETIRO DE EFECTIVO. CREO QUE NO HAY QUE ASOCIAR TARJETAS Y CUENTAS CON UN BANCO!!!
 -- y en el tp en la parte de asociar/desasociar no nombra el banco
  FROM gd_esquema.Maestra

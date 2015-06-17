@@ -198,6 +198,8 @@ CREATE TABLE [OOZMA_KAPPA].[Tarjeta](
 	[tarjeta_codigo_seguridad] varchar(3) NOT NULL,
 	[tarjeta_fecha_emision] [datetime] NOT NULL,
 	[tarjeta_vencimiento] [datetime] NOT NULL,
+	[tarjeta_cuenta_numero] numeric(18,0) IDENTITY(1,1) NOT NULL,
+
 )
 
 --- TABLA TIPO_CUENTA ---
