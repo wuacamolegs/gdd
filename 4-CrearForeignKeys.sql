@@ -90,13 +90,6 @@ ADD FOREIGN KEY ([deposito_cuenta_id])
 REFERENCES [OOZMA_KAPPA].[Cuenta](cuenta_id);
 COMMIT
 
-BEGIN TRANSACTION
-ALTER TABLE [OOZMA_KAPPA].[Tarjeta]
-ADD FOREIGN KEY ([tarjeta_cuenta_numero])
-REFERENCES [OOZMA_KAPPA].[Cuenta](cuenta_id);
-COMMIT
-
-
 
 BEGIN TRANSACTION
 ALTER TABLE [OOZMA_KAPPA].[Deposito]

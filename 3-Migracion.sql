@@ -164,13 +164,12 @@ COMMIT
  
  SET IDENTITY_INSERT [OOZMA_KAPPA].[Tarjeta] ON
  
- INSERT INTO [OOZMA_KAPPA].[Tarjeta] (tarjeta_id, tarjeta_codigo_seguridad, tarjeta_fecha_emision, tarjeta_vencimiento, tarjeta_cuenta_numero)(
+ INSERT INTO [OOZMA_KAPPA].[Tarjeta] (tarjeta_id, tarjeta_codigo_seguridad, tarjeta_fecha_emision, tarjeta_vencimiento)(
 	SELECT DISTINCT  CAST(Tarjeta_Numero AS numeric(18,0))
 	, Tarjeta_Codigo_Seg
     , Tarjeta_Fecha_Emision
 	, Tarjeta_Fecha_Vencimiento
-	, Cuenta_Numero
- FROM gd_esquema.Maestra
+	FROM gd_esquema.Maestra
  WHERE Tarjeta_Numero IS NOT NULL);
  
  SET IDENTITY_INSERT [OOZMA_KAPPA].[Tarjeta] OFF

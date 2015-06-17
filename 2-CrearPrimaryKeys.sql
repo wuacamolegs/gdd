@@ -12,6 +12,8 @@ ADD PRIMARY KEY ([usuario_rol_id]);
 COMMIT
 
 
+
+
 BEGIN TRANSACTION
 ALTER TABLE [OOZMA_KAPPA].[Transferencia]
 ADD PRIMARY KEY ([transferencia_id]);
@@ -84,11 +86,6 @@ ADD PRIMARY KEY ([funcionalidades_id]);
 COMMIT
 	
 
-BEGIN TRANSACTION
-ALTER TABLE [OOZMA_KAPPA].[Factura]
-ADD PRIMARY KEY ([factura_numero]);
-COMMIT
-	
 
 BEGIN TRANSACTION
 ALTER TABLE [OOZMA_KAPPA].[Deposito]
