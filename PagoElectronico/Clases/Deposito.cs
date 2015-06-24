@@ -7,7 +7,7 @@ namespace Clases
 {
    public class Deposito : Base
     {
-         #region variables
+        #region variables
         List<SqlParameter> parameterList = new List<SqlParameter>();
         #endregion
 

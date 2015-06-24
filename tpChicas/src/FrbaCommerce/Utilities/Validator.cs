@@ -54,7 +54,7 @@ namespace Utilities
                 return false;
             }
         }
-        
+
         public static string ValidarNulo(string textoAValidar, string nombreCampo)
         {
             if (string.IsNullOrEmpty(textoAValidar))
@@ -71,7 +71,7 @@ namespace Utilities
                 return "Tiene que ingresar un año válido, entre 1900 y 2015, para el campo " + nombreCampo + "\n";
 
             return string.Empty;
-            
+
         }
 
         public static string ValidarFechaVencimiento(string fecha, string nombreCampo, DateTime fechaHoy)
@@ -86,7 +86,7 @@ namespace Utilities
         {
             int cantidad = Convert.ToInt32(cant);
             if (cantidad > cantPublis)
-                return "No posee tantas publicaciones para rendir. Tiene que ingresar una cantidad válida, para el campo " + nombreCampo + "\n";
+                return "No posee tantas suscripciones para rendir. Tiene que ingresar una cantidad válida, para el campo " + nombreCampo + "\n";
             return string.Empty;
         }
 
@@ -111,7 +111,7 @@ namespace Utilities
                 strError += "El campo " + nombreCampo + " debe ser mayor que cero\n";
             }
             return strError;
-            
+
         }
 
         public static string validarNuloEnListaDeCheckbox(CheckedListBox lstRubros, string nombreListado)
@@ -124,3 +124,5 @@ namespace Utilities
             return strError;
 
         }
+    }
+    }

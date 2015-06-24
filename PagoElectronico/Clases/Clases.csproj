@@ -57,11 +57,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Retiro.cs" />
     <Compile Include="Rol.cs" />
-    <Compile Include="Transferencia.cs" />
     <Compile Include="Usuario.cs" />
-    <Compile Include="Factura.cs" />
-    <Compile Include="ItemFactura.cs" />
-    <Compile Include="Moneda.cs" />
+	<Compile Include="Factura.cs" />
+	<Compile Include="ItemFactura.cs" />
+	<Compile Include="Moneda.cs" />
+	<Compile Include="Tarjeta.cs" />
+	<Compile Include="Deposito.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\tpChicas\src\FrbaCommerce\Utilities\Utilities.csproj">

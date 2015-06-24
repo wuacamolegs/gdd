@@ -61,3 +61,6 @@ E:\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.csproj.Genera
 E:\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.exe
 E:\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.pdb
 E:\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.ABM_Rol.frmRol.resources
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.ABM_Cliente.frmCliente.resources
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.ABM_Rol.frmRol.resources
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.Facturacion.Facturas.resources
