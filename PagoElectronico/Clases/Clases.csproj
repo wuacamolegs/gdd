@@ -51,6 +51,7 @@
     <Compile Include="Banco.cs" />
     <Compile Include="Base.cs" />
     <Compile Include="Cheque.cs" />
+    <Compile Include="Deposito.cs" />
     <Compile Include="Cliente.cs" />
     <Compile Include="Cuenta.cs" />
     <Compile Include="Funcionalidades.cs" />
@@ -58,11 +59,10 @@
     <Compile Include="Retiro.cs" />
     <Compile Include="Rol.cs" />
     <Compile Include="Usuario.cs" />
-	<Compile Include="Factura.cs" />
-	<Compile Include="ItemFactura.cs" />
-	<Compile Include="Moneda.cs" />
-	<Compile Include="Tarjeta.cs" />
-	<Compile Include="Deposito.cs" />
+    <Compile Include="Factura.cs" />
+    <Compile Include="ItemFactura.cs" />
+    <Compile Include="Moneda.cs" />
+    <Compile Include="Tarjeta.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\tpChicas\src\FrbaCommerce\Utilities\Utilities.csproj">
