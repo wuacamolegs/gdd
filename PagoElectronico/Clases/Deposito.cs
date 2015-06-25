@@ -126,7 +126,7 @@ namespace Clases
         {
             this.parameterList.Clear();
             parameterList.Add(new SqlParameter("@deposito_cuenta_id", this.Cuenta.cuenta_id));
-            parameterList.Add(new SqlParameter("@deposito_fecha", this.Fecha));
+            parameterList.Add(new SqlParameter("@deposito_fecha", Convert.ToInt32(ConfigurationManager.AppSettings["Fecha"])));
             parameterList.Add(new SqlParameter("@deposito_importe", this.Importe));
             parameterList.Add(new SqlParameter("deposito_tarjeta_id", this.Tarjeta.tarjeta_id));
             parameterList.Add(new SqlParameter("deposito_cliente_id", this.Cliente.cliente_id));
@@ -146,7 +146,18 @@ namespace Clases
 
         #region metodos privados
 
+        public void EfectuarDeposito()
+        {
+            setearListaParametrosCompleta();
+            this.Guardar(parameterList);
+            MessageBox.Show("El depósito se ha realizado correctamente", "Deposito exitoso");
+            
+        }
+
+
         #endregion
 
+
+      
     }
 }

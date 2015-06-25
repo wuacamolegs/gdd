@@ -26,7 +26,7 @@ namespace Clases
         private string _codigo_seguridad;
         private DateTime _fecha_emision;
         private DateTime _fecha_vencimiento;
-        
+        private Cliente _cliente;
         #endregion
 
         #region constructor
@@ -51,6 +51,13 @@ namespace Clases
             get { return _cuenta; }
             set { _cuenta = value; }
         }
+
+        public Cliente Cliente
+        {
+            get { return _cliente; }
+            set { _cliente = value; }
+        }
+       
        
         public DateTime FechaVencimiento
         {
@@ -98,6 +105,16 @@ namespace Clases
         #endregion
 
         #region setters
+
+        private void setearListaParametrosConClienteIDyCuentaID()
+        {
+            this.parameterList.Clear();
+            parameterList.Add(new SqlParameter("@tarjeta_id", this.tarjeta_id));
+            parameterList.Add(new SqlParameter("@cuenta_id", this.Cuenta.cuenta_id));
+            parameterList.Add(new SqlParameter("@cliente_id", this.Cliente.cliente_id));
+        
+        }
+
         #endregion
 
         #region lamados a la base
@@ -105,5 +122,12 @@ namespace Clases
 
         #region metodos privados
         #endregion
+
+        public DataSet ObtenerTarjetasPorClienteiD()
+        {
+            this.setearListaParametrosConClienteIDyCuentaID();
+            DataSet ds = this.TraerListado(parameterList, "ActivasPorClienteID");
+            return ds;
+        }
     }
 }

@@ -14,18 +14,24 @@ namespace PagoElectronico.Depositos
 {
     public partial class frmDepositos : Form
     {
-        public frmDepositos()
-        {
-            InitializeComponent();
-        }
+      
+        #region Atributos
 
-       
         public Usuario unUsuario = new Usuario();
         public Cliente unCliente;
         public Deposito depositoActual = new Deposito();
         public Tarjeta unaTarjeta = new Tarjeta();
         public Cuenta unaCuenta = new Cuenta();
+        public Moneda unaMoneda = new Moneda();
+
+        #endregion 
         
+        #region Initialize
+        public frmDepositos()
+        {
+            InitializeComponent();
+        }
+
 
         public void abrirConUsuario(Usuario user)
         {
@@ -37,8 +43,14 @@ namespace PagoElectronico.Depositos
         { 
             DataSet dsClientes = ObtenerClientes();
             DropDownListManager.CargarCombo(cmbCliente, dsClientes.Tables[0], "cliente_id", "cliente_nombre", false, "");
+            DataSet dsMoneda = unaMoneda.TraerTodasLasMonedas();
+            DropDownListManager.CargarCombo(cmbMoneda, dsMoneda.Tables[0], "moneda_id", "moneda_nombre", false, "");
+
         }
 
+        #endregion
+
+        #region Botones
         private void ComboCliente_SelectedIndexChanged(object sender, EventArgs e)
         { 
             //cargar CMB cuenta
@@ -48,13 +60,33 @@ namespace PagoElectronico.Depositos
             DropDownListManager.CargarCombo(cmbCuenta, dsCuenta.Tables[0], "cuenta_id", "cuenta_id", false, "");
 
             //Cargar CMB Tarjeta
-            unaTarjeta.Cliente = Convert.ToInt32
+            unaTarjeta.Cliente.cliente_id = Convert.ToInt32(cmbCliente.SelectedValue);
+            DataSet dsTarjetas = unaTarjeta.ObtenerTarjetasPorClienteiD();
+            DropDownListManager.CargarCombo(cmbTarjeta, dsTarjetas.Tables[0], "tarjeta_id", "tarjeta_id", false, "");
 
         }
 
-        
 
-        public DataSet ObtenerClientes()
+        //ACEPTAR
+        private void btnAceptar_Click(object sender, EventArgs e)
+        {
+            if (ValidarCampos())
+            {
+                depositoActual.Cliente.cliente_id = Convert.ToInt32(cmbCliente.SelectedValue);
+                depositoActual.Cuenta.cuenta_id = Convert.ToInt32(cmbCuenta.SelectedValue);
+                depositoActual.Tarjeta.tarjeta_id = Convert.ToInt32(cmbTarjeta.SelectedValue);
+                depositoActual.Importe = Convert.ToInt32(txtImporte.Text);
+                depositoActual.EfectuarDeposito();
+
+
+            }
+
+        }
+
+        #endregion
+
+        #region Metodos Privados
+        private DataSet ObtenerClientes()
         {
 
             DataSet ds = new DataSet();
@@ -72,42 +104,15 @@ namespace PagoElectronico.Depositos
             return ds;
 
         }
-
-        public DataSet ObtenerCuentasActivasPorClienteId()
-        {
-            unCliente.cliente_id = Convert.ToInt32(cmbCliente.SelectedValue);
-            DataSet dsClientes = unCliente.TraerClientePorID(unCliente.cliente_id);
-            unCliente.DataRowToObject(dsClientes.Tables[0].Rows[0]);
-
-            Cuenta unaCuenta = new Cuenta(unCliente, unUsuario);
-            DataSet dsCuentas = unaCuenta.TraerCuentasActivasPorClienteID();
-
-            return dsCuentas;
-
-        }
-               
-
-
         
-        private void cmbMoneda_SelectedIndexChanged(object sender, EventArgs e)
-        { 
-            //CMBMONEDA SOLO PERMITE DOLARES
-            cmbMoneda.Items.Add("DOLARES");
-        }
-
-       //ACEPTAR
-        private void btnAceptar_Click(object sender, EventArgs e)
-        {
-
-        }
-        
-       
             
-        //VALIDAR TARJETA NO VENCIDA
+        //Validar Importe no nulo, mayor a cero y tipo de dato correcto
         private bool ValidarCampos()
         {
             string strErrores = "";
-            strErrores = strErrores + Validator.ValidarNulo(txtImporte.Text, "Importe");
+            strErrores = Validator.ValidarNulo(txtImporte.Text, "Importe");
+            srtErrores = srtErrores + Validator.SoloNumerosODecimales(txtImporte.Text, "Importe");
+            srtErrores = srtErrores + Validator.MayorACero(txtImporte.Text, "Importe");
             if (strErrores.Length > 0)
             {
                 MessageBox.Show(strErrores);
@@ -121,21 +126,9 @@ namespace PagoElectronico.Depositos
 
         }
 
-        
-        //HACER DEPOSITO
-        private void realizarAccionesDeposito()
-        {
-            
-        }
 
-        //HACER DEPOSITO
-        private void generarDepositoExitoso()
-        {
-         
-            
-        }
 
-   
+        #endregion
 
     }
 }

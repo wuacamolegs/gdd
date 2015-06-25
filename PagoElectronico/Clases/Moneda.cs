@@ -76,5 +76,11 @@ namespace Clases
 
         #endregion
 
+
+        public DataSet TraerTodasLasMonedas()
+        {
+            DataSet ds = this.TraerListado("Completo");
+            return ds;
+        }
     }
 }
