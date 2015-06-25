@@ -79,7 +79,8 @@ namespace Clases
 
         #endregion
 
-        #region metodos privados
+        #region setters
+
         private void setearListaDeParametrosConIdRol(int id_Rol)
         {
             parameterList.Add(new SqlParameter("@id_Rol", id_Rol));
@@ -88,7 +89,7 @@ namespace Clases
 
     }
 
-        public enum Funcionalidades   //afuera de la clase
+    public enum Funcionalidades   //afuera de la clase
         {
         ABM_Rol,
         ABM_Usuario, 

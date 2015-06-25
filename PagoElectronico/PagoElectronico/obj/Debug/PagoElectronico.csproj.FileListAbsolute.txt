@@ -68,3 +68,6 @@ E:\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Retiros.Retiro_
 E:\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Transferencias.Transferencias_Entre_Cuentas.resources
 E:\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.csproj.GenerateResource.Cache
 E:\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.ABM_Rol.frmRol.resources
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.ABM_Cliente.frmCliente.resources
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.ABM_Rol.frmRol.resources
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Facturacion.Facturas.resources

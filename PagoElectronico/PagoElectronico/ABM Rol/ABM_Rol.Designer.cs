@@ -44,7 +44,6 @@
             this.dtgListado.Name = "dtgListado";
             this.dtgListado.Size = new System.Drawing.Size(408, 165);
             this.dtgListado.TabIndex = 2;
-            this.dtgListado.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgListado_CellContentClick);
             // 
             // btnModificar
             // 
@@ -54,7 +53,6 @@
             this.btnModificar.TabIndex = 4;
             this.btnModificar.Text = "Modificar";
             this.btnModificar.UseVisualStyleBackColor = true;
-            this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
             // 
             // btnEliminar
             // 
@@ -64,7 +62,6 @@
             this.btnEliminar.TabIndex = 5;
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.UseVisualStyleBackColor = true;
-            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
             // btnAgregar
             // 
@@ -74,7 +71,6 @@
             this.btnAgregar.TabIndex = 6;
             this.btnAgregar.Text = "Nuevo Rol";
             this.btnAgregar.UseVisualStyleBackColor = true;
-            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
             // NotaSelecRol
             // 
@@ -94,7 +90,6 @@
             this.btnDeshab.TabIndex = 8;
             this.btnDeshab.Text = "Deshabilitar";
             this.btnDeshab.UseVisualStyleBackColor = true;
-            this.btnDeshab.Click += new System.EventHandler(this.btnDeshab_Click);
             // 
             // ABM_de_Rol
             // 
@@ -109,7 +104,6 @@
             this.Controls.Add(this.dtgListado);
             this.Name = "ABM_de_Rol";
             this.Text = "PAGO ELECTRONICO - ABM ROL";
-            this.Load += new System.EventHandler(this.ABM_de_Rol_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dtgListado)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

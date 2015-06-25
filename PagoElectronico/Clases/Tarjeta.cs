@@ -86,7 +86,7 @@ namespace Clases
         }
         #endregion
 
-
+        #region dataRowToObject
         public override void DataRowToObject(DataRow dr)
         {
             this.tarjeta_id = Convert.ToInt32(dr["tarjeta_id"]);
@@ -95,5 +95,15 @@ namespace Clases
             this.FechaVencimiento = Convert.ToDateTime(dr["tarjeta_vencimiento"]);
             this.Cuenta.cuenta_id = Convert.ToInt32(dr["tarjeta_cuenta_numero"]);
         }
+        #endregion
+
+        #region setters
+        #endregion
+
+        #region lamados a la base
+        #endregion
+
+        #region metodos privados
+        #endregion
     }
 }

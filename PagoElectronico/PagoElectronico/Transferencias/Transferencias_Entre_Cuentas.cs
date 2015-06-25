@@ -171,8 +171,8 @@ namespace PagoElectronico.Transferencias
         private void generarTransferenciaExitosa()
         {
 
-            unaTransferencia.CuentaOrigen = Convert.ToDouble(cmbCuentaOrigen.SelectedValue);
-            unaTransferencia.CuentaDestino = Convert.ToInt32(cmbCuentaDestino.SelectedValue);
+            unaTransferencia.CuentaOrigen.cuenta_id = Convert.ToDouble(cmbCuentaOrigen.SelectedValue);
+            unaTransferencia.CuentaDestino.cuenta_id = Convert.ToInt32(cmbCuentaDestino.SelectedValue);
             unaTransferencia.Importe = Convert.ToInt32(txtImporte.Text);
         
         }

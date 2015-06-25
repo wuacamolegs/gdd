@@ -164,7 +164,6 @@
             this.txtImporte.Name = "txtImporte";
             this.txtImporte.Size = new System.Drawing.Size(131, 20);
             this.txtImporte.TabIndex = 1;
-            this.txtImporte.TextChanged += new System.EventHandler(this.txtImporte_TextChanged);
             // 
             // label5
             // 

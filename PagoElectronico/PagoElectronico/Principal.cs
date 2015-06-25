@@ -140,7 +140,7 @@ namespace PagoElectronico
         {
             frmDepositos depositos = new frmDepositos();
 
-            depositos.abrirConUsuario(unUsuario);
+            //depositos.abrirConUsuario(unUsuario); //TODO sacar comentario cuando este bien depositos
         }
 
         private void rETIROSToolStripMenuItem_Click(object sender, EventArgs e)
@@ -176,6 +176,27 @@ namespace PagoElectronico
             Listado_Estadistico list = new Listado_Estadistico();
 
             list.abrirConUsuario(unUsuario);
+        }
+
+        private void cerrarSesionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SQLHelper.Cerrar();
+            Application.Exit();
+        }
+
+        private void cAMBIARCONTRASEÑAToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //utilizo el dialogManager que me provee Utilities para crear un miniform que solo me ofrezca cambiar
+            //la clave. La clave nueva ingresada sera la nueva clave (encriptada) del usuario
+            string claveNuevaIngresada = DialogManager.ShowDialogWithPassword("Ingrese nueva clave", "Cambio de clave");
+
+            if (string.IsNullOrEmpty(claveNuevaIngresada))
+            {
+                return;
+            }
+
+            string claveNueva = Encryptor.GetSHA256(claveNuevaIngresada);
+            unUsuario.CambiarClave(claveNueva);
         }
 
 

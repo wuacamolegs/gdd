@@ -15,11 +15,15 @@ namespace PagoElectronico.Facturacion
 {
     public partial class Facturacion_De_Costos : Form
     {
+        #region variables
+
         public Usuario unUsuario = new Usuario();
         public Cliente unCliente = new Cliente();
         public Factura unaFactura = new Factura();
+        
+        #endregion
 
-
+        #region initialize
         public Facturacion_De_Costos()
         {
             InitializeComponent();
@@ -33,15 +37,16 @@ namespace PagoElectronico.Facturacion
             this.Show();
         }
 
-
-        #region botones
-
         private void Facturacion_De_Costos_Load(object sender, EventArgs e)
         {
             DataSet dsClientes = ObtenerClientes();
             DropDownListManager.CargarCombo(cmbCliente, dsClientes.Tables[0], "cliente_id", "cliente_nombre", false, "");
         }
 
+        #endregion
+
+        #region botones, vista
+            
         private void cmbCliente_SelectedIndexChanged(object sender, EventArgs e)
         {
             //Traer transacciones realizadas por el cliente
@@ -51,40 +56,22 @@ namespace PagoElectronico.Facturacion
 
             DataSet dsTransferencias = unCliente.TraerTransferenciasAFacturarPorClienteID();
             cargarDataGrids(dsTransferencias, gridTransferencia);
-   
-            int suma = 0;
-                       
-            foreach (DataRow dr in dsTransferencias.Tables[0].Rows)
-            {
-                suma += (Convert.ToInt32(dr["item_factura_costo"]) * Convert.ToInt32(dr["item_factura_cant"])) ;
-            }
-            txtSubTotalTransferencia.Text = Convert.ToString(suma);
+            cargarSubtotales(txtSubTotalTransferencia, gridTransferencia);
 
             //2. COSTOS POR APERTURA CUENTA
-
+            
             DataSet dsAperturaCuenta = unCliente.TraerCostosPorAperturaCuentaAFacturarPorClienteID();
             cargarDataGrids(dsAperturaCuenta, gridAperturaCuenta);
-
-            suma = 0;
-            foreach (DataRow dr in dsAperturaCuenta.Tables[0].Rows)
-            {
-                suma += (Convert.ToInt32(dr["item_factura_costo"]) * Convert.ToInt32(dr["item_factura_cant"]));
-            }
-            txtSubTotalApertura.Text = Convert.ToString(suma);
+            cargarSubtotales(txtSubTotalApertura, gridAperturaCuenta);
 
             //3. MODIFICACION TIPO CUENTA
 
             DataSet dsModificacionesTC = unCliente.TraerModificacionesTipoCuentaAFacturarPorClienteID();
             cargarDataGrids(dsModificacionesTC, gridModificacionTipoCuenta);
-
-            suma = 0;
-            foreach (DataRow dr in dsModificacionesTC.Tables[0].Rows)
-            {
-                suma += (Convert.ToInt32(dr["item_factura_costo"]) * Convert.ToInt32(dr["item_factura_cant"]));
-            }
-            txtSubTotalModificacionTC.Text = Convert.ToString(suma);
+            cargarSubtotales(txtSubTotalModificacionTC, gridModificacionTipoCuenta);
 
         }
+
 
        private void cargarDataGrids(DataSet ds, DataGridView dataGrid){
              
@@ -123,10 +110,37 @@ namespace PagoElectronico.Facturacion
             //le inserto a la grilla el dataset obtenido
             dataGrid.DataSource = ds.Tables[0];
         }
-        
+
+
+       private void cargarSubtotales(TextBox txtSubTotal, DataGridView dataGridView)
+       {
+           double subtotal = 0;
+
+           // Se recorre fila a fila para recalcular el total despues del cambio
+           foreach (DataGridViewRow row in dataGridView.Rows)
+           {
+               // Se aumula el total de cada una de las filas
+               subtotal += Convert.ToDouble(row.Cells[2].Value) * Convert.ToDouble(row.Cells[3].Value);
+           }
+           txtSubTotal.Text = Convert.ToString(subtotal);
+            
+       }
+
+       private void btnGenerarFactura_Click(object sender, EventArgs e)
+       {
+           //TODO: VALIDAR CAMPOS NO SEAN NULOS, Y QUE SEAN DEL TIPO DATO CORRECTO
+           ValidarCampos();
+
+           DataSet ds = unaFactura.Cliente.TraerClientePorID(unCliente.cliente_id);
+           unaFactura.Cliente.DataRowToObject(ds.Tables[0].Rows[0]);
+           unaFactura.Fecha = Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]);
+           
+           Facturas frmFacturas = new Facturas();
+           frmFacturas.AbrirCon(unaFactura, txtSubTotalTransferencia.Text, txtSubTotalApertura.Text, txtSubTotalModificacionTC.Text);
+
+       }
+
         #endregion
-
-
 
         #region llamados a bd
 
@@ -151,25 +165,18 @@ namespace PagoElectronico.Facturacion
 
         #endregion
 
-        private void btnGenerarFactura_Click(object sender, EventArgs e)
+        #region metodos privados
+
+        private void ValidarCampos()
         {
-            //TODO: VALIDAR CAMPOS NO SEAN NULOS, Y QUE SEAN DEL TIPO DATO CORRECTO
-
-            DataSet ds = unaFactura.Cliente.TraerClientePorID(unCliente.cliente_id);
-            unaFactura.Cliente.DataRowToObject(ds.Tables[0].Rows[0]);
-            unaFactura.Fecha = Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]);
-            unaFactura.Importe = Convert.ToInt32(txtSubTotalApertura.Text) + Convert.ToInt32(txtSubTotalModificacionTC.Text) + Convert.ToInt32(txtSubTotalTransferencia.Text);
-
-            Facturas frmFacturas = new Facturas();
-            frmFacturas.AbrirCon(unaFactura, txtSubTotalTransferencia.Text,txtSubTotalApertura.Text, txtSubTotalModificacionTC.Text);
-
+            string strErrores = "";
+            strErrores = Validator.SoloNumerosPeroOpcional(txtSuscripciones.Text, "Suscripciones");
         }
 
+        
+        #endregion
 
-
-
-
-
+        
     }
     
 }

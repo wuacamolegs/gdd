@@ -107,6 +107,7 @@ namespace Clases
         }
         #endregion
 
+        #region dataRowToObject
 
         public override void DataRowToObject(DataRow dr)
         {
@@ -118,14 +119,9 @@ namespace Clases
             this.Tarjeta.tarjeta_id = Convert.ToInt32(dr["deposito_tarjeta_id"]);
             this.Cliente.cliente_id = Convert.ToInt32(dr["deposito_cliente_id"]);
         }
+        #endregion
 
-        public void GenerarDepositoDevolverSuID()
-        {
-            this.setearListaParametrosCompleta();
-            DataSet ds = this.GuardarYObtenerID(parameterList);
-            this.Deposito_id = Convert.ToDouble(ds.Tables[0].Rows[0]["deposito_id"]);
-        }
-
+        #region setters
         public void setearListaParametrosCompleta()
         {
             this.parameterList.Clear();
@@ -135,5 +131,22 @@ namespace Clases
             parameterList.Add(new SqlParameter("deposito_tarjeta_id", this.Tarjeta.tarjeta_id));
             parameterList.Add(new SqlParameter("deposito_cliente_id", this.Cliente.cliente_id));
         }
+
+        #endregion
+
+        #region llamados a la base
+        public void GenerarDepositoDevolverSuID()
+        {
+            this.setearListaParametrosCompleta();
+            DataSet ds = this.GuardarYObtenerID(parameterList);
+            this.Deposito_id = Convert.ToDouble(ds.Tables[0].Rows[0]["deposito_id"]);
+        }
+
+        #endregion
+
+        #region metodos privados
+
+        #endregion
+
     }
 }

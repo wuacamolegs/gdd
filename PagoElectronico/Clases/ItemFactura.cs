@@ -93,7 +93,7 @@ namespace Clases
         }
         #endregion
 
-
+        #region DataRowToObject
         public override void DataRowToObject(DataRow dr)
         {
             this.ItemFacturaID = Convert.ToInt32(dr["item_factura_id"]);
@@ -103,5 +103,19 @@ namespace Clases
             this.Descripcion = Convert.ToString(dr["item_factura_desc"]);
             this.Cantidad = Convert.ToInt32(dr["item_factura_cant"]);
         }
+        #endregion
+
+        #region setters
+
+        #endregion
+
+        #region llamados a la base
+
+        #endregion
+
+        #region metodos privados
+
+        #endregion
+
     }
 }

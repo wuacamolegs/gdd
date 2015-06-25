@@ -12,8 +12,11 @@ namespace PagoElectronico.ABM_Cuenta
 {
     public partial class ABM_de_Cuenta : Form
     {
+        #region variables
         public Usuario unUsuario = new Usuario();
+        #endregion
 
+        #region initialize
         public ABM_de_Cuenta()
         {
             InitializeComponent();
@@ -24,5 +27,16 @@ namespace PagoElectronico.ABM_Cuenta
             unUsuario = user;
             this.Show();
         }
+
+        #endregion
+
+        #region botones
+        #endregion
+
+        #region llamados a la base 
+        #endregion
+
+        #region metodos privados
+        #endregion
     }
 }

@@ -12,9 +12,11 @@ namespace PagoElectronico.Listados
 {
     public partial class Listado_Estadistico : Form
     {
-       public Usuario unUsuario = new Usuario();
+        #region variables
+        public Usuario unUsuario = new Usuario();
+        #endregion
 
-
+        #region initialize
         public Listado_Estadistico()
         {
             InitializeComponent();
@@ -25,7 +27,18 @@ namespace PagoElectronico.Listados
             unUsuario = user;
             this.Show();
         }
-    
-    
+
+        #endregion
+
+        #region botones y vistas
+        #endregion
+
+        #region llamados a la base
+        #endregion
+
+        #region metodos privados
+        #endregion
+
+
     }
 }

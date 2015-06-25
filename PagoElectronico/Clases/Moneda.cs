@@ -65,6 +65,7 @@ namespace Clases
         }
         #endregion
 
+        #region dataRowToObject
 
         public override void DataRowToObject(DataRow dr)
         {
@@ -73,7 +74,7 @@ namespace Clases
 
         }
 
-
+        #endregion
 
     }
 }

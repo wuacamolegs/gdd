@@ -26,5 +26,7 @@ namespace PagoElectronico.ABM_Rol
             unRol = rol;
             this.Show();
         }
+
+
     }
 }

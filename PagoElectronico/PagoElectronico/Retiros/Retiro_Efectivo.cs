@@ -15,13 +15,15 @@ namespace PagoElectronico.Retiros
 {
     public partial class Retiro_Efectivo : Form
     {
+        #region atributos
         public Usuario unUsuario = new Usuario();
         public Cliente unCliente;
         public Retiro retiroActual = new Retiro();
         public Cheque chequeActual = new Cheque();
         public Cuenta unaCuenta = new Cuenta();
+        #endregion
 
-
+        #region inicialize
         public Retiro_Efectivo()
         {
             InitializeComponent();
@@ -34,28 +36,30 @@ namespace PagoElectronico.Retiros
             this.Show();
         }
 
-        #region botones
-
         private void Retiro_Efectivo_Load(object sender, EventArgs e)
         {
-            
+
             //cargar cmb Clientes
-           DataSet dsClientes = ObtenerClientes();
-           DropDownListManager.CargarCombo(cmbCliente, dsClientes.Tables[0], "cliente_id", "cliente_nombre", false, "");
+            DataSet dsClientes = ObtenerClientes();
+            DropDownListManager.CargarCombo(cmbCliente, dsClientes.Tables[0], "cliente_id", "cliente_nombre", false, "");
 
             //cargar cmb banco
-           Banco unBanco = new Banco();
-           DataSet dsBancos = unBanco.ObtenerTodosLosBancos();
-           DropDownListManager.CargarCombo(cmbBanco, dsBancos.Tables[0], "banco_id", "banco_nombre", false, "");
+            Banco unBanco = new Banco();
+            DataSet dsBancos = unBanco.ObtenerTodosLosBancos();
+            DropDownListManager.CargarCombo(cmbBanco, dsBancos.Tables[0], "banco_id", "banco_nombre", false, "");
         }
 
         private void cmbCliente_SelectedIndexChanged(object sender, EventArgs e)
-        {   
+        {
             //cargar cmb Cuentas
             DataSet dsCuentas = ObtenerCuentasActivasPorClienteId();
             DropDownListManager.CargarCombo(cmbCuenta, dsCuentas.Tables[0], "cuenta_numero", "cuenta_numero", false, "");
 
         }
+
+        #endregion 
+
+        #region botones
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
@@ -74,7 +78,17 @@ namespace PagoElectronico.Retiros
             }
         }
 
+        private void cmbCuenta_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            double cuentaID = Convert.ToDouble(cmbCuenta.SelectedValue);
+            DataSet dsCuenta = unaCuenta.TraerCuentaPorCuentaID(cuentaID);
+            string saldo = Convert.ToString(dsCuenta.Tables[0].Rows[0]["cuenta_saldo"]);
+            txtSaldoActual.Text = saldo;
+        }
+
         #endregion
+
+        #region llamados a la base
         
         public DataSet ObtenerClientes()
         {
@@ -113,14 +127,20 @@ namespace PagoElectronico.Retiros
         {
             DataSet dsCliente = unCliente.TraerClientePorID(clienteID);
             return dsCliente;
-            
         }
 
+        #endregion
+        
+        #region metodos privados
+        
         private bool ValidarCampos()
         {
             string strErrores = "";
             strErrores = Validator.ValidarNulo(txtDocumento.Text, "Documento");
             strErrores =  strErrores + Validator.ValidarNulo(txtImporte.Text, "Importe");
+            strErrores = strErrores + Validator.SoloNumeros(txtDocumento.Text, "Documento");
+            strErrores = strErrores + Validator.SoloNumerosODecimales(txtImporte.Text, "Importe");
+
             if (strErrores.Length > 0)
             {
                 MessageBox.Show(strErrores);
@@ -158,14 +178,6 @@ namespace PagoElectronico.Retiros
             }        
         }
 
-        private void cmbCuenta_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            double cuentaID = Convert.ToDouble(cmbCuenta.SelectedValue);
-            DataSet dsCuenta = unaCuenta.TraerCuentaPorCuentaID(cuentaID);
-            string saldo = Convert.ToString(dsCuenta.Tables[0].Rows[0]["cuenta_saldo"]);
-            txtSaldoActual.Text = saldo;
-        }
-
 
         private void generarRetiroExitoso()
         {
@@ -189,9 +201,9 @@ namespace PagoElectronico.Retiros
             
             txtImporte.Clear();
             txtDocumento.Clear();
-            
-        }
 
+        }
+        #endregion
 
     }
 }

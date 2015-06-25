@@ -86,6 +86,7 @@ namespace Clases
         }
         #endregion
 
+        #region dataRowToObject
 
         public override void DataRowToObject(DataRow dr)
         {
@@ -94,5 +95,18 @@ namespace Clases
             this.Fecha = Convert.ToDateTime(dr["cheque_fecha"]);
         }
 
+        #endregion
+
+        #region setters
+
+        #endregion
+
+        #region llamados a la base
+
+        #endregion
+
+        #region metodos privados
+
+        #endregion
     }
 }

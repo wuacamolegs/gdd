@@ -13,10 +13,14 @@ namespace PagoElectronico.ABM_Cliente
 {
     public partial class frmCliente : Form
     {
+        #region variables
         public Cliente unCliente = new Cliente();
 
         public Usuario unUsuario = new Usuario();
 
+        #endregion
+
+        #region initialize
         public frmCliente()
         {
             InitializeComponent();
@@ -27,8 +31,9 @@ namespace PagoElectronico.ABM_Cliente
             unUsuario = user;
             this.Show();
         }
-
-        #region botones
+        #endregion
+        
+        #region botones y vista
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
@@ -42,12 +47,11 @@ namespace PagoElectronico.ABM_Cliente
 
         }
 
-        public DataSet ObtenerClientes()
+        private void btnLimpiarFiltros_Click(object sender, EventArgs e)
         {
-            DataSet ds = unCliente.TraerListado("ConTodo");
-            return ds;
-
+            LimpiarFormulario();
         }
+
 
         private void cargarGrilla()
         {
@@ -155,11 +159,6 @@ namespace PagoElectronico.ABM_Cliente
 
         }
 
-        private void btnLimpiarFiltros_Click(object sender, EventArgs e)
-        {
-            LimpiarFormulario();
-        }
-
         public void LimpiarFormulario()
         {
             txtNombre.Clear();
@@ -168,7 +167,19 @@ namespace PagoElectronico.ABM_Cliente
             txtMail.Clear();
 
         }
+        #endregion
 
+        #region llamados a la bd
+        public DataSet ObtenerClientes()
+        {
+            DataSet ds = unCliente.TraerListado("ConTodo");
+            return ds;
+
+        }        
+        
+        #endregion
+
+        #region metodos privados
         #endregion
 
     }

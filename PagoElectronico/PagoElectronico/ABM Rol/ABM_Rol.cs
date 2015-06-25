@@ -17,9 +17,12 @@ namespace PagoElectronico.ABM_Rol
 {
     public partial class ABM_de_Rol : Form
     {
+        #region variables
         public Usuario unUsuario = new Usuario();
         public Rol unRol = new Rol();
+        #endregion
 
+        #region initialize
         public ABM_de_Rol()
         {
             InitializeComponent();
@@ -30,16 +33,22 @@ namespace PagoElectronico.ABM_Rol
             unUsuario = user;
             this.Show();
         }
+        #endregion
 
+        /*
         private void ABM_de_Rol_Load(object sender, EventArgs e)
         {
             //Cargargrilla
             cargarGrilla();
-            
+
         }
 
+        #endregion
+        */
+        /*
+        #region botones y vista
         private void cargarGrilla()
-        {   
+        {
             DataSet dsRol = unRol.traerRoles();
             //realizo la configuracion de la grilla, seteando las filas y columnas con sus nombres y valores
             dtgListado.Columns.Clear();
@@ -78,19 +87,6 @@ namespace PagoElectronico.ABM_Rol
             unRol.Estado = valorHabilitadoSeleccionado();
         }
 
-        private int valorIdSeleccionado()
-        {
-            return Convert.ToInt32(((DataRowView)dtgListado.CurrentRow.DataBoundItem)["rol_id"]);
-        }
-        private string valorNombreSeleccionado()
-        {
-            return ((DataRowView)dtgListado.CurrentRow.DataBoundItem)["rol_nombre"].ToString();
-        }
-        private bool valorHabilitadoSeleccionado()
-        {
-            return Convert.ToBoolean(((DataRowView)dtgListado.CurrentRow.DataBoundItem)["rol_estado"]);
-        }
-      
         private void btnModificar_Click(object sender, EventArgs e)
         {
             //ModificarRol abmModificarRol = new ModificarRol();
@@ -146,11 +142,28 @@ namespace PagoElectronico.ABM_Rol
             }
         }
 
+        #endregion
 
+        #region llamados a la base
+        #endregion
 
+        #region metodos privados
 
+        private int valorIdSeleccionado()
+        {
+            return Convert.ToInt32(((DataRowView)dtgListado.CurrentRow.DataBoundItem)["rol_id"]);
+        }
+        private string valorNombreSeleccionado()
+        {
+            return ((DataRowView)dtgListado.CurrentRow.DataBoundItem)["rol_nombre"].ToString();
+        }
+        private bool valorHabilitadoSeleccionado()
+        {
+            return Convert.ToBoolean(((DataRowView)dtgListado.CurrentRow.DataBoundItem)["rol_estado"]);
+        }
 
-  
+        #endregion
+        */
 
     }
 }

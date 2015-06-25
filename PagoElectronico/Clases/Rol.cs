@@ -13,7 +13,9 @@ namespace Clases
 {
     public class Rol : Base
     {
+        #region variables
         List<SqlParameter> parameterList = new List<SqlParameter>();
+        #endregion
 
         #region atributos
         private int _Rol_id;
@@ -81,6 +83,11 @@ namespace Clases
         
         #endregion
 
+        #region dataRowToObject
+        #endregion
+
+        #region setters
+        #endregion
 
         #region obtener datos bd
 
@@ -94,8 +101,13 @@ namespace Clases
             return ds;
         }
 
-        #endregion
+        public DataSet traerRoles()
+        {
+            DataSet ds = TraerListado("Completo");
+            return ds;
+        }
 
+        #endregion
 
         #region metodos privados
 
@@ -120,11 +132,6 @@ namespace Clases
         }
         #endregion
 
-
-        public DataSet traerRoles()
-        {
-            DataSet ds = TraerListado("Completo");
-            return ds;
-        }
+        
     } 
   }

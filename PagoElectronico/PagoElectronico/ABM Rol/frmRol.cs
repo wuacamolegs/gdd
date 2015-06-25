@@ -12,14 +12,14 @@ namespace PagoElectronico.ABM_Rol
               
    public partial class frmRol : Form
     {
-        listadoRoles frmPadre = new listadoRoles();
-        Rol rolDelForm = new Rol();
+        //listadoRoles frmPadre = new listadoRoles();
+        //Rol rolDelForm = new Rol();
         public frmRol()
         {
             InitializeComponent();
         }
 
-
+       /*
         public void AbrirParaModificar(Rol unRol, listadoRoles frmEnviador)
         {
             //si se ejecuta esta funcion, significa que llaman al frm para modificar. va a instanciar una
@@ -237,7 +237,7 @@ namespace PagoElectronico.ABM_Rol
             this.Close();
         }
 
-
-        }
+*/
     }
+    
 }

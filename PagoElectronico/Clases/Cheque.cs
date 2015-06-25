@@ -100,6 +100,9 @@ namespace Clases
         }
         #endregion
 
+        #region dataRowToObject
+
+        #endregion
 
         #region setters
 
@@ -137,6 +140,9 @@ namespace Clases
 
         #endregion
 
+        #region metodos privados
 
+        #endregion
+        
     }
 }

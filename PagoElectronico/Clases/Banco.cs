@@ -75,6 +75,7 @@ namespace Clases
         }
         #endregion
 
+        #region dataRowToObject
 
         public override void DataRowToObject(DataRow dr)
         {
@@ -84,12 +85,23 @@ namespace Clases
             this.Direccion = Convert.ToString(dr["banco_direccion"]);
         }
 
+        #endregion
+
+        #region setters
+
+        #endregion
+
+        #region llamados a la bd
         public DataSet ObtenerTodosLosBancos()
         {
             DataSet ds = this.TraerListado("completo");
             return ds;
         }
+        #endregion
 
+        #region metodos privados
+
+        #endregion
     }
 
     

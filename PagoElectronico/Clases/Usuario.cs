@@ -29,7 +29,6 @@ namespace Clases
         private string _preguntaSecreta;
         private string _respuestaSecreta;
         private Rol _rol;  //el rol que se le asignada al usuario al momento de loguearse
-        private bool _passAutogenerada;  //booleano para saber si tiene el pass autogenerado o no.
 
         #endregion
 
@@ -84,12 +83,7 @@ namespace Clases
             set { _rol = value; }
         }
 
-        public bool ClaveAutoGenerada
-        {
-            get { return _passAutogenerada; }
-            set { _passAutogenerada = value; }
-        }
-
+      
         #endregion
 
         #region metodos publicos
@@ -126,9 +120,33 @@ namespace Clases
 
         #endregion
 
+        #region dataRowToObject
+        #endregion
+
+        #region setters
+
+        private void setearListaDeParametrosConUsuario()
+        {
+            parameterList.Add(new SqlParameter("@Username", this.Username)); //el nombre de la variable @Username de aca tiene que ser igual a la del store procedure que defini en .sql
+
+        }
+
+        private void setearListaDeParametrosSoloConIdUsuario()
+        {
+            parameterList.Add(new SqlParameter("@usuario_id", this.usuario_id));
+        }
+
+        private void setearListaDeParametrosCompleta()
+        {
+            parameterList.Add(new SqlParameter("@id_Usuario", this.usuario_id));
+            parameterList.Add(new SqlParameter("@Username", this.Username));
+            parameterList.Add(new SqlParameter("@Clave", this.Password));
+            parameterList.Add(new SqlParameter("@Estado", this.Estado));
+        }
+        #endregion
 
         #region Busquedas en la base
-        
+
         public bool obtenerUsuarioActivoPorUsername()
         {
             bool @encontroUsuario = false;
@@ -148,46 +166,20 @@ namespace Clases
                                   
         }
 
-        #endregion
-
-
-        #region metodos privados
-
-        private void setearListaDeParametrosConUsuario()
-        {
-           parameterList.Add(new SqlParameter("@Username", this.Username)); //el nombre de la variable @Username de aca tiene que ser igual a la del store procedure que defini en .sql
-                        
-        }
-
-        private void setearListaDeParametrosSoloConIdUsuario()
-        {
-            parameterList.Add(new SqlParameter("@usuario_id", this.usuario_id));
-        }
-
-        private void setearListaDeParametrosCompleta()
-        {
-            parameterList.Add(new SqlParameter("@id_Usuario", this.usuario_id));
-            parameterList.Add(new SqlParameter("@Username", this.Username));
-            parameterList.Add(new SqlParameter("@Clave", this.Password));
-            parameterList.Add(new SqlParameter("@Estado", this.Estado));
-        }
-
-
-
-        #endregion
-
-        #region metodos 
-
         public void AsignarRol(DataSet ds)
         {
             this.Rol = new Rol();
             this.Rol.DataRowToObject(ds.Tables[0].Rows[0]);
         }
 
-        public void AsignarRol(Rol unRol) {
+        public void AsignarRol(Rol unRol)
+        {
             this.Rol = unRol;
         }
 
+        #endregion
+        
+        #region metodos privados
 
         public void Deshabilitar()
         {
@@ -209,7 +201,6 @@ namespace Clases
         public bool CambiarClave(string claveNueva)
         {
             this.Password = claveNueva;
-            this.ClaveAutoGenerada = false;
             setearListaDeParametrosCompleta();
             if (this.Modificar(parameterList))
             {
@@ -219,10 +210,8 @@ namespace Clases
             return false;
         }
 
-
-
         #endregion
 
-
+        
     }
 }

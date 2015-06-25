@@ -14,7 +14,7 @@ namespace Clases
 {
     public class Retiro : Base
     {
-         #region variables
+        #region variables
         List<SqlParameter> parameterList = new List<SqlParameter>();
         #endregion
 
@@ -91,7 +91,7 @@ namespace Clases
         }
         #endregion
 
-
+        #region dataRowToObject
         public override void DataRowToObject(DataRow dr)
         {
             // Esto es tal cual lo devuelve el stored de la DB
@@ -102,12 +102,22 @@ namespace Clases
             this.Importe = Convert.ToInt32(dr["retiro_importe"]);
         }
 
+        #endregion
+
+        #region setters
+
+        #endregion
+
+        #region llamados a la base
         public void GenerarRetiroDevolverSuID()
         {
             this.setearListaParametrosCompleta();
             DataSet ds = this.GuardarYObtenerID(parameterList);
             this.Retiro_id = Convert.ToDouble(ds.Tables[0].Rows[0]["retiro_id"]);
         }
+        #endregion
+
+        #region metodos privados
 
         public void setearListaParametrosCompleta()
         {
@@ -118,6 +128,10 @@ namespace Clases
             parameterList.Add(new SqlParameter("@retiro_importe", this.Importe));
         }
 
+        #endregion
+
+
+       
         
 
     }

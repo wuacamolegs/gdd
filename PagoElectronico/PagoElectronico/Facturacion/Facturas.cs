@@ -6,27 +6,57 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Configuration;
+using Clases;
+using Utilities;
+
 
 namespace PagoElectronico.Facturacion
 {
     public partial class Facturas : Form
     {
+        #region variables
+
+        Factura unaFactura;
+
+        #endregion  
+
+        #region initialize
+
         public Facturas()
         {
             InitializeComponent();
         }
 
 
-        internal void AbrirCon(Clases.Factura unaFactura, string p, string p_3, string p_4)
+        internal void AbrirCon(Factura factura, string p, string p_3, string p_4)
         {
-            txtCliente.Text = unaFactura.Cliente.Apellido + " " + unaFactura.Cliente.Nombre;
-            txtFecha.Text = Convert.ToString(unaFactura.Fecha);
-            txtTotal.Text = Convert.ToString(unaFactura.Importe);
+            unaFactura = factura;
+            txtCliente.Text = factura.Cliente.Apellido + " " + factura.Cliente.Nombre;
+            txtFecha.Text = Convert.ToString(factura.Fecha);
+            txtTotal.Text = Convert.ToString(factura.Importe);
             txtTransferencia.Text = p;
             txtApertura.Text = p_3;
             txtModificacion.Text = p_4;
+            unaFactura.Importe = Convert.ToInt32(txtTransferencia.Text);// +Convert.ToInt32(txtApertura.Text) + Convert.ToInt32(txtModificacion.Text);
             this.Show();
+        }
+        #endregion
+
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnAceptar_Click(object sender, EventArgs e)
+        {
 
         }
+
+
+
+
+
     }
 }

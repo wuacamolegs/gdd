@@ -12,8 +12,11 @@ namespace PagoElectronico.Consulta_Saldos
 {
     public partial class Consulta_De_Saldos : Form
     {
+        #region variables
         public Usuario unUsuario = new Usuario();
+        #endregion
 
+        #region initialize
         public Consulta_De_Saldos()
         {
             InitializeComponent();
@@ -24,5 +27,15 @@ namespace PagoElectronico.Consulta_Saldos
             unUsuario = user;
             this.Show();
         }
+        #endregion
+
+        #region botones y vistas
+        #endregion
+
+        #region llamados a la base
+        #endregion
+
+        #region metodos privados
+        #endregion
     }
 }

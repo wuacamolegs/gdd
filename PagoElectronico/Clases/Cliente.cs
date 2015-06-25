@@ -197,6 +197,82 @@ namespace Clases
         }
         #endregion
 
+        #region dataRowToObject
+
+        public override void DataRowToObject(DataRow dr)
+        {
+            // Esto es tal cual lo devuelve el stored de la DB
+            this.cliente_id = Convert.ToInt32(dr["cliente_id"]);
+            this.Nombre = dr["cliente_nombre"].ToString();
+            this.Apellido = dr["cliente_apellido"].ToString();
+            this.Documento = Convert.ToInt32(dr["cliente_numero_documento"]);
+            this.FechaNacimiento = Convert.ToDateTime(dr["cliente_fecha_nacimiento"]);
+        }
+
+        public void DataRowToObjectCompleto(DataRow dr)
+        {
+            // Esto es tal cual lo devuelve el stored de la DB
+            this.cliente_id = Convert.ToInt32(dr["cliente_id"]);
+            this.TipoDocumento = dr["cliente_tipo_documento_id"].ToString();
+            this.Documento = Convert.ToInt32(dr["cliente_numero_documento"]);
+            this.Apellido = dr["cliente_apellido"].ToString();
+            this.Nombre = dr["cliente_nombre"].ToString();
+            this.FechaNacimiento = Convert.ToDateTime(dr["cliente_fecha_nacimiento"]);
+            this.Mail = dr["cliente_mail"].ToString();
+            this.Calle = dr["cliente_calle"].ToString();
+            this.NumeroDireccion = Convert.ToInt32(dr["cliente_numero"]);
+            this.PisoDireccion = Convert.ToInt32(dr["cliente_piso"]);
+            this.DeptoDireccion = dr["cliente_depto"].ToString();
+            this.estado = Convert.ToBoolean(dr["cliente_estado"]);  //TODO agregar cliente estado a la bd
+        }
+
+
+        #endregion
+
+        #region setearListas
+
+        public void setearListaDeParametrosConUsuarioID(int unUsuario)
+        {
+            this.parameterList.Clear();
+            parameterList.Add(new SqlParameter("@usuario_id", unUsuario));
+        }
+
+        public void setearListaDeParametrosConClienteID(int clienteID)
+        {
+            this.parameterList.Clear();
+            parameterList.Add(new SqlParameter("@cliente_id", clienteID));
+        }
+
+        private void setearListaDeParametrosConFiltros(string Nombre, string Apellido, string TipoDni, int Dni, string Mail)
+        {
+            parameterList.Add(new SqlParameter("@Nombre", Nombre));
+            parameterList.Add(new SqlParameter("@Apellido", Apellido));
+            parameterList.Add(new SqlParameter("@Tipo_Dni", TipoDni));
+            parameterList.Add(new SqlParameter("@Dni", Dni));
+            parameterList.Add(new SqlParameter("@Mail", Mail));
+        }
+
+        private void setearListaDeParametrosCompleta()
+        {
+            parameterList.Add(new SqlParameter("@id_Cliente", this.cliente_id));
+            parameterList.Add(new SqlParameter("@Tipo_Dni", this.TipoDocumento));
+            parameterList.Add(new SqlParameter("@Dni", this.Documento));
+
+            parameterList.Add(new SqlParameter("@Apellido", this.Apellido));
+            parameterList.Add(new SqlParameter("@Nombre", this.Nombre));    //TODO: ARREGLAR NOMBRES VARIABLES, TIENEN QUE SER IGUAL A LOS NOMBRES
+            parameterList.Add(new SqlParameter("@Fecha_nac", this.FechaNacimiento)); // DE LAS COLUMNAS DE LAS TABLAS
+            parameterList.Add(new SqlParameter("@Mail", this.Mail));
+
+            parameterList.Add(new SqlParameter("@Dom_calle", this.Calle));
+            parameterList.Add(new SqlParameter("@Dom_nro_calle", this.NumeroDireccion));
+            parameterList.Add(new SqlParameter("@Dom_piso", this.PisoDireccion));
+            parameterList.Add(new SqlParameter("@Dom_depto", this.DeptoDireccion));
+            parameterList.Add(new SqlParameter("@Pais_residente", this.PaisResidente));
+            parameterList.Add(new SqlParameter("@Estado", this.estado));
+        }
+
+
+        #endregion
 
         #region llamados a la bd
 
@@ -262,111 +338,11 @@ namespace Clases
             this.parameterList.Clear();
             return ds;
         }
-               
 
-        #endregion
-
-
-
-
-        #region dataRowToObject
-
-        public override void DataRowToObject(DataRow dr)
-        {
-            // Esto es tal cual lo devuelve el stored de la DB
-            this.cliente_id = Convert.ToInt32(dr["cliente_id"]);
-            this.Nombre = dr["cliente_nombre"].ToString();
-            this.Apellido = dr["cliente_apellido"].ToString();
-            this.Documento = Convert.ToInt32(dr["cliente_numero_documento"]);
-            this.FechaNacimiento = Convert.ToDateTime(dr["cliente_fecha_nacimiento"]);
-        }
-
-        public void DataRowToObjectCompleto(DataRow dr)
-        {
-            // Esto es tal cual lo devuelve el stored de la DB
-            this.cliente_id = Convert.ToInt32(dr["cliente_id"]);
-            this.TipoDocumento = dr["cliente_tipo_documento_id"].ToString();
-            this.Documento = Convert.ToInt32(dr["cliente_numero_documento"]);
-            this.Apellido = dr["cliente_apellido"].ToString();
-            this.Nombre = dr["cliente_nombre"].ToString();
-            this.FechaNacimiento = Convert.ToDateTime(dr["cliente_fecha_nacimiento"]);
-            this.Mail = dr["cliente_mail"].ToString();
-            this.Calle = dr["cliente_calle"].ToString();
-            this.NumeroDireccion = Convert.ToInt32(dr["cliente_numero"]);
-            this.PisoDireccion = Convert.ToInt32(dr["cliente_piso"]);
-            this.DeptoDireccion = dr["cliente_depto"].ToString();
-            this.estado = Convert.ToBoolean(dr["cliente_estado"]);  //TODO agregar cliente estado a la bd
-        }
-
-
-        #endregion
-        
-
-
-        #region setearListas
-
-        public void setearListaDeParametrosConUsuarioID(int unUsuario)
-        {
-            this.parameterList.Clear();
-            parameterList.Add(new SqlParameter("@usuario_id",unUsuario)); 
-        }
-
-
-
-        public void setearListaDeParametrosConClienteID(int clienteID)
-        {
-            this.parameterList.Clear();
-            parameterList.Add(new SqlParameter("@cliente_id", clienteID));
-        }
-
-
-
-        private void setearListaDeParametrosConFiltros(string Nombre, string Apellido, string TipoDni, int Dni, string Mail)
-        {
-            parameterList.Add(new SqlParameter("@Nombre", Nombre));
-            parameterList.Add(new SqlParameter("@Apellido", Apellido));
-            parameterList.Add(new SqlParameter("@Tipo_Dni", TipoDni));
-            parameterList.Add(new SqlParameter("@Dni", Dni));
-            parameterList.Add(new SqlParameter("@Mail", Mail));
-        }
-
-
-        private void setearListaDeParametrosCompleta()
-        {
-            parameterList.Add(new SqlParameter("@id_Cliente", this.cliente_id));
-            parameterList.Add(new SqlParameter("@Tipo_Dni", this.TipoDocumento));
-            parameterList.Add(new SqlParameter("@Dni", this.Documento));
-
-            parameterList.Add(new SqlParameter("@Apellido", this.Apellido));
-            parameterList.Add(new SqlParameter("@Nombre", this.Nombre));    //TODO: ARREGLAR NOMBRES VARIABLES, TIENEN QUE SER IGUAL A LOS NOMBRES
-            parameterList.Add(new SqlParameter("@Fecha_nac", this.FechaNacimiento)); // DE LAS COLUMNAS DE LAS TABLAS
-            parameterList.Add(new SqlParameter("@Mail", this.Mail));
-
-            parameterList.Add(new SqlParameter("@Dom_calle", this.Calle));
-            parameterList.Add(new SqlParameter("@Dom_nro_calle", this.NumeroDireccion));
-            parameterList.Add(new SqlParameter("@Dom_piso", this.PisoDireccion));
-            parameterList.Add(new SqlParameter("@Dom_depto", this.DeptoDireccion));
-            parameterList.Add(new SqlParameter("@Pais_residente", this.PaisResidente));
-            parameterList.Add(new SqlParameter("@Estado", this.estado));
-        }
-
-
-        // NO ASIGNAMOS UN ROL AL CLIENTE. VER..
-
-        // private void setearListaDeParametrosConIdRol()
-        //{
-        //    parameterList.Add(new SqlParameter("@id_Rol", this.id_Rol));
-        //}
-
-
-
-        #endregion
-
-        
         public DataSet TraerTransferenciasAFacturarPorClienteID()
         {
             setearListaDeParametrosConClienteID(this.cliente_id);
-            return this.TraerListado(parameterList,"TransferenciasAFacturar"); 
+            return this.TraerListado(parameterList, "TransferenciasAFacturar");
         }
 
         public DataSet TraerCostosPorAperturaCuentaAFacturarPorClienteID()
@@ -380,6 +356,10 @@ namespace Clases
             setearListaDeParametrosConClienteID(this.cliente_id);
             return this.TraerListado(parameterList, "ModificacionesTCAFacturar");
         }
+               
+
+        #endregion        
+       
     }
 }
  

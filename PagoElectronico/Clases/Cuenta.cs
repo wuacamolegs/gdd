@@ -103,7 +103,7 @@ namespace Clases
         }
         #endregion
 
-
+        #region dataRowToObject
         public override void DataRowToObject(DataRow dr)
         {
             // Esto es tal cual lo devuelve el stored de la DB
@@ -113,6 +113,7 @@ namespace Clases
             this.FechaApertura = Convert.ToDateTime(dr["cuenta_fecha_apertura"]);
             this.FechaCierre = Convert.ToDateTime(dr["cuenta_fecha_cierre"]);
         }
+        #endregion
 
         #region setters
 
@@ -158,6 +159,10 @@ namespace Clases
             Modificar(parameterList); //TODO habria que verificar que se modifico correctamente, y en caso contrario borrar el cheque generado
             //TODO Falta el stored procedure! 
         }
+
+        #endregion
+
+        #region metodos privados
 
         #endregion
 

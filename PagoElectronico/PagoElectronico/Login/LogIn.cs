@@ -27,8 +27,7 @@ namespace PagoElectronico.Login
         FSLogger logAuditoria; 
 
         #endregion
-
-
+        
         #region inicializar
 
         public LogIn()
@@ -114,8 +113,7 @@ namespace PagoElectronico.Login
 
 
         #endregion
-
-        
+                
         #region metodosPrivados
 
         //Se fija que se hayan ingresado bien los campos de username y password
@@ -208,38 +206,10 @@ namespace PagoElectronico.Login
         
         private void AccederAlSistema()
         {
-            //Verifico que la clave no sea la autogenerada. De ser asi, le pido que la cambie. Sino, via libre para 
-            //acceder al sistema
-            bool puedeAcceder = true;
-            if (user.ClaveAutoGenerada)
-            {
-
-                //En el proyecto utilities, creamos un dialog manager que nos permite crear un formulario
-                //del tipo dialog. Lo que quisimos modelar fue una especie de pop up que le mandemos un texto,
-                //nos ofrezca un textbox y nos devuelta el resultado ingresado por el usuario. En este caso,
-                //le vamos a decir que su pass fue autogenerada y que la cambie.
-                //Sino, la encriptamos y updateamos la password
-                string dialogResult = DialogManager.ShowDialogWithPassword("Este es su primer ingreso en el sistema, por favor, actualice su clave", "Cambio de clave");
-
-                if (string.IsNullOrEmpty(dialogResult))
-                {
-                   return;
-                }
-
-                string claveNueva = Encryptor.GetSHA256(dialogResult);
-                puedeAcceder = user.CambiarClave(claveNueva);
-
-            }
-            if (puedeAcceder)
-            {
                 Principal princ = new Principal();
                 this.Hide();
                 princ.abrirConUsuario(user);
-            }
         }
-
-
-
 
         #endregion
 
