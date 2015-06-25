@@ -64,3 +64,6 @@ E:\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.ABM_Rol.frmRo
 A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.ABM_Cliente.frmCliente.resources
 A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.ABM_Rol.frmRol.resources
 A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.Facturacion.Facturas.resources
+E:\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.ABM_Cliente.frmCliente.resources
+E:\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.Depositos.Depositos.resources
+E:\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.Facturacion.Facturas.resources

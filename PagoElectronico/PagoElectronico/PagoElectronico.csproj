@@ -112,11 +112,11 @@
     <Compile Include="Consulta Saldos\Consulta_De_Saldos.Designer.cs">
       <DependentUpon>Consulta_De_Saldos.cs</DependentUpon>
     </Compile>
-    <Compile Include="Depositos\Depositos.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Depositos\frmDepositos.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Depositos\frmDepositos.Designer.cs">
+      <DependentUpon>frmDepositos.cs</DependentUpon>
     </Compile>
     <Compile Include="Facturacion\Facturas.cs">
       <SubType>Form</SubType>
@@ -177,8 +177,8 @@
     <EmbeddedResource Include="Consulta Saldos\Consulta_De_Saldos.resx">
       <DependentUpon>Consulta_De_Saldos.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Depositos\Depositos.resx">
-      <DependentUpon>Depositos.cs</DependentUpon>
+    <EmbeddedResource Include="Depositos\frmDepositos.resx">
+      <DependentUpon>frmDepositos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Facturacion\Facturas.resx">
       <DependentUpon>Facturas.cs</DependentUpon>

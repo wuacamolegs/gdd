@@ -138,15 +138,15 @@ namespace PagoElectronico
 
         private void dEPOSITOSToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            
             frmDepositos depositos = new frmDepositos();
 
-            //depositos.abrirConUsuario(unUsuario); //TODO sacar comentario cuando este bien depositos
+            depositos.abrirConUsuario(unUsuario);
         }
 
         private void rETIROSToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Retiro_Efectivo retiro = new Retiro_Efectivo();
-            MessageBox.Show("Mandando Usuario:" + unUsuario.usuario_id + unUsuario.Username, "Error", MessageBoxButtons.OK);
             retiro.abrirConUsuario(unUsuario);
         }
 

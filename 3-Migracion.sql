@@ -158,17 +158,30 @@ BEGIN TRANSACTION
 	
 COMMIT
 
+
+--- TABLA EMISOR ---
+
+
+BEGIN TRANSACTION
+
+INSERT INTO [OOZMA_KAPPA].[Emisor] (emisor_descripcion) (
+	SELECT DISTINCT Tarjeta_Emisor_Descripcion FROM gd_esquema.Maestra 
+	WHERE Tarjeta_Emisor_Descripcion IS NOT NULL);
+COMMIT	
+	
   -- TABLA TARJETA --
  
  BEGIN TRANSACTION
  
  SET IDENTITY_INSERT [OOZMA_KAPPA].[Tarjeta] ON
  
- INSERT INTO [OOZMA_KAPPA].[Tarjeta] (tarjeta_id, tarjeta_codigo_seguridad, tarjeta_fecha_emision, tarjeta_vencimiento)(
+ INSERT INTO [OOZMA_KAPPA].[Tarjeta] (tarjeta_id, tarjeta_codigo_seguridad, tarjeta_fecha_emision, tarjeta_vencimiento, tarjeta_emisor, tarjeta_cliente_id)(
 	SELECT DISTINCT  CAST(Tarjeta_Numero AS numeric(18,0))
 	, Tarjeta_Codigo_Seg
     , Tarjeta_Fecha_Emision
 	, Tarjeta_Fecha_Vencimiento
+	, Tarjeta_Emisor_Descripcion
+	, (select cliente_id from [OOZMA_KAPPA].[Cliente] where Cli_Nro_Doc = cliente_numero_documento)
 	FROM gd_esquema.Maestra
  WHERE Tarjeta_Numero IS NOT NULL);
  
