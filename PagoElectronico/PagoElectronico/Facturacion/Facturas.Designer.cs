@@ -42,8 +42,8 @@
             this.txtApertura = new System.Windows.Forms.TextBox();
             this.txtModificacion = new System.Windows.Forms.TextBox();
             this.txtTotal = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnAceptar = new System.Windows.Forms.Button();
+            this.btnCancelar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -118,8 +118,10 @@
             // 
             // txtFactura
             // 
+            this.txtFactura.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.txtFactura.Location = new System.Drawing.Point(193, 73);
             this.txtFactura.Name = "txtFactura";
+            this.txtFactura.ReadOnly = true;
             this.txtFactura.Size = new System.Drawing.Size(248, 20);
             this.txtFactura.TabIndex = 4;
             // 
@@ -165,33 +167,35 @@
             this.txtTotal.Size = new System.Drawing.Size(200, 20);
             this.txtTotal.TabIndex = 10;
             // 
-            // button1
+            // btnAceptar
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(668, 307);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(108, 36);
-            this.button1.TabIndex = 11;
-            this.button1.Text = "ACEPTAR";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnAceptar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAceptar.Location = new System.Drawing.Point(668, 307);
+            this.btnAceptar.Name = "btnAceptar";
+            this.btnAceptar.Size = new System.Drawing.Size(108, 36);
+            this.btnAceptar.TabIndex = 11;
+            this.btnAceptar.Text = "ACEPTAR";
+            this.btnAceptar.UseVisualStyleBackColor = true;
+            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
-            // button2
+            // btnCancelar
             // 
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(510, 307);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(125, 36);
-            this.button2.TabIndex = 12;
-            this.button2.Text = "CANCELAR";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelar.Location = new System.Drawing.Point(510, 307);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(125, 36);
+            this.btnCancelar.TabIndex = 12;
+            this.btnCancelar.Text = "CANCELAR";
+            this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
-            // Factura
+            // Facturas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(805, 355);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnCancelar);
+            this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.txtTotal);
             this.Controls.Add(this.txtModificacion);
             this.Controls.Add(this.txtApertura);
@@ -206,7 +210,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Name = "Factura";
+            this.Name = "Facturas";
             this.Text = "FACTURA";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -229,7 +233,7 @@
         private System.Windows.Forms.TextBox txtApertura;
         private System.Windows.Forms.TextBox txtModificacion;
         private System.Windows.Forms.TextBox txtTotal;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnAceptar;
+        private System.Windows.Forms.Button btnCancelar;
     }
 }
