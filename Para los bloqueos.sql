@@ -12,7 +12,7 @@ WHERE blocking_session_id IS NOT NULL
 SELECT t.text
 FROM sys.dm_exec_connections c
 CROSS APPLY sys.dm_exec_sql_text (c.most_recent_sql_handle) t
-WHERE c.session_id = 54
+WHERE c.session_id = 57
 
 
 --NO ENTENDI QUE HACE

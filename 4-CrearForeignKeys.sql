@@ -133,17 +133,6 @@ REFERENCES [OOZMA_KAPPA].[Cliente](cliente_id);
 COMMIT
 
 BEGIN TRANSACTION
-ALTER TABLE [OOZMA_KAPPA].[Factura]
-ADD FOREIGN KEY ([factura_items_id])
-REFERENCES [OOZMA_KAPPA].[Item_factura](item_factura_id);
-COMMIT
-
-BEGIN TRANSACTION
-ALTER TABLE [OOZMA_KAPPA].[Factura]
-ADD PRIMARY KEY ([factura_numero],[factura_items_id]);
-COMMIT
-
-BEGIN TRANSACTION
 ALTER TABLE [OOZMA_KAPPA].[Funcionalidades_rol]
 ADD FOREIGN KEY ([funcionalidad_id])
 REFERENCES [OOZMA_KAPPA].[Funcionalidades](funcionalidades_id);
@@ -176,3 +165,25 @@ ALTER TABLE [OOZMA_KAPPA].[Tarjeta]
 ADD FOREIGN KEY (tarjeta_cliente_id)
 REFERENCES [OOZMA_KAPPA].[Cliente](cliente_id);
 COMMIT
+
+
+BEGIN TRANSACTION
+ALTER TABLE [OOZMA_KAPPA].[Item_factura]
+ADD FOREIGN KEY (item_factura_numero_factura)
+REFERENCES [OOZMA_KAPPA].[Cliente](cliente_id);
+COMMIT
+
+
+BEGIN TRANSACTION
+ALTER TABLE [OOZMA_KAPPA].[Transacciones_pendientes]
+ADD FOREIGN KEY (itransaccion_pendiente_cliente_id)
+REFERENCES [OOZMA_KAPPA].[Cliente](cliente_id);
+COMMIT
+
+
+BEGIN TRANSACTION
+ALTER TABLE [OOZMA_KAPPA].[Transacciones_pendientes]
+ADD FOREIGN KEY (transaccion_pendiente_cuenta_id)
+REFERENCES [OOZMA_KAPPA].[Cuenta](cuenta_id);
+COMMIT
+

@@ -63,13 +63,6 @@ namespace PagoElectronico.Facturacion
             DataSet dsAperturaCuenta = unCliente.TraerCostosPorAperturaCuentaAFacturarPorClienteID();
             cargarDataGrids(dsAperturaCuenta, gridAperturaCuenta);
             cargarSubtotales(txtSubTotalApertura, gridAperturaCuenta);
-
-            //3. MODIFICACION TIPO CUENTA
-
-            DataSet dsModificacionesTC = unCliente.TraerModificacionesTipoCuentaAFacturarPorClienteID();
-            cargarDataGrids(dsModificacionesTC, gridModificacionTipoCuenta);
-            cargarSubtotales(txtSubTotalModificacionTC, gridModificacionTipoCuenta);
-
         }
 
 
@@ -129,14 +122,15 @@ namespace PagoElectronico.Facturacion
        private void btnGenerarFactura_Click(object sender, EventArgs e)
        {
            //TODO: VALIDAR CAMPOS NO SEAN NULOS, Y QUE SEAN DEL TIPO DATO CORRECTO
-           ValidarCampos();
+           if (ValidarCampos())
+           {
+               DataSet ds = unaFactura.Cliente.TraerClientePorID(unCliente.cliente_id);
+               unaFactura.Cliente.DataRowToObject(ds.Tables[0].Rows[0]);
+               unaFactura.Fecha = Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]);
 
-           DataSet ds = unaFactura.Cliente.TraerClientePorID(unCliente.cliente_id);
-           unaFactura.Cliente.DataRowToObject(ds.Tables[0].Rows[0]);
-           unaFactura.Fecha = Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]);
-           
-           Facturas frmFacturas = new Facturas();
-           frmFacturas.AbrirCon(unaFactura, txtSubTotalTransferencia.Text, txtSubTotalApertura.Text, txtSubTotalModificacionTC.Text);
+               Facturas frmFacturas = new Facturas();
+               frmFacturas.AbrirCon(unaFactura, txtSubTotalTransferencia.Text, txtSubTotalApertura.Text);
+           }
 
        }
 
@@ -167,11 +161,19 @@ namespace PagoElectronico.Facturacion
 
         #region metodos privados
 
-        private void ValidarCampos()
+        private bool ValidarCampos()
         {
             string strErrores = "";
             strErrores = Validator.SoloNumerosPeroOpcional(txtSuscripciones.Text, "Suscripciones"); //TODO: arreglar
+            if (strErrores.Length > 0)
+            {
+                MessageBox.Show(strErrores, "Validar Campos");
+                txtSuscripciones.Text = "";
+                return false;
+            }
+            return true;
         }
+
 
         
         #endregion

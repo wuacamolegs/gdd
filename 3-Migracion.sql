@@ -77,15 +77,9 @@ COMMIT
   -- TABLA ITEM FACTURA -- ANTES TIENE QUE IR CLIENTE
  
  BEGIN TRANSACTION
- INSERT INTO [OOZMA_KAPPA].[Item_factura] (item_factura_numero_factura,item_factura_desc, item_factura_costo, item_factura_cant, item_factura_fecha, item_factura_cliente_id)(
-	SELECT Factura_Numero,
-	  Item_Factura_Descr
-	  ,Item_Factura_Importe    --como en la tabla maestra solo hay un item factura por factura hago todo uno a uno, no sumo los item y sus importes
-	  ,1
-	  ,Factura_Fecha
-	  ,(SELECT cliente_id FROM OOZMA_KAPPA.Cliente WHERE cliente_numero_documento = Cli_Nro_Doc)
- FROM gd_esquema.Maestra
- WHERE Item_Factura_Descr IS NOT NULL);
+	INSERT INTO [OOZMA_KAPPA].[Item_factura] (item_factura_desc, item_factura_costo, item_factura_id)(
+	SELECT Item_Factura_Descr, Item_Factura_Importe, Factura_Numero FROM gd_esquema.Maestra , OOZMA_KAPPA.Item_factura
+	WHERE Factura_Numero = item_factura_numero_factura);
  COMMIT
  
  
@@ -251,24 +245,17 @@ COMMIT
  
  SET IDENTITY_INSERT [OOZMA_KAPPA].[Factura] ON
  
- INSERT INTO [OOZMA_KAPPA].[Factura] (factura_numero,factura_fecha, factura_cliente_id, factura_items_id, factura_importe)(
+ INSERT INTO [OOZMA_KAPPA].[Factura] (factura_numero,factura_fecha, factura_cliente_id, factura_importe)(
 	SELECT Factura_Numero
 	,Factura_Fecha
 	,(SELECT cliente_id FROM OOZMA_KAPPA.Cliente WHERE Cli_Nro_Doc = cliente_numero_documento)
-	,(SELECT i.item_factura_id FROM OOZMA_KAPPA.Item_factura i WHERE i.item_factura_numero_factura = Factura_Numero)
 	,Item_Factura_Importe
 	FROM  gd_esquema.Maestra WHERE Factura_Numero IS NOT NULL);
  
  SET IDENTITY_INSERT [OOZMA_KAPPA].[Factura] OFF 
  
  COMMIT
- 
- --sacar columna item factura numero factura
- BEGIN TRANSACTION
- GO
- ALTER TABLE [OOZMA_KAPPA].[Item_factura] DROP COLUMN item_factura_numero_factura;
- COMMIT
- 
+
 
 -- TABLA USUARIO ROL -- completo todos los clientes
 

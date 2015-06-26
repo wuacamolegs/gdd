@@ -29,16 +29,15 @@ namespace PagoElectronico.Facturacion
         }
 
 
-        internal void AbrirCon(Factura factura, string p, string p_3, string p_4)
+        internal void AbrirCon(Factura factura, string p, string p_3)
         {
             unaFactura = factura;
             txtCliente.Text = factura.Cliente.Apellido + " " + factura.Cliente.Nombre;
             txtFecha.Text = Convert.ToString(factura.Fecha);
-            txtTotal.Text = Convert.ToString(factura.Importe);
             txtTransferencia.Text = p;
             txtApertura.Text = p_3;
-            txtModificacion.Text = p_4;
-            unaFactura.Importe = Convert.ToDecimal(txtTransferencia.Text) + Convert.ToDecimal(txtApertura.Text) + Convert.ToDecimal(txtModificacion.Text);
+            unaFactura.Importe = Convert.ToDecimal(txtTransferencia.Text) + Convert.ToDecimal(txtApertura.Text));
+            txtTotal.Text = Convert.ToString(unaFactura.Importe);
             this.Show();
         }
         #endregion

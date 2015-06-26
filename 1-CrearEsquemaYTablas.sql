@@ -83,10 +83,9 @@ CREATE TABLE [OOZMA_KAPPA].[Deposito](
 
 CREATE TABLE [OOZMA_KAPPA].[Factura](
 	[factura_numero] numeric(18, 0) IDENTITY (1,1),
-	[factura_importe] numeric(18, 0)NOT NULL,
 	[factura_fecha] [datetime] NOT NULL,
+	[factura_importe] numeric(18, 0)NOT NULL,
 	[factura_cliente_id] numeric(18, 0)NOT NULL,
-	[factura_items_id] numeric(18, 0)NOT NULL,
 )
 
 --- TABLA FUNCIONALIDADES ---
@@ -139,10 +138,7 @@ CREATE TABLE [OOZMA_KAPPA].[Item_factura](
 	[item_factura_id] numeric(18, 0) IDENTITY (1,1),
 	[item_factura_desc] [varchar](255) NOT NULL,
 	[item_factura_costo] numeric(18, 2) NOT NULL,
-	[item_factura_cant] numeric(18, 0)NOT NULL,
-	[item_factura_fecha] [datetime] NOT NULL,
 	[item_factura_numero_factura] numeric(18,0) NOT NULL,
-	[item_factura_cliente_id] numeric(18,0) NOT NULL,
 )
 
 --- TABLA LOGIN ---
@@ -241,6 +237,18 @@ INSERT INTO[OOZMA_KAPPA].[Tipo_documento] (tipo_documento_descripcion) VALUES ('
 INSERT INTO[OOZMA_KAPPA].[Tipo_documento] (tipo_documento_descripcion) VALUES ('CI');
 INSERT INTO[OOZMA_KAPPA].[Tipo_documento] (tipo_documento_descripcion) VALUES ('LC');
 INSERT INTO[OOZMA_KAPPA].[Tipo_documento] (tipo_documento_descripcion) VALUES ('LE');
+
+--- TRANSACCIONES PENDIENTES ---
+
+CREATE TABLE [OOZMA_KAPPA].Transacciones_Pendientes(	
+	[transaccion_pendiente_id] numeric(18,0) IDENTITY (1,1),
+	[transaccion_pendiente_importe] numeric (18,2)NOT NULL,
+	[transaccion_pendiente_descr] varchar(255) NOT NULL,
+	[transaccion_pendiente_cliente_id] numeric(18,0) NOT NULL,
+	[transaccion_pendiente_fecha] datetime NOT NULL,
+	[transaccion_pendiente_cuenta_id] numeric (18,0),
+)
+
 
 --- TABLA TRANSFERENCIA ---
 
