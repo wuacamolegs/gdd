@@ -23,7 +23,7 @@ namespace Clases
 
         private int _factura_numero;
         private Cliente _cliente;
-        private int _importe;
+        private Decimal _importe;
         private DateTime _fecha;
         private ItemFactura _itemsFactura;
         
@@ -58,7 +58,7 @@ namespace Clases
             set { _itemsFactura = value; }
         }
 
-        public int Importe
+        public Decimal Importe
         {
             get { return _importe; }
             set { _importe = value; }
@@ -98,15 +98,31 @@ namespace Clases
         #endregion
 
         #region setters
+      
+        private void setearListaParametrosCompleta()
+        {
+          parameterList.Add(new SqlParameter("@factura_numero", this.Numero));
+          parameterList.Add(new SqlParameter("@factura_importe", this.Importe));
+          parameterList.Add(new SqlParameter("@factura_fecha", this.Fecha));
+          parameterList.Add(new SqlParameter("@factura_cliente_id", this.Cliente.cliente_id));
+
+        }
 
         #endregion
 
         #region llamados a la base
+
+        public void GenerarFactura()
+        {
+            setearListaParametrosCompleta();
+        }
 
         #endregion
 
         #region metodos privados
 
         #endregion
+
+
     }
 }

@@ -170,7 +170,7 @@ namespace PagoElectronico.Facturacion
         private void ValidarCampos()
         {
             string strErrores = "";
-            strErrores = Validator.SoloNumerosPeroOpcional(txtSuscripciones.Text, "Suscripciones");
+            strErrores = Validator.SoloNumerosPeroOpcional(txtSuscripciones.Text, "Suscripciones"); //TODO: arreglar
         }
 
         

@@ -38,11 +38,13 @@ namespace PagoElectronico.Facturacion
             txtTransferencia.Text = p;
             txtApertura.Text = p_3;
             txtModificacion.Text = p_4;
-            unaFactura.Importe = Convert.ToInt32(txtTransferencia.Text);// +Convert.ToInt32(txtApertura.Text) + Convert.ToInt32(txtModificacion.Text);
+            unaFactura.Importe = Convert.ToDecimal(txtTransferencia.Text) + Convert.ToDecimal(txtApertura.Text) + Convert.ToDecimal(txtModificacion.Text);
             this.Show();
         }
         #endregion
 
+
+        #region botones
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
@@ -51,8 +53,10 @@ namespace PagoElectronico.Facturacion
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-
+            unaFactura.GenerarFactura();
         }
+
+        #endregion
 
 
 
