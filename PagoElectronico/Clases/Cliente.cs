@@ -243,6 +243,14 @@ namespace Clases
             parameterList.Add(new SqlParameter("@cliente_id", clienteID));
         }
 
+        private void setearListaDeParametrosConClienteIDYCuentaID(int cliente_id, double cuenta_id)
+        {
+            this.parameterList.Clear();
+            parameterList.Add(new SqlParameter("@cliente_id", cliente_id));
+            parameterList.Add(new SqlParameter("@cuenta_id", cuenta_id));
+        
+        }
+
         private void setearListaDeParametrosConFiltros(string Nombre, string Apellido, string TipoDni, int Dni, string Mail)
         {
             parameterList.Add(new SqlParameter("@Nombre", Nombre));
@@ -345,21 +353,30 @@ namespace Clases
             return this.TraerListado(parameterList, "TransferenciasAFacturar");
         }
 
-        public DataSet TraerCostosPorAperturaCuentaAFacturarPorClienteID()
+        public DataSet TraerSuscripcionesPendientesAFacturarPorClienteIDYCuentaID(double cuenta_id)
         {
-            setearListaDeParametrosConClienteID(this.cliente_id);
-            return this.TraerListado(parameterList, "AperturasCuentaAFacturar");
+            setearListaDeParametrosConClienteIDYCuentaID(this.cliente_id, cuenta_id);
+            return this.TraerListado(parameterList, "SuscripcionesPendientesAFacturarPorClienteIDYCuentaID");
         }
 
-        public DataSet TraerModificacionesTipoCuentaAFacturarPorClienteID()
+         public DataSet TraerModificacionesTipoCuentaAFacturarPorClienteID()
         {
             setearListaDeParametrosConClienteID(this.cliente_id);
             return this.TraerListado(parameterList, "ModificacionesTCAFacturar");
         }
-               
+
+         public int TraerCantidadSuscripcionesPendientesAFacturarPorClienteIDYCuentaID(double cuenta_id)
+         {
+             setearListaDeParametrosConClienteIDYCuentaID(this.cliente_id, cuenta_id);
+             DataSet ds = this.TraerListado(parameterList, "CantidadSuscripcionesPendientesAFacturarPorClienteIDYCuentaID");
+             return Convert.ToInt32(ds.Tables[0].Rows[0]["cantidadSuscripciones"]);
+         }
 
         #endregion        
        
+    
+       
+
     }
 }
  

@@ -109,13 +109,13 @@ namespace PagoElectronico.Depositos
         //Validar Importe no nulo, mayor a cero y tipo de dato correcto
         private bool ValidarCampos()
         {
-            string strErrores = "";
-            strErrores = Validator.ValidarNulo(txtImporte.Text, "Importe");
-            srtErrores = srtErrores + Validator.SoloNumerosODecimales(txtImporte.Text, "Importe");
-            srtErrores = srtErrores + Validator.MayorACero(txtImporte.Text, "Importe");
-            if (strErrores.Length > 0)
+            string errores = "";
+            errores = Validator.ValidarNulo(txtImporte.Text, "Importe");
+            errores = errores + Validator.SoloNumerosODecimales(txtImporte.Text, "Importe");
+            errores = errores + Validator.MayorACero(txtImporte.Text, "Importe");
+            if (errores.Length > 0)
             {
-                MessageBox.Show(strErrores);
+                MessageBox.Show(errores);
                 txtImporte.Clear();
                 return false;
             }

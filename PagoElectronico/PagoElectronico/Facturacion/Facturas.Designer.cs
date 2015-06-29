@@ -39,11 +39,14 @@
             this.txtCliente = new System.Windows.Forms.TextBox();
             this.txtFecha = new System.Windows.Forms.TextBox();
             this.txtTransferencia = new System.Windows.Forms.TextBox();
-            this.txtApertura = new System.Windows.Forms.TextBox();
+            this.txtSuscripciones = new System.Windows.Forms.TextBox();
             this.txtModificacion = new System.Windows.Forms.TextBox();
             this.txtTotal = new System.Windows.Forms.TextBox();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
+            this.txtCantidadTransf = new System.Windows.Forms.TextBox();
+            this.txtCantidadMod = new System.Windows.Forms.TextBox();
+            this.txtCantidadSuscr = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -90,17 +93,17 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(69, 159);
+            this.label5.Location = new System.Drawing.Point(69, 198);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(166, 20);
+            this.label5.Size = new System.Drawing.Size(142, 20);
             this.label5.TabIndex = 2;
-            this.label5.Text = "APERTURA CUENTA";
+            this.label5.Text = "SUSCRIPCIONES";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(69, 192);
+            this.label6.Location = new System.Drawing.Point(69, 159);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(236, 20);
             this.label6.TabIndex = 2;
@@ -127,43 +130,55 @@
             // 
             // txtCliente
             // 
+            this.txtCliente.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.txtCliente.Location = new System.Drawing.Point(595, 19);
             this.txtCliente.Name = "txtCliente";
+            this.txtCliente.ReadOnly = true;
             this.txtCliente.Size = new System.Drawing.Size(200, 20);
             this.txtCliente.TabIndex = 5;
             // 
             // txtFecha
             // 
+            this.txtFecha.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.txtFecha.Location = new System.Drawing.Point(597, 74);
             this.txtFecha.Name = "txtFecha";
+            this.txtFecha.ReadOnly = true;
             this.txtFecha.Size = new System.Drawing.Size(100, 20);
             this.txtFecha.TabIndex = 6;
             // 
             // txtTransferencia
             // 
+            this.txtTransferencia.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.txtTransferencia.Location = new System.Drawing.Point(341, 120);
             this.txtTransferencia.Name = "txtTransferencia";
+            this.txtTransferencia.ReadOnly = true;
             this.txtTransferencia.Size = new System.Drawing.Size(100, 20);
             this.txtTransferencia.TabIndex = 7;
             // 
-            // txtApertura
+            // txtSuscripciones
             // 
-            this.txtApertura.Location = new System.Drawing.Point(341, 159);
-            this.txtApertura.Name = "txtApertura";
-            this.txtApertura.Size = new System.Drawing.Size(100, 20);
-            this.txtApertura.TabIndex = 8;
+            this.txtSuscripciones.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.txtSuscripciones.Location = new System.Drawing.Point(341, 198);
+            this.txtSuscripciones.Name = "txtSuscripciones";
+            this.txtSuscripciones.ReadOnly = true;
+            this.txtSuscripciones.Size = new System.Drawing.Size(100, 20);
+            this.txtSuscripciones.TabIndex = 8;
             // 
             // txtModificacion
             // 
-            this.txtModificacion.Location = new System.Drawing.Point(341, 192);
+            this.txtModificacion.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.txtModificacion.Location = new System.Drawing.Point(341, 159);
             this.txtModificacion.Name = "txtModificacion";
+            this.txtModificacion.ReadOnly = true;
             this.txtModificacion.Size = new System.Drawing.Size(100, 20);
             this.txtModificacion.TabIndex = 9;
             // 
             // txtTotal
             // 
+            this.txtTotal.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.txtTotal.Location = new System.Drawing.Point(595, 241);
             this.txtTotal.Name = "txtTotal";
+            this.txtTotal.ReadOnly = true;
             this.txtTotal.Size = new System.Drawing.Size(200, 20);
             this.txtTotal.TabIndex = 10;
             // 
@@ -189,16 +204,49 @@
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
+            // txtCantidadTransf
+            // 
+            this.txtCantidadTransf.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.txtCantidadTransf.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtCantidadTransf.Location = new System.Drawing.Point(37, 120);
+            this.txtCantidadTransf.Name = "txtCantidadTransf";
+            this.txtCantidadTransf.ReadOnly = true;
+            this.txtCantidadTransf.Size = new System.Drawing.Size(30, 13);
+            this.txtCantidadTransf.TabIndex = 13;
+            // 
+            // txtCantidadMod
+            // 
+            this.txtCantidadMod.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.txtCantidadMod.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtCantidadMod.Location = new System.Drawing.Point(37, 159);
+            this.txtCantidadMod.Name = "txtCantidadMod";
+            this.txtCantidadMod.ReadOnly = true;
+            this.txtCantidadMod.Size = new System.Drawing.Size(26, 13);
+            this.txtCantidadMod.TabIndex = 14;
+            // 
+            // txtCantidadSuscr
+            // 
+            this.txtCantidadSuscr.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.txtCantidadSuscr.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtCantidadSuscr.Location = new System.Drawing.Point(37, 202);
+            this.txtCantidadSuscr.Name = "txtCantidadSuscr";
+            this.txtCantidadSuscr.ReadOnly = true;
+            this.txtCantidadSuscr.Size = new System.Drawing.Size(26, 13);
+            this.txtCantidadSuscr.TabIndex = 15;
+            // 
             // Facturas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(805, 355);
+            this.Controls.Add(this.txtCantidadSuscr);
+            this.Controls.Add(this.txtCantidadMod);
+            this.Controls.Add(this.txtCantidadTransf);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.txtTotal);
             this.Controls.Add(this.txtModificacion);
-            this.Controls.Add(this.txtApertura);
+            this.Controls.Add(this.txtSuscripciones);
             this.Controls.Add(this.txtTransferencia);
             this.Controls.Add(this.txtFecha);
             this.Controls.Add(this.txtCliente);
@@ -230,10 +278,13 @@
         private System.Windows.Forms.TextBox txtCliente;
         private System.Windows.Forms.TextBox txtFecha;
         private System.Windows.Forms.TextBox txtTransferencia;
-        private System.Windows.Forms.TextBox txtApertura;
+        private System.Windows.Forms.TextBox txtSuscripciones;
         private System.Windows.Forms.TextBox txtModificacion;
         private System.Windows.Forms.TextBox txtTotal;
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.Button btnCancelar;
+        private System.Windows.Forms.TextBox txtCantidadTransf;
+        private System.Windows.Forms.TextBox txtCantidadMod;
+        private System.Windows.Forms.TextBox txtCantidadSuscr;
     }
 }

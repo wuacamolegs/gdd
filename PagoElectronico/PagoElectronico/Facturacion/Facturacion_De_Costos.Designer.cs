@@ -29,28 +29,40 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.btnAñadirSuscripcionesCuenta = new System.Windows.Forms.Button();
+            this.cmbCuenta = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtSubTotalSuscr = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtCostoUnitario = new System.Windows.Forms.TextBox();
+            this.txtSuscripcionesAPagar = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtSuscripcionesPendientes = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.cmbCliente = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.txtSubTotalApertura = new System.Windows.Forms.TextBox();
+            this.txtSubTotalModificacionTC = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.gridAperturaCuenta = new System.Windows.Forms.DataGridView();
+            this.gridModificacionTC = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtSubTotalTransferencia = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.gridTransferencia = new System.Windows.Forms.DataGridView();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtSuscripciones = new System.Windows.Forms.TextBox();
             this.btnGenerarFactura = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridAperturaCuenta)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridModificacionTC)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridTransferencia)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.groupBox4);
             this.groupBox1.Controls.Add(this.cmbCliente);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.groupBox3);
@@ -58,10 +70,136 @@
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(10, 10);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(699, 493);
+            this.groupBox1.Size = new System.Drawing.Size(699, 583);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "FACTURA";
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.btnAñadirSuscripcionesCuenta);
+            this.groupBox4.Controls.Add(this.cmbCuenta);
+            this.groupBox4.Controls.Add(this.label8);
+            this.groupBox4.Controls.Add(this.label4);
+            this.groupBox4.Controls.Add(this.txtSubTotalSuscr);
+            this.groupBox4.Controls.Add(this.label1);
+            this.groupBox4.Controls.Add(this.txtCostoUnitario);
+            this.groupBox4.Controls.Add(this.txtSuscripcionesAPagar);
+            this.groupBox4.Controls.Add(this.label7);
+            this.groupBox4.Controls.Add(this.txtSuscripcionesPendientes);
+            this.groupBox4.Controls.Add(this.label6);
+            this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+            this.groupBox4.Location = new System.Drawing.Point(28, 440);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(646, 137);
+            this.groupBox4.TabIndex = 10;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "SUSCRIPCIONES PENDIENTES";
+            // 
+            // btnAñadirSuscripcionesCuenta
+            // 
+            this.btnAñadirSuscripcionesCuenta.Location = new System.Drawing.Point(561, 40);
+            this.btnAñadirSuscripcionesCuenta.Name = "btnAñadirSuscripcionesCuenta";
+            this.btnAñadirSuscripcionesCuenta.Size = new System.Drawing.Size(75, 23);
+            this.btnAñadirSuscripcionesCuenta.TabIndex = 12;
+            this.btnAñadirSuscripcionesCuenta.Text = "Añadir";
+            this.btnAñadirSuscripcionesCuenta.UseVisualStyleBackColor = true;
+            this.btnAñadirSuscripcionesCuenta.Click += new System.EventHandler(this.btnAñadirSuscripcionesCuenta_Click);
+            // 
+            // cmbCuenta
+            // 
+            this.cmbCuenta.FormattingEnabled = true;
+            this.cmbCuenta.Location = new System.Drawing.Point(120, 36);
+            this.cmbCuenta.Name = "cmbCuenta";
+            this.cmbCuenta.Size = new System.Drawing.Size(273, 24);
+            this.cmbCuenta.TabIndex = 11;
+            this.cmbCuenta.SelectedIndexChanged += new System.EventHandler(this.cmbCuenta_SelectedIndexChanged);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label8.Location = new System.Drawing.Point(35, 40);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(74, 20);
+            this.label8.TabIndex = 10;
+            this.label8.Text = "CUENTA";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
+            this.label4.Location = new System.Drawing.Point(35, 84);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(219, 13);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "Cantidad Suscripciones Pendientes De Pago";
+            // 
+            // txtSubTotalSuscr
+            // 
+            this.txtSubTotalSuscr.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.txtSubTotalSuscr.Location = new System.Drawing.Point(561, 113);
+            this.txtSubTotalSuscr.Name = "txtSubTotalSuscr";
+            this.txtSubTotalSuscr.ReadOnly = true;
+            this.txtSubTotalSuscr.Size = new System.Drawing.Size(75, 22);
+            this.txtSubTotalSuscr.TabIndex = 9;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.label1.Location = new System.Drawing.Point(35, 114);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(219, 18);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Cantidad Suscripciones a Pagar";
+            // 
+            // txtCostoUnitario
+            // 
+            this.txtCostoUnitario.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.txtCostoUnitario.Location = new System.Drawing.Point(561, 77);
+            this.txtCostoUnitario.Name = "txtCostoUnitario";
+            this.txtCostoUnitario.ReadOnly = true;
+            this.txtCostoUnitario.Size = new System.Drawing.Size(75, 22);
+            this.txtCostoUnitario.TabIndex = 8;
+            // 
+            // txtSuscripcionesAPagar
+            // 
+            this.txtSuscripcionesAPagar.Location = new System.Drawing.Point(266, 111);
+            this.txtSuscripcionesAPagar.Name = "txtSuscripcionesAPagar";
+            this.txtSuscripcionesAPagar.Size = new System.Drawing.Size(56, 22);
+            this.txtSuscripcionesAPagar.TabIndex = 2;
+            this.txtSuscripcionesAPagar.TextChanged += new System.EventHandler(this.txtSuscripcionesAPagar_TextChanged);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.label7.Location = new System.Drawing.Point(342, 113);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(197, 18);
+            this.label7.TabIndex = 7;
+            this.label7.Text = "Sub Total Por Suscripciones";
+            // 
+            // txtSuscripcionesPendientes
+            // 
+            this.txtSuscripcionesPendientes.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.txtSuscripcionesPendientes.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.txtSuscripcionesPendientes.Location = new System.Drawing.Point(266, 79);
+            this.txtSuscripcionesPendientes.Name = "txtSuscripcionesPendientes";
+            this.txtSuscripcionesPendientes.ReadOnly = true;
+            this.txtSuscripcionesPendientes.Size = new System.Drawing.Size(56, 22);
+            this.txtSuscripcionesPendientes.TabIndex = 5;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.label6.Location = new System.Drawing.Point(366, 82);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(173, 15);
+            this.label6.TabIndex = 6;
+            this.label6.Text = "Costo Unitario Por Suscripcion";
             // 
             // cmbCliente
             // 
@@ -83,41 +221,44 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.txtSubTotalApertura);
+            this.groupBox3.Controls.Add(this.txtSubTotalModificacionTC);
             this.groupBox3.Controls.Add(this.label3);
-            this.groupBox3.Controls.Add(this.gridAperturaCuenta);
+            this.groupBox3.Controls.Add(this.gridModificacionTC);
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.Location = new System.Drawing.Point(28, 287);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(645, 197);
+            this.groupBox3.Size = new System.Drawing.Size(645, 145);
             this.groupBox3.TabIndex = 0;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "APERTURA CUENTA";
+            this.groupBox3.Text = "MODIFICACION TIPO CUENTA";
             // 
-            // txtSubTotalApertura
+            // txtSubTotalModificacionTC
             // 
-            this.txtSubTotalApertura.Location = new System.Drawing.Point(552, 164);
-            this.txtSubTotalApertura.Name = "txtSubTotalApertura";
-            this.txtSubTotalApertura.Size = new System.Drawing.Size(75, 22);
-            this.txtSubTotalApertura.TabIndex = 3;
+            this.txtSubTotalModificacionTC.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.txtSubTotalModificacionTC.Location = new System.Drawing.Point(552, 114);
+            this.txtSubTotalModificacionTC.Name = "txtSubTotalModificacionTC";
+            this.txtSubTotalModificacionTC.ReadOnly = true;
+            this.txtSubTotalModificacionTC.Size = new System.Drawing.Size(75, 22);
+            this.txtSubTotalModificacionTC.TabIndex = 3;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(490, 167);
+            this.label3.Location = new System.Drawing.Point(490, 117);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(56, 15);
             this.label3.TabIndex = 2;
             this.label3.Text = "SubTotal";
             // 
-            // gridAperturaCuenta
+            // gridModificacionTC
             // 
-            this.gridAperturaCuenta.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridAperturaCuenta.Location = new System.Drawing.Point(23, 26);
-            this.gridAperturaCuenta.Name = "gridAperturaCuenta";
-            this.gridAperturaCuenta.Size = new System.Drawing.Size(604, 132);
-            this.gridAperturaCuenta.TabIndex = 0;
+            this.gridModificacionTC.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.gridModificacionTC.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridModificacionTC.Location = new System.Drawing.Point(23, 26);
+            this.gridModificacionTC.Name = "gridModificacionTC";
+            this.gridModificacionTC.Size = new System.Drawing.Size(604, 80);
+            this.gridModificacionTC.TabIndex = 0;
             // 
             // groupBox2
             // 
@@ -134,8 +275,10 @@
             // 
             // txtSubTotalTransferencia
             // 
+            this.txtSubTotalTransferencia.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.txtSubTotalTransferencia.Location = new System.Drawing.Point(552, 165);
             this.txtSubTotalTransferencia.Name = "txtSubTotalTransferencia";
+            this.txtSubTotalTransferencia.ReadOnly = true;
             this.txtSubTotalTransferencia.Size = new System.Drawing.Size(75, 22);
             this.txtSubTotalTransferencia.TabIndex = 2;
             // 
@@ -151,35 +294,19 @@
             // 
             // gridTransferencia
             // 
+            this.gridTransferencia.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.gridTransferencia.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridTransferencia.Location = new System.Drawing.Point(23, 33);
             this.gridTransferencia.Name = "gridTransferencia";
-            this.gridTransferencia.Size = new System.Drawing.Size(604, 119);
+            this.gridTransferencia.Size = new System.Drawing.Size(604, 126);
             this.gridTransferencia.TabIndex = 0;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(58, 528);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(254, 16);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Cantidad suscripciones a Tipo de Cuenta";
-            // 
-            // txtSuscripciones
-            // 
-            this.txtSuscripciones.Location = new System.Drawing.Point(318, 526);
-            this.txtSuscripciones.Name = "txtSuscripciones";
-            this.txtSuscripciones.Size = new System.Drawing.Size(56, 20);
-            this.txtSuscripciones.TabIndex = 2;
             // 
             // btnGenerarFactura
             // 
             this.btnGenerarFactura.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGenerarFactura.Location = new System.Drawing.Point(560, 509);
+            this.btnGenerarFactura.Location = new System.Drawing.Point(568, 599);
             this.btnGenerarFactura.Name = "btnGenerarFactura";
-            this.btnGenerarFactura.Size = new System.Drawing.Size(115, 61);
+            this.btnGenerarFactura.Size = new System.Drawing.Size(115, 53);
             this.btnGenerarFactura.TabIndex = 3;
             this.btnGenerarFactura.Text = "Generar Factura";
             this.btnGenerarFactura.UseVisualStyleBackColor = true;
@@ -189,24 +316,23 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(717, 573);
+            this.ClientSize = new System.Drawing.Size(717, 660);
             this.Controls.Add(this.btnGenerarFactura);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.txtSuscripciones);
-            this.Controls.Add(this.label1);
             this.Name = "Facturacion_De_Costos";
             this.Text = "PAGO ELECTRONICO - FACTURACION DE COSTOS";
             this.Load += new System.EventHandler(this.Facturacion_De_Costos_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridAperturaCuenta)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridModificacionTC)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridTransferencia)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -216,15 +342,25 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView gridAperturaCuenta;
+        private System.Windows.Forms.DataGridView gridModificacionTC;
         private System.Windows.Forms.DataGridView gridTransferencia;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtSuscripciones;
+        private System.Windows.Forms.TextBox txtSuscripcionesAPagar;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtSubTotalTransferencia;
-        private System.Windows.Forms.TextBox txtSubTotalApertura;
+        private System.Windows.Forms.TextBox txtSubTotalModificacionTC;
         private System.Windows.Forms.Button btnGenerarFactura;
         private System.Windows.Forms.ComboBox cmbCliente;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtSuscripcionesPendientes;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox txtSubTotalSuscr;
+        private System.Windows.Forms.TextBox txtCostoUnitario;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ComboBox cmbCuenta;
+        private System.Windows.Forms.Button btnAñadirSuscripcionesCuenta;
     }
 }

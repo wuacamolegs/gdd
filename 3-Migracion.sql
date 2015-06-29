@@ -77,9 +77,8 @@ COMMIT
   -- TABLA ITEM FACTURA -- ANTES TIENE QUE IR CLIENTE
  
  BEGIN TRANSACTION
-	INSERT INTO [OOZMA_KAPPA].[Item_factura] (item_factura_desc, item_factura_costo, item_factura_id)(
-	SELECT Item_Factura_Descr, Item_Factura_Importe, Factura_Numero FROM gd_esquema.Maestra , OOZMA_KAPPA.Item_factura
-	WHERE Factura_Numero = item_factura_numero_factura);
+	INSERT INTO [OOZMA_KAPPA].[Item_factura] (item_factura_desc, item_factura_costo, item_factura_numero_factura,item_factura_cantidad)(
+	SELECT Item_Factura_Descr, Item_Factura_Importe, Factura_Numero, 1 FROM gd_esquema.Maestra WHERE Item_Factura_Descr is not null);
  COMMIT
  
  
@@ -100,7 +99,7 @@ COMMIT
 	,4 --CONSIDERAMOS TODAS SON GRATUITAS (segun mail), y la gratuita tiene id 4
 	,50000  --COMO NO ESTA EL MONTO DE CADA CUENTA CONSIDEREMOS ESTE VALOR PARA TODAS.
 	,Cuenta_Fecha_Creacion   --cuenta moneda y estado les puse default 1(dolar) y "Habilitada"
-	,DATEADD(year,1,Cuenta_Fecha_Creacion)    --COMO FECHA CIERRE ESTA EN NULL le ponemos como fecha desde la apertura un año mas.
+	,(SELECT DATEADD(DAY,tipo_cuenta_dias_vigencia,Cuenta_Fecha_Creacion)FROM OOZMA_KAPPA.Tipo_cuenta WHERE tipo_cuenta_id = 4)    --segun el tipo cuenta la fecha de cierre
  FROM gd_esquema.Maestra
  WHERE Cuenta_Numero IS NOT NULL);
    

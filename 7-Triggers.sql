@@ -55,38 +55,157 @@
 	FROM inserted 
 	ORDER BY transferencia_id DESC;
 	
-	SELECT tipo_cuenta_costo_transferencia
+	SELECT @costo = tipo_cuenta_costo_transferencia
 	FROM OOZMA_KAPPA.Cuenta, OOZMA_KAPPA.Tipo_Cuenta
-	WHERE tipo_cuenta_id =  cuenta_tipo_cuenta_id; 
+	WHERE tipo_cuenta_id =  cuenta_tipo_cuenta_id AND cuenta_id = @Cuenta; 
 	
 	UPDATE OOZMA_KAPPA.Cuenta
-	SET saldo = saldo + @Importe
+	SET cuenta_saldo = cuenta_saldo + @Importe
 	WHERE cuenta_id = @Cuenta;
 	
-	update OOZMA_KAPPA.Cuenta
-	SET saldo = saldo - @Importe - @costo
+	UPDATE OOZMA_KAPPA.Cuenta
+	SET cuenta_saldo = cuenta_saldo - @Importe - @costo
 	WHERE cuenta_id = @CuentaOrigen;
+	COMMIT;
+	GO
+
+-- update TRANSACCIONES AFTER DEPOSITO: agregar deposito a transacciones pendientes
+
+	CREATE TRIGGER OOZMA_KAPPA.updateTransaccionesAfterDeposito ON OOZMA_KAPPA.Deposito
+	AFTER INSERT
+	AS BEGIN TRANSACTION
+
+	DECLARE @Cliente numeric(18,0);
+	DECLARE @Cuenta numeric(18,0);
+	DECLARE @Fecha DateTime;
+	DECLARE @Costo int = 0;
+	
+	SELECT TOP 1 @Cuenta = deposito_cuenta_id, @Cliente = deposito_cliente_id, @Fecha = deposito_fecha
+	FROM inserted 
+	ORDER BY deposito_id DESC;
+		
+	INSERT INTO OOZMA_KAPPA.Transacciones_Pendientes (transaccion_pendiente_importe, transaccion_pendiente_descr, transaccion_pendiente_cliente_id, transaccion_pendiente_fecha, transaccion_pendiente_cuenta_id)
+	VALUES (@Costo, 'Comisión por Deposito', @Cliente, @Fecha, @Cuenta);
+	
+	COMMIT;
+	GO
+
+-- update TRANSACCIONES AFTER MODIFICACION TIPO CUENTA: agregar modificacion cuenta a transacciones pendientes
+
+	CREATE TRIGGER OOZMA_KAPPA.updateTransaccionesAfterModificacionCuenta ON OOZMA_KAPPA.Cuenta
+	AFTER UPDATE
+	AS BEGIN TRANSACTION
+
+	DECLARE @Cliente numeric(18,0);
+	DECLARE @Cuenta numeric(18,0);
+	DECLARE @Fecha DateTime;
+	DECLARE @Costo int = 0;
+	
+	SELECT TOP 1 @Cuenta = cuenta_id, @Cliente = cuenta_cliente_id, @Fecha = cuenta_fecha_apertura
+	FROM inserted 
+	ORDER BY cuenta_fecha_apertura DESC;
+	
+	SELECT @Costo = tipo_cuenta_costo_apertura
+	FROM OOZMA_KAPPA.Cuenta, OOZMA_KAPPA.Tipo_Cuenta
+	WHERE tipo_cuenta_id =  cuenta_tipo_cuenta_id AND cuenta_id = @Cuenta; 
+	
+	INSERT INTO OOZMA_KAPPA.Transacciones_Pendientes (transaccion_pendiente_importe, transaccion_pendiente_descr, transaccion_pendiente_cliente_id, transaccion_pendiente_fecha, transaccion_pendiente_cuenta_id)
+	VALUES (@Costo, 'Modificaciones Tipo Cuenta', @Cliente, @Fecha, @Cuenta);
+	
+	COMMIT;
+	GO
+
+-- update TRANSACCIONES AFTER APERTURA CUENTA: agregar creacion cuenta a transacciones pendientes
+
+	CREATE TRIGGER OOZMA_KAPPA.updateTransaccionesAfterAperturaCuenta ON OOZMA_KAPPA.Cuenta
+	AFTER INSERT
+	AS BEGIN TRANSACTION
+
+	DECLARE @Cliente numeric(18,0);
+	DECLARE @Cuenta numeric(18,0);
+	DECLARE @Fecha DateTime;
+	DECLARE @Costo int = 0;
+	DECLARE @CostoPorSuscripcion int;
+	
+	SELECT TOP 1 @Cuenta = cuenta_id, @Cliente = cuenta_cliente_id, @Fecha = cuenta_fecha_apertura
+	FROM inserted 
+	ORDER BY cuenta_fecha_apertura DESC;
+	
+	SELECT @Costo = tipo_cuenta_costo_apertura, @CostoPorSuscripcion = tipo_cuenta_costo_apertura / tipo_cuenta_dias_vigencia
+	FROM OOZMA_KAPPA.Cuenta, OOZMA_KAPPA.Tipo_Cuenta
+	WHERE tipo_cuenta_id =  cuenta_tipo_cuenta_id AND cuenta_id = @Cuenta; 
+	
+	INSERT INTO OOZMA_KAPPA.Transacciones_Pendientes (transaccion_pendiente_importe, transaccion_pendiente_descr, transaccion_pendiente_cliente_id, transaccion_pendiente_fecha, transaccion_pendiente_cuenta_id)
+	VALUES (@CostoPorSuscripcion, 'Suscripciones por Apertura Cuenta', @Cliente, @Fecha, @Cuenta);
+	
+	COMMIT;
+	GO
+
+
+-- update TRANSACCIONES AFTER TRANSFERENCIA: agregar deposito a transacciones pendientes
+
+	CREATE TRIGGER OOZMA_KAPPA.updateTransaccionesAfterTransferencia ON OOZMA_KAPPA.Transferencia
+	AFTER INSERT
+	AS BEGIN TRANSACTION
+
+	DECLARE @Cliente numeric(18,0);
+	DECLARE @Cuenta numeric(18,0);
+	DECLARE @Fecha DateTime;
+	DECLARE @Costo int = 0;
+	
+	SELECT TOP 1 @Cuenta = transferencia_origen_cuenta_id, @Fecha = transferencia_fecha
+	FROM inserted 
+	ORDER BY transferencia_id DESC;
+
+	SELECT @Cliente = cuenta_cliente_id
+	FROM OOZMA_KAPPA.Cuenta 
+	WHERE cuenta_id = @Cuenta;
+		
+	INSERT INTO OOZMA_KAPPA.Transacciones_Pendientes (transaccion_pendiente_importe, transaccion_pendiente_descr, transaccion_pendiente_cliente_id, transaccion_pendiente_fecha, transaccion_pendiente_cuenta_id)
+	VALUES (@Costo, 'Comisión por transferencia.', @Cliente, @Fecha, @Cuenta);
+	
 	COMMIT;
 	GO
 
 
 -- VALIDAR INHABILITADA AFTER TRANSACCION: contar cantidad de transacciones de la cuenta y blouqear si = 5.
 
-	CREATE TRIGGER OOZMA_KAPPA.validarCuentaInhabilitadaAfterTransaccion ON OOZMA_KAPPA.Transaccion_Pendiente
+	CREATE TRIGGER OOZMA_KAPPA.validarCuentaInhabilitadaAfterTransaccion ON OOZMA_KAPPA.Transacciones_Pendientes
 	AFTER INSERT
 	AS
 	DECLARE @cliente numeric(18,0)
 	DECLARE @cuenta numeric(18,0)
 	DECLARE @contador tinyint
 	
-	SET @cliente = (SELECT Transaccion_Pendiente_Cliente FROM INSERTED)
-	SET @cuenta = (SELECT Transaccion_Pendiente_Cuenta_Nro FROM INSERTED)
-	SET @contador = (SELECT COUNT(*) CONTADOR FROM DEVGURUS.Transaccion_Pendiente WHERE Transaccion_Pendiente_Cliente = @cliente
-	AND Transaccion_Pendiente_Cuenta_Nro = @cuenta)
+	SET @cliente = (SELECT transaccion_pendiente_cliente_id FROM INSERTED)
+	SET @cuenta = (SELECT transaccion_pendiente_cuenta_id FROM INSERTED)
+	SET @contador = (SELECT COUNT(*) FROM OOZMA_KAPPA.Transacciones_Pendientes WHERE transaccion_pendiente_cliente_id = @cliente
+	AND transaccion_pendiente_cuenta_id = @cuenta)
 	
 	IF (@contador = 5)
 	BEGIN
-	update Cuenta_Estado SET Cuenta_Estado = 'Inhabilitado' WHERE Cuenta_Nro = @cuenta
+	UPDATE OOZMA_KAPPA.Cuenta SET cuenta_estado = 0 WHERE cuenta_id = @cuenta
 	END
-	GO	
+	GO
+	
+--delete TRANSACCION AFTER INSERT FACTURA: al facturar, busco las transacciones pendientes para ese cliente, 
+-- se le facuraran todas las transferencias y modificaciones cuenta que tenga y solo x suscripciones de cuenta.
+
+	CREATE TRIGGER OOZMA_KAPPA.deleteTransaccionAfeterInsertFactura ON [OOZMA_KAPPA].[Factura]
+	AFTER INSERT
+	AS BEGIN TRANSACTION
+
+	DECLARE @Cliente_id numeric(18,0)
+	
+	SELECT TOP 1 factura_cliente_id FROM inserted ORDER BY factura_cliente_id DESC;	
+	
+	DELETE FROM OOZMA_KAPPA.Transacciones_Pendientes WHERE transaccion_pendiente_cliente_id = @Cliente_id AND transaccion_pendiente_descr = 'Comisión por transferencia.' OR transaccion_pendiente_descr = 'Modificaciones Tipo Cuenta';
+	
+	COMMIT;
+
+	GO
+	
+
+
+	
 

@@ -135,13 +135,21 @@ namespace Clases
             parameterList.Add(new SqlParameter("@importe", importe));
         }
 
+        private void setearListaDeParametrosConClienteIDYFechaActual(int clienteID)
+        {
+            this.parameterList.Clear();
+            parameterList.Add(new SqlParameter("@cliente_id", clienteID));
+            parameterList.Add(new SqlParameter("@Fecha", Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]).ToString("yyyy-MM-dd HH:mm:ss")));
+        }
+
+
         #endregion
 
         #region llamados a la base
 
         public DataSet TraerCuentasActivasPorClienteID()
         {
-            this.setearListaDeParametrosConClienteID(this.cliente.cliente_id);
+            this.setearListaDeParametrosConClienteIDYFechaActual(this.cliente.cliente_id);
             DataSet ds = this.TraerListado(this.parameterList, "ActivasPorClienteID");
             return ds;
         }
@@ -153,11 +161,11 @@ namespace Clases
             return ds;
         }
 
-        public void GenerarRetiro(int importe)
+        public DataSet TraerCuentasPorClienteID()
         {
-            this.setearListaDeParametrosConImporte(importe);
-            Modificar(parameterList); //TODO habria que verificar que se modifico correctamente, y en caso contrario borrar el cheque generado
-            //TODO Falta el stored procedure! 
+            this.setearListaDeParametrosConClienteID(this.cliente.cliente_id);
+            DataSet ds = this.TraerListado(this.parameterList, "PorClienteID");
+            return ds;            
         }
 
         #endregion
@@ -166,5 +174,14 @@ namespace Clases
 
         #endregion
 
+
+
+
+        public DataSet TraerCuentasACobrarPorClienteID()
+        {
+            this.setearListaDeParametrosConClienteID(this.cliente.cliente_id);
+            DataSet ds = this.TraerListado(this.parameterList, "APagarPorClienteID");
+            return ds;
+        }
     }
 }

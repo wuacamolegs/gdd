@@ -60,12 +60,11 @@ CREATE TABLE [OOZMA_KAPPA].[Cuenta](
 	[cuenta_pais_id] numeric(18, 0)NOT NULL,
 	[cuenta_moneda_id] numeric(18, 0)NOT NULL DEFAULT(1),
 	[cuenta_tipo_cuenta_id] numeric(18, 0)NOT NULL,
-	[cuenta_estado] bit NOT NULL DEFAULT(1),  --0 es false , 1 true
+	[cuenta_estado] bit NOT NULL DEFAULT(1),  --0 es false deshabilitada , 1 true habilitada
 	[cuenta_saldo] numeric(18, 0)NOT NULL DEFAULT(0),
 	[cuenta_fecha_apertura] [datetime] NOT NULL DEFAULT(getdate()),
 	[cuenta_fecha_cierre] [datetime] NOT NULL,
 )
-
 
 --- TABLA DEPOSITO ---
 
@@ -139,6 +138,7 @@ CREATE TABLE [OOZMA_KAPPA].[Item_factura](
 	[item_factura_desc] [varchar](255) NOT NULL,
 	[item_factura_costo] numeric(18, 2) NOT NULL,
 	[item_factura_numero_factura] numeric(18,0) NOT NULL,
+	[item_factura_cantidad] numeric(18,0) NOT NULL,
 )
 
 --- TABLA LOGIN ---
@@ -212,19 +212,22 @@ CREATE TABLE [OOZMA_KAPPA].[Tarjeta](
 CREATE TABLE [OOZMA_KAPPA].[Tipo_cuenta](
 	[tipo_cuenta_id] numeric(18, 0) IDENTITY (1,1),
 	[tipo_cuenta_nombre] [varchar](255) NOT NULL,
+	[tipo_cuenta_dias_vigencia] numeric(18,0) NOT NULL,
 	[tipo_cuenta_costo_transferencia] numeric(18, 0)NOT NULL,
-	[tipo_cuenta_costo_apertura] numeric(18, 0)NOT NULL,   --VER QUE NO FALTE NINGUN COSTO
+	[tipo_cuenta_costo_apertura] numeric(18, 0)NOT NULL,   
+	[tipo_cuenta_costo_modificacion] numeric(18, 0)NOT NULL,
 )
 
+
 -- los costos se los puse yo (CAMI) --
-INSERT INTO[OOZMA_KAPPA].[Tipo_cuenta](tipo_cuenta_nombre, tipo_cuenta_costo_transferencia,tipo_cuenta_costo_apertura) 
-VALUES ('ORO',500,500);
-INSERT INTO[OOZMA_KAPPA].[Tipo_cuenta](tipo_cuenta_nombre, tipo_cuenta_costo_transferencia,tipo_cuenta_costo_apertura) 
-VALUES ('PLATA',400,400);
-INSERT INTO[OOZMA_KAPPA].[Tipo_cuenta](tipo_cuenta_nombre, tipo_cuenta_costo_transferencia,tipo_cuenta_costo_apertura)
-VALUES ('BRONCE',300,300);
-INSERT INTO[OOZMA_KAPPA].[Tipo_cuenta](tipo_cuenta_nombre, tipo_cuenta_costo_transferencia,tipo_cuenta_costo_apertura)
-VALUES ('GRATUITA',0,0);
+INSERT INTO[OOZMA_KAPPA].[Tipo_cuenta](tipo_cuenta_nombre, tipo_cuenta_costo_transferencia,tipo_cuenta_costo_apertura, tipo_cuenta_dias_vigencia, tipo_cuenta_costo_modificacion) 
+VALUES ('ORO',500,500,120,100);
+INSERT INTO[OOZMA_KAPPA].[Tipo_cuenta](tipo_cuenta_nombre, tipo_cuenta_costo_transferencia,tipo_cuenta_costo_apertura, tipo_cuenta_dias_vigencia, tipo_cuenta_costo_modificacion) 
+VALUES ('PLATA',400,400,90,50);
+INSERT INTO[OOZMA_KAPPA].[Tipo_cuenta](tipo_cuenta_nombre, tipo_cuenta_costo_transferencia,tipo_cuenta_costo_apertura, tipo_cuenta_dias_vigencia, tipo_cuenta_costo_modificacion) 
+VALUES ('BRONCE',300,300,60,25);
+INSERT INTO[OOZMA_KAPPA].[Tipo_cuenta](tipo_cuenta_nombre, tipo_cuenta_costo_transferencia,tipo_cuenta_costo_apertura, tipo_cuenta_dias_vigencia, tipo_cuenta_costo_modificacion) 
+VALUES ('GRATUITA',0,0,30,10);
 
 --- TABLA TIPO_DOCUMENTO ---
 

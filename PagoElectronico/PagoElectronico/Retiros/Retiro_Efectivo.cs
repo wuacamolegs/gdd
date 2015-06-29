@@ -52,6 +52,7 @@ namespace PagoElectronico.Retiros
         private void cmbCliente_SelectedIndexChanged(object sender, EventArgs e)
         {
             //cargar cmb Cuentas
+
             DataSet dsCuentas = ObtenerCuentasActivasPorClienteId();
             DropDownListManager.CargarCombo(cmbCuenta, dsCuentas.Tables[0], "cuenta_numero", "cuenta_numero", false, "");
 
@@ -112,7 +113,7 @@ namespace PagoElectronico.Retiros
         
         public DataSet ObtenerCuentasActivasPorClienteId()
         {
-            int clienteID =  Convert.ToInt32(cmbCliente.SelectedValue);
+            int clienteID = Convert.ToInt32(cmbCliente.SelectedValue);
             DataSet dsClientes = ObtenerClientePorID(clienteID);
             unCliente.DataRowToObject(dsClientes.Tables[0].Rows[0]);
 
@@ -193,8 +194,7 @@ namespace PagoElectronico.Retiros
             retiroActual.Fecha = Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]);
             retiroActual.Importe = Convert.ToInt32(txtImporte.Text);
             retiroActual.GenerarRetiroDevolverSuID();
-
-            unaCuenta.GenerarRetiro(retiroActual.Importe);
+            MessageBox.Show("retiro cheque: " + chequeActual.Cheque_id + " cuenta id: " + unaCuenta.cuenta_id + " fecha: " + retiroActual.Fecha + " importe " + retiroActual.Importe, "retiro" );
 
             MessageBox.Show("Retiro generado exitosamente", "retiro exitoso");
 

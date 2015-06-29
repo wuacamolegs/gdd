@@ -168,15 +168,8 @@ COMMIT
 
 
 BEGIN TRANSACTION
-ALTER TABLE [OOZMA_KAPPA].[Item_factura]
-ADD FOREIGN KEY (item_factura_numero_factura)
-REFERENCES [OOZMA_KAPPA].[Cliente](cliente_id);
-COMMIT
-
-
-BEGIN TRANSACTION
 ALTER TABLE [OOZMA_KAPPA].[Transacciones_pendientes]
-ADD FOREIGN KEY (itransaccion_pendiente_cliente_id)
+ADD FOREIGN KEY (transaccion_pendiente_cliente_id)
 REFERENCES [OOZMA_KAPPA].[Cliente](cliente_id);
 COMMIT
 

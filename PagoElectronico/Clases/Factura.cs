@@ -23,9 +23,8 @@ namespace Clases
 
         private int _factura_numero;
         private Cliente _cliente;
-        private Decimal _importe;
+        private Decimal _importe = 0;
         private DateTime _fecha;
-        private ItemFactura _itemsFactura;
         
         #endregion
 
@@ -52,12 +51,6 @@ namespace Clases
             set { _cliente = value; }
         }
        
-        public ItemFactura items
-        {
-            get { return _itemsFactura; }
-            set { _itemsFactura = value; }
-        }
-
         public Decimal Importe
         {
             get { return _importe; }
@@ -99,9 +92,8 @@ namespace Clases
 
         #region setters
       
-        private void setearListaParametrosCompleta()
+        private void setearListaParametrosSinNumeroFactura()
         {
-          parameterList.Add(new SqlParameter("@factura_numero", this.Numero));
           parameterList.Add(new SqlParameter("@factura_importe", this.Importe));
           parameterList.Add(new SqlParameter("@factura_fecha", this.Fecha));
           parameterList.Add(new SqlParameter("@factura_cliente_id", this.Cliente.cliente_id));
@@ -112,9 +104,12 @@ namespace Clases
 
         #region llamados a la base
 
-        public void GenerarFactura()
+        public Factura GenerarFactura()
         {
-            setearListaParametrosCompleta();
+            setearListaParametrosSinNumeroFactura();
+            DataSet ds = this.GuardarYObtenerID(parameterList);  //TODO falta obtener el id
+            this.Numero = Convert.ToInt32(ds.Tables[0].Rows[0]["factura_numero"]);
+            return this;
         }
 
         #endregion
@@ -124,5 +119,21 @@ namespace Clases
         #endregion
 
 
+
+
+        public void AñadirItems(int CantTrans, decimal totalTrans, int CantMod, decimal totalMod, int cantSusc, decimal totalSusc)
+        {
+            crearItem(CantTrans,totalTrans,"Comisión por transferencia.");
+            crearItem(CantMod,totalMod,"Modificaciones Tipo Cuenta");
+            crearItem(cantSusc,totalSusc,"Suscripciones por Apertura Cuenta");
+        }
+
+        //TODO que pasa si facturo dos veces un cliente una cuenta? nueva factura no? no me tengo que fijar si ya facturo uno de estos items y alterar el total no?
+
+        private void crearItem(int cant, decimal costo, string descr)
+        {
+            ItemFactura item = new ItemFactura(this, cant, costo, descr);
+            item.InsertItem();
+        }
     }
 }
