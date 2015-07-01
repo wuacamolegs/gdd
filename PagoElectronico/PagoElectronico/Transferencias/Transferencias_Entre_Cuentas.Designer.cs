@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.Saldo = new System.Windows.Forms.Label();
+            this.txtSaldo = new System.Windows.Forms.TextBox();
             this.cmbCuentaOrigen = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.cmbClienteOrigen = new System.Windows.Forms.ComboBox();
@@ -49,17 +51,37 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.Saldo);
+            this.groupBox1.Controls.Add(this.txtSaldo);
             this.groupBox1.Controls.Add(this.cmbCuentaOrigen);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.cmbClienteOrigen);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(33, 28);
+            this.groupBox1.Location = new System.Drawing.Point(33, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(226, 123);
+            this.groupBox1.Size = new System.Drawing.Size(226, 162);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Origen";
+            // 
+            // Saldo
+            // 
+            this.Saldo.AutoSize = true;
+            this.Saldo.Location = new System.Drawing.Point(70, 128);
+            this.Saldo.Name = "Saldo";
+            this.Saldo.Size = new System.Drawing.Size(39, 15);
+            this.Saldo.TabIndex = 5;
+            this.Saldo.Text = "Saldo";
+            // 
+            // txtSaldo
+            // 
+            this.txtSaldo.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.txtSaldo.Location = new System.Drawing.Point(117, 125);
+            this.txtSaldo.Name = "txtSaldo";
+            this.txtSaldo.ReadOnly = true;
+            this.txtSaldo.Size = new System.Drawing.Size(77, 21);
+            this.txtSaldo.TabIndex = 4;
             // 
             // cmbCuentaOrigen
             // 
@@ -105,9 +127,9 @@
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.cmbClienteDestino);
             this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Location = new System.Drawing.Point(330, 28);
+            this.groupBox2.Location = new System.Drawing.Point(330, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(232, 123);
+            this.groupBox2.Size = new System.Drawing.Size(232, 162);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Destino";
@@ -153,24 +175,24 @@
             // 
             this.groupBox3.Controls.Add(this.txtImporte);
             this.groupBox3.Controls.Add(this.label5);
-            this.groupBox3.Location = new System.Drawing.Point(33, 157);
+            this.groupBox3.Location = new System.Drawing.Point(33, 180);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(529, 79);
+            this.groupBox3.Size = new System.Drawing.Size(529, 56);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             // 
             // txtImporte
             // 
-            this.txtImporte.Location = new System.Drawing.Point(249, 38);
+            this.txtImporte.Location = new System.Drawing.Point(265, 23);
             this.txtImporte.Name = "txtImporte";
-            this.txtImporte.Size = new System.Drawing.Size(131, 20);
+            this.txtImporte.Size = new System.Drawing.Size(122, 20);
             this.txtImporte.TabIndex = 1;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(157, 42);
+            this.label5.Location = new System.Drawing.Point(168, 23);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(69, 16);
             this.label5.TabIndex = 0;
@@ -224,5 +246,7 @@
         private System.Windows.Forms.TextBox txtImporte;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnConfirmar;
+        private System.Windows.Forms.TextBox txtSaldo;
+        private System.Windows.Forms.Label Saldo;
     }
 }

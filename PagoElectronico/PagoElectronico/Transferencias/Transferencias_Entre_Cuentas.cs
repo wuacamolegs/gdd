@@ -52,7 +52,7 @@ namespace PagoElectronico.Transferencias
 
             //cargar cmbClienteDestino
             DataSet dsClienteDestino = unClienteOrigen.ObtenerTodosLosClientes(unUsuario.usuario_id);
-            DropDownListManager.CargarCombo(cmbClienteOrigen, dsClienteDestino.Tables[0], "cliente_id", "cliente_nombre", false, ""); 
+            DropDownListManager.CargarCombo(cmbClienteDestino, dsClienteDestino.Tables[0], "cliente_id", "cliente_nombre", false, ""); 
 
             
         }
@@ -60,28 +60,40 @@ namespace PagoElectronico.Transferencias
         private void cmbClienteOrigen_SelectedIndexChanged(object sender, EventArgs e)
         {
             //cargar CuentasClienteOrigen
-            DataSet ds = traerCuentasPorCliente(unClienteOrigen);
-
+            unClienteOrigen.cliente_id = Convert.ToInt32(cmbClienteOrigen.SelectedValue);
+            DataSet dsCuentaOrigen = traerCuentasPorCliente(unClienteOrigen);
+            DropDownListManager.CargarCombo(cmbCuentaOrigen, dsCuentaOrigen.Tables[0], "cuenta_numero", "cuenta_numero", false, ""); 
         }
 
         private void cmbClienteDestino_SelectedIndexChanged(object sender, EventArgs e)
         {
             //cargar CuentasClienteDestino
-            DataSet ds = traerCuentasPorCliente(unClienteDestino);
+            unClienteDestino.cliente_id = Convert.ToInt32(cmbClienteDestino.SelectedValue);
+            DataSet dsCuentaDestino = traerCuentasPorCliente(unClienteDestino);
+            DropDownListManager.CargarCombo(cmbCuentaDestino, dsCuentaDestino.Tables[0], "cuenta_numero", "cuenta_numero", false, ""); 
         }
+
+        private void cmbCuentaOrigen_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            unaCuentaOrigen.cuenta_id = Convert.ToDouble(cmbCuentaOrigen.SelectedValue);
+            DataSet dsCuentaOrigen = unaCuentaOrigen.TraerCuentaPorCuentaID(unaCuentaOrigen.cuenta_id);
+            txtSaldo.Clear();
+            string saldo = Convert.ToString(dsCuentaOrigen.Tables[0].Rows[0]["cuenta_saldo"]);
+            txtSaldo.Text = saldo;
+        }
+
 
 
         private void btnConfirmar_Click(object sender, EventArgs e)
         {
-            DataSet ds = unaCuentaOrigen.TraerCuentaPorCuentaID(Convert.ToDouble(cmbCuentaOrigen.SelectedValue));
-            unaCuentaOrigen.DataRowToObject(ds.Tables[0].Rows[0]);
+
 
             if (ValidarCampos())
             
                 
                 {
                     MessageBox.Show("Transaccion Exitosa", "Validacion Exitosa");
-
+                    
                     realizarAccionesTransferencia();
                 }
                        
@@ -122,7 +134,7 @@ namespace PagoElectronico.Transferencias
             string strErrores = "";
             strErrores = Validator.ValidarNulo(txtImporte.Text, "Importe");
             strErrores = strErrores + Validator.MayorACero(txtImporte.Text, "Importe");
-            strErrores = strErrores + Validator.ValidarSaldoCantidadMenor(txtImporte.Text, unaCuentaOrigen.saldo, "Importe");
+            strErrores = strErrores + Validator.ValidarSaldoCantidadMenor(txtImporte.Text, Convert.ToInt32(txtSaldo.Text), "Importe");
             if (strErrores.Length > 0)
             {
                 MessageBox.Show(strErrores);
@@ -150,20 +162,28 @@ namespace PagoElectronico.Transferencias
             DataSet dsCuentaDestino = unaCuentaDestino.TraerCuentaPorCuentaID(cuentaDestinoID);
             unaCuentaDestino.DataRowToObject(dsCuentaDestino.Tables[0].Rows[0]);
 
+            unaTransferencia.CuentaOrigen = unaCuentaOrigen;
+            unaTransferencia.CuentaDestino = unaCuentaDestino;
+            
             generarTransferenciaExitosa();
         }
 
         private void generarTransferenciaExitosa()
         {
             unaTransferencia.CuentaOrigen.cuenta_id = Convert.ToDouble(cmbCuentaOrigen.SelectedValue);
-            unaTransferencia.CuentaDestino.cuenta_id = Convert.ToInt32(cmbCuentaDestino.SelectedValue);
+            unaTransferencia.CuentaDestino.cuenta_id = Convert.ToDouble(cmbCuentaDestino.SelectedValue);
             unaTransferencia.Importe = Convert.ToInt32(txtImporte.Text);
             unaTransferencia.Fecha = Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]);
 
             unaTransferencia.GenerarTransferencia();
+            txtSaldo.Clear();
+            this.Hide();
         }
      
      #endregion
+
+
+
 
 
 

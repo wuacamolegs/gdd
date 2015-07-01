@@ -92,7 +92,7 @@
 
 -- update TRANSACCIONES AFTER MODIFICACION TIPO CUENTA: agregar modificacion cuenta a transacciones pendientes
 
-	ALTER TRIGGER [OOZMA_KAPPA].[updateTransaccionesAfterModificacionCuenta] ON [OOZMA_KAPPA].[Cuenta]
+	ALTER TRIGGER OOZMA_KAPPA.updateTransaccionesAfterModificacionCuenta ON OOZMA_KAPPA.Cuenta
 	AFTER UPDATE 
 	AS BEGIN TRANSACTION
 	
