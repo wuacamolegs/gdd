@@ -154,6 +154,13 @@ namespace Clases
             return ds;
         }
 
+        public DataSet TraerCuentasAbiertasPorClienteID()
+        {
+            this.setearListaDeParametrosConClienteIDYFechaActual(this.cliente.cliente_id);
+            DataSet ds = this.TraerListado(this.parameterList, "PorCliente_NoCerradas");
+            return ds;
+        }
+
         public DataSet TraerCuentaPorCuentaID(double cuentaID)
         {
             this.setearListaDeParametrosConCuentaID(cuentaID);
@@ -168,6 +175,13 @@ namespace Clases
             return ds;            
         }
 
+        public DataSet TraerCuentasACobrarPorClienteID()
+        {
+            this.setearListaDeParametrosConClienteID(this.cliente.cliente_id);
+            DataSet ds = this.TraerListado(this.parameterList, "APagarPorClienteID");
+            return ds;
+        }
+
         #endregion
 
         #region metodos privados
@@ -177,11 +191,8 @@ namespace Clases
 
 
 
-        public DataSet TraerCuentasACobrarPorClienteID()
-        {
-            this.setearListaDeParametrosConClienteID(this.cliente.cliente_id);
-            DataSet ds = this.TraerListado(this.parameterList, "APagarPorClienteID");
-            return ds;
-        }
+
+
+
     }
 }

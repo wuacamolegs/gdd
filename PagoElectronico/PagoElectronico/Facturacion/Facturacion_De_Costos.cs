@@ -227,7 +227,7 @@ namespace PagoElectronico.Facturacion
                 }
                 else
                 {
-                    strErrores = Validator.ValidarCantidadMenor(txtSuscripcionesAPagar.Text, Convert.ToInt32(txtSuscripcionesPendientes.Text), "Suscripciones A Pagar");
+                    strErrores = Validator.ValidarSuscripcionesCantidadMenor(txtSuscripcionesAPagar.Text, Convert.ToInt32(txtSuscripcionesPendientes.Text), "Suscripciones A Pagar");
                     if (strErrores.Length > 0)
                     {
                         MessageBox.Show(strErrores, "Validar Campos");

@@ -73,3 +73,6 @@ A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronic
 A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Facturacion.Facturas.resources
 E:\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.ABM_Cliente.frmCliente.resources
 E:\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Facturacion.Facturas.resources
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\PagoElectronico\PagoElectronico\bin\Debug\PagoElectronico.exe.config
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.exe
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.pdb

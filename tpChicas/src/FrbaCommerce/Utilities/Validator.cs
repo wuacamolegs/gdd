@@ -82,13 +82,23 @@ namespace Utilities
             return string.Empty;
         }
 
-        public static string ValidarCantidadMenor(string cant, int cantSuscr, string nombreCampo)
+        public static string ValidarSuscripcionesCantidadMenor(string cant, int cantSuscr, string nombreCampo)
         {
             int cantidad = Convert.ToInt32(cant);
             if (cantidad > cantSuscr)
                 return "No posee tantas suscripciones para rendir. Tiene que ingresar una cantidad válida, para el campo " + nombreCampo + "\n";
             return string.Empty;
         }
+
+        public static string ValidarSaldoCantidadMenor(string cant, int cant2, string nombreCampo)
+        {
+            int cantidad = Convert.ToInt32(cant);
+            if (cantidad > cant2)
+                return "No posee saldo suficiente en la cuenta actual. Tiene que ingresar una cantidad válida, para el campo " + nombreCampo + "\n";
+            return string.Empty;
+        }
+
+
 
         public static string SoloNumerosPeroOpcional(string textoAValidar, string nombreCampo)
         {

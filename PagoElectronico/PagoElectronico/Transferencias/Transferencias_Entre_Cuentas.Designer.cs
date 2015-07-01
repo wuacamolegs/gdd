@@ -68,6 +68,7 @@
             this.cmbCuentaOrigen.Name = "cmbCuentaOrigen";
             this.cmbCuentaOrigen.Size = new System.Drawing.Size(121, 23);
             this.cmbCuentaOrigen.TabIndex = 3;
+            this.cmbCuentaOrigen.SelectedIndexChanged += new System.EventHandler(this.cmbCuentaOrigen_SelectedIndexChanged);
             // 
             // label2
             // 

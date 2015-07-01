@@ -73,20 +73,18 @@ namespace PagoElectronico.Transferencias
 
         private void btnConfirmar_Click(object sender, EventArgs e)
         {
-            if (ValidarImporteNoVacio())
-            {
-                if (Convert.ToInt32(cmbCuentaOrigen.SelectedValue) == unaCuentaOrigen.cuenta_id &&
-                    Convert.ToInt32(cmbCuentaDestino.SelectedValue) == unaCuentaDestino.cuenta_id)
+            DataSet ds = unaCuentaOrigen.TraerCuentaPorCuentaID(Convert.ToDouble(cmbCuentaOrigen.SelectedValue));
+            unaCuentaOrigen.DataRowToObject(ds.Tables[0].Rows[0]);
+
+            if (ValidarCampos())
+            
+                
                 {
-                    MessageBox.Show("Se ha validado correctamente las cuentas", "Validacion Exitosa");
+                    MessageBox.Show("Transaccion Exitosa", "Validacion Exitosa");
 
                     realizarAccionesTransferencia();
                 }
-                else
-                {
-                    MessageBox.Show("Vuelva a seleccionar las cuentas", "Datos Incorrectos");
-                }
-            }
+                       
         }
 
         #endregion
@@ -115,14 +113,16 @@ namespace PagoElectronico.Transferencias
         public DataSet traerCuentasPorCliente(Cliente unCliente)
         {
             Cuenta unaCuenta = new Cuenta(unCliente, unUsuario);
-            DataSet dsCuentas = unaCuenta.TraerCuentasActivasPorClienteID();
+            DataSet dsCuentas = unaCuenta.TraerCuentasAbiertasPorClienteID();
             return dsCuentas;
         }
         
-        private bool ValidarImporteNoVacio()
+        private bool ValidarCampos()
         {
             string strErrores = "";
             strErrores = Validator.ValidarNulo(txtImporte.Text, "Importe");
+            strErrores = strErrores + Validator.MayorACero(txtImporte.Text, "Importe");
+            strErrores = strErrores + Validator.ValidarSaldoCantidadMenor(txtImporte.Text, unaCuentaOrigen.saldo, "Importe");
             if (strErrores.Length > 0)
             {
                 MessageBox.Show(strErrores);
@@ -142,42 +142,29 @@ namespace PagoElectronico.Transferencias
             DataSet dsClienteOrigen = unClienteOrigen.TraerClientePorID(clienteOrigenID);
             unClienteOrigen.DataRowToObject(dsClienteOrigen.Tables[0].Rows[0]);
 
-
-            double cuentaOrigenID = Convert.ToDouble(cmbCuentaOrigen.SelectedValue);
-            DataSet dsCuentaOrigen = unaCuentaOrigen.TraerCuentaPorCuentaID(cuentaOrigenID);
-            unaCuentaOrigen.DataRowToObject(dsCuentaOrigen.Tables[0].Rows[0]);
-
             int clienteDestinoID = Convert.ToInt32(cmbClienteDestino.SelectedValue);
             DataSet dsClienteDestino = unClienteDestino.TraerClientePorID(clienteDestinoID);
             unClienteDestino.DataRowToObject(dsClienteDestino.Tables[0].Rows[0]);
-
 
             double cuentaDestinoID = Convert.ToDouble(cmbCuentaDestino.SelectedValue);
             DataSet dsCuentaDestino = unaCuentaDestino.TraerCuentaPorCuentaID(cuentaDestinoID);
             unaCuentaDestino.DataRowToObject(dsCuentaDestino.Tables[0].Rows[0]);
 
-            int importe = Convert.ToInt32(txtImporte.Text);
-            if (importe <= unaCuentaOrigen.saldo)
-            {
-                generarTransferenciaExitosa();
-            }
-            else
-            {
-                MessageBox.Show("No tiene suficiente saldo para realizar la Transferencia. Por favor, vuelva a ingresar el importe", "Saldo Insuficiente");
-                txtImporte.Clear();
-            }  
+            generarTransferenciaExitosa();
         }
 
         private void generarTransferenciaExitosa()
         {
-
             unaTransferencia.CuentaOrigen.cuenta_id = Convert.ToDouble(cmbCuentaOrigen.SelectedValue);
             unaTransferencia.CuentaDestino.cuenta_id = Convert.ToInt32(cmbCuentaDestino.SelectedValue);
             unaTransferencia.Importe = Convert.ToInt32(txtImporte.Text);
-        
+            unaTransferencia.Fecha = Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]);
+
+            unaTransferencia.GenerarTransferencia();
         }
      
      #endregion
+
 
 
     }
