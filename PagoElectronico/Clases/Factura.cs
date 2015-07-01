@@ -25,19 +25,28 @@ namespace Clases
         private Cliente _cliente;
         private Decimal _importe = 0;
         private DateTime _fecha;
-        
+        private DataTable _dt = new DataTable();
+              
         #endregion
 
         #region constructor
       
         public Factura()
         {
-
+            tablaSuscripciones.Columns.Add("tvp_cliente_id", typeof(Double));
+            tablaSuscripciones.Columns.Add("tvp_cuenta_id", typeof(Double));
+            tablaSuscripciones.Columns.Add("tvp_cantidad_Suscripciones", typeof(Int32));
         }
 
         #endregion
 
         #region properties
+
+        public DataTable tablaSuscripciones
+        {
+            get { return _dt; }
+            set { _dt = value; }
+        }
 
         public int Numero
         {
@@ -94,10 +103,11 @@ namespace Clases
       
         private void setearListaParametrosSinNumeroFactura()
         {
+          parameterList.Clear();
           parameterList.Add(new SqlParameter("@factura_importe", this.Importe));
           parameterList.Add(new SqlParameter("@factura_fecha", this.Fecha));
           parameterList.Add(new SqlParameter("@factura_cliente_id", this.Cliente.cliente_id));
-
+          parameterList.Add(new SqlParameter("@tablaSuscripciones", this.tablaSuscripciones)); //para saber que suscripciones de que cuenta pag[o.
         }
 
         #endregion
@@ -108,7 +118,7 @@ namespace Clases
         {
             setearListaParametrosSinNumeroFactura();
             DataSet ds = this.GuardarYObtenerID(parameterList);  //TODO falta obtener el id
-            this.Numero = Convert.ToInt32(ds.Tables[0].Rows[0]["factura_numero"]);
+            this.Numero = Convert.ToInt32(ds.Tables[0].Rows[0][0]); //TODO NO ANDA
             return this;
         }
 
@@ -118,22 +128,14 @@ namespace Clases
 
         #endregion
 
-
-
-
-        public void AñadirItems(int CantTrans, decimal totalTrans, int CantMod, decimal totalMod, int cantSusc, decimal totalSusc)
+        public void AñadirItems(decimal CantTrans, decimal totalTrans, decimal CantMod, decimal totalMod, decimal cantSusc, decimal totalSusc)
         {
-            crearItem(CantTrans,totalTrans,"Comisión por transferencia.");
-            crearItem(CantMod,totalMod,"Modificaciones Tipo Cuenta");
-            crearItem(cantSusc,totalSusc,"Suscripciones por Apertura Cuenta");
+            ItemFactura unItem = new ItemFactura(this);
+            unItem.crearItem(CantTrans,totalTrans,1);  //1 = "Comision por transferencia"
+            unItem.crearItem(CantMod, totalMod,2);  // 2 = "Modificaciones Tipo Cuenta"
+            unItem.crearItem(cantSusc, totalSusc,3); // 3 = "Suscripciones por Apertura Cuenta"
+            unItem.InsertItem();
         }
 
-        //TODO que pasa si facturo dos veces un cliente una cuenta? nueva factura no? no me tengo que fijar si ya facturo uno de estos items y alterar el total no?
-
-        private void crearItem(int cant, decimal costo, string descr)
-        {
-            ItemFactura item = new ItemFactura(this, cant, costo, descr);
-            item.InsertItem();
-        }
     }
 }

@@ -24,7 +24,7 @@ namespace PagoElectronico.Facturacion
         int cantidadSuscAPagar = 0;
         int cantidadTransferencias = 0;
         int cantidadModificaciones = 0;
-        Tuplas<int,int> tupla = new Tuplas<int,int>();
+
         
         #endregion
 
@@ -33,6 +33,7 @@ namespace PagoElectronico.Facturacion
         {
             InitializeComponent();
         }
+
 
         public void abrirConUsuario(Usuario user)
         {
@@ -112,15 +113,14 @@ namespace PagoElectronico.Facturacion
         
        private void btnGenerarFactura_Click(object sender, EventArgs e)
        {
-           //TODO: VALIDAR CAMPOS NO SEAN NULOS, Y QUE SEAN DEL TIPO DATO CORRECTO
-               DataSet ds = unaFactura.Cliente.TraerClientePorID(unCliente.cliente_id);
-               unaFactura.Cliente.DataRowToObject(ds.Tables[0].Rows[0]);
-               unaFactura.Fecha = Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]);
-               cantidadTransferencias = gridTransferencia.Rows.Count - 1; //me cuenta la ultima fila que esta vacia. por eso le resto uno.
-               cantidadModificaciones = gridModificacionTC.Rows.Count - 1;
-                    
-               Facturas frmFacturas = new Facturas();
-               frmFacturas.AbrirCon(unaFactura, txtSubTotalTransferencia.Text, txtSubTotalModificacionTC.Text, subtotalSuscripciones, cantidadTransferencias, cantidadModificaciones, cantidadSuscAPagar);
+           DataSet ds = unaFactura.Cliente.TraerClientePorID(unCliente.cliente_id);
+           unaFactura.Cliente.DataRowToObject(ds.Tables[0].Rows[0]);
+           unaFactura.Fecha = Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]);
+           cantidadTransferencias = gridTransferencia.Rows.Count - 1; //me cuenta la ultima fila que esta vacia. por eso le resto uno.
+           cantidadModificaciones = gridModificacionTC.Rows.Count - 1;
+                
+           Facturas frmFacturas = new Facturas();
+           frmFacturas.AbrirCon(unaFactura, txtSubTotalTransferencia.Text, txtSubTotalModificacionTC.Text, subtotalSuscripciones, cantidadTransferencias, cantidadModificaciones, cantidadSuscAPagar);  
        }
 
        private void cmbCuenta_SelectedIndexChanged(object sender, EventArgs e)
@@ -131,7 +131,12 @@ namespace PagoElectronico.Facturacion
                Double cuentaid = Convert.ToDouble(cmbCuenta.SelectedValue);
                DataSet dsSuscripciones = unCliente.TraerSuscripcionesPendientesAFacturarPorClienteIDYCuentaID(cuentaid);
                txtSuscripcionesPendientes.Text = unCliente.TraerCantidadSuscripcionesPendientesAFacturarPorClienteIDYCuentaID(cuentaid).ToString();
-               txtCostoUnitario.Text = (dsSuscripciones.Tables[0].Rows[0]["transaccion_pendiente_importe"]).ToString();
+               if (dsSuscripciones.Tables[0].Rows.Count == 0)
+               {
+                   txtCostoUnitario.Text = "0";
+               }else{
+                   txtCostoUnitario.Text = (dsSuscripciones.Tables[0].Rows[0]["transaccion_pendiente_importe"]).ToString();
+               };
            }
        }
 
@@ -144,12 +149,19 @@ namespace PagoElectronico.Facturacion
                    subtotalSuscripciones = 0;
                }
                else
-               {
-                    
+               {                    
                    txtSubTotalSuscr.Text = (Convert.ToDecimal(txtCostoUnitario.Text) * Convert.ToDecimal(txtSuscripcionesAPagar.Text)).ToString();
                    cantidadSuscAPagar = cantidadSuscAPagar + Convert.ToInt32(txtSuscripcionesAPagar.Text);
                    subtotalSuscripciones = subtotalSuscripciones + Convert.ToDecimal(txtSubTotalSuscr.Text);
-                   
+
+                   //una vez generada la factura se borran todas las transferencias y costos por modificacion asociados al cliente de la tabla Transacciones Pendientes
+                   //Como se pueden pagar solo algunas suscripciones de la cuenta que querramos, tengo que decirle a la bd que suscripciones borrar
+                   //Por lo tanto le voy a mandar a la base una tabla con las suscripciones a borrar.
+                   //Detemerminamos que cuando se seleccionan X suscripciones de una cuenta se pagaran las mas antiguas. le mando a la base el cliente, la cuenta y la cantidad de suscripciones.
+                   //ACA VOY CARGANDO LAS SUSCRIPCIONES A UNA VARIABLE TIPO TABLA. luego cuando en la pantalla Factura ponga aceptar le mando esta tabla.
+
+                   unaFactura.tablaSuscripciones.Rows.Add(unaFactura.Cliente.cliente_id, Convert.ToDouble(cmbCuenta.SelectedValue), Convert.ToInt32(txtSuscripcionesAPagar.Text));
+
                }
                txtSuscripcionesPendientes.Text = (Convert.ToInt32(txtSuscripcionesPendientes.Text) - Convert.ToInt32(txtSuscripcionesAPagar.Text)).ToString();
                txtSubTotalSuscr.Clear();

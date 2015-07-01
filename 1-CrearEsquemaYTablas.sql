@@ -83,7 +83,7 @@ CREATE TABLE [OOZMA_KAPPA].[Deposito](
 CREATE TABLE [OOZMA_KAPPA].[Factura](
 	[factura_numero] numeric(18, 0) IDENTITY (1,1),
 	[factura_fecha] [datetime] NOT NULL,
-	[factura_importe] numeric(18, 0)NOT NULL,
+	[factura_importe] numeric(18, 2 )NOT NULL,
 	[factura_cliente_id] numeric(18, 0)NOT NULL,
 )
 
@@ -291,6 +291,28 @@ CREATE TABLE [OOZMA_KAPPA].[Usuario_rol](
 	[usuario_username] numeric(18,0)NOT NULL,
 	[rol_id] numeric(18, 0)NOT NULL,
 )
+
+
+--CREO TYPE TABLE VALUE PARAMETERS PARA TABLA SUSCRIPCIONES
+
+CREATE TYPE [OOZMA_KAPPA].[TVP_SuscripcionesABorrar] AS TABLE(
+ [tvp_cliente_id] numeric(18,0) NOT NULL,
+ [tvp_cuenta_id] numeric(18,0) NOT NULL ,
+ [tvp_cantidad_Suscripciones] numeric(18,0) NOT NULL
+)
+GO
+
+
+--CREO TYPE TABLE VALUE PARAMETERS PARA TABLA ITEMS
+
+CREATE TYPE [OOZMA_KAPPA].[TVP_Item] AS TABLE(
+ [tvp_detalle] varchar(255) NOT NULL,
+ [tvp_cantidad] numeric(18,0) NOT NULL ,
+ [tvp_costo] numeric(18,2) NOT NULL
+)
+
+GO
+
 
 COMMIT
 

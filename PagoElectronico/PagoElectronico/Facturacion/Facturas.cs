@@ -18,6 +18,7 @@ namespace PagoElectronico.Facturacion
         #region variables
 
         Factura unaFactura;
+        
 
         #endregion  
 
@@ -82,9 +83,11 @@ namespace PagoElectronico.Facturacion
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+            //primero inserto items factura en tabla items, y luego la nueva factura en tabla factura.
+            //cuando genero factura tambien mando tabla con suscripciones por cuenta
             MessageBox.Show("Se genero la factura. Cliente: " + unaFactura.Cliente.cliente_id + " Importe: " + unaFactura.Importe + " Fecha: " + unaFactura.Fecha, "Factura");
+            unaFactura.AñadirItems(Convert.ToDecimal(txtCantidadTransf.Text), Convert.ToDecimal(txtTransferencia.Text), Convert.ToDecimal(txtCantidadMod.Text), Convert.ToDecimal(txtModificacion.Text), Convert.ToDecimal(txtCantidadSuscr.Text), Convert.ToDecimal(txtSuscripciones.Text));
             unaFactura = unaFactura.GenerarFactura();
-            unaFactura.AñadirItems(Convert.ToInt32(txtCantidadTransf.Text), Convert.ToDecimal(txtTransferencia.Text), Convert.ToInt32(txtCantidadMod.Text), Convert.ToDecimal(txtModificacion.Text), Convert.ToInt32(txtCantidadSuscr.Text), Convert.ToDecimal(txtSuscripciones.Text));
         }
 
         #endregion

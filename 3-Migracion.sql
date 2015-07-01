@@ -244,17 +244,16 @@ COMMIT
  
  SET IDENTITY_INSERT [OOZMA_KAPPA].[Factura] ON
  
- INSERT INTO [OOZMA_KAPPA].[Factura] (factura_numero,factura_fecha, factura_cliente_id, factura_importe)(
+ INSERT INTO [OOZMA_KAPPA].[Factura] (factura_numero,factura_fecha, factura_importe, factura_cliente_id)(
 	SELECT Factura_Numero
 	,Factura_Fecha
-	,(SELECT cliente_id FROM OOZMA_KAPPA.Cliente WHERE Cli_Nro_Doc = cliente_numero_documento)
 	,Item_Factura_Importe
+	,(SELECT cliente_id FROM OOZMA_KAPPA.Cliente WHERE Cli_Nro_Doc = cliente_numero_documento)
 	FROM  gd_esquema.Maestra WHERE Factura_Numero IS NOT NULL);
  
  SET IDENTITY_INSERT [OOZMA_KAPPA].[Factura] OFF 
  
  COMMIT
-
 
 -- TABLA USUARIO ROL -- completo todos los clientes
 
@@ -299,3 +298,4 @@ BEGIN TRANSACTION  --agrego rol cliente al admin
 INSERT INTO [OOZMA_KAPPA].Usuario_rol(usuario_id,usuario_username,rol_id) (SELECT DISTINCT usuario_id,123,2 FROM OOZMA_KAPPA.Usuario WHERE usuario_username = 123);
 
 COMMIT
+

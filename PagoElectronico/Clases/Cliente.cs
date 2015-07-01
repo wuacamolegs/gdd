@@ -369,7 +369,12 @@ namespace Clases
          {
              setearListaDeParametrosConClienteIDYCuentaID(this.cliente_id, cuenta_id);
              DataSet ds = this.TraerListado(parameterList, "CantidadSuscripcionesPendientesAFacturarPorClienteIDYCuentaID");
-             return Convert.ToInt32(ds.Tables[0].Rows[0]["cantidadSuscripciones"]);
+             if (ds.Tables[0].Rows.Count == 0)
+             {
+                 return 0;
+             }else{
+                 return Convert.ToInt32(ds.Tables[0].Rows[0]["cantidadSuscripciones"]);
+             };
          }
 
         #endregion        

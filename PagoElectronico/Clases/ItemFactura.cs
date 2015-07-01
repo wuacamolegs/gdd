@@ -11,6 +11,7 @@ using Utilities;
 using System.Windows.Forms;
 
 
+
 namespace Clases
 {
     public class ItemFactura : Base
@@ -23,9 +24,7 @@ namespace Clases
 
         private int _item_factura_id;
         private Factura _factura;
-        private decimal _costo;
-        private string _descripcion;
-        private int _cantidad;
+        private DataTable _dt = new DataTable();
         
         #endregion
 
@@ -33,21 +32,28 @@ namespace Clases
       
         public ItemFactura()
         {
-
+            tablaItems.Columns.Add("tvp_detalle", typeof(String));
+            tablaItems.Columns.Add("tvp_cantidad", typeof(Decimal));
+            tablaItems.Columns.Add("tvp_costo", typeof(Decimal));
         }
 
-        public ItemFactura(Factura factura, int Cantidad, decimal Costo, string descr)
+        public ItemFactura(Factura factura)
         {
             this.Factura = factura;
-            this.Cantidad = Cantidad;
-            this.Costo = Costo;
-            this.Descripcion = descr;
-
+            tablaItems.Columns.Add("tvp_detalle", typeof(String));
+            tablaItems.Columns.Add("tvp_cantidad", typeof(Decimal));
+            tablaItems.Columns.Add("tvp_costo", typeof(Decimal));
         }
 
         #endregion
 
         #region properties
+
+        public DataTable tablaItems
+        {
+            get { return _dt; }
+            set { _dt = value; }
+        }
 
         public int ItemFacturaID
         {
@@ -61,24 +67,6 @@ namespace Clases
             set { _factura = value; }
         }
        
-        public string Descripcion
-        {
-            get { return _descripcion; }
-            set { _descripcion = value; }
-        }
-
-        public decimal Costo
-        {
-            get { return _costo; }
-            set { _costo = value; }
-        }
-
-        public int Cantidad
-        {
-            get { return _cantidad; }
-            set { _cantidad = value; }
-        }
-
 
         #endregion
 
@@ -99,10 +87,9 @@ namespace Clases
         public override void DataRowToObject(DataRow dr)
         {
             this.ItemFacturaID = Convert.ToInt32(dr["item_factura_id"]);
-            this.Costo = Convert.ToInt32(dr["item_factura_costo"]);
+            //this.tablaItems.Rows.Add(Convert.ToString(dr["item_factura_desc"]), Convert.ToDecimal(dr["item_factura_cant"]), Convert.ToDecimal(dr["item_factura_costo"]));
             this.Factura.Numero = Convert.ToInt32(dr["item_factura_factura_numero"]);
-            this.Descripcion = Convert.ToString(dr["item_factura_desc"]);
-            this.Cantidad = Convert.ToInt32(dr["item_factura_cant"]);
+
         }
         #endregion
 
@@ -111,10 +98,9 @@ namespace Clases
         private void setearListaParametrosCompleta()
         {
             parameterList.Clear();
-            parameterList.Add(new SqlParameter("@item_factura", this.Factura.Numero));
-            parameterList.Add(new SqlParameter("@item_descr", this.Descripcion));
-            parameterList.Add(new SqlParameter("@item_cantidad", this.Cantidad));
-            parameterList.Add(new SqlParameter("@item_costo", this.Costo));
+            parameterList.Add(new SqlParameter("@item_factura_numero", this.Factura.Numero));
+            parameterList.Add(new SqlParameter("@item_factura_tabla_items", this.tablaItems));
+
 
         }
 
@@ -126,7 +112,7 @@ namespace Clases
         public void InsertItem()
         {
             this.setearListaParametrosCompleta();
-            this.Guardar(parameterList);  //TODO falta procedure
+            this.Guardar(parameterList);
         }
 
         #endregion
@@ -135,5 +121,10 @@ namespace Clases
 
         #endregion
 
+
+        public void crearItem(decimal CantTrans, decimal totalTrans, decimal codigoTransaccion)
+        {
+            tablaItems.Rows.Add(codigoTransaccion, CantTrans, totalTrans);
+        }
     }
 }

@@ -92,29 +92,32 @@
 
 -- update TRANSACCIONES AFTER MODIFICACION TIPO CUENTA: agregar modificacion cuenta a transacciones pendientes
 
-	CREATE TRIGGER OOZMA_KAPPA.updateTransaccionesAfterModificacionCuenta ON OOZMA_KAPPA.Cuenta
-	AFTER UPDATE
+	ALTER TRIGGER [OOZMA_KAPPA].[updateTransaccionesAfterModificacionCuenta] ON [OOZMA_KAPPA].[Cuenta]
+	AFTER UPDATE 
 	AS BEGIN TRANSACTION
-
-	DECLARE @Cliente numeric(18,0);
-	DECLARE @Cuenta numeric(18,0);
-	DECLARE @Fecha DateTime;
-	DECLARE @Costo int = 0;
 	
-	SELECT TOP 1 @Cuenta = cuenta_id, @Cliente = cuenta_cliente_id, @Fecha = cuenta_fecha_apertura
-	FROM inserted 
-	ORDER BY cuenta_fecha_apertura DESC;
-	
-	SELECT @Costo = tipo_cuenta_costo_apertura
-	FROM OOZMA_KAPPA.Cuenta, OOZMA_KAPPA.Tipo_Cuenta
-	WHERE tipo_cuenta_id =  cuenta_tipo_cuenta_id AND cuenta_id = @Cuenta; 
-	
-	INSERT INTO OOZMA_KAPPA.Transacciones_Pendientes (transaccion_pendiente_importe, transaccion_pendiente_descr, transaccion_pendiente_cliente_id, transaccion_pendiente_fecha, transaccion_pendiente_cuenta_id)
-	VALUES (@Costo, 'Modificaciones Tipo Cuenta', @Cliente, @Fecha, @Cuenta);
+	IF(UPDATE(cuenta_tipo_cuenta_id))
+	BEGIN
+		DECLARE @Cliente numeric(18,0);
+		DECLARE @Cuenta numeric(18,0);
+		DECLARE @Fecha DateTime;
+		DECLARE @Costo int = 0;
+		
+		SELECT TOP 1 @Cuenta = cuenta_id, @Cliente = cuenta_cliente_id, @Fecha = cuenta_fecha_apertura
+		FROM inserted 
+		ORDER BY cuenta_fecha_apertura DESC;
+		
+		SELECT @Costo = tipo_cuenta_costo_apertura
+		FROM OOZMA_KAPPA.Cuenta, OOZMA_KAPPA.Tipo_Cuenta
+		WHERE tipo_cuenta_id =  cuenta_tipo_cuenta_id AND cuenta_id = @Cuenta; 
+		
+		INSERT INTO OOZMA_KAPPA.Transacciones_Pendientes (transaccion_pendiente_importe, transaccion_pendiente_descr, transaccion_pendiente_cliente_id, transaccion_pendiente_fecha, transaccion_pendiente_cuenta_id)
+		VALUES (@Costo, 'Modificaciones Tipo Cuenta', @Cliente, @Fecha, @Cuenta);
+	END
 	
 	COMMIT;
+	
 	GO
-
 -- update TRANSACCIONES AFTER APERTURA CUENTA: agregar creacion cuenta a transacciones pendientes
 
 	CREATE TRIGGER OOZMA_KAPPA.updateTransaccionesAfterAperturaCuenta ON OOZMA_KAPPA.Cuenta
