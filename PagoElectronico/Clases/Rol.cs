@@ -130,25 +130,25 @@ namespace Clases
         private void setearListaDeParametrosConIdFuncionalidadEIdRol(int id_func)
         {
             parameterList.Add(new SqlParameter("@rol_id", this.rol_id));
-            parameterList.Add(new SqlParameter("@funcionalidades_id", id_func));
+            parameterList.Add(new SqlParameter("@funcionalidad_id", id_func));
         }
 
         private void setearListaDeParametrosConNombreYHabilitado(string unNombre, bool unValorDeEstado)
         {
-            parameterList.Add(new SqlParameter("@Nombre", unNombre));
-            parameterList.Add(new SqlParameter("@Estado", unValorDeEstado));
+            parameterList.Add(new SqlParameter("@rol_nombre", unNombre));
+            parameterList.Add(new SqlParameter("@rol_estado", unValorDeEstado));
         }
 
         private void setearListaDeParametrosConIdRolNombreYHabilitado(string unNombre, bool unValorDeEstado)
         {
             parameterList.Add(new SqlParameter("@rol_id", this.rol_id));
-            parameterList.Add(new SqlParameter("@Nombre", unNombre));
-            parameterList.Add(new SqlParameter("@Estado", unValorDeEstado));
+            parameterList.Add(new SqlParameter("@rol_nombre", unNombre));
+            parameterList.Add(new SqlParameter("@rol_estado", unValorDeEstado));
         }
 
         private void setearListaDeParametrosConNombre(string unNombre)
         {
-            parameterList.Add(new SqlParameter("@Nombre", unNombre));
+            parameterList.Add(new SqlParameter("@rol_nombre", unNombre));
         }
 
 
@@ -166,20 +166,15 @@ namespace Clases
             return ds;
         }
 
-        public static DataSet obtenerTodosLosRoles() //hacer refactor de esto al nombre traerRoles. dsp borrar este metodo
-        {
-            Rol unRol = new Rol();
-            return unRol.TraerListado(unRol.parameterList, "");
-        }
-
 
         public DataSet traerRoles()
         {
-            DataSet ds = TraerListado("Completo");
+            DataSet ds = this.TraerListado("");
             return ds;
         }
 
-        public static DataSet obtenerTodosLosRolesConFiltros(string unNombre, bool unValorDeEstado)
+
+        public  DataSet obtenerTodosLosRolesConFiltros(string unNombre, bool unValorDeEstado)
         {
             Rol unRol = new Rol(unNombre, unValorDeEstado);
             unRol.setearListaDeParametrosConNombreYHabilitado(unRol.Nombre, unRol.Estado);
@@ -280,8 +275,6 @@ namespace Clases
 
         
         #endregion
-
-
 
 
     } 

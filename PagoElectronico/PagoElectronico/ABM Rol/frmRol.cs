@@ -175,9 +175,7 @@ namespace PagoElectronico.ABM_Rol
             }
 
         }
-
-
-
+       
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             //valido los campos, seteo a los atributos del rol los nuevos campos ingresados por el usuario 
@@ -243,6 +241,29 @@ namespace PagoElectronico.ABM_Rol
             }
             return false;
         }
+
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+            //este boton sirve para agregar funcionalidades de un listado a otro
+            if (lstFuncDelSist.SelectedItem != null)
+            {
+                lstFuncDelRol.Items.Add(lstFuncDelSist.SelectedItem);
+                lstFuncDelSist.Items.Remove(lstFuncDelSist.SelectedItem);
+                lstFuncDelRol.DisplayMember = "Nombre";
+            }
+
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            //este boton sirve para sacar funcionalidad de un listado a otro
+            if (lstFuncDelRol.SelectedItem != null)
+            {
+                lstFuncDelSist.Items.Add(lstFuncDelRol.SelectedItem);
+                lstFuncDelRol.Items.Remove(lstFuncDelRol.SelectedItem);
+            }
+        }
+
 
 
     }

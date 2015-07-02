@@ -296,7 +296,7 @@ namespace Clases
             }
         }
         
-        public static DataSet obtenerTodosLosClientes()
+        public  DataSet obtenerTodosLosClientes()
         {
             Cliente unCliente = new Cliente();
             return unCliente.TraerListado(unCliente.parameterList, "");
@@ -305,7 +305,7 @@ namespace Clases
 
         //Cuando le pasen este metodo a un cliente antes tienen que crearlo, ahi usar unCliente = new Cliente(unNombre, unApellido, unTipoDni, unDni, unMail); 
         // y despues basta con llamarlo como this.
-        public static DataSet obtenerTodosLosClientesConFiltros(string unNombre, string unApellido, string unTipoDni, int unDni, string unMail)
+        public  DataSet obtenerTodosLosClientesConFiltros(string unNombre, string unApellido, string unTipoDni, int unDni, string unMail)
         {
             Cliente unCliente = new Cliente(unNombre, unApellido, unTipoDni, unDni, unMail);
             unCliente.setearListaDeParametrosConFiltros(unCliente.Nombre, unCliente.Apellido, unCliente.TipoDocumento, unCliente.Documento, unCliente.Mail);

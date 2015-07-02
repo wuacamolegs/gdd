@@ -35,8 +35,7 @@ namespace PagoElectronico.ABM_Rol
             this.Show();
         }
 
-
-        private void ABM_de_Rol_Load(object sender, EventArgs e)
+        private void ABM_de_Rol_Load_1(object sender, EventArgs e)
         {
             //Cargargrilla
             DataSet dsRol = unRol.traerRoles();
@@ -57,21 +56,21 @@ namespace PagoElectronico.ABM_Rol
             dtgListado.AutoGenerateColumns = false;
 
             DataGridViewTextBoxColumn clmID = new DataGridViewTextBoxColumn();
-            clmID.Width = 40;
+            clmID.Width = 80;
             clmID.ReadOnly = true;
             clmID.DataPropertyName = "rol_id";
             clmID.HeaderText = "ID ROL";
             dtgListado.Columns.Add(clmID);
 
             DataGridViewTextBoxColumn clmNombre = new DataGridViewTextBoxColumn();
-            clmID.Width = 60;
+            clmNombre.Width = 150;
             clmNombre.ReadOnly = true;
             clmNombre.DataPropertyName = "rol_nombre";
             clmNombre.HeaderText = "Nombre";
             dtgListado.Columns.Add(clmNombre);
 
             DataGridViewCheckBoxColumn clmHabilitado = new DataGridViewCheckBoxColumn();
-            clmHabilitado.Width = 60;
+            clmHabilitado.Width = 80;
             clmHabilitado.ReadOnly = true;
             clmHabilitado.DataPropertyName = "rol_estado";
             clmHabilitado.HeaderText = "Habilitado";
@@ -94,6 +93,7 @@ namespace PagoElectronico.ABM_Rol
             //si el boton tocado es modificar, instancio el rol con los datos de la fila seleccionada y abro el form
             //configurado con esos datos para editarlos
             frmRol formRol = new frmRol();
+            MessageBox.Show("ROL ID: " + valorIdSeleccionado() + "\n NOMBRE: " + valorNombreSeleccionado() + "\n ESTADO: " +valorHabilitadoSeleccionado(), "");
             unRol.rol_id = valorIdSeleccionado();
             unRol.Nombre = valorNombreSeleccionado();
             unRol.Estado = valorHabilitadoSeleccionado();
@@ -131,8 +131,8 @@ namespace PagoElectronico.ABM_Rol
             {
                 try
                 {
-                    Rol unRol = new Rol(valorIdSeleccionado(), valorNombreSeleccionado(), valorHabilitadoSeleccionado());
-                    unRol.Eliminar();
+                    Rol rolAEliminar = new Rol(valorIdSeleccionado(), valorNombreSeleccionado(), valorHabilitadoSeleccionado());
+                    rolAEliminar.Eliminar();
                     MessageBox.Show("El rol sido eliminado", "Deshabilitado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     CargarListadoDeRoles();
                 }
@@ -141,6 +141,8 @@ namespace PagoElectronico.ABM_Rol
                     MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+            DataSet dsRol = unRol.traerRoles();
+            cargarGrilla(dsRol);
         }
 
         public void CargarListadoDeRoles()
@@ -149,8 +151,8 @@ namespace PagoElectronico.ABM_Rol
             try
             {
                 //obtengo en un dataset todos los roles de la bd
-                DataSet ds = Rol.obtenerTodosLosRoles();
-                cargarGrilla(ds);
+                DataSet dsRol = unRol.traerRoles();
+                cargarGrilla(dsRol);
             }
             catch (ErrorConsultaException ex)
             {
@@ -185,6 +187,9 @@ namespace PagoElectronico.ABM_Rol
         }
 
         #endregion
+
+
+
 
 
     }

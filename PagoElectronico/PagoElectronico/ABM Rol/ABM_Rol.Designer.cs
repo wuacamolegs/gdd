@@ -40,62 +40,70 @@
             // dtgListado
             // 
             this.dtgListado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgListado.Location = new System.Drawing.Point(17, 99);
+            this.dtgListado.Location = new System.Drawing.Point(17, 91);
             this.dtgListado.Name = "dtgListado";
-            this.dtgListado.Size = new System.Drawing.Size(408, 165);
+            this.dtgListado.Size = new System.Drawing.Size(356, 165);
             this.dtgListado.TabIndex = 2;
             // 
             // btnModificar
             // 
-            this.btnModificar.Location = new System.Drawing.Point(350, 270);
+            this.btnModificar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.btnModificar.Location = new System.Drawing.Point(299, 262);
             this.btnModificar.Name = "btnModificar";
-            this.btnModificar.Size = new System.Drawing.Size(75, 23);
+            this.btnModificar.Size = new System.Drawing.Size(75, 32);
             this.btnModificar.TabIndex = 4;
             this.btnModificar.Text = "Modificar";
             this.btnModificar.UseVisualStyleBackColor = true;
+            this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
             // 
             // btnEliminar
             // 
-            this.btnEliminar.Location = new System.Drawing.Point(256, 270);
+            this.btnEliminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.btnEliminar.Location = new System.Drawing.Point(205, 262);
             this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(75, 23);
+            this.btnEliminar.Size = new System.Drawing.Size(75, 32);
             this.btnEliminar.TabIndex = 5;
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.UseVisualStyleBackColor = true;
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
             // btnAgregar
             // 
-            this.btnAgregar.Location = new System.Drawing.Point(17, 66);
+            this.btnAgregar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.btnAgregar.Location = new System.Drawing.Point(17, 58);
             this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.Size = new System.Drawing.Size(88, 23);
+            this.btnAgregar.Size = new System.Drawing.Size(88, 27);
             this.btnAgregar.TabIndex = 6;
             this.btnAgregar.Text = "Nuevo Rol";
             this.btnAgregar.UseVisualStyleBackColor = true;
+            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
             // NotaSelecRol
             // 
             this.NotaSelecRol.AutoSize = true;
-            this.NotaSelecRol.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.NotaSelecRol.Location = new System.Drawing.Point(15, 12);
+            this.NotaSelecRol.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.NotaSelecRol.Location = new System.Drawing.Point(112, 19);
             this.NotaSelecRol.Name = "NotaSelecRol";
-            this.NotaSelecRol.Size = new System.Drawing.Size(179, 26);
+            this.NotaSelecRol.Size = new System.Drawing.Size(158, 24);
             this.NotaSelecRol.TabIndex = 7;
             this.NotaSelecRol.Text = "Seleccione un rol";
             // 
             // btnDeshab
             // 
-            this.btnDeshab.Location = new System.Drawing.Point(153, 271);
+            this.btnDeshab.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.btnDeshab.Location = new System.Drawing.Point(102, 263);
             this.btnDeshab.Name = "btnDeshab";
-            this.btnDeshab.Size = new System.Drawing.Size(83, 20);
+            this.btnDeshab.Size = new System.Drawing.Size(83, 29);
             this.btnDeshab.TabIndex = 8;
             this.btnDeshab.Text = "Deshabilitar";
             this.btnDeshab.UseVisualStyleBackColor = true;
+            this.btnDeshab.Click += new System.EventHandler(this.btnDeshab_Click);
             // 
             // ABM_de_Rol
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(446, 304);
+            this.ClientSize = new System.Drawing.Size(383, 304);
             this.Controls.Add(this.btnDeshab);
             this.Controls.Add(this.NotaSelecRol);
             this.Controls.Add(this.btnAgregar);
@@ -104,6 +112,7 @@
             this.Controls.Add(this.dtgListado);
             this.Name = "ABM_de_Rol";
             this.Text = "PAGO ELECTRONICO - ABM ROL";
+            this.Load += new System.EventHandler(this.ABM_de_Rol_Load_1);
             ((System.ComponentModel.ISupportInitialize)(this.dtgListado)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
