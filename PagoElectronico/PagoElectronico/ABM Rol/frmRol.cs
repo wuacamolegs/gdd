@@ -6,21 +6,23 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Clases;
+using Utilities;
+using Excepciones;
 
 namespace PagoElectronico.ABM_Rol
 {
               
    public partial class frmRol : Form
     {
-        //listadoRoles frmPadre = new listadoRoles();
-        //Rol rolDelForm = new Rol();
+        ABM_de_Rol frmPadre = new ABM_de_Rol();
+        Rol rolDelForm = new Rol();
         public frmRol()
         {
             InitializeComponent();
         }
 
-       /*
-        public void AbrirParaModificar(Rol unRol, listadoRoles frmEnviador)
+        public void AbrirParaModificar(Rol unRol, ABM_de_Rol frmEnviador)
         {
             //si se ejecuta esta funcion, significa que llaman al frm para modificar. va a instanciar una
             //variable global llamada rolDelForm, el cual recibiremos por parametro y sera el rol que se ha elegido
@@ -33,7 +35,7 @@ namespace PagoElectronico.ABM_Rol
             this.Show();
 
             chkHabilitado.Visible = true;
-            chkHabilitado.Checked = unRol.Habilitado;
+            chkHabilitado.Checked = unRol.Estado; 
             chkHabilitado.Enabled = true;
 
             txtNombre.Text = unRol.Nombre;
@@ -50,7 +52,7 @@ namespace PagoElectronico.ABM_Rol
             cargarListadoDeFuncionalidadesDelSistema();
         }
 
-        public void AbrirParaAgregar(listadoRoles frmEnviador)
+        public void AbrirParaAgregar(ABM_de_Rol frmEnviador)
         {
             //si se ejecuta esta funcion, significa que llaman al frm para crear un nuevo rol. va a instanciar una
             //variable global llamada rolDelForm, el cual quedara instanciado sin datos y se completara cuando el
@@ -112,20 +114,6 @@ namespace PagoElectronico.ABM_Rol
             }
             lstFuncDelSist.DisplayMember = "Nombre";
         }
-
-
-     
-        private void btnAgregar_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnEliminar_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
        
        
        private void btnCrear_Click(object sender, EventArgs e)
@@ -134,17 +122,16 @@ namespace PagoElectronico.ABM_Rol
             try
             {
                 ValidarCampos();
-                string nombre = txtNombre.Text;
-                bool habilitado = chkHabilitado.Checked;
-
-                Rol unRolNuevo = new Rol(nombre, habilitado);
+                
+                rolDelForm.Nombre = txtNombre.Text;
+                rolDelForm.Estado = chkHabilitado.Checked;
 
                 foreach (Funcionalidad unaFunc in lstFuncDelRol.Items)
                 {
-                    unRolNuevo.Funcionalidades.Add(unaFunc);
+                    rolDelForm.Funcionalidades.Add(unaFunc);
                 }
 
-                unRolNuevo.guardarDatosDeRolNuevo();
+                rolDelForm.guardarDatosDeRolNuevo(); //TODO HACER
                 DialogResult dr = MessageBox.Show("El rol ha sido creado", "Perfecto!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (dr == DialogResult.OK)
                 {
@@ -153,6 +140,7 @@ namespace PagoElectronico.ABM_Rol
                 }
 
                 frmPadre.CargarListadoDeRoles();
+                
 
             }
             catch (EntidadExistenteException ex)
@@ -181,7 +169,11 @@ namespace PagoElectronico.ABM_Rol
             if (strErrores.Length > 0)
             {
                 throw new Exception(strErrores);
+            }else
+            {
+
             }
+
         }
 
 
@@ -194,10 +186,10 @@ namespace PagoElectronico.ABM_Rol
             {
                 ValidarCampos();
                 string nombre = txtNombre.Text;
-                bool habilitado = chkHabilitado.Checked;
+                bool estado = chkHabilitado.Checked;
 
                 rolDelForm.Nombre = nombre;
-                rolDelForm.Habilitado = habilitado;
+                rolDelForm.Estado = estado;
 
                 rolDelForm.Funcionalidades.Clear();
                 foreach (Funcionalidad unaFunc in lstFuncDelRol.Items)
@@ -237,7 +229,22 @@ namespace PagoElectronico.ABM_Rol
             this.Close();
         }
 
-*/
+
+
+        private bool contieneLaListaDeFuncionalidadDeRoles(Funcionalidad unaFunc)
+        {
+            //valido si la funcion existe entre las del rol
+            foreach (Funcionalidad item in lstFuncDelRol.Items)
+            {
+                if (item.Nombre == unaFunc.Nombre)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
     }
     
 }

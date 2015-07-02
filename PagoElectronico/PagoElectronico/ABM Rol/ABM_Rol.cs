@@ -23,6 +23,7 @@ namespace PagoElectronico.ABM_Rol
         #endregion
 
         #region initialize
+
         public ABM_de_Rol()
         {
             InitializeComponent();
@@ -38,7 +39,8 @@ namespace PagoElectronico.ABM_Rol
         private void ABM_de_Rol_Load(object sender, EventArgs e)
         {
             //Cargargrilla
-            cargarGrilla();
+            DataSet dsRol = unRol.traerRoles();
+            cargarGrilla(dsRol);
 
         }
 
@@ -47,9 +49,9 @@ namespace PagoElectronico.ABM_Rol
 
         #region botones y vista
 
-        private void cargarGrilla()
+        private void cargarGrilla(DataSet dsRol)
         {
-            DataSet dsRol = unRol.traerRoles();
+
             //realizo la configuracion de la grilla, seteando las filas y columnas con sus nombres y valores
             dtgListado.Columns.Clear();
             dtgListado.AutoGenerateColumns = false;
@@ -89,14 +91,13 @@ namespace PagoElectronico.ABM_Rol
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            //ModificarRol abmModificarRol = new ModificarRol();
-            //abmModificarRol.abrirConRol(unRol);
-
             //si el boton tocado es modificar, instancio el rol con los datos de la fila seleccionada y abro el form
             //configurado con esos datos para editarlos
-            frmRol _frmRol = new frmRol();
-            Rol unRol = new Rol(valorIdSeleccionado(), valorNombreSeleccionado(), valorHabilitadoSeleccionado());
-            _frmRol.AbrirParaModificar(unRol, this);
+            frmRol formRol = new frmRol();
+            unRol.rol_id = valorIdSeleccionado();
+            unRol.Nombre = valorNombreSeleccionado();
+            unRol.Estado = valorHabilitadoSeleccionado();
+            formRol.AbrirParaModificar(unRol, this);
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
@@ -142,9 +143,30 @@ namespace PagoElectronico.ABM_Rol
             }
         }
 
+        public void CargarListadoDeRoles()
+        {
+
+            try
+            {
+                //obtengo en un dataset todos los roles de la bd
+                DataSet ds = Rol.obtenerTodosLosRoles();
+                cargarGrilla(ds);
+            }
+            catch (ErrorConsultaException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
         #endregion
 
         #region llamados a la base
+
         #endregion
 
         #region metodos privados
