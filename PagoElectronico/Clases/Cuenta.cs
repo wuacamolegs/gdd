@@ -25,7 +25,7 @@ namespace Clases
         private int _saldo;
         private DateTime _fecha_apertura;
         private DateTime _fecha_cierre;
-        private double _cuenta_id;
+        private Int64 _cuenta_id;
         private Usuario _usuario;  
 
         #endregion
@@ -76,7 +76,7 @@ namespace Clases
             set { _fecha_cierre = value; }
         }
 
-        public double cuenta_id
+        public Int64 cuenta_id
         {
             get { return _cuenta_id; }
             set { _cuenta_id = value; }
@@ -109,7 +109,7 @@ namespace Clases
             // Esto es tal cual lo devuelve el stored de la DB
             this.estado = Convert.ToBoolean(dr["cuenta_estado"]);
             this.saldo = Convert.ToInt32(dr["cuenta_saldo"]);
-            this.cuenta_id = Convert.ToDouble(dr["cuenta_id"]);
+            this.cuenta_id = Convert.ToInt64(dr["cuenta_id"]);
             this.FechaApertura = Convert.ToDateTime(dr["cuenta_fecha_apertura"]);
             this.FechaCierre = Convert.ToDateTime(dr["cuenta_fecha_cierre"]);
         }
@@ -123,7 +123,7 @@ namespace Clases
             parameterList.Add(new SqlParameter("@cliente_id", clienteID));
         }
 
-        public void setearListaDeParametrosConCuentaID(double cuenta_id)
+        public void setearListaDeParametrosConCuentaID(Int64 cuenta_id)
         {
             this.parameterList.Clear();
             parameterList.Add(new SqlParameter("@cuenta_id", cuenta_id));
@@ -161,7 +161,7 @@ namespace Clases
             return ds;
         }
 
-        public DataSet TraerCuentaPorCuentaID(double cuentaID)
+        public DataSet TraerCuentaPorCuentaID(Int64 cuentaID)
         {
             this.setearListaDeParametrosConCuentaID(cuentaID);
             DataSet ds = this.TraerListado(this.parameterList, "porCuentaID");

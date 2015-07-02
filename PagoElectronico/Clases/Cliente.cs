@@ -243,7 +243,7 @@ namespace Clases
             parameterList.Add(new SqlParameter("@cliente_id", clienteID));
         }
 
-        private void setearListaDeParametrosConClienteIDYCuentaID(int cliente_id, double cuenta_id)
+        private void setearListaDeParametrosConClienteIDYCuentaID(int cliente_id, Int64 cuenta_id)
         {
             this.parameterList.Clear();
             parameterList.Add(new SqlParameter("@cliente_id", cliente_id));
@@ -353,7 +353,7 @@ namespace Clases
             return this.TraerListado(parameterList, "TransferenciasAFacturar");
         }
 
-        public DataSet TraerSuscripcionesPendientesAFacturarPorClienteIDYCuentaID(double cuenta_id)
+        public DataSet TraerSuscripcionesPendientesAFacturarPorClienteIDYCuentaID(Int64 cuenta_id)
         {
             setearListaDeParametrosConClienteIDYCuentaID(this.cliente_id, cuenta_id);
             return this.TraerListado(parameterList, "SuscripcionesPendientesAFacturarPorClienteIDYCuentaID");
@@ -365,7 +365,7 @@ namespace Clases
             return this.TraerListado(parameterList, "ModificacionesTCAFacturar");
         }
 
-         public int TraerCantidadSuscripcionesPendientesAFacturarPorClienteIDYCuentaID(double cuenta_id)
+         public int TraerCantidadSuscripcionesPendientesAFacturarPorClienteIDYCuentaID(Int64 cuenta_id)
          {
              setearListaDeParametrosConClienteIDYCuentaID(this.cliente_id, cuenta_id);
              DataSet ds = this.TraerListado(parameterList, "CantidadSuscripcionesPendientesAFacturarPorClienteIDYCuentaID");

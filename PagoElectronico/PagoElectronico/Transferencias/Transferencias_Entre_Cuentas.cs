@@ -75,7 +75,7 @@ namespace PagoElectronico.Transferencias
 
         private void cmbCuentaOrigen_SelectedIndexChanged(object sender, EventArgs e)
         {
-            unaCuentaOrigen.cuenta_id = Convert.ToDouble(cmbCuentaOrigen.SelectedValue);
+            unaCuentaOrigen.cuenta_id = Convert.ToInt64(cmbCuentaOrigen.SelectedValue);
             DataSet dsCuentaOrigen = unaCuentaOrigen.TraerCuentaPorCuentaID(unaCuentaOrigen.cuenta_id);
             txtSaldo.Clear();
             string saldo = Convert.ToString(dsCuentaOrigen.Tables[0].Rows[0]["cuenta_saldo"]);
@@ -158,7 +158,7 @@ namespace PagoElectronico.Transferencias
             DataSet dsClienteDestino = unClienteDestino.TraerClientePorID(clienteDestinoID);
             unClienteDestino.DataRowToObject(dsClienteDestino.Tables[0].Rows[0]);
 
-            double cuentaDestinoID = Convert.ToDouble(cmbCuentaDestino.SelectedValue);
+            Int64 cuentaDestinoID = Convert.ToInt64(cmbCuentaDestino.SelectedValue);
             DataSet dsCuentaDestino = unaCuentaDestino.TraerCuentaPorCuentaID(cuentaDestinoID);
             unaCuentaDestino.DataRowToObject(dsCuentaDestino.Tables[0].Rows[0]);
 
@@ -170,8 +170,8 @@ namespace PagoElectronico.Transferencias
 
         private void generarTransferenciaExitosa()
         {
-            unaTransferencia.CuentaOrigen.cuenta_id = Convert.ToDouble(cmbCuentaOrigen.SelectedValue);
-            unaTransferencia.CuentaDestino.cuenta_id = Convert.ToDouble(cmbCuentaDestino.SelectedValue);
+            unaTransferencia.CuentaOrigen.cuenta_id = Convert.ToInt64(cmbCuentaOrigen.SelectedValue);
+            unaTransferencia.CuentaDestino.cuenta_id = Convert.ToInt64(cmbCuentaDestino.SelectedValue);
             unaTransferencia.Importe = Convert.ToInt32(txtImporte.Text);
             unaTransferencia.Fecha = Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]);
 

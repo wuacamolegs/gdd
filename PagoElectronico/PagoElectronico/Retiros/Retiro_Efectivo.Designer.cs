@@ -92,6 +92,8 @@
             // 
             // cmbCliente
             // 
+            this.cmbCliente.BackColor = System.Drawing.SystemColors.Window;
+            this.cmbCliente.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCliente.FormattingEnabled = true;
             this.cmbCliente.Location = new System.Drawing.Point(199, 47);
             this.cmbCliente.Name = "cmbCliente";
@@ -101,6 +103,8 @@
             // 
             // cmbCuenta
             // 
+            this.cmbCuenta.BackColor = System.Drawing.SystemColors.Window;
+            this.cmbCuenta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCuenta.FormattingEnabled = true;
             this.cmbCuenta.Location = new System.Drawing.Point(199, 98);
             this.cmbCuenta.Name = "cmbCuenta";
@@ -145,6 +149,8 @@
             // 
             // cmbBanco
             // 
+            this.cmbBanco.BackColor = System.Drawing.SystemColors.Window;
+            this.cmbBanco.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbBanco.FormattingEnabled = true;
             this.cmbBanco.Location = new System.Drawing.Point(199, 273);
             this.cmbBanco.Name = "cmbBanco";
@@ -156,6 +162,7 @@
             this.txtSaldoActual.BackColor = System.Drawing.Color.GreenYellow;
             this.txtSaldoActual.Location = new System.Drawing.Point(340, 125);
             this.txtSaldoActual.Name = "txtSaldoActual";
+            this.txtSaldoActual.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.txtSaldoActual.Size = new System.Drawing.Size(100, 20);
             this.txtSaldoActual.TabIndex = 11;
             // 
@@ -250,7 +257,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox cmbCliente;
         private System.Windows.Forms.ComboBox cmbCuenta;
         private System.Windows.Forms.TextBox txtDocumento;
         private System.Windows.Forms.TextBox txtImporte;
@@ -264,5 +270,6 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.ComboBox cmbCliente;
     }
 }

@@ -118,7 +118,7 @@ namespace PagoElectronico.Facturacion
            unaFactura.Fecha = Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]);
            cantidadTransferencias = gridTransferencia.Rows.Count - 1; //me cuenta la ultima fila que esta vacia. por eso le resto uno.
            cantidadModificaciones = gridModificacionTC.Rows.Count - 1;
-                
+           unCliente.cliente_id = Convert.ToInt32(cmbCliente.SelectedValue);
            Facturas frmFacturas = new Facturas();
            frmFacturas.AbrirCon(unaFactura, txtSubTotalTransferencia.Text, txtSubTotalModificacionTC.Text, subtotalSuscripciones, cantidadTransferencias, cantidadModificaciones, cantidadSuscAPagar);  
        }
@@ -128,7 +128,7 @@ namespace PagoElectronico.Facturacion
            //CANTIDAD SUSCRIPCIONES A PAGAR Y COSTO UNITARIO (PARA ESTA CUENTA)
            if (cmbCuenta.Items.Count > 0)
            {
-               Double cuentaid = Convert.ToDouble(cmbCuenta.SelectedValue);
+               Int64 cuentaid = Convert.ToInt64(cmbCuenta.SelectedValue);
                DataSet dsSuscripciones = unCliente.TraerSuscripcionesPendientesAFacturarPorClienteIDYCuentaID(cuentaid);
                txtSuscripcionesPendientes.Text = unCliente.TraerCantidadSuscripcionesPendientesAFacturarPorClienteIDYCuentaID(cuentaid).ToString();
                if (dsSuscripciones.Tables[0].Rows.Count == 0)

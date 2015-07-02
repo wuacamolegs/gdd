@@ -49,14 +49,6 @@ namespace PagoElectronico.Retiros
             DropDownListManager.CargarCombo(cmbBanco, dsBancos.Tables[0], "banco_id", "banco_nombre", false, "");
         }
 
-        private void cmbCliente_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //cargar cmb Cuentas
-
-            DataSet dsCuentas = ObtenerCuentasActivasPorClienteId();
-            DropDownListManager.CargarCombo(cmbCuenta, dsCuentas.Tables[0], "cuenta_numero", "cuenta_numero", false, "");
-
-        }
 
         #endregion 
 
@@ -79,12 +71,24 @@ namespace PagoElectronico.Retiros
             }
         }
 
+        private void cmbCliente_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //cargar cmb Cuentas
+            DataSet dsCuentas = ObtenerCuentasActivasPorClienteId();
+            DropDownListManager.CargarCombo(cmbCuenta, dsCuentas.Tables[0], "cuenta_numero", "cuenta_numero", false, "");
+
+        }
+
         private void cmbCuenta_SelectedIndexChanged(object sender, EventArgs e)
         {
-            double cuentaID = Convert.ToDouble(cmbCuenta.SelectedValue);
+            Int64 cuentaID = Convert.ToInt64(cmbCuenta.SelectedValue);
             DataSet dsCuenta = unaCuenta.TraerCuentaPorCuentaID(cuentaID);
-            string saldo = Convert.ToString(dsCuenta.Tables[0].Rows[0]["cuenta_saldo"]);
+            unaCuenta.DataRowToObject(dsCuenta.Tables[0].Rows[0]);
+            txtSaldoActual.Clear();
+            string saldo = unaCuenta.saldo.ToString();
             txtSaldoActual.Text = saldo;
+
+            
         }
 
         #endregion
@@ -163,7 +167,7 @@ namespace PagoElectronico.Retiros
             unCliente.DataRowToObject(dsCliente.Tables[0].Rows[0]);
 
              
-            double cuentaID = Convert.ToDouble(cmbCuenta.SelectedValue);
+            Int64 cuentaID = Convert.ToInt64(cmbCuenta.SelectedValue);
             DataSet dsCuenta = unaCuenta.TraerCuentaPorCuentaID(cuentaID);
             unaCuenta.DataRowToObject(dsCuenta.Tables[0].Rows[0]);
             

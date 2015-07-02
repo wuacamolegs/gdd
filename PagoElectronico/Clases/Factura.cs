@@ -94,8 +94,18 @@ namespace Clases
         {
             this.Cliente.cliente_id = Convert.ToInt32(dr["factura_cliente_id"]);
             this.Importe = Convert.ToInt32(dr["factura_importe"]);
-            this.Fecha = Convert.ToDateTime(dr["cheque_fecha"]);
+            this.Fecha = Convert.ToDateTime(dr["factura_fecha"]);
         }
+
+
+        private void DataRowToObjectConIDFactura(DataRow dr)
+        {
+            this.Numero = Convert.ToInt32(dr["factura_numero"]);
+            this.Cliente.cliente_id = Convert.ToInt32(dr["factura_cliente_id"]);
+            this.Importe = Convert.ToInt32(dr["factura_importe"]);
+            this.Fecha = Convert.ToDateTime(dr["factura_fecha"]);
+        }
+
 
         #endregion
 
@@ -114,12 +124,13 @@ namespace Clases
 
         #region llamados a la base
 
-        public Factura GenerarFactura()
+        public void GenerarFactura()
         {
             setearListaParametrosSinNumeroFactura();
-            DataSet ds = this.GuardarYObtenerID(parameterList);  //TODO falta obtener el id
-            this.Numero = Convert.ToInt32(ds.Tables[0].Rows[0][0]); //TODO NO ANDA
-            return this;
+            MessageBox.Show("factura: " + this.Numero + "\nCliente " + this.Cliente + "\nImporte " + this.Importe, "FACTURA");
+            this.Guardar(parameterList);
+            DataSet ds = this.TraerListado("UltimaGenerada");
+            this.DataRowToObjectConIDFactura(ds.Tables[0].Rows[0]);
         }
 
         #endregion
@@ -128,12 +139,13 @@ namespace Clases
 
         #endregion
 
-        public void AñadirItems(decimal CantTrans, decimal totalTrans, decimal CantMod, decimal totalMod, decimal cantSusc, decimal totalSusc)
+        public void AñadirItems(int numeroFactura, decimal CantTrans, decimal totalTrans, decimal CantMod, decimal totalMod, decimal cantSusc, decimal totalSusc)
         {
             ItemFactura unItem = new ItemFactura(this);
             unItem.crearItem(CantTrans,totalTrans,1);  //1 = "Comision por transferencia"
             unItem.crearItem(CantMod, totalMod,2);  // 2 = "Modificaciones Tipo Cuenta"
             unItem.crearItem(cantSusc, totalSusc,3); // 3 = "Suscripciones por Apertura Cuenta"
+            unItem.Factura.Numero = numeroFactura;
             unItem.InsertItem();
         }
 

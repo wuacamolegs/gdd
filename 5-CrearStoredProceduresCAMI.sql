@@ -153,7 +153,7 @@ CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoCuentaporCuentaID]
 	@cuenta_id numeric(18,0)
 AS
 BEGIN
-	SELECT * FROM [OOZMA_KAPPA].Cuenta ;
+	SELECT * FROM [OOZMA_KAPPA].Cuenta WHERE cuenta_id = @cuenta_id;
 END
 GO
 
@@ -200,7 +200,7 @@ CREATE PROCEDURE [OOZMA_KAPPA].[TraerListadoClienteTransferenciasAFacturar]
 	@cliente_id numeric(18,0)
 AS
 BEGIN	
-	SELECT transaccion_pendiente_id , transaccion_pendiente_cliente_id, transaccion_pendiente_fecha, transaccion_pendiente_importe FROM OOZMA_KAPPA.Transacciones_Pendientes WHERE transaccion_pendiente_cliente_id = @cliente_id AND (transaccion_pendiente_descr = 'Comision por transferencia');
+	SELECT transaccion_pendiente_id , transaccion_pendiente_cliente_id, transaccion_pendiente_fecha, transaccion_pendiente_importe FROM OOZMA_KAPPA.Transacciones_Pendientes WHERE transaccion_pendiente_cliente_id = @cliente_id AND (transaccion_pendiente_descr = 'Comisión por transferencia');
 END
 GO
 
@@ -241,7 +241,7 @@ GO
 
 CREATE PROCEDURE [OOZMA_KAPPA].[InsertItem_Factura]
 	@item_factura_numero numeric(18,0),
-	@item_factura_tabla_items TVP_Items READONLY
+	@item_factura_tabla_items TVP_Item READONLY
 	AS
 BEGIN
 	 DECLARE @item_descr varchar(255)
@@ -280,14 +280,13 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [OOZMA_KAPPA].[InsertFactura_RetornarID]
+CREATE PROCEDURE [OOZMA_KAPPA].[InsertFactura]
 	@factura_importe numeric(18,2),
 	@factura_fecha datetime,
 	@factura_cliente_id numeric(18,0),
-	@factura_id numeric(18,0) = NULL OUTPUT,
 	@tablaSuscripciones TVP_SuscripcionesABorrar READONLY	
 AS
-BEGIN
+BEGIN TRANSACTION
 	 DECLARE @Cliente numeric(18,0)
 	 DECLARE @Cuenta numeric(18,0)
 	 DECLARE @CantidadSuscripciones int
@@ -318,10 +317,16 @@ BEGIN
 	INSERT INTO OOZMA_KAPPA.Factura (factura_importe, factura_fecha, factura_cliente_id)
 	VALUES (@factura_importe, @factura_fecha, @factura_cliente_id);
 	
-	SET @factura_id = @@IDENTITY;
+COMMIT
+GO
 
+CREATE PROCEDURE [OOZMA_KAPPA].[TraerListadoFacturaUltimaGenerada]
+AS
+BEGIN 
+	SELECT TOP 1 factura_numero, factura_cliente_id, factura_importe, factura_fecha FROM OOZMA_KAPPA.Factura ORDER BY factura_numero DESC
 END
 GO
+
 
 CREATE PROCEDURE [OOZMA_KAPPA].[DeleteSuscripcionesAfterFacturacion]
 	@cuenta_id numeric(18,0),

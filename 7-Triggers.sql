@@ -92,7 +92,7 @@
 
 -- update TRANSACCIONES AFTER MODIFICACION TIPO CUENTA: agregar modificacion cuenta a transacciones pendientes
 
-	ALTER TRIGGER OOZMA_KAPPA.updateTransaccionesAfterModificacionCuenta ON OOZMA_KAPPA.Cuenta
+	CREATE TRIGGER OOZMA_KAPPA.updateTransaccionesAfterModificacionCuenta ON OOZMA_KAPPA.Cuenta
 	AFTER UPDATE 
 	AS BEGIN TRANSACTION
 	
@@ -165,7 +165,7 @@
 	WHERE cuenta_id = @Cuenta;
 		
 	INSERT INTO OOZMA_KAPPA.Transacciones_Pendientes (transaccion_pendiente_importe, transaccion_pendiente_descr, transaccion_pendiente_cliente_id, transaccion_pendiente_fecha, transaccion_pendiente_cuenta_id)
-	VALUES (@Costo, 'Comisión por transferencia.', @Cliente, @Fecha, @Cuenta);
+	VALUES (@Costo, 'Comisión por transferencia', @Cliente, @Fecha, @Cuenta);
 	
 	COMMIT;
 	GO
@@ -202,13 +202,10 @@
 	
 	SELECT TOP 1 factura_cliente_id FROM inserted ORDER BY factura_cliente_id DESC;	
 	
-	DELETE FROM OOZMA_KAPPA.Transacciones_Pendientes WHERE transaccion_pendiente_cliente_id = @Cliente_id AND transaccion_pendiente_descr = 'Comisión por transferencia.' OR transaccion_pendiente_descr = 'Modificaciones Tipo Cuenta';
+	DELETE FROM OOZMA_KAPPA.Transacciones_Pendientes WHERE transaccion_pendiente_cliente_id = @Cliente_id AND transaccion_pendiente_descr = 'Comisión por transferencia' OR transaccion_pendiente_descr = 'Modificaciones Tipo Cuenta';
 	
 	COMMIT;
 
 	GO
-	
-
-
 	
 

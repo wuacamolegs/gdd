@@ -73,7 +73,7 @@ namespace PagoElectronico.Depositos
             if (ValidarCampos())
             {
                 depositoActual.Cliente.cliente_id = Convert.ToInt32(cmbCliente.SelectedValue);
-                depositoActual.Cuenta.cuenta_id = Convert.ToInt32(cmbCuenta.SelectedValue);
+                depositoActual.Cuenta.cuenta_id = Convert.ToInt64(cmbCuenta.SelectedValue);
                 depositoActual.Tarjeta.tarjeta_id = Convert.ToInt32(cmbTarjeta.SelectedValue);
                 depositoActual.Importe = Convert.ToInt32(txtImporte.Text);
                 depositoActual.EfectuarDeposito();
