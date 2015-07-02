@@ -39,6 +39,11 @@
             this.label5 = new System.Windows.Forms.Label();
             this.cmbTarjeta = new System.Windows.Forms.ComboBox();
             this.txtImporte = new System.Windows.Forms.TextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.SuspendLayout();
             // 
             // lblCliente
@@ -141,7 +146,47 @@
             this.txtImporte.Size = new System.Drawing.Size(254, 20);
             this.txtImporte.TabIndex = 11;
             // 
-            // Depositos
+            // groupBox1
+            // 
+            this.groupBox1.Location = new System.Drawing.Point(12, 24);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(419, 45);
+            this.groupBox1.TabIndex = 12;
+            this.groupBox1.TabStop = false;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Location = new System.Drawing.Point(12, 75);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(419, 45);
+            this.groupBox2.TabIndex = 13;
+            this.groupBox2.TabStop = false;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Location = new System.Drawing.Point(12, 126);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(419, 45);
+            this.groupBox3.TabIndex = 14;
+            this.groupBox3.TabStop = false;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Location = new System.Drawing.Point(12, 177);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(419, 45);
+            this.groupBox4.TabIndex = 15;
+            this.groupBox4.TabStop = false;
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Location = new System.Drawing.Point(12, 228);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(419, 45);
+            this.groupBox5.TabIndex = 16;
+            this.groupBox5.TabStop = false;
+            // 
+            // frmDepositos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -157,7 +202,12 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.cmbCliente);
             this.Controls.Add(this.lblCliente);
-            this.Name = "Depositos";
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.groupBox4);
+            this.Controls.Add(this.groupBox5);
+            this.Name = "frmDepositos";
             this.Text = "Depositos";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -177,5 +227,10 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox cmbTarjeta;
         private System.Windows.Forms.TextBox txtImporte;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.GroupBox groupBox5;
     }
 }

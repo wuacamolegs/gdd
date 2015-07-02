@@ -41,13 +41,20 @@
             this.cmbBanco = new System.Windows.Forms.ComboBox();
             this.txtSaldoActual = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(57, 52);
+            this.label1.Location = new System.Drawing.Point(19, 19);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(64, 16);
             this.label1.TabIndex = 0;
@@ -57,7 +64,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(57, 103);
+            this.label2.Location = new System.Drawing.Point(19, 22);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(64, 16);
             this.label2.TabIndex = 1;
@@ -67,7 +74,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(57, 159);
+            this.label3.Location = new System.Drawing.Point(57, 173);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(96, 16);
             this.label3.TabIndex = 2;
@@ -77,7 +84,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(57, 215);
+            this.label4.Location = new System.Drawing.Point(57, 223);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(105, 16);
             this.label4.TabIndex = 3;
@@ -103,14 +110,14 @@
             // 
             // txtDocumento
             // 
-            this.txtDocumento.Location = new System.Drawing.Point(199, 159);
+            this.txtDocumento.Location = new System.Drawing.Point(200, 169);
             this.txtDocumento.Name = "txtDocumento";
             this.txtDocumento.Size = new System.Drawing.Size(241, 20);
             this.txtDocumento.TabIndex = 6;
             // 
             // txtImporte
             // 
-            this.txtImporte.Location = new System.Drawing.Point(198, 214);
+            this.txtImporte.Location = new System.Drawing.Point(198, 219);
             this.txtImporte.Name = "txtImporte";
             this.txtImporte.Size = new System.Drawing.Size(242, 20);
             this.txtImporte.TabIndex = 7;
@@ -130,7 +137,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(57, 273);
+            this.label5.Location = new System.Drawing.Point(57, 278);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(55, 16);
             this.label5.TabIndex = 9;
@@ -139,14 +146,14 @@
             // cmbBanco
             // 
             this.cmbBanco.FormattingEnabled = true;
-            this.cmbBanco.Location = new System.Drawing.Point(199, 268);
+            this.cmbBanco.Location = new System.Drawing.Point(199, 273);
             this.cmbBanco.Name = "cmbBanco";
             this.cmbBanco.Size = new System.Drawing.Size(241, 21);
             this.cmbBanco.TabIndex = 10;
             // 
             // txtSaldoActual
             // 
-            this.txtSaldoActual.BackColor = System.Drawing.SystemColors.Control;
+            this.txtSaldoActual.BackColor = System.Drawing.Color.GreenYellow;
             this.txtSaldoActual.Location = new System.Drawing.Point(340, 125);
             this.txtSaldoActual.Name = "txtSaldoActual";
             this.txtSaldoActual.Size = new System.Drawing.Size(100, 20);
@@ -160,6 +167,48 @@
             this.label6.Size = new System.Drawing.Size(76, 13);
             this.label6.TabIndex = 12;
             this.label6.Text = "Saldo Actual : ";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Location = new System.Drawing.Point(38, 33);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(431, 44);
+            this.groupBox1.TabIndex = 13;
+            this.groupBox1.TabStop = false;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.label2);
+            this.groupBox2.Location = new System.Drawing.Point(38, 81);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(431, 72);
+            this.groupBox2.TabIndex = 14;
+            this.groupBox2.TabStop = false;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Location = new System.Drawing.Point(38, 151);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(431, 46);
+            this.groupBox3.TabIndex = 15;
+            this.groupBox3.TabStop = false;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Location = new System.Drawing.Point(38, 203);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(431, 46);
+            this.groupBox4.TabIndex = 16;
+            this.groupBox4.TabStop = false;
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Location = new System.Drawing.Point(38, 260);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(431, 46);
+            this.groupBox5.TabIndex = 17;
+            this.groupBox5.TabStop = false;
             // 
             // Retiro_Efectivo
             // 
@@ -178,11 +227,18 @@
             this.Controls.Add(this.cmbCliente);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.groupBox4);
+            this.Controls.Add(this.groupBox5);
             this.Name = "Retiro_Efectivo";
             this.Text = "PAGO ELECTRONICO - RETIRO EFECTIVO";
             this.Load += new System.EventHandler(this.Retiro_Efectivo_Load);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -203,5 +259,10 @@
         private System.Windows.Forms.ComboBox cmbBanco;
         private System.Windows.Forms.TextBox txtSaldoActual;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.GroupBox groupBox5;
     }
 }

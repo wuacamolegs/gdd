@@ -76,11 +76,11 @@
             // 
             // txtSaldo
             // 
-            this.txtSaldo.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.txtSaldo.BackColor = System.Drawing.Color.YellowGreen;
             this.txtSaldo.Location = new System.Drawing.Point(117, 125);
             this.txtSaldo.Name = "txtSaldo";
             this.txtSaldo.ReadOnly = true;
-            this.txtSaldo.Size = new System.Drawing.Size(77, 21);
+            this.txtSaldo.Size = new System.Drawing.Size(103, 21);
             this.txtSaldo.TabIndex = 4;
             // 
             // cmbCuentaOrigen
@@ -88,7 +88,7 @@
             this.cmbCuentaOrigen.FormattingEnabled = true;
             this.cmbCuentaOrigen.Location = new System.Drawing.Point(73, 83);
             this.cmbCuentaOrigen.Name = "cmbCuentaOrigen";
-            this.cmbCuentaOrigen.Size = new System.Drawing.Size(121, 23);
+            this.cmbCuentaOrigen.Size = new System.Drawing.Size(147, 23);
             this.cmbCuentaOrigen.TabIndex = 3;
             this.cmbCuentaOrigen.SelectedIndexChanged += new System.EventHandler(this.cmbCuentaOrigen_SelectedIndexChanged);
             // 
@@ -96,7 +96,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(7, 83);
+            this.label2.Location = new System.Drawing.Point(3, 83);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(64, 16);
             this.label2.TabIndex = 2;
@@ -107,7 +107,7 @@
             this.cmbClienteOrigen.FormattingEnabled = true;
             this.cmbClienteOrigen.Location = new System.Drawing.Point(73, 35);
             this.cmbClienteOrigen.Name = "cmbClienteOrigen";
-            this.cmbClienteOrigen.Size = new System.Drawing.Size(121, 23);
+            this.cmbClienteOrigen.Size = new System.Drawing.Size(147, 23);
             this.cmbClienteOrigen.TabIndex = 1;
             this.cmbClienteOrigen.SelectedIndexChanged += new System.EventHandler(this.cmbClienteOrigen_SelectedIndexChanged);
             // 
@@ -139,7 +139,7 @@
             this.cmbCuentaDestino.FormattingEnabled = true;
             this.cmbCuentaDestino.Location = new System.Drawing.Point(69, 86);
             this.cmbCuentaDestino.Name = "cmbCuentaDestino";
-            this.cmbCuentaDestino.Size = new System.Drawing.Size(121, 21);
+            this.cmbCuentaDestino.Size = new System.Drawing.Size(157, 21);
             this.cmbCuentaDestino.TabIndex = 3;
             // 
             // label4
@@ -157,7 +157,7 @@
             this.cmbClienteDestino.FormattingEnabled = true;
             this.cmbClienteDestino.Location = new System.Drawing.Point(69, 35);
             this.cmbClienteDestino.Name = "cmbClienteDestino";
-            this.cmbClienteDestino.Size = new System.Drawing.Size(121, 21);
+            this.cmbClienteDestino.Size = new System.Drawing.Size(157, 21);
             this.cmbClienteDestino.TabIndex = 1;
             this.cmbClienteDestino.SelectedIndexChanged += new System.EventHandler(this.cmbClienteDestino_SelectedIndexChanged);
             // 

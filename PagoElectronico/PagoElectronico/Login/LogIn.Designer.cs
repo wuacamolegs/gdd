@@ -36,6 +36,9 @@
             this.btnSelecRol = new System.Windows.Forms.Button();
             this.lblRol = new System.Windows.Forms.Label();
             this.cmbRol = new System.Windows.Forms.ComboBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.SuspendLayout();
             // 
             // lblUsername
@@ -108,6 +111,30 @@
             this.cmbRol.TabIndex = 7;
             this.cmbRol.Text = "Seleccione un Rol de la lista";
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Location = new System.Drawing.Point(58, 26);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(234, 49);
+            this.groupBox1.TabIndex = 8;
+            this.groupBox1.TabStop = false;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Location = new System.Drawing.Point(58, 84);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(234, 58);
+            this.groupBox2.TabIndex = 9;
+            this.groupBox2.TabStop = false;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Location = new System.Drawing.Point(58, 145);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(234, 59);
+            this.groupBox3.TabIndex = 10;
+            this.groupBox3.TabStop = false;
+            // 
             // LogIn
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -121,6 +148,9 @@
             this.Controls.Add(this.lblUsername);
             this.Controls.Add(this.btnSelecRol);
             this.Controls.Add(this.btnIngresar);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox3);
             this.Name = "LogIn";
             this.Text = "Pago Electronico - LogIn";
             this.Load += new System.EventHandler(this.LogIn_Load);
@@ -139,5 +169,8 @@
         private System.Windows.Forms.Button btnSelecRol;
         private System.Windows.Forms.Label lblRol;
         private System.Windows.Forms.ComboBox cmbRol;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBox3;
     }
 }
