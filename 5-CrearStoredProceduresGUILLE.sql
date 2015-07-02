@@ -39,8 +39,15 @@ Begin
 End
 Go
 
+-- LISTADO ESTADISTICO (1) : Clientes que alguna de sus cuentas fueron inhabilitadas por no pagar los costos de transacción --
 
-
-
-
+Create Procedure listado_estadistico_1 (@fechaDES date, @fechaHAS date)
+As
+Begin
+  Select distinct cliente_id as ClienteID, cliente_apellido+','+cliente_nombre as ApellidoNombre, cuenta_id as CuentaID
+	From OOZMA_KAPPA.Cliente Join OOZMA_KAPPA.Transacciones_Pendientes On (transaccion_pendiente_cliente_id = cliente_id)
+	                         Join OOZMA_KAPPA.Cuenta On (cuenta_id = transaccion_pendiente_cuenta_id)
+	Where cuenta_estado = 0 And CONVERT(varchar(10), transaccion_pendiente_fecha, 103) Between CONVERT(varchar(10), @fechaDES, 103) And CONVERT(varchar(10), @fechaHAS, 103);
+End
+Go
 
