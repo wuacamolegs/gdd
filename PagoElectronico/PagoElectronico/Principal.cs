@@ -108,12 +108,6 @@ namespace PagoElectronico
 
       }
 
-        private void rOLToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            ABM_de_Rol abmRol = new ABM_de_Rol();
-
-            abmRol.abrirConUsuario(unUsuario);
-        }
 
         private void aBMUSUARIOToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -197,6 +191,12 @@ namespace PagoElectronico
 
             string claveNueva = Encryptor.GetSHA256(claveNuevaIngresada);
             unUsuario.CambiarClave(claveNueva);
+        }
+
+        private void aBMROLToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ABM_de_Rol abmRol = new ABM_de_Rol();
+            abmRol.abrirConUsuario(unUsuario);
         }
 
 

@@ -79,13 +79,13 @@
             this.rOLToolStripMenuItem1.Name = "rOLToolStripMenuItem1";
             this.rOLToolStripMenuItem1.Size = new System.Drawing.Size(195, 22);
             this.rOLToolStripMenuItem1.Text = "ROL";
-            this.rOLToolStripMenuItem1.Click += new System.EventHandler(this.rOLToolStripMenuItem1_Click);
             // 
             // aBMROLToolStripMenuItem
             // 
             this.aBMROLToolStripMenuItem.Name = "aBMROLToolStripMenuItem";
-            this.aBMROLToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.aBMROLToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.aBMROLToolStripMenuItem.Text = "ABM ROL";
+            this.aBMROLToolStripMenuItem.Click += new System.EventHandler(this.aBMROLToolStripMenuItem_Click);
             // 
             // uSUARIOToolStripMenuItem
             // 

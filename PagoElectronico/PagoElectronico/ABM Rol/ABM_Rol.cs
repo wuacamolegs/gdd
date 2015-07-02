@@ -33,9 +33,8 @@ namespace PagoElectronico.ABM_Rol
             unUsuario = user;
             this.Show();
         }
-        #endregion
 
-        /*
+
         private void ABM_de_Rol_Load(object sender, EventArgs e)
         {
             //Cargargrilla
@@ -44,9 +43,10 @@ namespace PagoElectronico.ABM_Rol
         }
 
         #endregion
-        */
-        /*
+
+
         #region botones y vista
+
         private void cargarGrilla()
         {
             DataSet dsRol = unRol.traerRoles();
@@ -163,7 +163,7 @@ namespace PagoElectronico.ABM_Rol
         }
 
         #endregion
-        */
+
 
     }
 }
