@@ -62,7 +62,10 @@ namespace PagoElectronico.Transferencias
             //cargar CuentasClienteOrigen
             unClienteOrigen.cliente_id = Convert.ToInt32(cmbClienteOrigen.SelectedValue);
             DataSet dsCuentaOrigen = traerCuentasPorCliente(unClienteOrigen);
-            DropDownListManager.CargarCombo(cmbCuentaOrigen, dsCuentaOrigen.Tables[0], "cuenta_numero", "cuenta_numero", false, ""); 
+            DropDownListManager.CargarCombo(cmbCuentaOrigen, dsCuentaOrigen.Tables[0], "cuenta_numero", "cuenta_numero", false, "");
+            txtSaldo.Clear();
+            string saldo = Convert.ToString(dsCuentaOrigen.Tables[0].Rows[0]["cuenta_saldo"]);
+            txtSaldo.Text = saldo;
         }
 
         private void cmbClienteDestino_SelectedIndexChanged(object sender, EventArgs e)
@@ -73,14 +76,6 @@ namespace PagoElectronico.Transferencias
             DropDownListManager.CargarCombo(cmbCuentaDestino, dsCuentaDestino.Tables[0], "cuenta_numero", "cuenta_numero", false, ""); 
         }
 
-        private void cmbCuentaOrigen_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            unaCuentaOrigen.cuenta_id = Convert.ToInt64(cmbCuentaOrigen.SelectedValue);
-            DataSet dsCuentaOrigen = unaCuentaOrigen.TraerCuentaPorCuentaID(unaCuentaOrigen.cuenta_id);
-            txtSaldo.Clear();
-            string saldo = Convert.ToString(dsCuentaOrigen.Tables[0].Rows[0]["cuenta_saldo"]);
-            txtSaldo.Text = saldo;
-        }
 
 
 

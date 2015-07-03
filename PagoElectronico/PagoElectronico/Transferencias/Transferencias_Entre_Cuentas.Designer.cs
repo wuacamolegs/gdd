@@ -85,12 +85,10 @@
             // 
             // cmbCuentaOrigen
             // 
-            this.cmbCuentaOrigen.FormattingEnabled = true;
-            this.cmbCuentaOrigen.Location = new System.Drawing.Point(73, 83);
+            this.cmbCuentaOrigen.Location = new System.Drawing.Point(73, 76);
             this.cmbCuentaOrigen.Name = "cmbCuentaOrigen";
             this.cmbCuentaOrigen.Size = new System.Drawing.Size(147, 23);
-            this.cmbCuentaOrigen.TabIndex = 3;
-            this.cmbCuentaOrigen.SelectedIndexChanged += new System.EventHandler(this.cmbCuentaOrigen_SelectedIndexChanged);
+            this.cmbCuentaOrigen.TabIndex = 6;
             // 
             // label2
             // 
