@@ -116,7 +116,7 @@ namespace Utilities
         public static string MayorACero(string textoAValidar, string nombreCampo)
         {
             string strError = "";
-            if (Convert.ToInt32(textoAValidar) == 0)
+            if (Convert.ToInt32(textoAValidar) <= 0)
             {
                 strError += "El campo " + nombreCampo + " debe ser mayor que cero\n";
             }

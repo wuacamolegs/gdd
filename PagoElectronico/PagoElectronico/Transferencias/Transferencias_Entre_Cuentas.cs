@@ -63,9 +63,7 @@ namespace PagoElectronico.Transferencias
             unClienteOrigen.cliente_id = Convert.ToInt32(cmbClienteOrigen.SelectedValue);
             DataSet dsCuentaOrigen = traerCuentasPorCliente(unClienteOrigen);
             DropDownListManager.CargarCombo(cmbCuentaOrigen, dsCuentaOrigen.Tables[0], "cuenta_numero", "cuenta_numero", false, "");
-            txtSaldo.Clear();
-            string saldo = Convert.ToString(dsCuentaOrigen.Tables[0].Rows[0]["cuenta_saldo"]);
-            txtSaldo.Text = saldo;
+
         }
 
         private void cmbClienteDestino_SelectedIndexChanged(object sender, EventArgs e)
@@ -73,19 +71,24 @@ namespace PagoElectronico.Transferencias
             //cargar CuentasClienteDestino
             unClienteDestino.cliente_id = Convert.ToInt32(cmbClienteDestino.SelectedValue);
             DataSet dsCuentaDestino = traerCuentasPorCliente(unClienteDestino);
-            DropDownListManager.CargarCombo(cmbCuentaDestino, dsCuentaDestino.Tables[0], "cuenta_numero", "cuenta_numero", false, ""); 
+            DropDownListManager.CargarCombo(cmbCuentaDestino, dsCuentaDestino.Tables[0], "cuenta_numero", "cuenta_numero", false, "");
+ 
         }
 
-
+        private void cmbCuentaOrigen_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Int64 cuentaID = Convert.ToInt64(cmbCuentaOrigen.SelectedValue);
+            DataSet dsCuentaOrigen = unaCuentaOrigen.TraerCuentaPorCuentaID(cuentaID);
+            unaCuentaOrigen.DataRowToObject(dsCuentaOrigen.Tables[0].Rows[0]);
+            txtSaldo.Clear();
+            string saldo = Convert.ToString(unaCuentaOrigen.saldo);
+            txtSaldo.Text = saldo;
+        }
 
 
         private void btnConfirmar_Click(object sender, EventArgs e)
         {
-
-
             if (ValidarCampos())
-            
-                
                 {
                     MessageBox.Show("Transaccion Exitosa", "Validacion Exitosa");
                     
@@ -123,13 +126,12 @@ namespace PagoElectronico.Transferencias
             DataSet dsCuentas = unaCuenta.TraerCuentasAbiertasPorClienteID();
             return dsCuentas;
         }
-        
+
         private bool ValidarCampos()
         {
             string strErrores = "";
-            strErrores = Validator.ValidarNulo(txtImporte.Text, "Importe");
-            strErrores = strErrores + Validator.MayorACero(txtImporte.Text, "Importe");
-            strErrores = strErrores + Validator.ValidarSaldoCantidadMenor(txtImporte.Text, Convert.ToInt32(txtSaldo.Text), "Importe");
+            strErrores = strErrores + Validator.ValidarNulo(txtImporte.Text, "Importe");
+
             if (strErrores.Length > 0)
             {
                 MessageBox.Show(strErrores);
@@ -138,29 +140,59 @@ namespace PagoElectronico.Transferencias
             }
             else
             {
-                return true;
-            }
+                strErrores = strErrores + Validator.SoloNumerosODecimales(txtImporte.Text, "Importe");
+                if (strErrores.Length > 0)
+                {
+                    MessageBox.Show(strErrores);
+                    txtImporte.Clear();
+                    return false;
 
+                }
+                else
+                {
+                    strErrores = strErrores + Validator.MayorACero(txtImporte.Text, "Importe");
+                    if (strErrores.Length > 0)
+                    {
+                        MessageBox.Show(strErrores);
+                        txtImporte.Clear();
+                        return false;
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                }
+            }
         }
+
 
         private void realizarAccionesTransferencia()
         {
-            int clienteOrigenID = Convert.ToInt32(cmbClienteOrigen.SelectedValue);
-            DataSet dsClienteOrigen = unClienteOrigen.TraerClientePorID(clienteOrigenID);
-            unClienteOrigen.DataRowToObject(dsClienteOrigen.Tables[0].Rows[0]);
+            if (Convert.ToInt64(cmbCuentaDestino.SelectedValue) == Convert.ToInt64(cmbCuentaOrigen.SelectedValue))
+            {
+                MessageBox.Show("No se puede realizar una transferencia entre mismas cuentas. Seleccione un Numero de Cuenta correcto", "Cuenta Incorrecta");
+                txtImporte.Clear();
 
-            int clienteDestinoID = Convert.ToInt32(cmbClienteDestino.SelectedValue);
-            DataSet dsClienteDestino = unClienteDestino.TraerClientePorID(clienteDestinoID);
-            unClienteDestino.DataRowToObject(dsClienteDestino.Tables[0].Rows[0]);
+            }
+            else
+            {
+                int clienteOrigenID = Convert.ToInt32(cmbClienteOrigen.SelectedValue);
+                DataSet dsClienteOrigen = unClienteOrigen.TraerClientePorID(clienteOrigenID);
+                unClienteOrigen.DataRowToObject(dsClienteOrigen.Tables[0].Rows[0]);
 
-            Int64 cuentaDestinoID = Convert.ToInt64(cmbCuentaDestino.SelectedValue);
-            DataSet dsCuentaDestino = unaCuentaDestino.TraerCuentaPorCuentaID(cuentaDestinoID);
-            unaCuentaDestino.DataRowToObject(dsCuentaDestino.Tables[0].Rows[0]);
+                int clienteDestinoID = Convert.ToInt32(cmbClienteDestino.SelectedValue);
+                DataSet dsClienteDestino = unClienteDestino.TraerClientePorID(clienteDestinoID);
+                unClienteDestino.DataRowToObject(dsClienteDestino.Tables[0].Rows[0]);
 
-            unaTransferencia.CuentaOrigen = unaCuentaOrigen;
-            unaTransferencia.CuentaDestino = unaCuentaDestino;
-            
-            generarTransferenciaExitosa();
+                Int64 cuentaDestinoID = Convert.ToInt64(cmbCuentaDestino.SelectedValue);
+                DataSet dsCuentaDestino = unaCuentaDestino.TraerCuentaPorCuentaID(cuentaDestinoID);
+                unaCuentaDestino.DataRowToObject(dsCuentaDestino.Tables[0].Rows[0]);
+
+                unaTransferencia.CuentaOrigen = unaCuentaOrigen;
+                unaTransferencia.CuentaDestino = unaCuentaDestino;
+
+                generarTransferenciaExitosa();
+            }
         }
 
         private void generarTransferenciaExitosa()
@@ -176,6 +208,7 @@ namespace PagoElectronico.Transferencias
         }
      
      #endregion
+
 
 
 

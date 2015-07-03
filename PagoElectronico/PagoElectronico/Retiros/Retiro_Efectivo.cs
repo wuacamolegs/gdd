@@ -59,14 +59,12 @@ namespace PagoElectronico.Retiros
             if (ValidarCampos())
             {
                 if (Convert.ToInt32(txtDocumento.Text) == unCliente.Documento)
-                {
-                    MessageBox.Show("Se ha validado correctamente la identidad del Cliente", "Validacion Exitosa");
-                    
+                {                    
                     realizarAccionesRetiro();
                 }
                 else
                 {
-                    MessageBox.Show("Vuelva a ingresar el numero de documento", "Datos Incorrectos");
+                    MessageBox.Show("Vuelva a ingresar el numero de documento", "Validacion Incorrecta");
                 }
             }
         }
@@ -137,14 +135,12 @@ namespace PagoElectronico.Retiros
         #endregion
         
         #region metodos privados
-        
+
         private bool ValidarCampos()
         {
             string strErrores = "";
             strErrores = Validator.ValidarNulo(txtDocumento.Text, "Documento");
-            strErrores =  strErrores + Validator.ValidarNulo(txtImporte.Text, "Importe");
-            strErrores = strErrores + Validator.SoloNumeros(txtDocumento.Text, "Documento");
-            strErrores = strErrores + Validator.SoloNumerosODecimales(txtImporte.Text, "Importe");
+            strErrores = strErrores + Validator.ValidarNulo(txtImporte.Text, "Importe");
 
             if (strErrores.Length > 0)
             {
@@ -155,9 +151,33 @@ namespace PagoElectronico.Retiros
             }
             else
             {
-                return true;
+                strErrores = strErrores + Validator.SoloNumeros(txtDocumento.Text, "Documento");
+                strErrores = strErrores + Validator.SoloNumerosODecimales(txtImporte.Text, "Importe");
+                if (strErrores.Length > 0)
+                {
+                    MessageBox.Show(strErrores);
+                    txtDocumento.Clear();
+                    txtImporte.Clear();
+                    return false;
+
+                }
+                else
+                {
+                    strErrores = strErrores + Validator.MayorACero(txtImporte.Text, "Importe");
+                    strErrores = strErrores + Validator.MayorACero(txtDocumento.Text, "Documento");
+                    if (strErrores.Length > 0)
+                    {
+                        MessageBox.Show(strErrores);
+                        txtDocumento.Clear();
+                        txtImporte.Clear();
+                        return false;
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                }
             }
-            
         }
 
         private void realizarAccionesRetiro() 
