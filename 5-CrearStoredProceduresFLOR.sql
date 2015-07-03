@@ -18,8 +18,7 @@ AS
 	INSERT INTO OOZMA_KAPPA.Deposito(deposito_cuenta_id, deposito_cliente_id, deposito_importe, deposito_tarjeta_id, deposito_fecha)
 	VALUES (@deposito_cuenta_id, @deposito_cliente_id, @deposito_importe, @deposito_tarjeta_id, @deposito_fecha);
 	
-GO
-	
+GO	
 
 
 ----SP traerListadoMonedaCompleto----
@@ -28,9 +27,19 @@ AS
 	SELECT moneda_id as id_Moneda, moneda_nombre as Moneda FROM OOZMA_KAPPA.Moneda;
 GO
 
+---SP traerListadoTarjetasActivas----
+CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoTarjetasActivas]
+	@cliente_id numeric (18,0),
+	@deposito_fecha datetime
+	
+AS
+	SELECT tarjeta_id AS tarjeta_numero, tarjeta_vencimiento FROM OOZMA_KAPPA.Tarjeta
+	WHERE tarjeta_cliente_id = @cliente_id AND CONVERT(varchar(10), tarjeta_vencimiento, 103) > CONVERT(varchar(10),@deposito_fecha, 103)
+	
+GO
 
 
------ Crear Stored Procedures -----
+---- Crear Stored Procedures -----
 
 CREATE PROCEDURE OOZMA_KAPPA.traerListadoFuncionalidades
 AS	
