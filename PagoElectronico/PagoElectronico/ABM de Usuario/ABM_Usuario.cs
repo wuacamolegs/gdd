@@ -8,8 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Clases;
-using Utilities;
 using Conexion;
+using Utilities;
 
 namespace PagoElectronico.ABM_de_Usuario
 {

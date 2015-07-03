@@ -242,13 +242,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\tpChicas\src\FrbaCommerce\Utilities\Utilities.csproj">
-      <Project>{E0B42931-2ACC-413F-8CCB-6583D68C95E9}</Project>
-      <Name>Utilities</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Clases\Clases.csproj">
       <Project>{4E6028A4-BD22-4C52-9C3C-49503A738444}</Project>
       <Name>Clases</Name>
+    </ProjectReference>
+	<ProjectReference Include="..\Utilities\Utilities.csproj">
+      <Project>{4E6028A4-BD22-4C52-9C3C-49503A738444}</Project>
+      <Name>Utilities</Name>
     </ProjectReference>
     <ProjectReference Include="..\Conexion\Conexion.csproj">
       <Project>{D94C51F3-2C13-44B6-A9AA-A675BCBBD601}</Project>

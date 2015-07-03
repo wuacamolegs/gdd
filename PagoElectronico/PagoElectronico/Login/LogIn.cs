@@ -13,6 +13,7 @@ using Excepciones;
 using Utilities;
 using Conexion;
 using Log;
+using PagoElectronico.ABM_Cliente;
 
 namespace PagoElectronico.Login
 {
@@ -41,6 +42,7 @@ namespace PagoElectronico.Login
             btnSelecRol.Visible = false;
             lblRol.Visible = false;     //oculto botones de eleccion Rol. una vez que se loguea correctamente elije el rol.
             cmbRol.Visible = false;
+            btnCrearCliente.Visible = false;
         }
 
         #endregion
@@ -56,6 +58,17 @@ namespace PagoElectronico.Login
             user.AsignarRol(rolAAsignar);
             AccederAlSistema();
         }
+
+        private void cmbRol_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //si es administrador muestro boton crear nuevo cliente
+            if (Convert.ToInt32(cmbRol.SelectedValue) == 1)
+            {
+                btnCrearCliente.Visible = true;
+            }
+        }
+
+
         string claveIngresada = "";
 
         private void btnIngresar_Click(object sender, EventArgs e)
@@ -212,6 +225,15 @@ namespace PagoElectronico.Login
         }
 
         #endregion
+
+
+        private void btnCrearCliente_Click(object sender, EventArgs e)
+        {
+            ABM_de_Cliente ABMCliente = new ABM_de_Cliente();
+            this.Hide();
+            ABMCliente.Show();
+
+        }
 
 
 

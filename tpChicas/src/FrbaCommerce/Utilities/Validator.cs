@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+
 namespace Utilities
 {
     public class Validator
     {
-        public static string SoloNumeros(string textoAValidar, string nombreCampo)
+         public static string SoloNumeros(string textoAValidar, string nombreCampo)
         {
             string strError = "";
 
@@ -135,4 +136,4 @@ namespace Utilities
 
         }
     }
-    }
+}

@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-
 namespace Utilities
 {
     public class DialogManager
     {
-         public static string ShowDialogWithPassword(string text, string caption)
+        public static string ShowDialogWithPassword(string text, string caption)
         {
             Form prompt = new Form();
             prompt.Width = 500;
@@ -56,4 +55,3 @@ namespace Utilities
         }
     }
 }
-

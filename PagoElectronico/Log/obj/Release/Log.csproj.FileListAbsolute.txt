@@ -8,3 +8,5 @@ E:\gdd\PagoElectronico\Log\bin\Release\Log.pdb
 E:\gdd\PagoElectronico\Log\obj\Release\ResolveAssemblyReference.cache
 E:\gdd\PagoElectronico\Log\obj\Release\Log.dll
 E:\gdd\PagoElectronico\Log\obj\Release\Log.pdb
+A:\Documents\GitHub\gdd\PagoElectronico\Log\bin\Release\Utilities.dll
+A:\Documents\GitHub\gdd\PagoElectronico\Log\bin\Release\Utilities.pdb

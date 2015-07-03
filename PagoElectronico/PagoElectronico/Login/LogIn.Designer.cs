@@ -39,12 +39,13 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.btnCrearCliente = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblUsername
             // 
             this.lblUsername.AutoSize = true;
-            this.lblUsername.Location = new System.Drawing.Point(69, 26);
+            this.lblUsername.Location = new System.Drawing.Point(62, 25);
             this.lblUsername.Name = "lblUsername";
             this.lblUsername.Size = new System.Drawing.Size(68, 13);
             this.lblUsername.TabIndex = 0;
@@ -53,7 +54,7 @@
             // lblPassword
             // 
             this.lblPassword.AutoSize = true;
-            this.lblPassword.Location = new System.Drawing.Point(69, 84);
+            this.lblPassword.Location = new System.Drawing.Point(62, 83);
             this.lblPassword.Name = "lblPassword";
             this.lblPassword.Size = new System.Drawing.Size(70, 13);
             this.lblPassword.TabIndex = 1;
@@ -61,21 +62,21 @@
             // 
             // txtUsername
             // 
-            this.txtUsername.Location = new System.Drawing.Point(72, 46);
+            this.txtUsername.Location = new System.Drawing.Point(65, 45);
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(209, 20);
             this.txtUsername.TabIndex = 2;
             // 
             // txtPassword
             // 
-            this.txtPassword.Location = new System.Drawing.Point(72, 103);
+            this.txtPassword.Location = new System.Drawing.Point(65, 102);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(211, 20);
             this.txtPassword.TabIndex = 3;
             // 
             // btnIngresar
             // 
-            this.btnIngresar.Location = new System.Drawing.Point(123, 210);
+            this.btnIngresar.Location = new System.Drawing.Point(191, 217);
             this.btnIngresar.Name = "btnIngresar";
             this.btnIngresar.Size = new System.Drawing.Size(94, 39);
             this.btnIngresar.TabIndex = 4;
@@ -85,18 +86,18 @@
             // 
             // btnSelecRol
             // 
-            this.btnSelecRol.Location = new System.Drawing.Point(123, 210);
+            this.btnSelecRol.Location = new System.Drawing.Point(191, 217);
             this.btnSelecRol.Name = "btnSelecRol";
             this.btnSelecRol.Size = new System.Drawing.Size(94, 39);
             this.btnSelecRol.TabIndex = 5;
-            this.btnSelecRol.Text = "Seleccionar Rol";
+            this.btnSelecRol.Text = "Ingresar";
             this.btnSelecRol.UseVisualStyleBackColor = true;
             this.btnSelecRol.Click += new System.EventHandler(this.btnSelecRol_Click);
             // 
             // lblRol
             // 
             this.lblRol.AutoSize = true;
-            this.lblRol.Location = new System.Drawing.Point(69, 145);
+            this.lblRol.Location = new System.Drawing.Point(62, 144);
             this.lblRol.Name = "lblRol";
             this.lblRol.Size = new System.Drawing.Size(29, 13);
             this.lblRol.TabIndex = 6;
@@ -105,15 +106,16 @@
             // cmbRol
             // 
             this.cmbRol.FormattingEnabled = true;
-            this.cmbRol.Location = new System.Drawing.Point(72, 163);
+            this.cmbRol.Location = new System.Drawing.Point(65, 162);
             this.cmbRol.Name = "cmbRol";
             this.cmbRol.Size = new System.Drawing.Size(209, 21);
             this.cmbRol.TabIndex = 7;
             this.cmbRol.Text = "Seleccione un Rol de la lista";
+            this.cmbRol.SelectedIndexChanged += new System.EventHandler(this.cmbRol_SelectedIndexChanged);
             // 
             // groupBox1
             // 
-            this.groupBox1.Location = new System.Drawing.Point(58, 26);
+            this.groupBox1.Location = new System.Drawing.Point(51, 25);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(234, 49);
             this.groupBox1.TabIndex = 8;
@@ -121,7 +123,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Location = new System.Drawing.Point(58, 84);
+            this.groupBox2.Location = new System.Drawing.Point(51, 83);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(234, 58);
             this.groupBox2.TabIndex = 9;
@@ -129,17 +131,28 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Location = new System.Drawing.Point(58, 145);
+            this.groupBox3.Location = new System.Drawing.Point(51, 144);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(234, 59);
             this.groupBox3.TabIndex = 10;
             this.groupBox3.TabStop = false;
             // 
+            // btnCrearCliente
+            // 
+            this.btnCrearCliente.Location = new System.Drawing.Point(51, 225);
+            this.btnCrearCliente.Name = "btnCrearCliente";
+            this.btnCrearCliente.Size = new System.Drawing.Size(114, 23);
+            this.btnCrearCliente.TabIndex = 11;
+            this.btnCrearCliente.Text = "Crear Nuevo Cliente";
+            this.btnCrearCliente.UseVisualStyleBackColor = true;
+            this.btnCrearCliente.Click += new System.EventHandler(this.btnCrearCliente_Click);
+            // 
             // LogIn
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(343, 271);
+            this.ClientSize = new System.Drawing.Size(331, 271);
+            this.Controls.Add(this.btnCrearCliente);
             this.Controls.Add(this.cmbRol);
             this.Controls.Add(this.lblRol);
             this.Controls.Add(this.txtPassword);
@@ -172,5 +185,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Button btnCrearCliente;
     }
 }
