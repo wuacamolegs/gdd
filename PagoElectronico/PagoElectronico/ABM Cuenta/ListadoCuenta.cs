@@ -14,6 +14,9 @@ namespace PagoElectronico.ABM_Cuenta
     {
         #region variables
         public Usuario unUsuario = new Usuario();
+        public Cliente unCliente = new Cliente();
+        public Cuenta unaCuenta = new Cuenta();
+      
         #endregion
 
         #region initialize
@@ -30,17 +33,39 @@ namespace PagoElectronico.ABM_Cuenta
 
         #endregion
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
+       
         #region botones
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            ObtenerCuentas();
+            unCliente.Nombre = Convert.ToString(lblNombre);
+            unCliente.Apellido = Convert.ToString(lblApellido);
+            unCliente.TipoDocumento = Convert.ToString(cmbDNI);
+            unCliente.Documento = Convert.ToInt32(lblDNI);
+            cargarGrilla();
+
+        }
+
+
+        private void cargarGrilla() //TODO
+        {
+        }
+
+        private void btnLimpiarFiltros_Click(object sender, EventArgs e)
+        {
+            LimpiarFormulario();
+        }
+
+
+        public void LimpiarFormulario()
+        {
+            txtNombre.Clear();
+            txtApellido.Clear();
+            txtDNI.Clear();
+                        
+
+        }
         #endregion
 
         #region llamados a la base 

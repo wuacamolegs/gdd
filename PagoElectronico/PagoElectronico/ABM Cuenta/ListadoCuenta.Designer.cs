@@ -32,7 +32,7 @@
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.lblApellido = new System.Windows.Forms.Label();
             this.txtApellido = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cmbDNI = new System.Windows.Forms.ComboBox();
             this.lblTipoDNI = new System.Windows.Forms.Label();
             this.lblDNI = new System.Windows.Forms.Label();
             this.txtDNI = new System.Windows.Forms.TextBox();
@@ -42,8 +42,6 @@
             this.dtgCuentas = new System.Windows.Forms.DataGridView();
             this.btnModificar = new System.Windows.Forms.Button();
             this.btnEliminar = new System.Windows.Forms.Button();
-            this.txtCuenta = new System.Windows.Forms.TextBox();
-            this.lblCuenta = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dtgCuentas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -56,7 +54,6 @@
             this.lblNombre.Size = new System.Drawing.Size(113, 16);
             this.lblNombre.TabIndex = 0;
             this.lblNombre.Text = "Nombre del titular";
-            this.lblNombre.Click += new System.EventHandler(this.label1_Click);
             // 
             // txtNombre
             // 
@@ -82,13 +79,13 @@
             this.txtApellido.Size = new System.Drawing.Size(182, 20);
             this.txtApellido.TabIndex = 3;
             // 
-            // comboBox1
+            // cmbDNI
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(169, 75);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(182, 21);
-            this.comboBox1.TabIndex = 4;
+            this.cmbDNI.FormattingEnabled = true;
+            this.cmbDNI.Location = new System.Drawing.Point(169, 75);
+            this.cmbDNI.Name = "cmbDNI";
+            this.cmbDNI.Size = new System.Drawing.Size(182, 21);
+            this.cmbDNI.TabIndex = 4;
             // 
             // lblTipoDNI
             // 
@@ -99,7 +96,6 @@
             this.lblTipoDNI.Size = new System.Drawing.Size(81, 16);
             this.lblTipoDNI.TabIndex = 5;
             this.lblTipoDNI.Text = "Tipo de DNI";
-            this.lblTipoDNI.Click += new System.EventHandler(this.label1_Click_1);
             // 
             // lblDNI
             // 
@@ -121,7 +117,7 @@
             // btnAgregar
             // 
             this.btnAgregar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.btnAgregar.Location = new System.Drawing.Point(28, 177);
+            this.btnAgregar.Location = new System.Drawing.Point(28, 124);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(127, 38);
             this.btnAgregar.TabIndex = 8;
@@ -131,7 +127,7 @@
             // btnBuscar
             // 
             this.btnBuscar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.btnBuscar.Location = new System.Drawing.Point(434, 175);
+            this.btnBuscar.Location = new System.Drawing.Point(434, 124);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(132, 40);
             this.btnBuscar.TabIndex = 9;
@@ -141,7 +137,7 @@
             // btnLimpiarFiltros
             // 
             this.btnLimpiarFiltros.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.btnLimpiarFiltros.Location = new System.Drawing.Point(585, 175);
+            this.btnLimpiarFiltros.Location = new System.Drawing.Point(584, 124);
             this.btnLimpiarFiltros.Name = "btnLimpiarFiltros";
             this.btnLimpiarFiltros.Size = new System.Drawing.Size(132, 40);
             this.btnLimpiarFiltros.TabIndex = 10;
@@ -151,7 +147,7 @@
             // dtgCuentas
             // 
             this.dtgCuentas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgCuentas.Location = new System.Drawing.Point(28, 244);
+            this.dtgCuentas.Location = new System.Drawing.Point(28, 187);
             this.dtgCuentas.Name = "dtgCuentas";
             this.dtgCuentas.Size = new System.Drawing.Size(688, 194);
             this.dtgCuentas.TabIndex = 11;
@@ -159,7 +155,7 @@
             // btnModificar
             // 
             this.btnModificar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.btnModificar.Location = new System.Drawing.Point(434, 464);
+            this.btnModificar.Location = new System.Drawing.Point(434, 405);
             this.btnModificar.Name = "btnModificar";
             this.btnModificar.Size = new System.Drawing.Size(132, 38);
             this.btnModificar.TabIndex = 12;
@@ -169,37 +165,18 @@
             // btnEliminar
             // 
             this.btnEliminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.btnEliminar.Location = new System.Drawing.Point(587, 464);
+            this.btnEliminar.Location = new System.Drawing.Point(584, 405);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(130, 38);
             this.btnEliminar.TabIndex = 13;
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.UseVisualStyleBackColor = true;
             // 
-            // txtCuenta
-            // 
-            this.txtCuenta.Location = new System.Drawing.Point(170, 123);
-            this.txtCuenta.Name = "txtCuenta";
-            this.txtCuenta.Size = new System.Drawing.Size(180, 20);
-            this.txtCuenta.TabIndex = 14;
-            // 
-            // lblCuenta
-            // 
-            this.lblCuenta.AutoSize = true;
-            this.lblCuenta.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.lblCuenta.Location = new System.Drawing.Point(29, 126);
-            this.lblCuenta.Name = "lblCuenta";
-            this.lblCuenta.Size = new System.Drawing.Size(87, 16);
-            this.lblCuenta.TabIndex = 15;
-            this.lblCuenta.Text = "Nº de Cuenta";
-            // 
             // ListadoCuenta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(742, 523);
-            this.Controls.Add(this.lblCuenta);
-            this.Controls.Add(this.txtCuenta);
+            this.ClientSize = new System.Drawing.Size(725, 452);
             this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnModificar);
             this.Controls.Add(this.dtgCuentas);
@@ -209,7 +186,7 @@
             this.Controls.Add(this.txtDNI);
             this.Controls.Add(this.lblDNI);
             this.Controls.Add(this.lblTipoDNI);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.cmbDNI);
             this.Controls.Add(this.txtApellido);
             this.Controls.Add(this.lblApellido);
             this.Controls.Add(this.txtNombre);
@@ -228,7 +205,7 @@
         private System.Windows.Forms.TextBox txtNombre;
         private System.Windows.Forms.Label lblApellido;
         private System.Windows.Forms.TextBox txtApellido;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cmbDNI;
         private System.Windows.Forms.Label lblTipoDNI;
         private System.Windows.Forms.Label lblDNI;
         private System.Windows.Forms.TextBox txtDNI;
@@ -238,7 +215,5 @@
         private System.Windows.Forms.DataGridView dtgCuentas;
         private System.Windows.Forms.Button btnModificar;
         private System.Windows.Forms.Button btnEliminar;
-        private System.Windows.Forms.TextBox txtCuenta;
-        private System.Windows.Forms.Label lblCuenta;
     }
 }
