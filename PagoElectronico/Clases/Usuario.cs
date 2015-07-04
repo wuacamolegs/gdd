@@ -22,7 +22,7 @@ namespace Clases
 
         #region atributos
         //Defino los atributos que a mi entender son necesarios para la aplicacion. 
-        private Int64 _usuario_id;
+        private int _usuario_id;
         private string _username;
         private string _password;
         private bool _estado;
@@ -42,7 +42,7 @@ namespace Clases
 
         #region properties
 
-        public Int64 usuario_id
+        public int usuario_id
         {
             get { return _usuario_id; }
             set { _usuario_id = value; }
@@ -101,7 +101,7 @@ namespace Clases
         public override void DataRowToObject(DataRow dr)
         {
             // Esto es tal cual lo devuelve el stored de la DB
-            this.usuario_id = Convert.ToInt64(dr["usuario_id"]);
+            this.usuario_id = Convert.ToInt32(dr["usuario_id"]);
             this.Username = dr["usuario_username"].ToString();
             this.Password = dr["usuario_password"].ToString();
             this.Estado = Convert.ToBoolean(dr["usuario_estado"]);
@@ -191,7 +191,7 @@ namespace Clases
                 throw new NoEntidadException();
             }
 
-            this.usuario_id = Convert.ToInt64(ds.Tables[0].Rows[0]["usuario_id"]);
+            this.usuario_id = Convert.ToInt32(ds.Tables[0].Rows[0]["usuario_id"]);
 
             setearListaDeParametrosSoloConIdUsuario();
             base.Deshabilitar(parameterList);

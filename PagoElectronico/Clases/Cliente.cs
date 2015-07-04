@@ -34,7 +34,7 @@ namespace Clases
         private int _piso;
         private string _depto;
         private string _mail;
-        private bit _estado; // es un bit ahora, cambiar algo si hace falta
+        private bool _estado; // es un bit ahora, cambiar algo si hace falta
 
         #endregion
 

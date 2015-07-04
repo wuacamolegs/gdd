@@ -109,7 +109,7 @@ namespace Clases
         public override void DataRowToObject(DataRow dr)
         {
             // Esto es tal cual lo devuelve el stored de la DB
-            this.Cliente.cliente_id = Convert.ToInt64(dr["cheque_cliente_id"]);
+            this.Cliente.cliente_id = Convert.ToInt32(dr["cheque_cliente_id"]);
             this.Cuenta.cuenta_id = Convert.ToInt64(dr["cheque_cuenta_id"]);
             this.banco.Banco_id = Convert.ToInt64(dr["cheque_banco_id"]);
             this.Fecha = Convert.ToDateTime(dr["cheque_fecha"]);

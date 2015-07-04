@@ -23,7 +23,6 @@ namespace PagoElectronico.ABM_Cuenta
 
         #endregion
 
-
         #region initialize
 
         public ABM_de_Cuenta()

@@ -386,3 +386,12 @@ AS
 BEGIN
 	SELECT tipo_documento_id as td_id, tipo_documento_descripcion as td_descripcion FROM OOZMA_KAPPA.Tipo_documento;
 END
+GO
+
+
+CREATE PROCEDURE OOZMA_KAPPA.traerListadoUsuarioPaisesCompleto
+AS
+BEGIN
+	SELECT tipo_documento_id as td_id, tipo_documento_descripcion as td_descripcion FROM OOZMA_KAPPA.Tipo_documento;
+END
+GO

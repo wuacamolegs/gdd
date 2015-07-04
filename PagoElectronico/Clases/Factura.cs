@@ -92,7 +92,7 @@ namespace Clases
 
         public override void DataRowToObject(DataRow dr)
         {
-            this.Cliente.cliente_id = Convert.ToInt64(dr["factura_cliente_id"]);
+            this.Cliente.cliente_id = Convert.ToInt32(dr["factura_cliente_id"]);
             this.Importe = Convert.ToInt64(dr["factura_importe"]);
             this.Fecha = Convert.ToDateTime(dr["factura_fecha"]);
         }
@@ -101,7 +101,7 @@ namespace Clases
         private void DataRowToObjectConIDFactura(DataRow dr)
         {
             this.Numero = Convert.ToInt64(dr["factura_numero"]);
-            this.Cliente.cliente_id = Convert.ToInt64(dr["factura_cliente_id"]);
+            this.Cliente.cliente_id = Convert.ToInt32(dr["factura_cliente_id"]);
             this.Importe = Convert.ToInt64(dr["factura_importe"]);
             this.Fecha = Convert.ToDateTime(dr["factura_fecha"]);
         }

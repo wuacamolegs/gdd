@@ -117,7 +117,7 @@ namespace Clases
             this.Fecha = Convert.ToDateTime(dr["deposito_fecha"]);
             this.Importe = Convert.ToInt64(dr["deposito_importe"]);
             this.Tarjeta.tarjeta_id = Convert.ToInt64(dr["deposito_tarjeta_id"]);
-            this.Cliente.cliente_id = Convert.ToInt64(dr["deposito_cliente_id"]);
+            this.Cliente.cliente_id = Convert.ToInt32(dr["deposito_cliente_id"]);
         }
         #endregion
 
