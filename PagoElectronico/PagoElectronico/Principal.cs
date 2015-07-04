@@ -125,7 +125,7 @@ namespace PagoElectronico
 
         private void aBMCUENTAToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ABM_de_Cuenta abmCuenta = new ABM_de_Cuenta();
+            ListadoCuenta abmCuenta = new ListadoCuenta();
 
             abmCuenta.abrirConUsuario(unUsuario);
         }
