@@ -19,6 +19,7 @@ namespace PagoElectronico.ABM_Cuenta
         Cliente unCliente = new Cliente();
         Usuario unUsuario = new Usuario();
         Cuenta unaCuenta = new Cuenta();
+        Moneda unaMoneda = new Moneda();
 
         #endregion
 
@@ -30,6 +31,15 @@ namespace PagoElectronico.ABM_Cuenta
             InitializeComponent();
             unCliente.Usuario = unUsuario;
             unaCuenta.Cliente = unCliente;
+            //cargar combos moneda pais y tipo cuenta
+
+            //Cargar Combo Moneda
+            DataSet dsMoneda = unaMoneda.TraerTodasLasMonedas();
+            DropDownListManager.CargarCombo(cmbMoneda, dsMoneda.Tables[0], "moneda_id", "moneda_nombre", false, "");
+
+            //CargarCombo Paises
+            DataSet dsPaises = unUsuario.TraerListado("PaisesCompleto");
+            DropDownListManager.CargarCombo(cmbPais, dsPaises.Tables[0], "pais_id", "pais_descripcion", false, "");
         }
 
         private void ABM_de_Cuenta_Load(object sender, EventArgs e)
@@ -38,14 +48,18 @@ namespace PagoElectronico.ABM_Cuenta
             DropDownListManager.CargarCombo(cmbCliente, dsClientes.Tables[0], "cliente_id", "cliente_nombre", false, "");
         }
 
-        internal void AbrirParaModificar(Cuenta unaCuenta)
+        internal void AbrirParaModificar(DataSet dsCuenta, Cuenta cuenta)
         {
+            unaCuenta = cuenta;
             unCliente.cliente_id = unaCuenta.Cliente.cliente_id;
+            btnCrear.Visible = false;
+            btnModificar.Visible = true;
         }
 
         internal void AbrirParaCrear()
         {
-
+            btnModificar.Visible = false;
+            btnCrear.Visible = true;
         }
 
         #endregion

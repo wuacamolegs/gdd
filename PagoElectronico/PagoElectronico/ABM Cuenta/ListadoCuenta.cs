@@ -219,7 +219,8 @@ namespace PagoElectronico.ABM_Cuenta
         {
             ABM_de_Cuenta abmCuenta = new ABM_de_Cuenta();
             //TODO CARGAR DATOS CUENTA
-            abmCuenta.AbrirParaModificar(unaCuenta);
+            DataSet ds = null;
+            abmCuenta.AbrirParaModificar(ds, unaCuenta);
             this.Hide();
             abmCuenta.Show();
         }

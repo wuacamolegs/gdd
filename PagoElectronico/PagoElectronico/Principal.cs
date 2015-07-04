@@ -118,9 +118,9 @@ namespace PagoElectronico
 
         private void cLIENTEToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ABM_de_Cliente abmCliente = new ABM_de_Cliente();
+           // ABM_de_Cliente abmCliente = new ABM_de_Cliente();
 
-            abmCliente.abrirConUsuario(unUsuario);
+            //abmCliente.abrirConUsuario(unUsuario);
         }
 
         private void aBMCUENTAToolStripMenuItem_Click(object sender, EventArgs e)

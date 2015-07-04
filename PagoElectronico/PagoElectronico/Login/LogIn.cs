@@ -229,9 +229,9 @@ namespace PagoElectronico.Login
 
         private void btnCrearCliente_Click(object sender, EventArgs e)
         {
-            ABM_de_Cliente ABMCliente = new ABM_de_Cliente();
+            //ABM_de_Cliente ABMCliente = new ABM_de_Cliente();
             this.Hide();
-            ABMCliente.Show();
+            //ABMCliente.Show();
 
         }
 
