@@ -66,18 +66,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ABM Cliente\frmCliente.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ABM Cliente\frmCliente.designer.cs">
-      <DependentUpon>frmCliente.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ABM Cliente\ListadoCliente.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ABM Cliente\ListadoCliente.Designer.cs">
-      <DependentUpon>ListadoCliente.cs</DependentUpon>
-    </Compile>
     <Compile Include="ABM Cuenta\ABM_de_Cuenta.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -158,12 +146,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="ABM Cliente\frmCliente.resx">
-      <DependentUpon>frmCliente.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ABM Cliente\ListadoCliente.resx">
-      <DependentUpon>ListadoCliente.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="ABM Cuenta\ABM_de_Cuenta.resx">
       <DependentUpon>ABM_de_Cuenta.cs</DependentUpon>
     </EmbeddedResource>

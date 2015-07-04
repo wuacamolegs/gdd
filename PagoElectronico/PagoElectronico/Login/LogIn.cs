@@ -13,7 +13,7 @@ using Excepciones;
 using Utilities;
 using Conexion;
 using Log;
-using PagoElectronico.ABM_Cliente;
+//using PagoElectronico.ABM_Cliente;
 
 namespace PagoElectronico.Login
 {

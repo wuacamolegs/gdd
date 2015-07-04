@@ -19,7 +19,6 @@ A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\bin\Release\Clases.pdb
 A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.Principal.resources
 A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\bin\Release\Log.dll
 A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\bin\Release\Log.pdb
-A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.ABM_Cliente.ABM_de_Cliente.resources
 A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.ABM_de_Usuario.ABM_Usuario.resources
 A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.ABM_Rol.ABM_de_Rol.resources
 A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.Consulta_Saldos.Consulta_De_Saldos.resources
@@ -60,7 +59,6 @@ E:\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.csproj.Genera
 E:\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.exe
 E:\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.pdb
 E:\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.ABM_Rol.frmRol.resources
-A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.ABM_Cliente.frmCliente.resources
 A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.ABM_Rol.frmRol.resources
 A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.Facturacion.Facturas.resources
 E:\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.ABM_Cliente.frmCliente.resources
