@@ -36,8 +36,6 @@ namespace Clases
         private string _mail;
         private bit _estado; // es un bit ahora, cambiar algo si hace falta
 
-
-
         #endregion
 
         #region constructor
@@ -214,7 +212,7 @@ namespace Clases
             this.DeptoDireccion = dr["cliente_depto"].ToString();
             this.PaisResidente = Convert.ToInt32(dr["cliente_pais_residente_id"]);
             this.Estado = Convert.ToBoolean(dr["cliente_estado"]);
-            this.Usuario = new Usuario(Convert.ToInt32(dr["id_Usuario"])); /* agregar constructor usuario */
+            //this.Usuario = new Usuario(Convert.ToInt32(dr["usuario_id"])); /* agregar constructor usuario */
         }
 
         public void CargarObjetoClienteConId()
@@ -232,7 +230,7 @@ namespace Clases
         public static DataSet ObtenerClientePorIdUsuario(int unIdUsuario)
         {
             Cliente unCliente = new Cliente();
-            unCliente.setearListaDeParametrosConIdUsuario(unIdUsuario);
+            unCliente.setearListaDeParametrosConUsuarioID(unIdUsuario);
             DataSet ds = unCliente.TraerListado(unCliente.parameterList, "PorId_Usuario");
             unCliente.parameterList.Clear();
 
@@ -263,21 +261,22 @@ namespace Clases
             //Guardo tambien en la lista de parametros el id_rol (variable privada de la clase)
             //Para que tambien se inserte la relacio id_rol id_usuario en la BD
             
-            DataSet ds1 = SQLHelper.ExecuteDataSet("validarTelefonoEnCliente", CommandType.StoredProcedure, parameterList);
             DataSet ds2 = SQLHelper.ExecuteDataSet("validarDniEnCliente", CommandType.StoredProcedure, parameterList);
-            if ((ds1.Tables[0].Rows.Count == 0) && (ds2.Tables[0].Rows.Count == 0))
+            if (ds2.Tables[0].Rows.Count == 0)
             {
-                // se ejecuto un procedure que me traia los clientes where telefono = telfonoIngresado
-                // y otro que me trae los clientes where dni = DniIngresado
-                // solo si los dos ds estan vacios se inserta el usuarioDefault y el cliente en la BD
-                this.Usuario.usuario_id = this.Usuario.GuardarYObtenerID();
-                setearListaDeParametrosConIdUsuario(this.Usuario.usuario_id);
+                // solo si el ds estan vacio se inserta el usuarioDefault y el cliente en la BD
+                int usuarioID = Convert.ToInt32(this.Usuario.usuario_id);
+                setearListaDeParametrosConUsuarioID(usuarioID);
+
+                //CAMI: aca tendrias que hacer un metodo en usuario que sea insertUsuarioDevolverID 
+                //donde setees la lista de parametros y llames a este metodo GuardarYObtenerID()
+
+                //this.Usuario.usuario_id = this.Usuario.GuardarYObtenerID();
                 this.Guardar(parameterList);
             }
             else
             {
-                if (ds1.Tables[0].Rows.Count != 0) throw new Exception("Ya existe un Cliente con este telefono. Por favor, ingrese otro.");
-                if (ds2.Tables[0].Rows.Count != 0) throw new Exception("Ya existe un Cliente con este Dni. Por favor, ingrese otro.");
+                 if (ds2.Tables[0].Rows.Count != 0) throw new Exception("Ya existe un Cliente con este Dni. Por favor, ingrese otro.");
             }
             parameterList.Clear();
         }
@@ -286,7 +285,7 @@ namespace Clases
             setearListaDeParametros();
             //Guardo tambien en la lista de parametros el id_rol (variable privada de la clase)
             //Para que tambien se inserte la relacio id_rol id_usuario en la BD
-            setearListaDeParametrosConIdUsuario(id_usuario);
+            setearListaDeParametrosConUsuarioID(id_usuario);
             DataSet ds1 = SQLHelper.ExecuteDataSet("validarTelefonoEnCliente", CommandType.StoredProcedure, parameterList);
             DataSet ds2 = SQLHelper.ExecuteDataSet("validarDniEnCliente", CommandType.StoredProcedure, parameterList);
             if ((ds1.Tables[0].Rows.Count == 0) && (ds2.Tables[0].Rows.Count == 0))
@@ -339,13 +338,12 @@ namespace Clases
 
         #endregion
 
-        #region metodos privados
+        #region setearListas
 
-        private void setearListaDeParametros()
+        private void setearListaDeParametros() //TODO CAMBIAR A PARAMETROS SIN CLIENTE ID
         {
             //parameterList.Add(new SqlParameter("@id_Cliente", this.id_Cliente));
             this.parameterList.Clear();
-            
             parameterList.Add(new SqlParameter("@cliente_tipo_documento_id", "Dni"));
             parameterList.Add(new SqlParameter("@cliente_dni", this.Documento));
             parameterList.Add(new SqlParameter("@cliente_apellido", this.Apellido));
@@ -363,20 +361,9 @@ namespace Clases
         private void setearListaDeParametrosConIdCliente()
         {
             this.parameterList.Clear();
-            
-            parameterList.Add(new SqlParameter("@id_Cliente", this.cliente_id));
+
+            parameterList.Add(new SqlParameter("@cliente_id", this.cliente_id));
         }
-
-        private void setearListaDeParametrosConIdUsuario(int id_Usuario)
-        {
-            this.parameterList.Clear();
-            
-            parameterList.Add(new SqlParameter("@id_Usuario", id_Usuario));
-        }
-
-        #endregion
-
-        #region setearListas
 
         public void setearListaDeParametrosConUsuarioID(int unUsuario)
         {
