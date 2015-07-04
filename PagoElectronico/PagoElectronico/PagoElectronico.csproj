@@ -66,11 +66,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ABM Cliente\ABM_de_Cliente.cs">
+    <Compile Include="ABM Cliente\frmCliente.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ABM Cliente\ABM_de_Cliente.Designer.cs">
-      <DependentUpon>ABM_de_Cliente.cs</DependentUpon>
+    <Compile Include="ABM Cliente\frmCliente.Designer.cs">
+      <DependentUpon>frmCliente.cs</DependentUpon>
     </Compile>
     <Compile Include="ABM Cliente\ListadoCliente.cs">
       <SubType>Form</SubType>
@@ -158,8 +158,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="ABM Cliente\ABM_de_Cliente.resx">
-      <DependentUpon>ABM_de_Cliente.cs</DependentUpon>
+    <EmbeddedResource Include="ABM Cliente\frmCliente.resx">
+      <DependentUpon>frmCliente.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ABM Cliente\ListadoCliente.resx">
       <DependentUpon>ListadoCliente.cs</DependentUpon>
