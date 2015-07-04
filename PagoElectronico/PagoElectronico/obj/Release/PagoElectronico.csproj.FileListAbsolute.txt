@@ -20,7 +20,6 @@ A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectron
 A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\bin\Release\Log.dll
 A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\bin\Release\Log.pdb
 A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.ABM_Cliente.ABM_de_Cliente.resources
-A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.ABM_Cuenta.ABM_de_Cuenta.resources
 A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.ABM_de_Usuario.ABM_Usuario.resources
 A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.ABM_Rol.ABM_de_Rol.resources
 A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.Consulta_Saldos.Consulta_De_Saldos.resources
@@ -67,3 +66,4 @@ A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectron
 E:\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.ABM_Cliente.frmCliente.resources
 E:\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.Depositos.Depositos.resources
 E:\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.Facturacion.Facturas.resources
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.ABM_Cuenta.ListadoCuenta.resources

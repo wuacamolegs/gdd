@@ -6,7 +6,10 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Configuration;
 using Clases;
+using Utilities;
+
 
 namespace PagoElectronico.ABM_Cuenta
 {
@@ -20,6 +23,7 @@ namespace PagoElectronico.ABM_Cuenta
         #endregion
 
         #region initialize
+
         public ListadoCuenta()
         {
             InitializeComponent();
@@ -28,50 +32,188 @@ namespace PagoElectronico.ABM_Cuenta
         public void abrirConUsuario(Usuario user)
         {
             unUsuario = user;
+            unCliente.Usuario = user;
+            unaCuenta.cliente = unCliente;
             this.Show();
+        }
+
+        private void ListadoCuenta_Load(object sender, EventArgs e)
+        {
+
+            //CARGAMOS GRILLA CON TODAS LAS CUENTAS QUE HAY.
+            DataSet dsCuenta = ObtenerCuentas();
+            cargarGrilla(dsCuenta);
+
+
+            //CARGO CMB TIPO DNI
+            DataSet ds = unCliente.TraerListado("TodosLosTiposDNI");
+            DropDownListManager.CargarCombo(cmbTipoDNI, ds.Tables[0], "td_id", "td_descripcion", false, "");
+            cmbTipoDNI.SelectedIndex = -1;
         }
 
         #endregion
 
        
         #region botones
-
-        private void btnBuscar_Click(object sender, EventArgs e)
+        
+        private void btnEliminar_Click(object sender, EventArgs e)
         {
-            ObtenerCuentas();
-            unCliente.Nombre = Convert.ToString(lblNombre);
-            unCliente.Apellido = Convert.ToString(lblApellido);
-            unCliente.TipoDocumento = Convert.ToString(cmbDNI);
-            unCliente.Documento = Convert.ToInt32(lblDNI);
-            cargarGrilla();
 
         }
 
-
-        private void cargarGrilla() //TODO
+        private void btnFiltrar_Click(object sender, EventArgs e)
         {
+            if (ValidarCampos())
+            {
+                unaCuenta.cliente.Nombre = Convert.ToString(txtNombre.Text);
+                unaCuenta.cliente.Apellido = Convert.ToString(txtApellido.Text);
+                unaCuenta.cliente.TipoDocumento = Convert.ToString(cmbTipoDNI.SelectedIndex);
+                if (txtDNI.Text == "") {unaCuenta.cliente.Documento = 0; } else { unaCuenta.cliente.Documento = Convert.ToInt64(txtDNI.Text); }
+                DataSet ds = unaCuenta.TraerCuentaPorFiltrosCliente();
+                cargarGrilla(ds); //TODO: CUANDO GINO SUBA SUS CAMBIOS AGREGAR EN EL SP TRAERCUENTAFILTROS EL CLIENTE_ESTADO
+            }
+
         }
 
         private void btnLimpiarFiltros_Click(object sender, EventArgs e)
         {
-            LimpiarFormulario();
-        }
-
-
-        public void LimpiarFormulario()
-        {
             txtNombre.Clear();
             txtApellido.Clear();
             txtDNI.Clear();
-                        
-
+            cmbTipoDNI.SelectedIndex = 0;
+            DataSet dsCuenta = ObtenerCuentas();
+            cargarGrilla(dsCuenta);
         }
+
+
         #endregion
 
         #region llamados a la base 
+
         #endregion
 
         #region metodos privados
+
+        private void cargarGrilla(DataSet dsCuenta)
+        {
+            //realizo la configuracion de la grilla, seteando las filas y columnas con sus nombres y valores
+
+            dtgCuentas.Columns.Clear();
+            dtgCuentas.AutoGenerateColumns = false;
+            
+            DataGridViewTextBoxColumn clm_cuentaID = new DataGridViewTextBoxColumn();
+            clm_cuentaID.Width = 130;
+            clm_cuentaID.ReadOnly = true;
+            clm_cuentaID.DataPropertyName = "cuenta_id";
+            clm_cuentaID.HeaderText = "Cuenta ID";
+            dtgCuentas.Columns.Add(clm_cuentaID);
+            
+            DataGridViewTextBoxColumn clm_clienteID = new DataGridViewTextBoxColumn();
+            clm_clienteID.Width = 40;
+            clm_clienteID.ReadOnly = true;
+            clm_clienteID.DataPropertyName = "cliente_id";
+            clm_clienteID.HeaderText = "Cliente ID";
+            dtgCuentas.Columns.Add(clm_clienteID);
+
+            DataGridViewTextBoxColumn clm_cliente_nombre = new DataGridViewTextBoxColumn();
+            clm_cliente_nombre.Width = 80;
+            clm_cliente_nombre.ReadOnly = true;
+            clm_cliente_nombre.DataPropertyName = "cliente_nombre";
+            clm_cliente_nombre.HeaderText = "Titular";
+            dtgCuentas.Columns.Add(clm_cliente_nombre);
+
+            DataGridViewTextBoxColumn clm_saldo = new DataGridViewTextBoxColumn();
+            clm_saldo.Width = 80;
+            clm_saldo.ReadOnly = true;
+            clm_saldo.DataPropertyName = "cuenta_saldo";
+            clm_saldo.HeaderText = "Saldo";
+            dtgCuentas.Columns.Add(clm_saldo);
+
+            DataGridViewTextBoxColumn clm_tipoCuenta = new DataGridViewTextBoxColumn();
+            clm_tipoCuenta.Width = 40;
+            clm_tipoCuenta.ReadOnly = true;
+            clm_tipoCuenta.DataPropertyName = "cuenta_tipo_cuenta_id";
+            clm_tipoCuenta.HeaderText = "TipoCuenta";
+            dtgCuentas.Columns.Add(clm_tipoCuenta);
+
+            DataGridViewTextBoxColumn clm_pais = new DataGridViewTextBoxColumn();
+            clm_pais.Width = 40;
+            clm_pais.ReadOnly = true;
+            clm_pais.DataPropertyName = "cuenta_pais_id";
+            clm_pais.HeaderText = "Pais";
+            dtgCuentas.Columns.Add(clm_pais);
+
+            DataGridViewTextBoxColumn clm_moneda = new DataGridViewTextBoxColumn();
+            clm_moneda.Width = 40;
+            clm_moneda.ReadOnly = true;
+            clm_moneda.DataPropertyName = "cuenta_moneda_id";
+            clm_moneda.HeaderText = "Moneda";
+            dtgCuentas.Columns.Add(clm_moneda);
+
+            DataGridViewTextBoxColumn clm_fecha_apertura = new DataGridViewTextBoxColumn();
+            clm_fecha_apertura.Width = 80;
+            clm_fecha_apertura.ReadOnly = true;
+            clm_fecha_apertura.DataPropertyName = "cuenta_fecha_apertura";
+            clm_fecha_apertura.HeaderText = "Apertura";
+            dtgCuentas.Columns.Add(clm_fecha_apertura);
+
+            DataGridViewTextBoxColumn clm_fecha_cierre = new DataGridViewTextBoxColumn();
+            clm_fecha_cierre.Width = 80;
+            clm_fecha_cierre.ReadOnly = true;
+            clm_fecha_cierre.DataPropertyName = "cuenta_fecha_cierre";
+            clm_fecha_cierre.HeaderText = "Cierre";
+            dtgCuentas.Columns.Add(clm_fecha_cierre);
+
+            DataGridViewCheckBoxColumn clm_Estado = new DataGridViewCheckBoxColumn();
+            clm_Estado.Width = 80;
+            clm_Estado.ReadOnly = true;
+            clm_Estado.DataPropertyName = "cuenta_estado";
+            clm_Estado.HeaderText = "Estado";
+            dtgCuentas.Columns.Add(clm_Estado);
+            
+            //le inserto a la grilla el dataset obtenido
+            dtgCuentas.DataSource = dsCuenta.Tables[0];
+
+        }
+
+        private DataSet ObtenerCuentas()
+        {
+            DataSet ds = new DataSet();
+            if (unUsuario.Rol.rol_id == 1)
+            {
+                DataSet dsCuentas = unaCuenta.TraerListado("Completo");
+                ds = dsCuentas;
+            }
+            else
+            {
+                DataSet dsCuentaUsuario = unaCuenta.ObtenerCuentasPorUsuarioID(unUsuario.usuario_id);
+                ds = dsCuentaUsuario;
+            }
+
+            return ds;
+
+        }
+
+        private bool ValidarCampos()
+        {
+            if (txtDNI.Text != "") 
+            { 
+                Validator.EsNumero(txtDNI.Text); 
+            }
+            if (txtNombre.Text != "")
+            {
+
+            }
+            if (txtApellido.Text != "")
+            {
+
+            }
+            return true;
+        }
+
+
+
         #endregion
+
     }
 }

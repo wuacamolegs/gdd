@@ -117,6 +117,12 @@ namespace Clases
 
         #region setters
 
+        private void setearListaDeParametrosConUsuarioID(Int64 usuarioID)
+        {
+            this.parameterList.Clear();
+            parameterList.Add(new SqlParameter("@usuario_id", usuarioID));
+        }
+
         public void setearListaDeParametrosConClienteID(Int64 clienteID)
         {
             this.parameterList.Clear();
@@ -142,6 +148,14 @@ namespace Clases
             parameterList.Add(new SqlParameter("@Fecha", Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]).ToString("yyyy-MM-dd HH:mm:ss")));
         }
 
+        private void setearListaDeParametrosConFiltros()
+        {
+            this.parameterList.Clear();
+            parameterList.Add(new SqlParameter("@Nombre", this.cliente.Nombre));
+            parameterList.Add(new SqlParameter("@Apellido", this.cliente.Apellido));
+            parameterList.Add(new SqlParameter("@Tipo_Dni", this.cliente.TipoDocumento));
+            parameterList.Add(new SqlParameter("@Dni", this.cliente.Documento));
+        }
 
         #endregion
 
@@ -190,8 +204,21 @@ namespace Clases
 
 
 
+        public DataSet ObtenerCuentasPorUsuarioID(long usuarioID)
+        {
+            setearListaDeParametrosConUsuarioID(usuarioID);
+            DataSet ds = this.TraerListado(parameterList,"PorUsuarioID");
+            return ds;
+        }
 
 
+
+        public DataSet TraerCuentaPorFiltrosCliente()
+        {//TODO: CUANDO GINO SUBA SUS CAMBIOS AGREGAR EN EL SP TRAERCUENTAFILTROS EL CLIENTE_ESTADO
+            setearListaDeParametrosConFiltros();
+            DataSet ds = this.TraerListado(parameterList, "ConFiltros");
+            return ds;
+        }
 
 
     }

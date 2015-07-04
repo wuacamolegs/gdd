@@ -48,6 +48,12 @@ DROP PROCEDURE [OOZMA_KAPPA].[InsertFactura_RetornarID]
 GO
 DROP PROCEDURE [OOZMA_KAPPA].[DeleteSuscripcionesAfterFacturacion]
 GO
+DROP PROCEDURE [OOZMA_KAPPA].[TraerListadoCuentaCompleto]
+GO
+DROP PROCEDURE [OOZMA_KAPPA].[TraerListadoCuentaPorUsuarioID]
+GO
+DROP PROCEDURE OOZMA_KAPPA.traerListadoCuentaConFiltros 
+GO
 
 
 ----- Crear Stored Procedures -----
@@ -338,3 +344,41 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE [OOZMA_KAPPA].[TraerListadoCuentaCompleto]
+AS
+BEGIN
+		SELECT cuenta_id, cliente_id, (cliente_nombre + ' ' + cliente_apellido) as cliente_nombre, cuenta_estado, cuenta_fecha_apertura, cuenta_fecha_cierre, cuenta_moneda_id, cuenta_pais_id, cuenta_saldo, cuenta_tipo_cuenta_id FROM OOZMA_KAPPA.Cuenta, OOZMA_KAPPA.Cliente WHERE cliente_id = cuenta_cliente_id;
+END
+GO
+
+CREATE PROCEDURE [OOZMA_KAPPA].[TraerListadoCuentaPorUsuarioID]
+	@usuario_id numeric(18,0)
+AS
+BEGIN
+	SELECT cuenta_id, cliente_id, (cliente_nombre + ' ' + cliente_apellido) as cliente_nombre, cuenta_estado, cuenta_fecha_apertura, cuenta_fecha_cierre, cuenta_moneda_id, cuenta_pais_id, cuenta_saldo, cuenta_tipo_cuenta_id FROM OOZMA_KAPPA.Cuenta, OOZMA_KAPPA.Cliente WHERE cliente_id = cuenta_cliente_id AND cliente_usuario_id = @usuario_id; 
+END
+GO
+
+CREATE PROCEDURE OOZMA_KAPPA.traerListadoCuentaConFiltros 
+    @Nombre nvarchar(255) = null, 
+    @Apellido nvarchar(255) = null,
+    @Tipo_Dni numeric(18,0) = null,
+    @Dni numeric(18,0) = null
+AS 
+BEGIN
+    SELECT cuenta_id, cliente_id, (cliente_nombre + ' ' + cliente_apellido) as cliente_nombre, cuenta_estado, cuenta_fecha_apertura, cuenta_fecha_cierre, cuenta_moneda_id, cuenta_pais_id, cuenta_saldo, cuenta_tipo_cuenta_id 
+    FROM OOZMA_KAPPA.Cuenta, OOZMA_KAPPA.Cliente
+    WHERE	cuenta_cliente_id = cliente_id
+    AND     cliente_nombre LIKE (CASE WHEN @Nombre <> '' THEN '%' + @Nombre + '%' ELSE cliente_nombre END) 
+    AND		cliente_apellido LIKE (CASE WHEN @Apellido <> '' THEN '%' + @Apellido + '%' ELSE cliente_apellido END) 
+    AND		(@Tipo_Dni is null OR @Tipo_Dni = -1 OR CONVERT(VARCHAR(10), cliente_tipo_documento_id) LIKE '%' + CONVERT(VARCHAR(10), @Tipo_Dni) + '%')     
+    AND		(@Dni is null OR @Dni = 0 OR CONVERT(VARCHAR(10), cliente_numero_documento) LIKE '%' + CONVERT(VARCHAR(10), @Dni) + '%')
+    --AND		cliente_estado = 0;
+END
+GO
+
+CREATE PROCEDURE OOZMA_KAPPA.traerListadoClienteTodosLosTiposDNI
+AS
+BEGIN
+	SELECT tipo_documento_id as td_id, tipo_documento_descripcion as td_descripcion FROM OOZMA_KAPPA.Tipo_documento;
+END

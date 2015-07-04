@@ -78,12 +78,6 @@
     <Compile Include="ABM Cliente\ListadoCliente.Designer.cs">
       <DependentUpon>ListadoCliente.cs</DependentUpon>
     </Compile>
-    <Compile Include="ABM Cuenta\frmCuenta.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ABM Cuenta\frmCuenta.Designer.cs">
-      <DependentUpon>frmCuenta.cs</DependentUpon>
-    </Compile>
     <Compile Include="ABM Cuenta\ListadoCuenta.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -163,9 +157,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ABM Cliente\ListadoCliente.resx">
       <DependentUpon>ListadoCliente.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ABM Cuenta\frmCuenta.resx">
-      <DependentUpon>frmCuenta.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ABM Cuenta\ListadoCuenta.resx">
       <DependentUpon>ListadoCuenta.cs</DependentUpon>
