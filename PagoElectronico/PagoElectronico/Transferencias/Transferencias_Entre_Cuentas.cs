@@ -60,7 +60,7 @@ namespace PagoElectronico.Transferencias
         private void cmbClienteOrigen_SelectedIndexChanged(object sender, EventArgs e)
         {
             //cargar CuentasClienteOrigen
-            unClienteOrigen.cliente_id = Convert.ToInt32(cmbClienteOrigen.SelectedValue);
+            unClienteOrigen.cliente_id = Convert.ToInt64(cmbClienteOrigen.SelectedValue);
             DataSet dsCuentaOrigen = traerCuentasPorCliente(unClienteOrigen);
             DropDownListManager.CargarCombo(cmbCuentaOrigen, dsCuentaOrigen.Tables[0], "cuenta_numero", "cuenta_numero", false, "");
 
@@ -69,7 +69,7 @@ namespace PagoElectronico.Transferencias
         private void cmbClienteDestino_SelectedIndexChanged(object sender, EventArgs e)
         {
             //cargar CuentasClienteDestino
-            unClienteDestino.cliente_id = Convert.ToInt32(cmbClienteDestino.SelectedValue);
+            unClienteDestino.cliente_id = Convert.ToInt64(cmbClienteDestino.SelectedValue);
             DataSet dsCuentaDestino = traerCuentasPorCliente(unClienteDestino);
             DropDownListManager.CargarCombo(cmbCuentaDestino, dsCuentaDestino.Tables[0], "cuenta_numero", "cuenta_numero", false, "");
  
@@ -170,17 +170,17 @@ namespace PagoElectronico.Transferencias
         {
             if (Convert.ToInt64(cmbCuentaDestino.SelectedValue) == Convert.ToInt64(cmbCuentaOrigen.SelectedValue))
             {
-                MessageBox.Show("No se puede realizar una transferencia entre mismas cuentas. Seleccione un Numero de Cuenta correcto", "Cuenta Incorrecta");
+                MessageBox.Show("No se puede realizar una transferencia entre mismas cuentas. Seleccione otra Cuenta", "Cuenta Incorrecta");
                 txtImporte.Clear();
 
             }
             else
             {
-                int clienteOrigenID = Convert.ToInt32(cmbClienteOrigen.SelectedValue);
+                Int64 clienteOrigenID = Convert.ToInt64(cmbClienteOrigen.SelectedValue);
                 DataSet dsClienteOrigen = unClienteOrigen.TraerClientePorID(clienteOrigenID);
                 unClienteOrigen.DataRowToObject(dsClienteOrigen.Tables[0].Rows[0]);
 
-                int clienteDestinoID = Convert.ToInt32(cmbClienteDestino.SelectedValue);
+                Int64 clienteDestinoID = Convert.ToInt64(cmbClienteDestino.SelectedValue);
                 DataSet dsClienteDestino = unClienteDestino.TraerClientePorID(clienteDestinoID);
                 unClienteDestino.DataRowToObject(dsClienteDestino.Tables[0].Rows[0]);
 
@@ -199,7 +199,7 @@ namespace PagoElectronico.Transferencias
         {
             unaTransferencia.CuentaOrigen.cuenta_id = Convert.ToInt64(cmbCuentaOrigen.SelectedValue);
             unaTransferencia.CuentaDestino.cuenta_id = Convert.ToInt64(cmbCuentaDestino.SelectedValue);
-            unaTransferencia.Importe = Convert.ToInt32(txtImporte.Text);
+            unaTransferencia.Importe = Convert.ToInt64(txtImporte.Text);
             unaTransferencia.Fecha = Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]);
 
             unaTransferencia.GenerarTransferencia();

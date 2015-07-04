@@ -28,39 +28,34 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnConsultar = new System.Windows.Forms.Button();
             this.cmbCliente = new System.Windows.Forms.ComboBox();
             this.cmbCuenta = new System.Windows.Forms.ComboBox();
             this.lblCliente = new System.Windows.Forms.Label();
             this.lblCuenta = new System.Windows.Forms.Label();
+            this.SALDO = new System.Windows.Forms.Label();
+            this.txtSaldo = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
-            // 
-            // btnConsultar
-            // 
-            this.btnConsultar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.btnConsultar.Location = new System.Drawing.Point(220, 166);
-            this.btnConsultar.Name = "btnConsultar";
-            this.btnConsultar.Size = new System.Drawing.Size(167, 47);
-            this.btnConsultar.TabIndex = 0;
-            this.btnConsultar.Text = "CONSULTAR SALDO";
-            this.btnConsultar.UseVisualStyleBackColor = true;
-            this.btnConsultar.Click += new System.EventHandler(this.btnConsultar_Click);
             // 
             // cmbCliente
             // 
+            this.cmbCliente.BackColor = System.Drawing.Color.White;
+            this.cmbCliente.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCliente.FormattingEnabled = true;
             this.cmbCliente.Location = new System.Drawing.Point(170, 44);
             this.cmbCliente.Name = "cmbCliente";
             this.cmbCliente.Size = new System.Drawing.Size(217, 21);
             this.cmbCliente.TabIndex = 1;
+            this.cmbCliente.SelectedIndexChanged += new System.EventHandler(this.cmbCliente_SelectedIndexChanged);
             // 
             // cmbCuenta
             // 
+            this.cmbCuenta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCuenta.FormattingEnabled = true;
             this.cmbCuenta.Location = new System.Drawing.Point(170, 104);
             this.cmbCuenta.Name = "cmbCuenta";
             this.cmbCuenta.Size = new System.Drawing.Size(217, 21);
             this.cmbCuenta.TabIndex = 2;
+            this.cmbCuenta.SelectedIndexChanged += new System.EventHandler(this.cmbCuenta_SelectedIndexChanged);
             // 
             // lblCliente
             // 
@@ -82,18 +77,39 @@
             this.lblCuenta.TabIndex = 4;
             this.lblCuenta.Text = "CUENTA";
             // 
+            // SALDO
+            // 
+            this.SALDO.AutoSize = true;
+            this.SALDO.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.SALDO.Location = new System.Drawing.Point(42, 164);
+            this.SALDO.Name = "SALDO";
+            this.SALDO.Size = new System.Drawing.Size(58, 18);
+            this.SALDO.TabIndex = 5;
+            this.SALDO.Text = "SALDO";
+            // 
+            // txtSaldo
+            // 
+            this.txtSaldo.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.txtSaldo.Location = new System.Drawing.Point(170, 162);
+            this.txtSaldo.Name = "txtSaldo";
+            this.txtSaldo.ReadOnly = true;
+            this.txtSaldo.Size = new System.Drawing.Size(217, 20);
+            this.txtSaldo.TabIndex = 7;
+            // 
             // Consulta_De_Saldos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(431, 243);
+            this.ClientSize = new System.Drawing.Size(431, 220);
+            this.Controls.Add(this.txtSaldo);
+            this.Controls.Add(this.SALDO);
             this.Controls.Add(this.lblCuenta);
             this.Controls.Add(this.lblCliente);
             this.Controls.Add(this.cmbCuenta);
             this.Controls.Add(this.cmbCliente);
-            this.Controls.Add(this.btnConsultar);
             this.Name = "Consulta_De_Saldos";
             this.Text = "PAGO ELECTRONICO - CONSULTA DE SALDOS";
+            this.Load += new System.EventHandler(this.Consulta_De_Saldos_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -101,10 +117,11 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btnConsultar;
         private System.Windows.Forms.ComboBox cmbCliente;
         private System.Windows.Forms.ComboBox cmbCuenta;
         private System.Windows.Forms.Label lblCliente;
         private System.Windows.Forms.Label lblCuenta;
+        private System.Windows.Forms.Label SALDO;
+        private System.Windows.Forms.TextBox txtSaldo;
     }
 }

@@ -18,14 +18,14 @@ namespace Clases
         #endregion
 
         #region atributos
-        private int _Rol_id;
+        private Int64 _Rol_id;
         private string _nombre;
         private bool _estado;
         List<Funcionalidad> _funcionalidades = new List<Funcionalidad>();
         #endregion
 
         #region properties
-        public int rol_id
+        public Int64 rol_id
         {
             get { return _Rol_id; }
             set { _Rol_id = value; }
@@ -58,7 +58,7 @@ namespace Clases
             this.Estado = false;
 
         }
-        public Rol(int unIdRol, string unNombre, bool unValorDeEstado)
+        public Rol(Int64 unIdRol, string unNombre, bool unValorDeEstado)
         {
             this.rol_id = unIdRol;
             this.Nombre = unNombre;
@@ -96,7 +96,7 @@ namespace Clases
         public override void DataRowToObject(DataRow dr)
         {
             // Esto es tal cual lo devuelve el stored de la DB
-            this.rol_id = Convert.ToInt32(dr["rol_id"]);
+            this.rol_id = Convert.ToInt64(dr["rol_id"]);
             this.Nombre = dr["rol_nombre"].ToString();
             this.Estado = Convert.ToBoolean(dr["rol_estado"]);
         }
@@ -117,7 +117,7 @@ namespace Clases
             return this.Funcionalidades;
         }
 
-        private void setearListaDeParametrosConIdUsuario(int id_Usuario)
+        private void setearListaDeParametrosConIdUsuario(Int64 id_Usuario)
         {
             parameterList.Add(new SqlParameter("@usuario_id", id_Usuario));
         }
@@ -127,7 +127,7 @@ namespace Clases
             parameterList.Add(new SqlParameter("@rol_id", this.rol_id));
         }
 
-        private void setearListaDeParametrosConIdFuncionalidadEIdRol(int id_func)
+        private void setearListaDeParametrosConIdFuncionalidadEIdRol(Int64 id_func)
         {
             parameterList.Add(new SqlParameter("@rol_id", this.rol_id));
             parameterList.Add(new SqlParameter("@funcionalidad_id", id_func));
@@ -156,7 +156,7 @@ namespace Clases
 
         #region obtener datos bd
 
-        public static DataSet ObtenerRolesPorUsuario(int id_Usuario)
+        public static DataSet ObtenerRolesPorUsuario(Int64 id_Usuario)
         {
             Rol unRol = new Rol();
             unRol.setearListaDeParametrosConIdUsuario(id_Usuario);
@@ -236,7 +236,7 @@ namespace Clases
         public void modificarFuncionalidades()
         {
             //lo que hago es eliminar todas las funcionalidades que tenia el rol y volver a crearlas
-            //al volver a crearlas, si eran las mismas, vuelvo a obtener las mismas, si son distintas, las 
+            //al volver a crearlas, si eran las mismas, vuelvo a obtener las mismas, si son distInt64as, las 
             //obtengo modificadas
             setearListaDeParametrosConIdRol();
             SQLHelper.ExecuteDataSet(_strEliminar + "Rol_Funcionalidad" + "_PorIdRol", CommandType.StoredProcedure, "Rol_Funcionalidad", parameterList);
@@ -259,7 +259,7 @@ namespace Clases
             if (dsNuevoRol.Tables[0].Rows.Count > 0)
             {
                 //seteo el id al rol y guardo las funcionalidades
-                this.rol_id = Convert.ToInt32(dsNuevoRol.Tables[0].Rows[0]["rol_id"]);
+                this.rol_id = Convert.ToInt64(dsNuevoRol.Tables[0].Rows[0]["rol_id"]);
                 guardarFuncionalidades();
             }
             else

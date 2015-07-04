@@ -27,7 +27,7 @@ namespace Log
       }
 
     
-        public void EscribirLog(string Usuario, string EstadoLogin, int cantidadIntentosFallidos)
+        public void EscribirLog(string Usuario, string EstadoLogin, Int64 cantidadIntentosFallidos)
         {
             rutaCompleta = path + "\\" + fileName + ".txt";
             try

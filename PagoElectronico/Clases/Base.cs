@@ -24,7 +24,7 @@ namespace Clases
         {
             DataRowToObject(dr, true);
         }
-        public virtual void DataRowToObject(DataRow dr, bool conEstructurasInternas)
+        public virtual void DataRowToObject(DataRow dr, bool conEstructurasInt64ernas)
         {
         }
         
@@ -44,7 +44,7 @@ namespace Clases
 
         public bool Modificar(List<SqlParameter> parameterList)
         {
-            int result = SQLHelper.ExecuteNonQuery(_strModificar + NombreEntidad(), CommandType.StoredProcedure, parameterList);
+            Int64 result = SQLHelper.ExecuteNonQuery(_strModificar + NombreEntidad(), CommandType.StoredProcedure, parameterList);
             if (result > 0)
                 return true;
 

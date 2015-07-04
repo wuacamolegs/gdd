@@ -12,3 +12,5 @@ E:\gdd\PagoElectronico\Conexion\bin\Release\Excepciones.pdb
 E:\gdd\PagoElectronico\Conexion\obj\Release\ResolveAssemblyReference.cache
 E:\gdd\PagoElectronico\Conexion\obj\Release\Conexion.dll
 E:\gdd\PagoElectronico\Conexion\obj\Release\Conexion.pdb
+A:\Documents\GitHub\gdd\PagoElectronico\Conexion\bin\Release\Utilities.dll
+A:\Documents\GitHub\gdd\PagoElectronico\Conexion\bin\Release\Utilities.pdb

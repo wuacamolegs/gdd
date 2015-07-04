@@ -22,9 +22,9 @@ namespace Clases
        
         private Cheque _cheque;
         private Cuenta _cuenta;
-        private double _retiro_id;    //TODO: me parece que hay cosas de mas. si en el cheque ya dice el importe y la fecha por ahi no hace falta uqe este en retiro. VER.
+        private Int64 _retiro_id;    //TODO: me parece que hay cosas de mas. si en el cheque ya dice el importe y la fecha por ahi no hace falta uqe este en retiro. VER.
         private DateTime _fecha;
-        private int _importe;
+        private Int64 _importe;
         
         #endregion
 
@@ -57,13 +57,13 @@ namespace Clases
             set { _cuenta = value; }
         }
 
-        public int Importe
+        public Int64 Importe
         {
             get { return _importe; }
             set { _importe = value; }
         }
 
-        public double Retiro_id
+        public Int64 Retiro_id
         {
             get { return _retiro_id; }
             set { _retiro_id = value; }
@@ -95,11 +95,11 @@ namespace Clases
         public override void DataRowToObject(DataRow dr)
         {
             // Esto es tal cual lo devuelve el stored de la DB
-            this.Cuenta.cuenta_id = Convert.ToInt32(dr["retiro_cuenta_id"]);
-            this.Cheque.Cheque_id = Convert.ToInt32(dr["retiro_cheque_id"]);
-            this.Retiro_id= Convert.ToInt32(dr["retiro_id"]);
+            this.Cuenta.cuenta_id = Convert.ToInt64(dr["retiro_cuenta_id"]);
+            this.Cheque.Cheque_id = Convert.ToInt64(dr["retiro_cheque_id"]);
+            this.Retiro_id= Convert.ToInt64(dr["retiro_id"]);
             this.Fecha = Convert.ToDateTime(dr["retiro_fecha"]);
-            this.Importe = Convert.ToInt32(dr["retiro_importe"]);
+            this.Importe = Convert.ToInt64(dr["retiro_importe"]);
         }
 
         #endregion
@@ -113,7 +113,7 @@ namespace Clases
         {
             this.setearListaParametrosCompleta();
             DataSet ds = this.GuardarYObtenerID(parameterList);
-            this.Retiro_id = Convert.ToDouble(ds.Tables[0].Rows[0]["retiro_id"]);
+            this.Retiro_id = Convert.ToInt64(ds.Tables[0].Rows[0]["retiro_id"]);
         }
         #endregion
 

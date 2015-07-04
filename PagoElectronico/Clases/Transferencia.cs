@@ -23,8 +23,8 @@ namespace Clases
         private Transferencia transferencia_id;
         private Cuenta cuentaOrigen;
         private Cuenta cuentaDestino;
-        private int importe;
-        private int costo;
+        private Int64 importe;
+        private Int64 costo;
         private DateTime fecha;
 
         #endregion
@@ -64,7 +64,7 @@ namespace Clases
             set { transferencia_id = value; }
         }
 
-        public int Importe
+        public Int64 Importe
         {
             get { return importe; }
             set { importe = value; }
@@ -76,7 +76,7 @@ namespace Clases
             set { fecha = value; }
         }
 
-        public int Costo
+        public Int64 Costo
         {
             get { return costo; }
             set { costo = value; }
@@ -102,11 +102,11 @@ namespace Clases
 
         public override void DataRowToObject(DataRow dr)
         {
-            //this.transferencia_id = Convert.ToInt32(dr[""]);
+            //this.transferencia_id = Convert.ToInt64(dr[""]);
             this.CuentaOrigen.cuenta_id = Convert.ToInt64(dr["transferencia_origen_cuenta_id"]);
             this.CuentaDestino.cuenta_id = Convert.ToInt64(dr["transferencia_destino_cuenta_id"]);
-            this.Importe = Convert.ToInt32(dr["transferencia_importe"]);
-            this.Costo = Convert.ToInt32(dr["transferencia_costo"]);
+            this.Importe = Convert.ToInt64(dr["transferencia_importe"]);
+            this.Costo = Convert.ToInt64(dr["transferencia_costo"]);
             this.Fecha = Convert.ToDateTime(dr["transferencia_fecha"]);
         }
 

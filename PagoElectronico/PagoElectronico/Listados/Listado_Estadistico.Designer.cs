@@ -112,7 +112,7 @@
             this.radioButton5.Size = new System.Drawing.Size(262, 17);
             this.radioButton5.TabIndex = 23;
             this.radioButton5.TabStop = true;
-            this.radioButton5.Text = "Total facturado para los distintos tipos de cuentas.";
+            this.radioButton5.Text = "Total facturado para los distInt64os tipos de cuentas.";
             this.radioButton5.UseVisualStyleBackColor = true;
             // 
             // btnFiltrado1

@@ -21,7 +21,7 @@ namespace Clases
 
         #region atributos
 
-        private int _moneda_id;
+        private Int64 _moneda_id;
         private string _moneda_nombre;
    
         
@@ -38,7 +38,7 @@ namespace Clases
 
         #region properties
 
-        public int MonedaID
+        public Int64 MonedaID
         {
             get { return _moneda_id; }
             set {_moneda_id = value;}
@@ -69,7 +69,7 @@ namespace Clases
 
         public override void DataRowToObject(DataRow dr)
         {
-            this.MonedaID = Convert.ToInt32(dr["moneda_id"]);
+            this.MonedaID = Convert.ToInt64(dr["moneda_id"]);
             this.Nombre = Convert.ToString(dr["moneda_nombre"]);
 
         }

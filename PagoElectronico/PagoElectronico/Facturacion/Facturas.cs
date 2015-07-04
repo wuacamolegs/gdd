@@ -30,7 +30,7 @@ namespace PagoElectronico.Facturacion
         }
 
 
-        internal void AbrirCon(Factura factura, string subTotalTransferencias, string subTotalModificacionesTC, decimal subtotalSuscrip, int cantTransferencias, int cantModificaciones, int cantSuscr)
+        internal void AbrirCon(Factura factura, string subTotalTransferencias, string subTotalModificacionesTC, decimal subtotalSuscrip, Int64 cantTransferencias, Int64 cantModificaciones, Int64 cantSuscr)
         {
             unaFactura = factura;
             txtCliente.Text = factura.Cliente.Apellido + " " + factura.Cliente.Nombre;

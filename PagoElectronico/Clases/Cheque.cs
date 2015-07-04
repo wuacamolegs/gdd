@@ -21,10 +21,10 @@ namespace Clases
 
         #region atributos
 
-        private int _cheque_id;
+        private Int64 _cheque_id;
         private Cliente _clienteDestino;
         private Cuenta _cuenta;
-        private int _importe;
+        private Int64 _importe;
         private DateTime _fecha;    //el numero de egreso seria el numero de cheqeu
         private Banco _banco = new Banco();
         
@@ -48,7 +48,7 @@ namespace Clases
 
         #region properties
 
-        public int Cheque_id
+        public Int64 Cheque_id
         {
             get { return _cheque_id; }
             set {_cheque_id = value;}
@@ -72,7 +72,7 @@ namespace Clases
             set { _banco = value; }
         }
 
-        public int Importe
+        public Int64 Importe
         {
             get { return _importe; }
             set { _importe = value; }
@@ -109,11 +109,11 @@ namespace Clases
         public override void DataRowToObject(DataRow dr)
         {
             // Esto es tal cual lo devuelve el stored de la DB
-            this.Cliente.cliente_id = Convert.ToInt32(dr["cheque_cliente_id"]);
+            this.Cliente.cliente_id = Convert.ToInt64(dr["cheque_cliente_id"]);
             this.Cuenta.cuenta_id = Convert.ToInt64(dr["cheque_cuenta_id"]);
-            this.banco.Banco_id = Convert.ToInt32(dr["cheque_banco_id"]);
+            this.banco.Banco_id = Convert.ToInt64(dr["cheque_banco_id"]);
             this.Fecha = Convert.ToDateTime(dr["cheque_fecha"]);
-            this.Importe = Convert.ToInt32(dr["cheque_importe"]);
+            this.Importe = Convert.ToInt64(dr["cheque_importe"]);
         }
 
         public void setearListaParametrosCompleta()
@@ -134,7 +134,7 @@ namespace Clases
         {
             this.setearListaParametrosCompleta();
             DataSet ds = this.GuardarYObtenerID(parameterList);
-            this.Cheque_id = Convert.ToInt32(ds.Tables[0].Rows[0]["cheque_id"]);
+            this.Cheque_id = Convert.ToInt64(ds.Tables[0].Rows[0]["cheque_id"]);
 
         }
 

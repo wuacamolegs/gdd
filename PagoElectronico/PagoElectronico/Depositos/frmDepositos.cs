@@ -55,12 +55,12 @@ namespace PagoElectronico.Depositos
         { 
             //cargar CMB cuenta
 
-            unaCuenta.cliente.cliente_id = Convert.ToInt32 (cmbCliente.SelectedValue) ;
+            unaCuenta.cliente.cliente_id = Convert.ToInt64 (cmbCliente.SelectedValue) ;
             DataSet dsCuenta = unaCuenta.TraerCuentasActivasPorClienteID();
             DropDownListManager.CargarCombo(cmbCuenta, dsCuenta.Tables[0], "cuenta_id", "cuenta_id", false, "");
 
             //Cargar CMB Tarjeta
-            unaTarjeta.Cliente.cliente_id = Convert.ToInt32(cmbCliente.SelectedValue);
+            unaTarjeta.Cliente.cliente_id = Convert.ToInt64(cmbCliente.SelectedValue);
             DataSet dsTarjetas = unaTarjeta.ObtenerTarjetasPorClienteiD();
             DropDownListManager.CargarCombo(cmbTarjeta, dsTarjetas.Tables[0], "tarjeta_id", "tarjeta_id", false, "");
 
@@ -72,10 +72,10 @@ namespace PagoElectronico.Depositos
         {
             if (ValidarCampos())
             {
-                depositoActual.Cliente.cliente_id = Convert.ToInt32(cmbCliente.SelectedValue);
+                depositoActual.Cliente.cliente_id = Convert.ToInt64(cmbCliente.SelectedValue);
                 depositoActual.Cuenta.cuenta_id = Convert.ToInt64(cmbCuenta.SelectedValue);
-                depositoActual.Tarjeta.tarjeta_id = Convert.ToInt32(cmbTarjeta.SelectedValue);
-                depositoActual.Importe = Convert.ToInt32(txtImporte.Text);
+                depositoActual.Tarjeta.tarjeta_id = Convert.ToInt64(cmbTarjeta.SelectedValue);
+                depositoActual.Importe = Convert.ToInt64(txtImporte.Text);
                 depositoActual.EfectuarDeposito();
 
 

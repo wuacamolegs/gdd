@@ -173,9 +173,9 @@ namespace PagoElectronico.ABM_Rol
 
         #region metodos privados
 
-        private int valorIdSeleccionado()
+        private Int64 valorIdSeleccionado()
         {
-            return Convert.ToInt32(((DataRowView)dtgListado.CurrentRow.DataBoundItem)["rol_id"]);
+            return Convert.ToInt64(((DataRowView)dtgListado.CurrentRow.DataBoundItem)["rol_id"]);
         }
         private string valorNombreSeleccionado()
         {

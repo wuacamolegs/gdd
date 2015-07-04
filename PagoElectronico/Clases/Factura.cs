@@ -21,7 +21,7 @@ namespace Clases
 
         #region atributos
 
-        private int _factura_numero;
+        private Int64 _factura_numero;
         private Cliente _cliente;
         private Decimal _importe = 0;
         private DateTime _fecha;
@@ -33,9 +33,9 @@ namespace Clases
       
         public Factura()
         {
-            tablaSuscripciones.Columns.Add("tvp_cliente_id", typeof(Double));
-            tablaSuscripciones.Columns.Add("tvp_cuenta_id", typeof(Double));
-            tablaSuscripciones.Columns.Add("tvp_cantidad_Suscripciones", typeof(Int32));
+            tablaSuscripciones.Columns.Add("tvp_cliente_id", typeof(Int64));
+            tablaSuscripciones.Columns.Add("tvp_cuenta_id", typeof(Int64));
+            tablaSuscripciones.Columns.Add("tvp_cantidad_Suscripciones", typeof(Int64));
         }
 
         #endregion
@@ -48,7 +48,7 @@ namespace Clases
             set { _dt = value; }
         }
 
-        public int Numero
+        public Int64 Numero
         {
             get { return _factura_numero; }
             set {_factura_numero = value;}
@@ -92,17 +92,17 @@ namespace Clases
 
         public override void DataRowToObject(DataRow dr)
         {
-            this.Cliente.cliente_id = Convert.ToInt32(dr["factura_cliente_id"]);
-            this.Importe = Convert.ToInt32(dr["factura_importe"]);
+            this.Cliente.cliente_id = Convert.ToInt64(dr["factura_cliente_id"]);
+            this.Importe = Convert.ToInt64(dr["factura_importe"]);
             this.Fecha = Convert.ToDateTime(dr["factura_fecha"]);
         }
 
 
         private void DataRowToObjectConIDFactura(DataRow dr)
         {
-            this.Numero = Convert.ToInt32(dr["factura_numero"]);
-            this.Cliente.cliente_id = Convert.ToInt32(dr["factura_cliente_id"]);
-            this.Importe = Convert.ToInt32(dr["factura_importe"]);
+            this.Numero = Convert.ToInt64(dr["factura_numero"]);
+            this.Cliente.cliente_id = Convert.ToInt64(dr["factura_cliente_id"]);
+            this.Importe = Convert.ToInt64(dr["factura_importe"]);
             this.Fecha = Convert.ToDateTime(dr["factura_fecha"]);
         }
 
@@ -139,7 +139,7 @@ namespace Clases
 
         #endregion
 
-        public void AñadirItems(int numeroFactura, decimal CantTrans, decimal totalTrans, decimal CantMod, decimal totalMod, decimal cantSusc, decimal totalSusc)
+        public void AñadirItems(Int64 numeroFactura, decimal CantTrans, decimal totalTrans, decimal CantMod, decimal totalMod, decimal cantSusc, decimal totalSusc)
         {
             ItemFactura unItem = new ItemFactura(this);
             unItem.crearItem(CantTrans,totalTrans,1);  //1 = "Comision por transferencia"

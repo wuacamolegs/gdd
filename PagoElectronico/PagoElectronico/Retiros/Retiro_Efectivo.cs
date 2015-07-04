@@ -58,7 +58,7 @@ namespace PagoElectronico.Retiros
         {
             if (ValidarCampos())
             {
-                if (Convert.ToInt32(txtDocumento.Text) == unCliente.Documento)
+                if (Convert.ToInt64(txtDocumento.Text) == unCliente.Documento)
                 {                    
                     realizarAccionesRetiro();
                 }
@@ -115,7 +115,7 @@ namespace PagoElectronico.Retiros
         
         public DataSet ObtenerCuentasActivasPorClienteId()
         {
-            int clienteID = Convert.ToInt32(cmbCliente.SelectedValue);
+            Int64 clienteID = Convert.ToInt64(cmbCliente.SelectedValue);
             DataSet dsClientes = ObtenerClientePorID(clienteID);
             unCliente.DataRowToObject(dsClientes.Tables[0].Rows[0]);
 
@@ -126,7 +126,7 @@ namespace PagoElectronico.Retiros
 
         }
 
-        public DataSet ObtenerClientePorID(int clienteID)
+        public DataSet ObtenerClientePorID(Int64 clienteID)
         {
             DataSet dsCliente = unCliente.TraerClientePorID(clienteID);
             return dsCliente;
@@ -182,7 +182,7 @@ namespace PagoElectronico.Retiros
 
         private void realizarAccionesRetiro() 
         {
-            int clienteID = Convert.ToInt32(cmbCliente.SelectedValue);
+            Int64 clienteID = Convert.ToInt64(cmbCliente.SelectedValue);
             DataSet dsCliente = unCliente.TraerClientePorID(clienteID);
             unCliente.DataRowToObject(dsCliente.Tables[0].Rows[0]);
 
@@ -191,7 +191,7 @@ namespace PagoElectronico.Retiros
             DataSet dsCuenta = unaCuenta.TraerCuentaPorCuentaID(cuentaID);
             unaCuenta.DataRowToObject(dsCuenta.Tables[0].Rows[0]);
             
-            int importe = Convert.ToInt32(txtImporte.Text);
+            Int64 importe = Convert.ToInt64(txtImporte.Text);
             if (importe <= unaCuenta.saldo)
             {
                 generarRetiroExitoso();
@@ -206,17 +206,17 @@ namespace PagoElectronico.Retiros
 
         private void generarRetiroExitoso()
         {
-            chequeActual.banco.Banco_id = Convert.ToDouble(cmbBanco.SelectedValue);
+            chequeActual.banco.Banco_id = Convert.ToInt64(cmbBanco.SelectedValue);
             chequeActual.Cliente = unCliente;
             chequeActual.Cuenta = unaCuenta;
             chequeActual.Fecha = Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]);
-            chequeActual.Importe = Convert.ToInt32(txtImporte.Text);
+            chequeActual.Importe = Convert.ToInt64(txtImporte.Text);
             chequeActual.GenerarChequeDevolverSuID();
 
             retiroActual.Cheque = chequeActual;
             retiroActual.Cuenta = unaCuenta;
             retiroActual.Fecha = Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]);
-            retiroActual.Importe = Convert.ToInt32(txtImporte.Text);
+            retiroActual.Importe = Convert.ToInt64(txtImporte.Text);
             retiroActual.GenerarRetiroDevolverSuID();
             MessageBox.Show("retiro cheque: " + chequeActual.Cheque_id + " cuenta id: " + unaCuenta.cuenta_id + " fecha: " + retiroActual.Fecha + " importe " + retiroActual.Importe, "retiro" );
 

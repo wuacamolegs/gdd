@@ -21,9 +21,9 @@ namespace PagoElectronico.Facturacion
         public Cliente unCliente = new Cliente();
         public Factura unaFactura = new Factura();
         Decimal subtotalSuscripciones = 0;
-        int cantidadSuscAPagar = 0;
-        int cantidadTransferencias = 0;
-        int cantidadModificaciones = 0;
+        Int64 cantidadSuscAPagar = 0;
+        Int64 cantidadTransferencias = 0;
+        Int64 cantidadModificaciones = 0;
 
         
         #endregion
@@ -55,7 +55,7 @@ namespace PagoElectronico.Facturacion
             
         private void cmbCliente_SelectedIndexChanged(object sender, EventArgs e)
         {
-            unCliente.cliente_id = Convert.ToInt32(cmbCliente.SelectedValue);
+            unCliente.cliente_id = Convert.ToInt64(cmbCliente.SelectedValue);
 
 
             //Traer cuentas asociadas al cliente    
@@ -118,7 +118,7 @@ namespace PagoElectronico.Facturacion
            unaFactura.Fecha = Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]);
            cantidadTransferencias = gridTransferencia.Rows.Count - 1; //me cuenta la ultima fila que esta vacia. por eso le resto uno.
            cantidadModificaciones = gridModificacionTC.Rows.Count - 1;
-           unCliente.cliente_id = Convert.ToInt32(cmbCliente.SelectedValue);
+           unCliente.cliente_id = Convert.ToInt64(cmbCliente.SelectedValue);
            Facturas frmFacturas = new Facturas();
            frmFacturas.AbrirCon(unaFactura, txtSubTotalTransferencia.Text, txtSubTotalModificacionTC.Text, subtotalSuscripciones, cantidadTransferencias, cantidadModificaciones, cantidadSuscAPagar);  
        }
@@ -151,7 +151,7 @@ namespace PagoElectronico.Facturacion
                else
                {                    
                    txtSubTotalSuscr.Text = (Convert.ToDecimal(txtCostoUnitario.Text) * Convert.ToDecimal(txtSuscripcionesAPagar.Text)).ToString();
-                   cantidadSuscAPagar = cantidadSuscAPagar + Convert.ToInt32(txtSuscripcionesAPagar.Text);
+                   cantidadSuscAPagar = cantidadSuscAPagar + Convert.ToInt64(txtSuscripcionesAPagar.Text);
                    subtotalSuscripciones = subtotalSuscripciones + Convert.ToDecimal(txtSubTotalSuscr.Text);
 
                    //una vez generada la factura se borran todas las transferencias y costos por modificacion asociados al cliente de la tabla Transacciones Pendientes
@@ -160,10 +160,10 @@ namespace PagoElectronico.Facturacion
                    //Detemerminamos que cuando se seleccionan X suscripciones de una cuenta se pagaran las mas antiguas. le mando a la base el cliente, la cuenta y la cantidad de suscripciones.
                    //ACA VOY CARGANDO LAS SUSCRIPCIONES A UNA VARIABLE TIPO TABLA. luego cuando en la pantalla Factura ponga aceptar le mando esta tabla.
 
-                   unaFactura.tablaSuscripciones.Rows.Add(unaFactura.Cliente.cliente_id, Convert.ToDouble(cmbCuenta.SelectedValue), Convert.ToInt32(txtSuscripcionesAPagar.Text));
+                   unaFactura.tablaSuscripciones.Rows.Add(unaFactura.Cliente.cliente_id, Convert.ToInt64(cmbCuenta.SelectedValue), Convert.ToInt64(txtSuscripcionesAPagar.Text));
 
                }
-               txtSuscripcionesPendientes.Text = (Convert.ToInt32(txtSuscripcionesPendientes.Text) - Convert.ToInt32(txtSuscripcionesAPagar.Text)).ToString();
+               txtSuscripcionesPendientes.Text = (Convert.ToInt64(txtSuscripcionesPendientes.Text) - Convert.ToInt64(txtSuscripcionesAPagar.Text)).ToString();
                txtSubTotalSuscr.Clear();
                txtSuscripcionesAPagar.Clear();
            }
@@ -194,7 +194,7 @@ namespace PagoElectronico.Facturacion
 
         public DataSet ObtenerCuentasPorClienteId()
         {
-            int clienteID = Convert.ToInt32(cmbCliente.SelectedValue);
+            Int64 clienteID = Convert.ToInt64(cmbCliente.SelectedValue);
             DataSet dsClientes = unCliente.TraerClientePorID(clienteID);
             unCliente.DataRowToObject(dsClientes.Tables[0].Rows[0]);
 
@@ -227,7 +227,7 @@ namespace PagoElectronico.Facturacion
                 }
                 else
                 {
-                    strErrores = Validator.ValidarSuscripcionesCantidadMenor(txtSuscripcionesAPagar.Text, Convert.ToInt32(txtSuscripcionesPendientes.Text), "Suscripciones A Pagar");
+                    strErrores = Validator.ValidarSuscripcionesCantidadMenor(txtSuscripcionesAPagar.Text, Convert.ToInt64(txtSuscripcionesPendientes.Text), "Suscripciones A Pagar");
                     if (strErrores.Length > 0)
                     {
                         MessageBox.Show(strErrores, "Validar Campos");
@@ -241,13 +241,13 @@ namespace PagoElectronico.Facturacion
 
         private void cargarSubtotales(TextBox txtSubTotal, DataGridView dataGridView)
         {
-            double subtotal = 0;
+            Int64 subtotal = 0;
 
             // Se recorre fila a fila para recalcular el total despues del cambio
             foreach (DataGridViewRow row in dataGridView.Rows)
             {
                 // Se aumula el total de cada una de las filas columna 2 = Subtotal
-                subtotal += Convert.ToDouble(row.Cells[2].Value);
+                subtotal += Convert.ToInt64(row.Cells[2].Value);
             }
             txtSubTotal.Text = Convert.ToString(subtotal);
 

@@ -21,7 +21,7 @@ namespace Clases
 
         #region atributos
 
-        private int _tarjeta_id;
+        private Int64 _tarjeta_id;
         private Cuenta _cuenta;
         private string _codigo_seguridad;
         private DateTime _fecha_emision;
@@ -40,7 +40,7 @@ namespace Clases
 
         #region properties
 
-        public int tarjeta_id
+        public Int64 tarjeta_id
         {
             get { return _tarjeta_id; }
             set {_tarjeta_id = value;}
@@ -96,11 +96,11 @@ namespace Clases
         #region dataRowToObject
         public override void DataRowToObject(DataRow dr)
         {
-            this.tarjeta_id = Convert.ToInt32(dr["tarjeta_id"]);
+            this.tarjeta_id = Convert.ToInt64(dr["tarjeta_id"]);
             this.CodigoSeguridad = Convert.ToString(dr["tarjeta_codigo_seguridad"]);
             this.FechaEmision = Convert.ToDateTime(dr["tarjeta_fecha_emision"]);
             this.FechaVencimiento = Convert.ToDateTime(dr["tarjeta_vencimiento"]);
-            this.Cuenta.cuenta_id = Convert.ToInt32(dr["tarjeta_cuenta_numero"]);
+            this.Cuenta.cuenta_id = Convert.ToInt64(dr["tarjeta_cuenta_numero"]);
         }
         #endregion
 

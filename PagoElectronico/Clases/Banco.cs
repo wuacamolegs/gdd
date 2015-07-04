@@ -22,7 +22,7 @@ namespace Clases
 
         #region atributos
        
-        private double _banco_id;
+        private Int64 _banco_id;
         private string _nombre;
         private string _direccion;
         
@@ -47,7 +47,7 @@ namespace Clases
             set { _direccion = value; }
         }
 
-        public double Banco_id
+        public Int64 Banco_id
         {
             get { return _banco_id; }
             set { _banco_id = value; }
@@ -80,7 +80,7 @@ namespace Clases
         public override void DataRowToObject(DataRow dr)
         {
             // Esto es tal cual lo devuelve el stored de la DB
-            this.Banco_id = Convert.ToInt32(dr["banco_id"]);
+            this.Banco_id = Convert.ToInt64(dr["banco_id"]);
             this.Nombre = Convert.ToString(dr["banco_nombre"]);
             this.Direccion = Convert.ToString(dr["banco_direccion"]);
         }

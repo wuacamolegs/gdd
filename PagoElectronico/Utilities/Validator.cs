@@ -34,7 +34,7 @@ namespace Utilities
         {
             try
             {
-                int.Parse(obj.ToString());
+                Int64.Parse(obj.ToString());
                 return true;
             }
             catch
@@ -67,7 +67,7 @@ namespace Utilities
 
         public static string EsAño(string año, string nombreCampo)
         {
-            int unAño = Convert.ToInt32(año);
+            Int64 unAño = Convert.ToInt64(año);
             if (unAño < 1900 || unAño > 2014)
                 return "Tiene que ingresar un año válido, entre 1900 y 2015, para el campo " + nombreCampo + "\n";
 
@@ -83,17 +83,17 @@ namespace Utilities
             return string.Empty;
         }
 
-        public static string ValidarSuscripcionesCantidadMenor(string cant, int cantSuscr, string nombreCampo)
+        public static string ValidarSuscripcionesCantidadMenor(string cant, Int64 cantSuscr, string nombreCampo)
         {
-            int cantidad = Convert.ToInt32(cant);
+            Int64 cantidad = Convert.ToInt64(cant);
             if (cantidad > cantSuscr)
                 return "No posee tantas suscripciones para rendir. Tiene que ingresar una cantidad válida, para el campo " + nombreCampo + "\n";
             return string.Empty;
         }
 
-        public static string ValidarSaldoCantidadMenor(string cant, int cant2, string nombreCampo)
+        public static string ValidarSaldoCantidadMenor(string cant, Int64 cant2, string nombreCampo)
         {
-            int cantidad = Convert.ToInt32(cant);
+            Int64 cantidad = Convert.ToInt64(cant);
             if (cantidad > cant2)
                 return "No posee saldo suficiente en la cuenta actual. Tiene que ingresar una cantidad válida, para el campo " + nombreCampo + "\n";
             return string.Empty;
@@ -117,7 +117,7 @@ namespace Utilities
         public static string MayorACero(string textoAValidar, string nombreCampo)
         {
             string strError = "";
-            if (Convert.ToInt32(textoAValidar) <= 0)
+            if (Convert.ToInt64(textoAValidar) <= 0)
             {
                 strError += "El campo " + nombreCampo + " debe ser mayor que cero\n";
             }

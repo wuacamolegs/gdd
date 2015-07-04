@@ -22,7 +22,7 @@ namespace Clases
        
         private Cliente _cliente;
         private bool _estado;
-        private int _saldo;
+        private Int64 _saldo;
         private DateTime _fecha_apertura;
         private DateTime _fecha_cierre;
         private Int64 _cuenta_id;
@@ -58,7 +58,7 @@ namespace Clases
             set { _estado = value; }
         }
 
-        public int saldo
+        public Int64 saldo
         {
             get { return _saldo; }
             set { _saldo = value; }
@@ -108,7 +108,7 @@ namespace Clases
         {
             // Esto es tal cual lo devuelve el stored de la DB
             this.estado = Convert.ToBoolean(dr["cuenta_estado"]);
-            this.saldo = Convert.ToInt32(dr["cuenta_saldo"]);
+            this.saldo = Convert.ToInt64(dr["cuenta_saldo"]);
             this.cuenta_id = Convert.ToInt64(dr["cuenta_id"]);
             this.FechaApertura = Convert.ToDateTime(dr["cuenta_fecha_apertura"]);
             this.FechaCierre = Convert.ToDateTime(dr["cuenta_fecha_cierre"]);
@@ -117,7 +117,7 @@ namespace Clases
 
         #region setters
 
-        public void setearListaDeParametrosConClienteID(int clienteID)
+        public void setearListaDeParametrosConClienteID(Int64 clienteID)
         {
             this.parameterList.Clear();
             parameterList.Add(new SqlParameter("@cliente_id", clienteID));
@@ -129,13 +129,13 @@ namespace Clases
             parameterList.Add(new SqlParameter("@cuenta_id", cuenta_id));
         }
         
-        private void setearListaDeParametrosConImporte(int importe)
+        private void setearListaDeParametrosConImporte(Int64 importe)
         {
             this.parameterList.Clear();
             parameterList.Add(new SqlParameter("@importe", importe));
         }
 
-        private void setearListaDeParametrosConClienteIDYFechaActual(int clienteID)
+        private void setearListaDeParametrosConClienteIDYFechaActual(Int64 clienteID)
         {
             this.parameterList.Clear();
             parameterList.Add(new SqlParameter("@cliente_id", clienteID));

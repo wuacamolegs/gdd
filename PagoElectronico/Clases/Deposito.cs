@@ -23,9 +23,9 @@ namespace Clases
         #region atributos
        
         private Cuenta _cuenta;
-        private double _deposito_id;    
+        private Int64 _deposito_id;    
         private DateTime _fecha;
-        private int _importe;
+        private Int64 _importe;
         private Cliente _cliente;
         private Tarjeta _tarjeta;
         
@@ -66,13 +66,13 @@ namespace Clases
         }
 
 
-        public int Importe
+        public Int64 Importe
         {
             get { return _importe; }
             set { _importe = value; }
         }
 
-        public double Deposito_id
+        public Int64 Deposito_id
         {
             get { return _deposito_id; }
             set { _deposito_id = value; }
@@ -112,12 +112,12 @@ namespace Clases
         public override void DataRowToObject(DataRow dr)
         {
             // Esto es tal cual lo devuelve el stored de la DB
-            this.Cuenta.cuenta_id = Convert.ToInt32(dr["deposito_cuenta_id"]);
-            this.Deposito_id= Convert.ToInt32(dr["deposito_id"]);
+            this.Cuenta.cuenta_id = Convert.ToInt64(dr["deposito_cuenta_id"]);
+            this.Deposito_id= Convert.ToInt64(dr["deposito_id"]);
             this.Fecha = Convert.ToDateTime(dr["deposito_fecha"]);
-            this.Importe = Convert.ToInt32(dr["deposito_importe"]);
-            this.Tarjeta.tarjeta_id = Convert.ToInt32(dr["deposito_tarjeta_id"]);
-            this.Cliente.cliente_id = Convert.ToInt32(dr["deposito_cliente_id"]);
+            this.Importe = Convert.ToInt64(dr["deposito_importe"]);
+            this.Tarjeta.tarjeta_id = Convert.ToInt64(dr["deposito_tarjeta_id"]);
+            this.Cliente.cliente_id = Convert.ToInt64(dr["deposito_cliente_id"]);
         }
         #endregion
 
@@ -126,7 +126,7 @@ namespace Clases
         {
             this.parameterList.Clear();
             parameterList.Add(new SqlParameter("@deposito_cuenta_id", this.Cuenta.cuenta_id));
-            parameterList.Add(new SqlParameter("@deposito_fecha", Convert.ToInt32(ConfigurationManager.AppSettings["Fecha"])));
+            parameterList.Add(new SqlParameter("@deposito_fecha", Convert.ToInt64(ConfigurationManager.AppSettings["Fecha"])));
             parameterList.Add(new SqlParameter("@deposito_importe", this.Importe));
             parameterList.Add(new SqlParameter("deposito_tarjeta_id", this.Tarjeta.tarjeta_id));
             parameterList.Add(new SqlParameter("deposito_cliente_id", this.Cliente.cliente_id));
@@ -139,7 +139,7 @@ namespace Clases
         {
             this.setearListaParametrosCompleta();
             DataSet ds = this.GuardarYObtenerID(parameterList);
-            this.Deposito_id = Convert.ToDouble(ds.Tables[0].Rows[0]["deposito_id"]);
+            this.Deposito_id = Convert.ToInt64(ds.Tables[0].Rows[0]["deposito_id"]);
         }
 
         #endregion

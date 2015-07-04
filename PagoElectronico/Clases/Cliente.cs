@@ -21,17 +21,17 @@ namespace Clases
 
         #region atributos
        
-        private int _cliente_id;
+        private Int64 _cliente_id;
         private string _nombre;
         private string _apellido;
         private DateTime _fecha_nacimiento;
         private string _tipo_documento_id;
-        private int _documento;
-        private int _pais_residente_id;
+        private Int64 _documento;
+        private Int64 _pais_residente_id;
         private Usuario _usuario;  
         private string _calle;
-        private int _numero;
-        private int _piso;
+        private Int64 _numero;
+        private Int64 _piso;
         private string _depto;
         private string _mail;
         private bool _estado;
@@ -54,13 +54,13 @@ namespace Clases
         }
         
         //A PARTIR ID CLIENTE
-        public Cliente(int unIdCliente)
+        public Cliente(Int64 unIdCliente)
         {
             this.cliente_id = unIdCliente;
         }
 
         //SOLO CON LOS FILTROS
-        public Cliente(string unNombre, string unApellido, string unTipoDni, int unDni, string unMail, DateTime fechaNacimiento, int paisResidente, string calle, int numero, int piso, string depto )
+        public Cliente(string unNombre, string unApellido, string unTipoDni, Int64 unDni, string unMail, DateTime fechaNacimiento, Int64 paisResidente, string calle, Int64 numero, Int64 piso, string depto )
         {
             this.Apellido = unApellido;
             this.Nombre = unNombre;
@@ -76,7 +76,7 @@ namespace Clases
         }
 
         //TODOS LOS DATOS
-        public Cliente(string unNombre, string unApellido, string unTipoDni, int unDni, string unMail)
+        public Cliente(string unNombre, string unApellido, string unTipoDni, Int64 unDni, string unMail)
         {
             this.Apellido = unApellido;
             this.Nombre = unNombre;
@@ -86,7 +86,7 @@ namespace Clases
         }
         
         //A PARTIR USUARIO
-        public Cliente(Usuario usuario, int usuarioID)  //LO TUVE QUE HACER DE OTRA FORMA PORQUE YA HABIA UN CLIENTE(USUARIO USER)
+        public Cliente(Usuario usuario, Int64 usuarioID)  //LO TUVE QUE HACER DE OTRA FORMA PORQUE YA HABIA UN CLIENTE(USUARIO USER)
         {   
             this.Usuario = usuario;
             DataSet ds = this.ObtenerClientesPorUsuarioID(usuarioID);
@@ -101,7 +101,7 @@ namespace Clases
 
         #region properties
 
-        public int cliente_id
+        public Int64 cliente_id
         {
             get { return _cliente_id; }
             set { _cliente_id = value; }
@@ -124,7 +124,7 @@ namespace Clases
             set { _fecha_nacimiento = value; }
         }
 
-        public int Documento
+        public Int64 Documento
         {
             get { return _documento; }
             set { _documento = value; }
@@ -142,7 +142,7 @@ namespace Clases
             set { _tipo_documento_id = value; }
         }
 
-        public int PaisResidente
+        public Int64 PaisResidente
         {
             get { return _pais_residente_id; }
             set { _pais_residente_id = value; }
@@ -154,13 +154,13 @@ namespace Clases
             set { _calle = value; }
         }
 
-        public int NumeroDireccion
+        public Int64 NumeroDireccion
         {
             get { return _numero; }
             set { _numero = value; }
         }
 
-        public int PisoDireccion
+        public Int64 PisoDireccion
         {
             get { return _piso; }
             set { _piso = value; }
@@ -202,26 +202,26 @@ namespace Clases
         public override void DataRowToObject(DataRow dr)
         {
             // Esto es tal cual lo devuelve el stored de la DB
-            this.cliente_id = Convert.ToInt32(dr["cliente_id"]);
+            this.cliente_id = Convert.ToInt64(dr["cliente_id"]);
             this.Nombre = dr["cliente_nombre"].ToString();
             this.Apellido = dr["cliente_apellido"].ToString();
-            this.Documento = Convert.ToInt32(dr["cliente_numero_documento"]);
+            this.Documento = Convert.ToInt64(dr["cliente_numero_documento"]);
             this.FechaNacimiento = Convert.ToDateTime(dr["cliente_fecha_nacimiento"]);
         }
 
         public void DataRowToObjectCompleto(DataRow dr)
         {
             // Esto es tal cual lo devuelve el stored de la DB
-            this.cliente_id = Convert.ToInt32(dr["cliente_id"]);
+            this.cliente_id = Convert.ToInt64(dr["cliente_id"]);
             this.TipoDocumento = dr["cliente_tipo_documento_id"].ToString();
-            this.Documento = Convert.ToInt32(dr["cliente_numero_documento"]);
+            this.Documento = Convert.ToInt64(dr["cliente_numero_documento"]);
             this.Apellido = dr["cliente_apellido"].ToString();
             this.Nombre = dr["cliente_nombre"].ToString();
             this.FechaNacimiento = Convert.ToDateTime(dr["cliente_fecha_nacimiento"]);
             this.Mail = dr["cliente_mail"].ToString();
             this.Calle = dr["cliente_calle"].ToString();
-            this.NumeroDireccion = Convert.ToInt32(dr["cliente_numero"]);
-            this.PisoDireccion = Convert.ToInt32(dr["cliente_piso"]);
+            this.NumeroDireccion = Convert.ToInt64(dr["cliente_numero"]);
+            this.PisoDireccion = Convert.ToInt64(dr["cliente_piso"]);
             this.DeptoDireccion = dr["cliente_depto"].ToString();
             this.estado = Convert.ToBoolean(dr["cliente_estado"]);  //TODO agregar cliente estado a la bd
         }
@@ -231,19 +231,19 @@ namespace Clases
 
         #region setearListas
 
-        public void setearListaDeParametrosConUsuarioID(int unUsuario)
+        public void setearListaDeParametrosConUsuarioID(Int64 unUsuario)
         {
             this.parameterList.Clear();
             parameterList.Add(new SqlParameter("@usuario_id", unUsuario));
         }
 
-        public void setearListaDeParametrosConClienteID(int clienteID)
+        public void setearListaDeParametrosConClienteID(Int64 clienteID)
         {
             this.parameterList.Clear();
             parameterList.Add(new SqlParameter("@cliente_id", clienteID));
         }
 
-        private void setearListaDeParametrosConClienteIDYCuentaID(int cliente_id, Int64 cuenta_id)
+        private void setearListaDeParametrosConClienteIDYCuentaID(Int64 cliente_id, Int64 cuenta_id)
         {
             this.parameterList.Clear();
             parameterList.Add(new SqlParameter("@cliente_id", cliente_id));
@@ -251,7 +251,7 @@ namespace Clases
         
         }
 
-        private void setearListaDeParametrosConFiltros(string Nombre, string Apellido, string TipoDni, int Dni, string Mail)
+        private void setearListaDeParametrosConFiltros(string Nombre, string Apellido, string TipoDni, Int64 Dni, string Mail)
         {
             parameterList.Add(new SqlParameter("@Nombre", Nombre));
             parameterList.Add(new SqlParameter("@Apellido", Apellido));
@@ -305,7 +305,7 @@ namespace Clases
 
         //Cuando le pasen este metodo a un cliente antes tienen que crearlo, ahi usar unCliente = new Cliente(unNombre, unApellido, unTipoDni, unDni, unMail); 
         // y despues basta con llamarlo como this.
-        public  DataSet obtenerTodosLosClientesConFiltros(string unNombre, string unApellido, string unTipoDni, int unDni, string unMail)
+        public  DataSet obtenerTodosLosClientesConFiltros(string unNombre, string unApellido, string unTipoDni, Int64 unDni, string unMail)
         {
             Cliente unCliente = new Cliente(unNombre, unApellido, unTipoDni, unDni, unMail);
             unCliente.setearListaDeParametrosConFiltros(unCliente.Nombre, unCliente.Apellido, unCliente.TipoDocumento, unCliente.Documento, unCliente.Mail);
@@ -323,7 +323,7 @@ namespace Clases
         }
 
 
-        public DataSet ObtenerClientesPorUsuarioID(int unUsuarioID)
+        public DataSet ObtenerClientesPorUsuarioID(Int64 unUsuarioID)
         {
             this.setearListaDeParametrosConUsuarioID(unUsuarioID);
             DataSet ds = this.TraerListado(this.parameterList, "PorUsuarioID");
@@ -332,14 +332,14 @@ namespace Clases
         }
 
 
-        public DataSet ObtenerTodosLosClientes(int unUsuarioID)
+        public DataSet ObtenerTodosLosClientes(Int64 unUsuarioID)
         {
             DataSet ds = this.TraerListado("Completo");
             return ds;
         }
 
 
-        public DataSet TraerClientePorID(int clienteID)
+        public DataSet TraerClientePorID(Int64 clienteID)
         {
             this.setearListaDeParametrosConClienteID(clienteID);
             DataSet ds = this.TraerListado(this.parameterList, "porClienteID");
@@ -365,7 +365,7 @@ namespace Clases
             return this.TraerListado(parameterList, "ModificacionesTCAFacturar");
         }
 
-         public int TraerCantidadSuscripcionesPendientesAFacturarPorClienteIDYCuentaID(Int64 cuenta_id)
+         public Int64 TraerCantidadSuscripcionesPendientesAFacturarPorClienteIDYCuentaID(Int64 cuenta_id)
          {
              setearListaDeParametrosConClienteIDYCuentaID(this.cliente_id, cuenta_id);
              DataSet ds = this.TraerListado(parameterList, "CantidadSuscripcionesPendientesAFacturarPorClienteIDYCuentaID");
@@ -373,7 +373,7 @@ namespace Clases
              {
                  return 0;
              }else{
-                 return Convert.ToInt32(ds.Tables[0].Rows[0]["cantidadSuscripciones"]);
+                 return Convert.ToInt64(ds.Tables[0].Rows[0]["cantidadSuscripciones"]);
              };
          }
 

@@ -74,7 +74,7 @@ namespace PagoElectronico.ABM_de_Usuario
             unUsuario.Respuesta_Secreta = txtRespuestaSecreta.Text;
             
             Rol rolAAsignar = new Rol();
-            rolAAsignar.rol_id = Convert.ToInt32(cmbRol.SelectedValue);
+            rolAAsignar.rol_id = Convert.ToInt64(cmbRol.SelectedValue);
             rolAAsignar.Nombre = cmbRol.SelectedText.ToString();
             unUsuario.Rol = rolAAsignar;
 

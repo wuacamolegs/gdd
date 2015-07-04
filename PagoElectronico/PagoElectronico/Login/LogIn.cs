@@ -21,9 +21,9 @@ namespace PagoElectronico.Login
     {
         #region variables
 
-        int intentosFallidos = 0;
+        Int64 intentosFallidos = 0;
         string ultimoUserIngresado = "";
-        int maxIntentosFallidos = Convert.ToInt32(ConfigurationManager.AppSettings["MaxIntentosFallidosLogIn"]);
+        Int64 maxintentosFallidos = Convert.ToInt64(ConfigurationManager.AppSettings["MaxintentosFallidosLogIn"]);
         Usuario user = new Usuario();
         FSLogger logAuditoria; 
 
@@ -52,7 +52,7 @@ namespace PagoElectronico.Login
         private void btnSelecRol_Click(object sender, EventArgs e)
         {
             Rol rolAAsignar = new Rol();
-            rolAAsignar.rol_id = Convert.ToInt32(cmbRol.SelectedValue);
+            rolAAsignar.rol_id = Convert.ToInt64(cmbRol.SelectedValue);
             rolAAsignar.Nombre = cmbRol.SelectedText.ToString();
             user.Rol = rolAAsignar;
             user.AsignarRol(rolAAsignar);
@@ -62,7 +62,7 @@ namespace PagoElectronico.Login
         private void cmbRol_SelectedIndexChanged(object sender, EventArgs e)
         {
             //si es administrador muestro boton crear nuevo cliente
-            if (Convert.ToInt32(cmbRol.SelectedValue) == 1)
+            if (Convert.ToInt64(cmbRol.SelectedValue) == 1)
             {
                 btnCrearCliente.Visible = true;
             }
@@ -105,7 +105,7 @@ namespace PagoElectronico.Login
                     {
                         if (txtUsername.Text != ultimoUserIngresado)  //ultimo user ingresado desde que se inicio la aplicacion
                         {
-                            intentosFallidos = 0;   //significa que fue su primer intento fallido
+                            intentosFallidos = 0;   //significa que fue su primer Int64ento fallido
                             ultimoUserIngresado = txtUsername.Text;
                         }
                         intentosFallidos++;
@@ -149,7 +149,7 @@ namespace PagoElectronico.Login
 
         public void RealizarAccionesLogInExitoso()
         {
-            //limpio los intentos y voy a la seleccion de rol del usuario
+            //limpio los Int64entos y voy a la seleccion de rol del usuario
             intentosFallidos = 0;
             MessageBox.Show("Se Accedió al sistema", "Log In exitoso", MessageBoxButtons.OK);
             SeleccionDeRol();
@@ -206,7 +206,7 @@ namespace PagoElectronico.Login
 
         public void VerificarSiSeAlcanzoLaCantidadMaxima()
         {
-            if (intentosFallidos == maxIntentosFallidos)
+            if (intentosFallidos == maxintentosFallidos)
             {
                     //Si alcanzo la cantidad maxima de fallidos, deshabilito el usuario y le aviso de esto
                     user.Deshabilitar();

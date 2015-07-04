@@ -11,12 +11,12 @@ namespace Clases
         List<SqlParameter> parameterList = new List<SqlParameter>();
 
         #region atributos
-        private int _id_Funcionalidad;
+        private Int64 _id_Funcionalidad;
         private string _nombre;
         #endregion
 
         #region properties
-        public int id_Funcionalidad
+        public Int64 id_Funcionalidad
         {
             get { return _id_Funcionalidad; }
             set { _id_Funcionalidad = value; }
@@ -42,11 +42,11 @@ namespace Clases
         public override void DataRowToObject(DataRow dr)
         {
             // Esto es tal cual lo devuelve el stored de la DB
-            this.id_Funcionalidad = Convert.ToInt32(dr["funcionalidades_id"]);
+            this.id_Funcionalidad = Convert.ToInt64(dr["funcionalidades_id"]);
             this.Nombre = dr["funcionalidades_nombre"].ToString();
         }
 
-        public static DataSet ObtenerFuncionalidadesPorRol(int id_Rol)
+        public static DataSet ObtenerFuncionalidadesPorRol(Int64 id_Rol)
         {
             Funcionalidad miFunc = new Funcionalidad();
             miFunc.setearListaDeParametrosConIdRol(id_Rol);
@@ -81,7 +81,7 @@ namespace Clases
 
         #region setters
 
-        private void setearListaDeParametrosConIdRol(int id_Rol)
+        private void setearListaDeParametrosConIdRol(Int64 id_Rol)
         {
             parameterList.Add(new SqlParameter("@id_Rol", id_Rol));
         }

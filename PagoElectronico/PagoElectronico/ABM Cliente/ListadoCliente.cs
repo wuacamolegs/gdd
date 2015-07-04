@@ -41,7 +41,7 @@ namespace PagoElectronico.ABM_Cliente
             unCliente.Nombre = Convert.ToString(labelNombre);
             unCliente.Apellido = Convert.ToString(labelApellido);
             unCliente.TipoDocumento = Convert.ToString(cmbTipoDoc);
-            unCliente.Documento = Convert.ToInt32(labelDNI);
+            unCliente.Documento = Convert.ToInt64(labelDNI);
             unCliente.Mail = Convert.ToString(labelMail);
             cargarGrilla();
 
@@ -58,7 +58,7 @@ namespace PagoElectronico.ABM_Cliente
             DataSet dsCliente = unCliente.TraerListado("ConTodo");
             //realizo la configuracion de la grilla, seteando las filas y columnas con sus nombres y valores
 
-            //MessageBox.Show("cliente_id"+Convert.ToInt32(dsCliente.Tables[0].Rows[0]["cliente_id"]),"cliente_usuario_id"+Convert.ToInt32(dsCliente.Tables[0].Rows[0]["cliente_usuario_id"]));
+            //MessageBox.Show("cliente_id"+Convert.ToInt64(dsCliente.Tables[0].Rows[0]["cliente_id"]),"cliente_usuario_id"+Convert.ToInt64(dsCliente.Tables[0].Rows[0]["cliente_usuario_id"]));
 
             dtgClientes.Columns.Clear();
             dtgClientes.AutoGenerateColumns = false;

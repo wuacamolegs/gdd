@@ -22,7 +22,7 @@ namespace Clases
 
         #region atributos
 
-        private int _item_factura_id;
+        private Int64 _item_factura_id;
         private Factura _factura;
         private DataTable _dt = new DataTable();
         
@@ -55,7 +55,7 @@ namespace Clases
             set { _dt = value; }
         }
 
-        public int ItemFacturaID
+        public Int64 ItemFacturaID
         {
             get { return _item_factura_id; }
             set {_item_factura_id = value;}
@@ -86,9 +86,9 @@ namespace Clases
         #region DataRowToObject
         public override void DataRowToObject(DataRow dr)
         {
-            this.ItemFacturaID = Convert.ToInt32(dr["item_factura_id"]);
+            this.ItemFacturaID = Convert.ToInt64(dr["item_factura_id"]);
             //this.tablaItems.Rows.Add(Convert.ToString(dr["item_factura_desc"]), Convert.ToDecimal(dr["item_factura_cant"]), Convert.ToDecimal(dr["item_factura_costo"]));
-            this.Factura.Numero = Convert.ToInt32(dr["item_factura_factura_numero"]);
+            this.Factura.Numero = Convert.ToInt64(dr["item_factura_factura_numero"]);
 
         }
         #endregion

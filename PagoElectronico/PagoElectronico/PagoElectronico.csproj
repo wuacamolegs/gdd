@@ -217,6 +217,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="App.config" />
     <None Include="Properties\Settings.settings">
@@ -246,10 +247,6 @@
       <Project>{4E6028A4-BD22-4C52-9C3C-49503A738444}</Project>
       <Name>Clases</Name>
     </ProjectReference>
-	<ProjectReference Include="..\Utilities\Utilities.csproj">
-      <Project>{4E6028A4-BD22-4C52-9C3C-49503A738444}</Project>
-      <Name>Utilities</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Conexion\Conexion.csproj">
       <Project>{D94C51F3-2C13-44B6-A9AA-A675BCBBD601}</Project>
       <Name>Conexion</Name>
@@ -261,6 +258,10 @@
     <ProjectReference Include="..\Log\Log.csproj">
       <Project>{55F19D4D-2EBC-4BD8-8581-2740D34B9245}</Project>
       <Name>Log</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utilities\Utilities.csproj">
+      <Project>{ECD61283-865E-4F92-828D-8E230A73AE72}</Project>
+      <Name>Utilities</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

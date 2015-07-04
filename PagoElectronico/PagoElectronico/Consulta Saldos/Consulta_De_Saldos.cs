@@ -17,12 +17,13 @@ namespace PagoElectronico.Consulta_Saldos
         #region variables
 
         public Usuario unUsuario = new Usuario();
-        public Cliente unCliente;
+        public Cliente unCliente = new Cliente();
         public Cuenta unaCuenta = new Cuenta();
 
         #endregion
 
         #region initialize
+
         public Consulta_De_Saldos()
         {
             InitializeComponent();
@@ -31,6 +32,8 @@ namespace PagoElectronico.Consulta_Saldos
         public void abrirConUsuario(Usuario user)
         {
             unUsuario = user;
+            unCliente.Usuario = user;
+            unaCuenta.cliente = unCliente;
             this.Show();
         }
 
@@ -49,13 +52,12 @@ namespace PagoElectronico.Consulta_Saldos
         #region botones y vistas
 
         
-        private void ComboCliente_SelectedIndexChanged(object sender, EventArgs e)
+        private void cmbCliente_SelectedIndexChanged(object sender, EventArgs e)
         {
             //cargar CMB cuenta
-
-            unaCuenta.cliente.cliente_id = Convert.ToInt32(cmbCliente.SelectedValue);
+            unaCuenta.cliente.cliente_id = Convert.ToInt64(cmbCliente.SelectedValue);
             DataSet dsCuenta = unaCuenta.TraerCuentasActivasPorClienteID();
-            DropDownListManager.CargarCombo(cmbCuenta, dsCuenta.Tables[0], "cuenta_id", "cuenta_id", false, "");
+            DropDownListManager.CargarCombo(cmbCuenta, dsCuenta.Tables[0], "cuenta_numero", "cuenta_numero", false, "");
 
         }
 
@@ -66,12 +68,11 @@ namespace PagoElectronico.Consulta_Saldos
 
         #endregion
 
-        
-
         #region llamados a la base
         #endregion
 
         #region metodos privados
+
         private DataSet ObtenerClientes()
         {
 
@@ -91,8 +92,20 @@ namespace PagoElectronico.Consulta_Saldos
 
         }
 
-
-
         #endregion
+
+        private void cmbCuenta_SelectedIndexChanged(object sender, EventArgs e){
+ 
+            Int64 cuentaID = Convert.ToInt64(cmbCuenta.SelectedValue);
+            DataSet dsCuenta = unaCuenta.TraerCuentaPorCuentaID(cuentaID);
+            unaCuenta.DataRowToObject(dsCuenta.Tables[0].Rows[0]);
+            txtSaldo.Clear();
+            string saldo = Convert.ToString(unaCuenta.saldo);
+            txtSaldo.Text = saldo;
+
+        }
+
+
+
     }
 }
