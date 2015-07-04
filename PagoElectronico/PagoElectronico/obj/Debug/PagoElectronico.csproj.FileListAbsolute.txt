@@ -26,7 +26,6 @@ A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\bin\Debug\Clases.pdb
 A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\bin\Debug\Log.dll
 A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\bin\Debug\Log.pdb
 A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Principal.resources
-A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.ABM_Cliente.ABM_de_Cliente.resources
 A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.ABM_de_Usuario.ABM_Usuario.resources
 A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.ABM_Rol.ABM_de_Rol.resources
 A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Consulta_Saldos.Consulta_De_Saldos.resources
@@ -67,7 +66,6 @@ E:\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Retiros.Retiro_
 E:\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Transferencias.Transferencias_Entre_Cuentas.resources
 E:\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.csproj.GenerateResource.Cache
 E:\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.ABM_Rol.frmRol.resources
-A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.ABM_Cliente.frmCliente.resources
 A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.ABM_Rol.frmRol.resources
 A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Facturacion.Facturas.resources
 E:\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.ABM_Cliente.frmCliente.resources

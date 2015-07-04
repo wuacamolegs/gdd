@@ -39,11 +39,11 @@
             this.btnCrear = new System.Windows.Forms.Button();
             this.btnFiltrar = new System.Windows.Forms.Button();
             this.btnLimpiarFiltros = new System.Windows.Forms.Button();
-            this.dtgCuentas = new System.Windows.Forms.DataGridView();
+            this.gridCuentas = new System.Windows.Forms.DataGridView();
             this.btnModificar = new System.Windows.Forms.Button();
             this.btnEliminar = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            ((System.ComponentModel.ISupportInitialize)(this.dtgCuentas)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridCuentas)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -149,13 +149,13 @@
             this.btnLimpiarFiltros.UseVisualStyleBackColor = true;
             this.btnLimpiarFiltros.Click += new System.EventHandler(this.btnLimpiarFiltros_Click);
             // 
-            // dtgCuentas
+            // gridCuentas
             // 
-            this.dtgCuentas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgCuentas.Location = new System.Drawing.Point(28, 187);
-            this.dtgCuentas.Name = "dtgCuentas";
-            this.dtgCuentas.Size = new System.Drawing.Size(688, 194);
-            this.dtgCuentas.TabIndex = 11;
+            this.gridCuentas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridCuentas.Location = new System.Drawing.Point(28, 187);
+            this.gridCuentas.Name = "gridCuentas";
+            this.gridCuentas.Size = new System.Drawing.Size(688, 194);
+            this.gridCuentas.TabIndex = 11;
             // 
             // btnModificar
             // 
@@ -206,12 +206,12 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnModificar);
-            this.Controls.Add(this.dtgCuentas);
+            this.Controls.Add(this.gridCuentas);
             this.Controls.Add(this.btnCrear);
             this.Name = "ListadoCuenta";
             this.Text = "PAGO ELECTRONICO -ABM CUENTAS";
             this.Load += new System.EventHandler(this.ListadoCuenta_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dtgCuentas)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridCuentas)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -231,7 +231,7 @@
         private System.Windows.Forms.Button btnCrear;
         private System.Windows.Forms.Button btnFiltrar;
         private System.Windows.Forms.Button btnLimpiarFiltros;
-        private System.Windows.Forms.DataGridView dtgCuentas;
+        private System.Windows.Forms.DataGridView gridCuentas;
         private System.Windows.Forms.Button btnModificar;
         private System.Windows.Forms.Button btnEliminar;
         private System.Windows.Forms.GroupBox groupBox1;

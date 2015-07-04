@@ -24,7 +24,7 @@ namespace PagoElectronico.Login
         Int64 intentosFallidos = 0;
         string ultimoUserIngresado = "";
         Int64 maxintentosFallidos = Convert.ToInt64(ConfigurationManager.AppSettings["MaxintentosFallidosLogIn"]);
-        Usuario user = new Usuario();
+        Usuario unUsuario = new Usuario();
         FSLogger logAuditoria; 
 
         #endregion
@@ -54,8 +54,8 @@ namespace PagoElectronico.Login
             Rol rolAAsignar = new Rol();
             rolAAsignar.rol_id = Convert.ToInt64(cmbRol.SelectedValue);
             rolAAsignar.Nombre = cmbRol.SelectedText.ToString();
-            user.Rol = rolAAsignar;
-            user.AsignarRol(rolAAsignar);
+            unUsuario.Rol = rolAAsignar;
+            unUsuario.AsignarRol(rolAAsignar);
             AccederAlSistema();
         }
 
@@ -81,24 +81,24 @@ namespace PagoElectronico.Login
             }
             
             if(txtUsername.Text == "admin"){
-                user.Username = "123";   //TODO: arreglar tema username
+                unUsuario.Username = "123";   //TODO: arreglar tema username
             }
             else{                  
-            user.Username = txtUsername.Text;
+            unUsuario.Username = txtUsername.Text;
             }
-            user.Password = txtPassword.Text;
+            unUsuario.Password = txtPassword.Text;
             
 
             //si se ingresaron los campos, paso a verificar que el usuario exista y que esta sea su contraseña.
             //verificar si el login es correcto o no
             claveIngresada = Encryptor.GetSHA256(txtPassword.Text); //encripto la clave para luego compararla en la BD
 
-            if (user.obtenerUsuarioActivoPorUsername())
+            if (unUsuario.obtenerUsuarioActivoPorUsername())
                 {
                     
-                    if (user.Password.Trim() == claveIngresada.Trim())
+                    if (unUsuario.Password.Trim() == claveIngresada.Trim())
                     {
-                        logAuditoria.EscribirLog(user.Username, "Exitoso", intentosFallidos);
+                        logAuditoria.EscribirLog(unUsuario.Username, "Exitoso", intentosFallidos);
                         RealizarAccionesLogInExitoso();
                     }
                     else
@@ -109,7 +109,7 @@ namespace PagoElectronico.Login
                             ultimoUserIngresado = txtUsername.Text;
                         }
                         intentosFallidos++;
-                        logAuditoria.EscribirLog(user.Username, "Fallido", intentosFallidos);
+                        logAuditoria.EscribirLog(unUsuario.Username, "Fallido", intentosFallidos);
 
                         MessageBox.Show("El usuario o clave ingresado es incorrecto. Por favor, ingrese los datos correctamente", "Log In fallido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
@@ -163,7 +163,7 @@ namespace PagoElectronico.Login
             try
             {
                 //Obtengo los roles del usuario en cuestion. Si no los hay, muestro mensaje de error. 
-                DataSet dsroles = Rol.ObtenerRolesPorUsuario(user.usuario_id);
+                DataSet dsroles = Rol.ObtenerRolesPorUsuario(unUsuario.usuario_id);
 
                 if (dsroles.Tables[0].Rows.Count == 0)
                 {
@@ -175,7 +175,7 @@ namespace PagoElectronico.Login
                     //y lo dejo entrar al sistema.                    
                     if (dsroles.Tables[0].Rows.Count == 1)
                     {
-                        user.AsignarRol(dsroles);
+                        unUsuario.AsignarRol(dsroles);
                         AccederAlSistema();        
                     }
                     else
@@ -209,7 +209,7 @@ namespace PagoElectronico.Login
             if (intentosFallidos == maxintentosFallidos)
             {
                     //Si alcanzo la cantidad maxima de fallidos, deshabilito el usuario y le aviso de esto
-                    user.Deshabilitar();
+                    unUsuario.Deshabilitar();
                     intentosFallidos = 0;
                     MessageBox.Show("El usuario ha quedado deshabilitado por los reiterados fallos en el inicio de sesion", "Deshabilitacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 
@@ -221,7 +221,7 @@ namespace PagoElectronico.Login
         {
                 Principal princ = new Principal();
                 this.Hide();
-                princ.abrirConUsuario(user);
+                princ.abrirConUsuario(unUsuario);
         }
 
         #endregion

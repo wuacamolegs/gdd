@@ -98,81 +98,81 @@ namespace PagoElectronico.ABM_Cuenta
         {
             //realizo la configuracion de la grilla, seteando las filas y columnas con sus nombres y valores
 
-            dtgCuentas.Columns.Clear();
-            dtgCuentas.AutoGenerateColumns = false;
+            gridCuentas.Columns.Clear();
+            gridCuentas.AutoGenerateColumns = false;
             
             DataGridViewTextBoxColumn clm_cuentaID = new DataGridViewTextBoxColumn();
             clm_cuentaID.Width = 130;
             clm_cuentaID.ReadOnly = true;
             clm_cuentaID.DataPropertyName = "cuenta_id";
             clm_cuentaID.HeaderText = "Cuenta ID";
-            dtgCuentas.Columns.Add(clm_cuentaID);
+            gridCuentas.Columns.Add(clm_cuentaID);
             
             DataGridViewTextBoxColumn clm_clienteID = new DataGridViewTextBoxColumn();
             clm_clienteID.Width = 40;
             clm_clienteID.ReadOnly = true;
             clm_clienteID.DataPropertyName = "cliente_id";
             clm_clienteID.HeaderText = "Cliente ID";
-            dtgCuentas.Columns.Add(clm_clienteID);
+            gridCuentas.Columns.Add(clm_clienteID);
 
             DataGridViewTextBoxColumn clm_cliente_nombre = new DataGridViewTextBoxColumn();
             clm_cliente_nombre.Width = 80;
             clm_cliente_nombre.ReadOnly = true;
             clm_cliente_nombre.DataPropertyName = "cliente_nombre";
             clm_cliente_nombre.HeaderText = "Titular";
-            dtgCuentas.Columns.Add(clm_cliente_nombre);
+            gridCuentas.Columns.Add(clm_cliente_nombre);
 
             DataGridViewTextBoxColumn clm_saldo = new DataGridViewTextBoxColumn();
             clm_saldo.Width = 80;
             clm_saldo.ReadOnly = true;
             clm_saldo.DataPropertyName = "cuenta_saldo";
             clm_saldo.HeaderText = "Saldo";
-            dtgCuentas.Columns.Add(clm_saldo);
+            gridCuentas.Columns.Add(clm_saldo);
 
             DataGridViewTextBoxColumn clm_tipoCuenta = new DataGridViewTextBoxColumn();
             clm_tipoCuenta.Width = 40;
             clm_tipoCuenta.ReadOnly = true;
             clm_tipoCuenta.DataPropertyName = "cuenta_tipo_cuenta_id";
             clm_tipoCuenta.HeaderText = "TipoCuenta";
-            dtgCuentas.Columns.Add(clm_tipoCuenta);
+            gridCuentas.Columns.Add(clm_tipoCuenta);
 
             DataGridViewTextBoxColumn clm_pais = new DataGridViewTextBoxColumn();
             clm_pais.Width = 40;
             clm_pais.ReadOnly = true;
             clm_pais.DataPropertyName = "cuenta_pais_id";
             clm_pais.HeaderText = "Pais";
-            dtgCuentas.Columns.Add(clm_pais);
+            gridCuentas.Columns.Add(clm_pais);
 
             DataGridViewTextBoxColumn clm_moneda = new DataGridViewTextBoxColumn();
             clm_moneda.Width = 40;
             clm_moneda.ReadOnly = true;
             clm_moneda.DataPropertyName = "cuenta_moneda_id";
             clm_moneda.HeaderText = "Moneda";
-            dtgCuentas.Columns.Add(clm_moneda);
+            gridCuentas.Columns.Add(clm_moneda);
 
             DataGridViewTextBoxColumn clm_fecha_apertura = new DataGridViewTextBoxColumn();
             clm_fecha_apertura.Width = 80;
             clm_fecha_apertura.ReadOnly = true;
             clm_fecha_apertura.DataPropertyName = "cuenta_fecha_apertura";
             clm_fecha_apertura.HeaderText = "Apertura";
-            dtgCuentas.Columns.Add(clm_fecha_apertura);
+            gridCuentas.Columns.Add(clm_fecha_apertura);
 
             DataGridViewTextBoxColumn clm_fecha_cierre = new DataGridViewTextBoxColumn();
             clm_fecha_cierre.Width = 80;
             clm_fecha_cierre.ReadOnly = true;
             clm_fecha_cierre.DataPropertyName = "cuenta_fecha_cierre";
             clm_fecha_cierre.HeaderText = "Cierre";
-            dtgCuentas.Columns.Add(clm_fecha_cierre);
+            gridCuentas.Columns.Add(clm_fecha_cierre);
 
             DataGridViewCheckBoxColumn clm_Estado = new DataGridViewCheckBoxColumn();
             clm_Estado.Width = 80;
             clm_Estado.ReadOnly = true;
             clm_Estado.DataPropertyName = "cuenta_estado";
             clm_Estado.HeaderText = "Estado";
-            dtgCuentas.Columns.Add(clm_Estado);
+            gridCuentas.Columns.Add(clm_Estado);
             
             //le inserto a la grilla el dataset obtenido
-            dtgCuentas.DataSource = dsCuenta.Tables[0];
+            gridCuentas.DataSource = dsCuenta.Tables[0];
 
         }
 
@@ -217,17 +217,21 @@ namespace PagoElectronico.ABM_Cuenta
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            ABM_de_Cuenta abmCuenta = new ABM_de_Cuenta();
+            ABM_de_Cuenta abmCuenta = new ABM_de_Cuenta(unUsuario);
             //TODO CARGAR DATOS CUENTA
-            DataSet ds = null;
-            abmCuenta.AbrirParaModificar(ds, unaCuenta);
+            unaCuenta.cuenta_id = Convert.ToInt64(((DataRowView)gridCuentas.CurrentRow.DataBoundItem)["cuenta_id"]);
+            unaCuenta.Cliente.cliente_id = Convert.ToInt64(((DataRowView)gridCuentas.CurrentRow.DataBoundItem)["cliente_id"]);
+            unaCuenta.tipoCuenta = Convert.ToInt64(((DataRowView)gridCuentas.CurrentRow.DataBoundItem)["cuenta_tipo_cuenta_id"]);
+            unaCuenta.Pais = Convert.ToInt64(((DataRowView)gridCuentas.CurrentRow.DataBoundItem)["cuenta_pais_id"]);
+
+            abmCuenta.AbrirParaModificar(unaCuenta);
             this.Hide();
             abmCuenta.Show();
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            ABM_de_Cuenta abmCuenta = new ABM_de_Cuenta();
+            ABM_de_Cuenta abmCuenta = new ABM_de_Cuenta(unUsuario);
             abmCuenta.AbrirParaCrear();
             this.Hide();
             abmCuenta.Show();

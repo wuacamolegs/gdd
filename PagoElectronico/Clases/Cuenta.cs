@@ -26,7 +26,9 @@ namespace Clases
         private DateTime _fecha_apertura;
         private DateTime _fecha_cierre;
         private Int64 _cuenta_id;
-        private Usuario _usuario;  
+        private Usuario _usuario;
+        private Int64 _tipo_cuenta;
+        private Int64 _pais;
 
         #endregion
 
@@ -52,6 +54,19 @@ namespace Clases
             get { return _cliente; }
             set { _cliente = value; }
         }
+
+        public Int64 tipoCuenta
+        {
+            get { return _tipo_cuenta; }
+            set { _tipo_cuenta = value; }
+        }
+
+        public Int64 Pais
+        {
+            get { return _pais; }
+            set { _pais = value; }
+        }
+
         public bool estado
         {
             get { return _estado; }

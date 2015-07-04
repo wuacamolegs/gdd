@@ -25,9 +25,10 @@ namespace PagoElectronico.ABM_Cuenta
 
         #region initialize
 
-        public ABM_de_Cuenta()
+        public ABM_de_Cuenta(Usuario user)
         {
             InitializeComponent();
+            unUsuario = user;
             unCliente.Usuario = unUsuario;
             unaCuenta.Cliente = unCliente;
             //cargar combos moneda pais y tipo cuenta
@@ -43,11 +44,13 @@ namespace PagoElectronico.ABM_Cuenta
 
         private void ABM_de_Cuenta_Load(object sender, EventArgs e)
         {
+            unUsuario = unaCuenta.Usuario;
+            unCliente = unaCuenta.Cliente;
             DataSet dsClientes = ObtenerClientes();
             DropDownListManager.CargarCombo(cmbCliente, dsClientes.Tables[0], "cliente_id", "cliente_nombre", false, "");
         }
 
-        internal void AbrirParaModificar(DataSet dsCuenta, Cuenta cuenta)
+        internal void AbrirParaModificar(Cuenta cuenta)
         {
             unaCuenta = cuenta;
             unCliente.cliente_id = unaCuenta.Cliente.cliente_id;
@@ -101,8 +104,6 @@ namespace PagoElectronico.ABM_Cuenta
 
         }
 
-        #endregion  
-
         public DataSet ObtenerCuentasPorClienteID()
         {
             Int64 clienteID = Convert.ToInt64(cmbCliente.SelectedValue);
@@ -110,12 +111,7 @@ namespace PagoElectronico.ABM_Cuenta
             return dsCuentas;
         }
 
-
-
-
-
-
-
+        #endregion  
 
     }
 }
