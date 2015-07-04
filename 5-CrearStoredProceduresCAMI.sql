@@ -64,7 +64,7 @@ AS
 BEGIN 
     SELECT *
     FROM OOZMA_KAPPA.Usuario
-    WHERE usuario_username = @Username AND usuario_estado = 0;
+    WHERE usuario_username = @Username AND usuario_estado = 1;
 END
 GO
 
@@ -72,7 +72,8 @@ CREATE PROCEDURE [OOZMA_KAPPA].traerListadoRolesPorId_Usuario
 	@usuario_id nvarchar(255)
 AS
 BEGIN
-	SELECT r.rol_id as rol_id, r.rol_nombre as rol_nombre , r.rol_estado as rol_estado FROM OOZMA_KAPPA.Usuario_rol ur, OOZMA_KAPPA.Rol r WHERE usuario_id = @usuario_id  AND ur.rol_id = r.rol_id;
+	SELECT r.rol_id as rol_id, r.rol_nombre as rol_nombre , r.rol_estado as rol_estado FROM OOZMA_KAPPA.Usuario_rol ur, OOZMA_KAPPA.Rol r 
+	WHERE usuario_id = @usuario_id  AND ur.rol_id = r.rol_id and r.rol_eliminado = 1 ;
 END
 GO
 
@@ -90,7 +91,7 @@ CREATE PROCEDURE [OOZMA_KAPPA].[deshabilitarUsuario]
 	@usuario_id int
 AS
 BEGIN
-	UPDATE [OOZMA_KAPPA].Usuario SET usuario_estado = 1 WHERE usuario_id = @usuario_id;
+	UPDATE [OOZMA_KAPPA].Usuario SET usuario_estado = 0 WHERE usuario_id = @usuario_id;
 	
 END
 GO
@@ -102,7 +103,8 @@ CREATE PROCEDURE [OOZMA_KAPPA].[updateUsuario]
 	@Estado bit
 AS
 BEGIN
-	UPDATE [OOZMA_KAPPA].Usuario SET usuario_username=@Username, usuario_password=@Clave, usuario_estado = @Estado WHERE usuario_id=@id_Usuario	
+	UPDATE [OOZMA_KAPPA].Usuario SET usuario_username=@Username, usuario_password=@Clave, usuario_estado = @Estado 
+	WHERE usuario_id=@id_Usuario	
 END
 GO
 
@@ -110,14 +112,14 @@ GO
 CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoRoles]
 AS
 BEGIN
-	SELECT rol_id as id_Rol, rol_nombre as Nombre FROM OOZMA_KAPPA.Rol;
+	SELECT rol_id as id_Rol, rol_nombre as Nombre FROM OOZMA_KAPPA.Rol WHERE rol_eliminado = 1;
 END
 GO
 
 CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoClienteCompleto]
 AS
 BEGIN
-	SELECT cliente_id as cliente_id,(cliente_apellido +' '+ cliente_nombre) as cliente_nombre, cliente_numero_documento as cliente_documento FROM OOZMA_KAPPA.Cliente;
+	SELECT cliente_id as cliente_id,(cliente_apellido +' '+ cliente_nombre) as cliente_nombre, cliente_numero_documento as cliente_documento FROM OOZMA_KAPPA.Cliente where cliente_estado = 1;
 END
 GO
 
@@ -125,7 +127,8 @@ CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoClientePorUsuarioID]
 	@usuario_id numeric(18,0)
 AS
 BEGIN
-	SELECT cliente_id as cliente_id,(cliente_apellido +' '+ cliente_nombre) as cliente_nombre, cliente_numero_documento as cliente_documento FROM OOZMA_KAPPA.Cliente WHERE cliente_usuario_id = @usuario_id;
+	SELECT cliente_id as cliente_id,(cliente_apellido +' '+ cliente_nombre) as cliente_nombre, cliente_numero_documento as cliente_documento FROM OOZMA_KAPPA.Cliente 
+	WHERE cliente_usuario_id = @usuario_id and cliente_estado = 1;
 END
 GO
 
@@ -133,7 +136,8 @@ CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoClientePorClienteID]
 	@cliente_id numeric(18,0)
 AS
 BEGIN
-	SELECT cliente_id, cliente_nombre, cliente_apellido, cliente_numero_documento, cliente_fecha_nacimiento FROM OOZMA_KAPPA.Cliente WHERE cliente_id = @cliente_id;
+	SELECT cliente_id, cliente_nombre, cliente_apellido, cliente_numero_documento, cliente_fecha_nacimiento 
+	FROM OOZMA_KAPPA.Cliente WHERE cliente_id = @cliente_id and cliente_estado = 1;
 END
 GO
 
@@ -347,7 +351,7 @@ GO
 CREATE PROCEDURE [OOZMA_KAPPA].[TraerListadoCuentaCompleto]
 AS
 BEGIN
-		SELECT cuenta_id, cliente_id, (cliente_nombre + ' ' + cliente_apellido) as cliente_nombre, cuenta_estado, cuenta_fecha_apertura, cuenta_fecha_cierre, cuenta_moneda_id, cuenta_pais_id, cuenta_saldo, cuenta_tipo_cuenta_id FROM OOZMA_KAPPA.Cuenta, OOZMA_KAPPA.Cliente WHERE cliente_id = cuenta_cliente_id;
+		SELECT cuenta_id, cliente_id, (cliente_nombre + ' ' + cliente_apellido) as cliente_nombre, cuenta_estado, cuenta_fecha_apertura, cuenta_fecha_cierre, cuenta_moneda_id, cuenta_pais_id, cuenta_saldo, cuenta_tipo_cuenta_id FROM OOZMA_KAPPA.Cuenta, OOZMA_KAPPA.Cliente WHERE cliente_id = cuenta_cliente_id and cliente_estado = 1;
 END
 GO
 
@@ -373,7 +377,7 @@ BEGIN
     AND		cliente_apellido LIKE (CASE WHEN @Apellido <> '' THEN '%' + @Apellido + '%' ELSE cliente_apellido END) 
     AND		(@Tipo_Dni is null OR @Tipo_Dni = -1 OR CONVERT(VARCHAR(10), cliente_tipo_documento_id) LIKE '%' + CONVERT(VARCHAR(10), @Tipo_Dni) + '%')     
     AND		(@Dni is null OR @Dni = 0 OR CONVERT(VARCHAR(10), cliente_numero_documento) LIKE '%' + CONVERT(VARCHAR(10), @Dni) + '%')
-    --AND		cliente_estado = 0;
+    AND		cliente_estado = 1;
 END
 GO
 

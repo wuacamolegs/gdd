@@ -11,7 +11,7 @@ USE [GD1C2015]
 
 CREATE TABLE [OOZMA_KAPPA].[Administrador](
 	[administrador_id] numeric(18, 0) IDENTITY (1,1),
-	[administrador_estado] numeric(18, 0)NOT NULL,   --SACO EL ATRIBUTO ESTADO. ESTE TIENE QUE IR EN USUARIO!!
+	[administrador_estado] bit  NOT NULL DEFAULT (1),  --- 0 DESHABILITADO, 1 HABILITADO
 	[administrador_username] [varchar](255) NOT NULL,
 	[administrador_usuario_id] numeric(18, 0)NOT NULL,
 )
@@ -50,6 +50,7 @@ CREATE TABLE [OOZMA_KAPPA].[Cliente](
 	[cliente_piso] numeric(18, 0)NOT NULL,
 	[cliente_depto] [varchar](10) NOT NULL,  --saco cliente cuenta id porq un cliente puede tener varias cuentas. sus varias cuentas se reflejan en la tabla cuentas.
 	[cliente_mail] [varchar](255),
+	[cliente_estado] bit NOT NULL DEFAULT (1), ---  0 DESHABILITADO, 1 HABILITADO
 )
 
 --- TABLA CUENTA ---
@@ -146,7 +147,7 @@ CREATE TABLE [OOZMA_KAPPA].[Item_factura](
 CREATE TABLE [OOZMA_KAPPA].[Login](
 	[login_id] numeric(18, 0) IDENTITY (1,1),
 	[login_usuario_id] numeric(18, 0)NOT NULL,
-	[login_estado] numeric(18, 0)NOT NULL,
+	[login_estado] numeric(18, 0)NOT NULL,  -----TODOS LOS TABLA_ESTADO SON BIT NOT NULL. Ver.
 	[login_cant_numeric(18, 0)entos] numeric(18, 0)NOT NULL,
 	[login_fecha_hora] [datetime] NOT NULL,
 )
@@ -182,11 +183,12 @@ CREATE TABLE [OOZMA_KAPPA].[Retiro](
 CREATE TABLE [OOZMA_KAPPA].[Rol](
 	[rol_id] numeric(18, 0) IDENTITY (1,1),
 	[rol_nombre] [nvarchar](255) NOT NULL,
-	[rol_estado] bit NOT NULL DEFAULT(0),   --puede estar activo 0 o no activo 1
+	[rol_estado] bit NOT NULL DEFAULT(1),   --DESHABILITADO 0, HABILITADO 1
+	[rol_eliminado] bit NOT NULL DEFAULT (1), --ELIMINADO 0 (BAJA LOGICA), NO ELIMINADO 1
 )
 
-INSERT INTO[OOZMA_KAPPA].[Rol] (rol_nombre, rol_estado) VALUES ('Administrador',0);
-INSERT INTO[OOZMA_KAPPA].[Rol] (rol_nombre, rol_estado) VALUES ('Cliente',0);
+INSERT INTO[OOZMA_KAPPA].[Rol] (rol_nombre, rol_estado) VALUES ('Administrador',1);
+INSERT INTO[OOZMA_KAPPA].[Rol] (rol_nombre, rol_estado) VALUES ('Cliente',1);
 
 ---- TABLA TARJETA ----
 
@@ -240,6 +242,7 @@ INSERT INTO[OOZMA_KAPPA].[Tipo_documento] (tipo_documento_descripcion) VALUES ('
 INSERT INTO[OOZMA_KAPPA].[Tipo_documento] (tipo_documento_descripcion) VALUES ('CI');
 INSERT INTO[OOZMA_KAPPA].[Tipo_documento] (tipo_documento_descripcion) VALUES ('LC');
 INSERT INTO[OOZMA_KAPPA].[Tipo_documento] (tipo_documento_descripcion) VALUES ('LE');
+INSERT INTO[OOZMA_KAPPA].[Tipo_documento] (tipo_documento_descripcion) VALUES ('PASAPORTE');
 
 --- TRANSACCIONES PENDIENTES ---
 
@@ -274,8 +277,8 @@ CREATE TABLE [OOZMA_KAPPA].[Usuario](
 	[usuario_fecha_creacion] [datetime] NOT NULL,
 	[usuario_fecha_ultima_modificacion] [datetime] NOT NULL,
 	[usuario_pregunta_secreta] [nvarchar](64) NOT NULL,
-	[usuario_respuesta_secreta] [nvarchar](64) NOT NULL,   -- 0 habilitado, 1 deshabilitado
-	[usuario_estado] bit NOT NULL DEFAULT(0),  --puede estar habilitado como no habilitado, ya sea por el estado del rol, o por logins incorrectos
+	[usuario_respuesta_secreta] [nvarchar](64) NOT NULL,   -- 0 deshabilitado, 1 habilitado
+	[usuario_estado] bit NOT NULL DEFAULT(1),  --puede estar habilitado como no habilitado, ya sea por el estado del rol, o por logins incorrectos
 	--VER QUE PASA CUANDO ESTA DESHABILITADO POR LOGINS, Y UN ROL PASA DE ACTIVO A NO ACTIVO Y LUEGO A ACTIVO OTRA VEZ!! 
 	--tendria que haber un estado para cada cosa? estadoRol, estadoLogin, o solo estadoLogin e ir verificando que el rol este activo o no cuando se quiera iniciar sesion
 	-- CREO QUE VA A CONVENIR que este estado represente solo el login, y que cuando inicie sesion no se muestren los roles inhabilitados y listo.
