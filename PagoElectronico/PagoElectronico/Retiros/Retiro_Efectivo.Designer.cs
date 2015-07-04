@@ -159,11 +159,12 @@
             // 
             // txtSaldoActual
             // 
-            this.txtSaldoActual.BackColor = System.Drawing.Color.GreenYellow;
-            this.txtSaldoActual.Location = new System.Drawing.Point(340, 125);
+            this.txtSaldoActual.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.txtSaldoActual.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtSaldoActual.Location = new System.Drawing.Point(340, 128);
             this.txtSaldoActual.Name = "txtSaldoActual";
             this.txtSaldoActual.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.txtSaldoActual.Size = new System.Drawing.Size(100, 20);
+            this.txtSaldoActual.Size = new System.Drawing.Size(100, 13);
             this.txtSaldoActual.TabIndex = 11;
             // 
             // label6
@@ -221,7 +222,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(519, 380);
             this.Controls.Add(this.label6);

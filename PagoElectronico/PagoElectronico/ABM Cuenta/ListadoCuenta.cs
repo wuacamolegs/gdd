@@ -33,7 +33,7 @@ namespace PagoElectronico.ABM_Cuenta
         {
             unUsuario = user;
             unCliente.Usuario = user;
-            unaCuenta.cliente = unCliente;
+            unaCuenta.Cliente = unCliente;
             this.Show();
         }
 
@@ -65,10 +65,10 @@ namespace PagoElectronico.ABM_Cuenta
         {
             if (ValidarCampos())
             {
-                unaCuenta.cliente.Nombre = Convert.ToString(txtNombre.Text);
-                unaCuenta.cliente.Apellido = Convert.ToString(txtApellido.Text);
-                unaCuenta.cliente.TipoDocumento = Convert.ToString(cmbTipoDNI.SelectedIndex);
-                if (txtDNI.Text == "") {unaCuenta.cliente.Documento = 0; } else { unaCuenta.cliente.Documento = Convert.ToInt64(txtDNI.Text); }
+                unaCuenta.Cliente.Nombre = Convert.ToString(txtNombre.Text);
+                unaCuenta.Cliente.Apellido = Convert.ToString(txtApellido.Text);
+                unaCuenta.Cliente.TipoDocumento = Convert.ToString(cmbTipoDNI.SelectedIndex);
+                if (txtDNI.Text == "") {unaCuenta.Cliente.Documento = 0; } else { unaCuenta.Cliente.Documento = Convert.ToInt64(txtDNI.Text); }
                 DataSet ds = unaCuenta.TraerCuentaPorFiltrosCliente();
                 cargarGrilla(ds); //TODO: CUANDO GINO SUBA SUS CAMBIOS AGREGAR EN EL SP TRAERCUENTAFILTROS EL CLIENTE_ESTADO
             }
@@ -214,6 +214,23 @@ namespace PagoElectronico.ABM_Cuenta
 
 
         #endregion
+
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            ABM_de_Cuenta abmCuenta = new ABM_de_Cuenta();
+            //TODO CARGAR DATOS CUENTA
+            abmCuenta.AbrirParaModificar(unaCuenta);
+            this.Hide();
+            abmCuenta.Show();
+        }
+
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+            ABM_de_Cuenta abmCuenta = new ABM_de_Cuenta();
+            abmCuenta.AbrirParaCrear();
+            this.Hide();
+            abmCuenta.Show();
+        }
 
     }
 }

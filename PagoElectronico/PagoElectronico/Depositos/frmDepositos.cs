@@ -55,7 +55,7 @@ namespace PagoElectronico.Depositos
         { 
             //cargar CMB cuenta
 
-            unaCuenta.cliente.cliente_id = Convert.ToInt64 (cmbCliente.SelectedValue) ;
+            unaCuenta.Cliente.cliente_id = Convert.ToInt64 (cmbCliente.SelectedValue) ;
             DataSet dsCuenta = unaCuenta.TraerCuentasActivasPorClienteID();
             DropDownListManager.CargarCombo(cmbCuenta, dsCuenta.Tables[0], "cuenta_id", "cuenta_id", false, "");
 

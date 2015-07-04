@@ -92,7 +92,7 @@ namespace PagoElectronico.Retiros
         #endregion
 
         #region llamados a la base
-        
+
         public DataSet ObtenerClientes()
         {
             

@@ -33,7 +33,7 @@ namespace PagoElectronico.Consulta_Saldos
         {
             unUsuario = user;
             unCliente.Usuario = user;
-            unaCuenta.cliente = unCliente;
+            unaCuenta.Cliente = unCliente;
             this.Show();
         }
 
@@ -55,7 +55,7 @@ namespace PagoElectronico.Consulta_Saldos
         private void cmbCliente_SelectedIndexChanged(object sender, EventArgs e)
         {
             //cargar CMB cuenta
-            unaCuenta.cliente.cliente_id = Convert.ToInt64(cmbCliente.SelectedValue);
+            unaCuenta.Cliente.cliente_id = Convert.ToInt64(cmbCliente.SelectedValue);
             DataSet dsCuenta = unaCuenta.TraerCuentasActivasPorClienteID();
             DropDownListManager.CargarCombo(cmbCuenta, dsCuenta.Tables[0], "cuenta_numero", "cuenta_numero", false, "");
 

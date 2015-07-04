@@ -39,7 +39,7 @@ namespace Clases
 
         public Cuenta(Cliente unCliente, Usuario unUsuario)
         {
-            this.cliente = unCliente;
+            this.Cliente = unCliente;
             this.Usuario = unUsuario;
         }
 
@@ -47,7 +47,7 @@ namespace Clases
 
         #region properties
 
-        public Cliente cliente
+        public Cliente Cliente
         {
             get { return _cliente; }
             set { _cliente = value; }
@@ -151,10 +151,10 @@ namespace Clases
         private void setearListaDeParametrosConFiltros()
         {
             this.parameterList.Clear();
-            parameterList.Add(new SqlParameter("@Nombre", this.cliente.Nombre));
-            parameterList.Add(new SqlParameter("@Apellido", this.cliente.Apellido));
-            parameterList.Add(new SqlParameter("@Tipo_Dni", this.cliente.TipoDocumento));
-            parameterList.Add(new SqlParameter("@Dni", this.cliente.Documento));
+            parameterList.Add(new SqlParameter("@Nombre", this.Cliente.Nombre));
+            parameterList.Add(new SqlParameter("@Apellido", this.Cliente.Apellido));
+            parameterList.Add(new SqlParameter("@Tipo_Dni", this.Cliente.TipoDocumento));
+            parameterList.Add(new SqlParameter("@Dni", this.Cliente.Documento));
         }
 
         #endregion
@@ -163,14 +163,14 @@ namespace Clases
 
         public DataSet TraerCuentasActivasPorClienteID()
         {
-            this.setearListaDeParametrosConClienteIDYFechaActual(this.cliente.cliente_id);
+            this.setearListaDeParametrosConClienteIDYFechaActual(this.Cliente.cliente_id);
             DataSet ds = this.TraerListado(this.parameterList, "ActivasPorClienteID");
             return ds;
         }
 
         public DataSet TraerCuentasAbiertasPorClienteID()
         {
-            this.setearListaDeParametrosConClienteIDYFechaActual(this.cliente.cliente_id);
+            this.setearListaDeParametrosConClienteIDYFechaActual(this.Cliente.cliente_id);
             DataSet ds = this.TraerListado(this.parameterList, "PorCliente_NoCerradas");
             return ds;
         }
@@ -184,14 +184,14 @@ namespace Clases
 
         public DataSet TraerCuentasPorClienteID()
         {
-            this.setearListaDeParametrosConClienteID(this.cliente.cliente_id);
+            this.setearListaDeParametrosConClienteID(this.Cliente.cliente_id);
             DataSet ds = this.TraerListado(this.parameterList, "PorClienteID");
             return ds;            
         }
 
         public DataSet TraerCuentasACobrarPorClienteID()
         {
-            this.setearListaDeParametrosConClienteID(this.cliente.cliente_id);
+            this.setearListaDeParametrosConClienteID(this.Cliente.cliente_id);
             DataSet ds = this.TraerListado(this.parameterList, "APagarPorClienteID");
             return ds;
         }
