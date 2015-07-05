@@ -34,7 +34,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.cmbCuenta = new System.Windows.Forms.ComboBox();
+            this.txtCuenta = new System.Windows.Forms.TextBox();
             this.cmbTipoCuenta = new System.Windows.Forms.ComboBox();
             this.cmbMoneda = new System.Windows.Forms.ComboBox();
             this.cmbPais = new System.Windows.Forms.ComboBox();
@@ -97,7 +97,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.cmbCuenta);
+            this.groupBox1.Controls.Add(this.txtCuenta);
             this.groupBox1.Controls.Add(this.cmbTipoCuenta);
             this.groupBox1.Controls.Add(this.cmbMoneda);
             this.groupBox1.Controls.Add(this.cmbPais);
@@ -111,14 +111,13 @@
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             // 
-            // cmbCuenta
+            // txtCuenta
             // 
-            this.cmbCuenta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbCuenta.FormattingEnabled = true;
-            this.cmbCuenta.Location = new System.Drawing.Point(190, 27);
-            this.cmbCuenta.Name = "cmbCuenta";
-            this.cmbCuenta.Size = new System.Drawing.Size(280, 21);
-            this.cmbCuenta.TabIndex = 9;
+            this.txtCuenta.Location = new System.Drawing.Point(190, 27);
+            this.txtCuenta.Name = "txtCuenta";
+            this.txtCuenta.ReadOnly = true;
+            this.txtCuenta.Size = new System.Drawing.Size(280, 20);
+            this.txtCuenta.TabIndex = 9;
             // 
             // cmbTipoCuenta
             // 
@@ -155,7 +154,6 @@
             this.cmbCliente.Name = "cmbCliente";
             this.cmbCliente.Size = new System.Drawing.Size(266, 21);
             this.cmbCliente.TabIndex = 7;
-            this.cmbCliente.SelectedIndexChanged += new System.EventHandler(this.cmbCliente_SelectedIndexChanged);
             // 
             // btnCrear
             // 
@@ -193,12 +191,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(521, 369);
-            this.Controls.Add(this.txtCliente);
             this.Controls.Add(this.btnCrear);
-            this.Controls.Add(this.cmbCliente);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnModificar);
+            this.Controls.Add(this.txtCliente);
+            this.Controls.Add(this.cmbCliente);
             this.Name = "ABM_de_Cuenta";
             this.Text = "PAGO ELECTRONICO - CUENTAS";
             this.groupBox1.ResumeLayout(false);
@@ -220,9 +218,9 @@
         private System.Windows.Forms.ComboBox cmbMoneda;
         private System.Windows.Forms.ComboBox cmbPais;
         private System.Windows.Forms.ComboBox cmbCliente;
-        private System.Windows.Forms.ComboBox cmbCuenta;
         private System.Windows.Forms.Button btnCrear;
         private System.Windows.Forms.Button btnModificar;
         private System.Windows.Forms.TextBox txtCliente;
+        private System.Windows.Forms.TextBox txtCuenta;
     }
 }

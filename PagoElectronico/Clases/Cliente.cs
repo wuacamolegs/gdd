@@ -225,7 +225,7 @@ namespace Clases
             this.NumeroDireccion = Convert.ToInt64(dr["cliente_numero"]);
             this.PisoDireccion = Convert.ToInt64(dr["cliente_piso"]);
             this.DeptoDireccion = dr["cliente_depto"].ToString();
-            this.estado = Convert.ToBoolean(dr["cliente_estado"]);  //TODO agregar cliente estado a la bd
+            this.estado = Convert.ToBoolean(dr["cliente_estado"]); 
         }
 
 

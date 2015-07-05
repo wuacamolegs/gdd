@@ -59,6 +59,20 @@ namespace PagoElectronico.ABM_Cuenta
         
         private void btnEliminar_Click(object sender, EventArgs e)
         {
+            //Verificar si tiene cosas a pagar con esta cuenta.
+            cargarDatosCuenta();
+            if (unaCuenta.TraerCantidadTransaccionesAPagar() == 0)
+            {
+                MessageBox.Show("Se ha eliminado la Cuenta: " + unaCuenta.cuenta_id + " correctamente", "Eliminar Cuenta");
+                unaCuenta.EliminarCuenta();
+                DataSet dsCuenta = ObtenerCuentas();
+                cargarGrilla(dsCuenta);
+            }
+            else
+            {
+                MessageBox.Show("No se puede eliminar la Cuenta: " + unaCuenta.cuenta_id + " ya que tiene saldos pendientes a pagar.", "Eliminar Cuenta");
+                //TODO habria que limpiar campos unaCuenta??
+            }
 
         }
 
@@ -71,7 +85,7 @@ namespace PagoElectronico.ABM_Cuenta
                 unaCuenta.Cliente.TipoDocumento = Convert.ToString(cmbTipoDNI.SelectedIndex);
                 if (txtDNI.Text == "") {unaCuenta.Cliente.Documento = 0; } else { unaCuenta.Cliente.Documento = Convert.ToInt64(txtDNI.Text); }
                 DataSet ds = unaCuenta.TraerCuentaPorFiltrosCliente();
-                cargarGrilla(ds); //TODO: CUANDO GINO SUBA SUS CAMBIOS AGREGAR EN EL SP TRAERCUENTAFILTROS EL CLIENTE_ESTADO
+                cargarGrilla(ds);
             }
 
         }
@@ -81,11 +95,30 @@ namespace PagoElectronico.ABM_Cuenta
             txtNombre.Clear();
             txtApellido.Clear();
             txtDNI.Clear();
-            cmbTipoDNI.SelectedIndex = 0;
+            cmbTipoDNI.SelectedIndex = -1;
             DataSet dsCuenta = ObtenerCuentas();
             cargarGrilla(dsCuenta);
         }
 
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            ABM_de_Cuenta abmCuenta = new ABM_de_Cuenta(unUsuario);
+            cargarDatosCuenta();
+
+            MessageBox.Show("Cuenta a Modificar: \n Cuenta: " + unaCuenta.cuenta_id + "\n Cliente: " + unaCuenta.Cliente.Nombre, "Cuenta a Modificar");
+
+            abmCuenta.AbrirParaModificar(unaCuenta);
+            abmCuenta.Show();
+        }
+
+
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Abrir para crear 0", "");
+            ABM_de_Cuenta abmCuenta = new ABM_de_Cuenta(unUsuario);
+            abmCuenta.AbrirParaCrear();
+            abmCuenta.Show();
+        }
 
         #endregion
 
@@ -212,34 +245,21 @@ namespace PagoElectronico.ABM_Cuenta
             return true;
         }
 
-
-
-        #endregion
-
-        private void btnModificar_Click(object sender, EventArgs e)
+        private void cargarDatosCuenta()
         {
-            ABM_de_Cuenta abmCuenta = new ABM_de_Cuenta(unUsuario);
             unaCuenta.cuenta_id = Convert.ToInt64(((DataRowView)gridCuentas.CurrentRow.DataBoundItem)["cuenta_id"]);
             unaCuenta.Cliente.cliente_id = Convert.ToInt64(((DataRowView)gridCuentas.CurrentRow.DataBoundItem)["cliente_id"]);
             unaCuenta.Cliente.Nombre = Convert.ToString(((DataRowView)gridCuentas.CurrentRow.DataBoundItem)["cliente_nombre"]);
             unaCuenta.tipoCuenta = Convert.ToInt64(((DataRowView)gridCuentas.CurrentRow.DataBoundItem)["cuenta_tipo_cuenta_id"]);
             unaCuenta.Pais = Convert.ToInt64(((DataRowView)gridCuentas.CurrentRow.DataBoundItem)["cuenta_pais_id"]);
             unaCuenta.Moneda = Convert.ToInt64(((DataRowView)gridCuentas.CurrentRow.DataBoundItem)["cuenta_moneda_id"]);
-
-            MessageBox.Show("Cuenta a Modificar: \n Cuenta: " + unaCuenta.cuenta_id + "\n Cliente: " + unaCuenta.Cliente.Nombre, "Cuenta a Modificar");
-
-            abmCuenta.AbrirParaModificar(unaCuenta);
-            this.Hide();
-            abmCuenta.Show();
         }
 
-        private void btnAgregar_Click(object sender, EventArgs e)
-        {
-            ABM_de_Cuenta abmCuenta = new ABM_de_Cuenta(unUsuario);
-            abmCuenta.AbrirParaCrear();
-            this.Hide();
-            abmCuenta.Show();
-        }
+
+
+        #endregion
+
+       
 
     }
 }

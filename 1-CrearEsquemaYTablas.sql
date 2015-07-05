@@ -65,7 +65,7 @@ CREATE TABLE [OOZMA_KAPPA].[Cuenta](
 	[cuenta_fecha_cierre] [datetime] NOT NULL,
 	[cuenta_estado] bit NOT NULL DEFAULT(1),  --0 es false deshabilitada , 1 true habilitada
 	[cuenta_cerrada] bit NOT NULL DEFAULT (0),  --- 0 false, 1 true
-	[cuenta_pendiente_activacion] bit NOT NULL DEFAULT(0), --- 0 false, 1 true
+	[cuenta_pendiente_activacion] bit NOT NULL DEFAULT(1), --- 0 false, 1 true
 )
 
 --- TABLA DEPOSITO ---
@@ -243,7 +243,6 @@ INSERT INTO[OOZMA_KAPPA].[Tipo_documento] (tipo_documento_descripcion) VALUES ('
 INSERT INTO[OOZMA_KAPPA].[Tipo_documento] (tipo_documento_descripcion) VALUES ('CI');
 INSERT INTO[OOZMA_KAPPA].[Tipo_documento] (tipo_documento_descripcion) VALUES ('LC');
 INSERT INTO[OOZMA_KAPPA].[Tipo_documento] (tipo_documento_descripcion) VALUES ('LE');
-INSERT INTO[OOZMA_KAPPA].[Tipo_documento] (tipo_documento_descripcion) VALUES ('PASAPORTE');
 
 --- TRANSACCIONES PENDIENTES ---
 

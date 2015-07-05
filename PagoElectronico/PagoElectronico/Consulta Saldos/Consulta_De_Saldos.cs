@@ -61,10 +61,6 @@ namespace PagoElectronico.Consulta_Saldos
 
         }
 
-        private void btnConsultar_Click(object sender, EventArgs e) // TODO HACER
-        {
-
-        }
 
         #endregion
 

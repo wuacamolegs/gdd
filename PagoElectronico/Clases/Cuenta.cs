@@ -126,6 +126,7 @@ namespace Clases
         #endregion
 
         #region dataRowToObject
+
         public override void DataRowToObject(DataRow dr)
         {
             // Esto es tal cual lo devuelve el stored de la DB
@@ -135,6 +136,20 @@ namespace Clases
             this.FechaApertura = Convert.ToDateTime(dr["cuenta_fecha_apertura"]);
             this.FechaCierre = Convert.ToDateTime(dr["cuenta_fecha_cierre"]);
         }
+
+        public void DataRowToObjectCompleto(DataRow dr)
+        {
+            // Esto es tal cual lo devuelve el stored de la DB
+            this.Cliente.cliente_id = Convert.ToInt64(dr["cuenta_cliente_id"]);
+            this.estado = Convert.ToBoolean(dr["cuenta_estado"]);
+            this.saldo = Convert.ToInt64(dr["cuenta_saldo"]);
+            this.cuenta_id = Convert.ToInt64(dr["cuenta_id"]);
+            this.Moneda = Convert.ToInt64(dr["cuenta_moneda_id"]);
+            this.FechaApertura = Convert.ToDateTime(dr["cuenta_fecha_apertura"]);
+            this.FechaCierre = Convert.ToDateTime(dr["cuenta_fecha_cierre"]);
+            this.tipoCuenta = Convert.ToInt64(dr["cuenta_tipo_cuenta_id"]);
+        }
+
         #endregion
 
         #region setters
@@ -270,12 +285,31 @@ namespace Clases
             return ds;
         }
 
+        public Int64 TraerCantidadTransaccionesAPagar()
+        {
+            setearListaDeParametrosConCuentaID(this.cuenta_id);
+            DataSet ds = this.TraerListado(parameterList, "CantidadTransaccionesAPagar");
+            if (Convert.ToInt64(ds.Tables[0].Rows.Count) == 0){
+              return 0;
+            }else{
+              return Convert.ToInt64(ds.Tables[0].Rows[0]["cantidad"]);
+            }
+
+
+        }
+
+        public void EliminarCuenta()
+        {
+            setearListaDeParametrosConCuentaID(this.cuenta_id);
+            this.Eliminar(parameterList);
+        }
 
         #endregion
 
         #region metodos privados
-
+        
         #endregion
+
 
 
 

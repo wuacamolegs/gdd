@@ -22,7 +22,7 @@ namespace Clases
        
         private Cheque _cheque;
         private Cuenta _cuenta;
-        private Int64 _retiro_id;    //TODO: me parece que hay cosas de mas. si en el cheque ya dice el importe y la fecha por ahi no hace falta uqe este en retiro. VER.
+        private Int64 _retiro_id;    
         private DateTime _fecha;
         private Int64 _importe;
         

@@ -92,7 +92,7 @@ COMMIT
 	cuenta_cliente_id, 
 	cuenta_pais_id,
 	cuenta_tipo_cuenta_id, 
-	cuenta_saldo, cuenta_fecha_apertura, cuenta_fecha_cierre )(
+	cuenta_saldo, cuenta_fecha_apertura, cuenta_fecha_cierre, cuenta_pendiente_activacion )(
 	SELECT DISTINCT Cuenta_Numero
 	,(SELECT cliente_id FROM OOZMA_KAPPA.Cliente WHERE Cli_Nro_Doc = cliente_numero_documento)
 	,Cuenta_Pais_Codigo
@@ -100,6 +100,7 @@ COMMIT
 	,50000  --COMO NO ESTA EL MONTO DE CADA CUENTA CONSIDEREMOS ESTE VALOR PARA TODAS.
 	,Cuenta_Fecha_Creacion   --cuenta moneda y estado les puse default 1(dolar) y "Habilitada"
 	,(SELECT DATEADD(DAY,tipo_cuenta_dias_vigencia,Cuenta_Fecha_Creacion)FROM OOZMA_KAPPA.Tipo_cuenta WHERE tipo_cuenta_id = 4)    --segun el tipo cuenta la fecha de cierre
+	,0
  FROM gd_esquema.Maestra
  WHERE Cuenta_Numero IS NOT NULL);
    

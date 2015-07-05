@@ -56,11 +56,21 @@ namespace PagoElectronico.Facturacion
         private void cmbCliente_SelectedIndexChanged(object sender, EventArgs e)
         {
             unCliente.cliente_id = Convert.ToInt64(cmbCliente.SelectedValue);
-
-
+            
             //Traer cuentas asociadas al cliente    
             DataSet dsCuentas = ObtenerCuentasPorClienteId();
-            DropDownListManager.CargarCombo(cmbCuenta, dsCuentas.Tables[0], "cuenta_id", "cuenta_id", false, "");
+
+            //Si no tiene cuentas con suscripciones a pagar escondo grupo suscripciones
+            if (dsCuentas.Tables[0].Rows.Count == 0) 
+            {
+                gbSuscripciones.Visible = false;
+            }
+            else
+            {
+                DropDownListManager.CargarCombo(cmbCuenta, dsCuentas.Tables[0], "cuenta_id", "cuenta_id", false, "");
+            }
+
+
 
             //Traer transacciones realizadas por el cliente
 

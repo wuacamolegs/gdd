@@ -44,8 +44,6 @@ DROP PROCEDURE [OOZMA_KAPPA].[TraerListadoCuentaAPagarPorClienteID]
 GO
 DROP PROCEDURE [OOZMA_KAPPA].[InsertItem_Factura]
 GO
-DROP PROCEDURE [OOZMA_KAPPA].[InsertFactura_RetornarID]
-GO
 DROP PROCEDURE [OOZMA_KAPPA].[DeleteSuscripcionesAfterFacturacion]
 GO
 DROP PROCEDURE [OOZMA_KAPPA].[TraerListadoCuentaCompleto]
@@ -59,6 +57,18 @@ GO
 DROP PROCEDURE OOZMA_KAPPA.traerListadoPaisesCompleto
 GO
 DROP PROCEDURE OOZMA_KAPPA.traerListadoTipoCuentaCompleto
+GO
+DROP PROCEDURE OOZMA_KAPPA.InsertFactura
+GO
+DROP PROCEDURE OOZMA_KAPPA.TraerListadoFacturaUltimaGenerada
+GO
+DROP PROCEDURE OOZMA_KAPPA.UpdateCuenta
+GO
+DROP PROCEDURE OOZMA_KAPPA.InsertCuenta
+GO
+DROP PROCEDURE OOZMA_KAPPA.TraerProximaCuentaID
+GO
+DROP PROCEDURE OOZMA_KAPPA.TraerListadoCuentaCantidadTransaccionesAPagar
 GO
 
 
@@ -244,7 +254,6 @@ CREATE PROCEDURE [OOZMA_KAPPA].[TraerListadoClienteCantidadSuscripcionesPendient
 AS
 BEGIN 
 	SELECT COUNT(transaccion_pendiente_cliente_id) as cantidadSuscripciones FROM OOZMA_KAPPA.Transacciones_Pendientes WHERE transaccion_pendiente_cliente_id = @cliente_id AND transaccion_pendiente_descr = 'Suscripciones por Apertura Cuenta' AND transaccion_pendiente_cuenta_id = @cuenta_id GROUP BY transaccion_pendiente_cliente_id
-
 END
 GO
 
@@ -413,7 +422,7 @@ GO
 
 CREATE PROCEDURE OOZMA_KAPPA.UpdateCuenta
 	@Cuenta_id numeric(18,0),
-	@Cliente_id numeric(18,0),
+	@Cliente_id numeric(18,0),   --VER QUE PASA SI SE CAMBIA EL TIPO CUENTA. TIENE QUE HABER PAGADO TODAS LAS SUSCRIPCIONES ANTERIORES!!!!!
 	@Pais numeric(18,0),
 	@Moneda numeric(18,0),
 	@Tipo_Cuenta numeric(18,0)
@@ -423,5 +432,41 @@ BEGIN
 									cuenta_moneda_id = @Moneda,
 									cuenta_tipo_cuenta_id = @Tipo_Cuenta
 	WHERE cuenta_id = @Cuenta_id;
+END
+GO
+
+CREATE PROCEDURE OOZMA_KAPPA.InsertCuenta
+	@Cliente_id numeric(18,0),
+	@Pais numeric(18,0),
+	@Moneda numeric(18,0),
+	@Tipo_Cuenta numeric(18,0),
+	@Fecha datetime
+AS
+BEGIN
+	INSERT INTO OOZMA_KAPPA.Cuenta (cuenta_cliente_id, cuenta_pais_id, cuenta_moneda_id, cuenta_tipo_cuenta_id, cuenta_fecha_apertura, cuenta_fecha_cierre)(
+	SELECT @Cliente_id, @Pais, @Moneda, @Tipo_Cuenta, @Fecha, DATEADD(DAY,tipo_cuenta_dias_vigencia,@Fecha)
+	FROM OOZMA_KAPPA.Tipo_cuenta WHERE tipo_cuenta_id = @Tipo_Cuenta);
+END
+GO
+
+
+CREATE PROCEDURE OOZMA_KAPPA.TraerProximaCuentaID
+AS
+BEGIN
+	SELECT TOP 1 cuenta_id + 1 as proxID FROM OOZMA_KAPPA.Cuenta ORDER BY cuenta_id DESC;
+END
+GO
+
+CREATE PROCEDURE OOZMA_KAPPA.TraerListadoCuentaCantidadTransaccionesAPagar
+	@cuenta_id numeric(18,0)
+AS
+	SELECT ISNULL(COUNT(transaccion_pendiente_cuenta_id),0) as cantidad FROM OOZMA_KAPPA.Transacciones_Pendientes WHERE transaccion_pendiente_cuenta_id = @cuenta_id GROUP BY transaccion_pendiente_cuenta_id 
+GO
+
+CREATE PROCEDURE OOZMA_KAPPA.DeleteCuenta
+	@cuenta_id numeric(18,0)
+AS
+BEGIN
+	UPDATE OOZMA_KAPPA.Cuenta SET cuenta_cerrada = 1 WHERE cuenta_id = @cuenta_id;
 END
 GO

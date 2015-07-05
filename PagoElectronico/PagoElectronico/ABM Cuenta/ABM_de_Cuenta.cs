@@ -32,15 +32,25 @@ namespace PagoElectronico.ABM_Cuenta
             unUsuario = user;
         }
 
-        internal void AbrirParaCrear() //TODO tengo que entrar con el user
+        internal void AbrirParaCrear()
         {
             btnModificar.Visible = false;
             btnCrear.Visible = true;
             txtCliente.Visible = false;
 
+            unaCuenta.Cliente = unCliente;
+
             DataSet dsClientes = ObtenerClientes();
             DropDownListManager.CargarCombo(cmbCliente, dsClientes.Tables[0], "cliente_id", "cliente_nombre", false, "");
+
+            //Traigo el supuesto cuentaID que se le va a asignar
+            DataSet dsProxCuenta = SQLHelper.ExecuteDataSet("TraerProximaCuentaID");
+            txtCuenta.Text = dsProxCuenta.Tables[0].Rows[0]["proxID"].ToString();
+
             cargarDatos();
+            cmbTipoCuenta.SelectedIndex = -1;
+            cmbPais.SelectedIndex = -1;
+            cmbMoneda.SelectedIndex = -1;
         }
 
         internal void AbrirParaModificar(Cuenta cuenta)
@@ -52,19 +62,21 @@ namespace PagoElectronico.ABM_Cuenta
 
             //MOSTRAR CLIENTE CUENTA A MODIFICAR
             unaCuenta = cuenta;
+            unaCuenta.Cliente = unCliente;
             unCliente.cliente_id = unaCuenta.Cliente.cliente_id;
             txtCliente.Text = unaCuenta.Cliente.Nombre;
 
             //MOSTRAR CUENTA A MODIFICAR
             DataSet ds = unaCuenta.TraerCuentaPorCuentaID(unaCuenta.cuenta_id);
-            DropDownListManager.CargarCombo(cmbCuenta,ds.Tables[0], "cuenta_id", "cuenta_id", false, "");
+            unaCuenta.DataRowToObjectCompleto(ds.Tables[0].Rows[0]);
+            txtCuenta.Text = unaCuenta.cuenta_id.ToString();
 
             cargarDatos();
 
             //que los combos muestren los datos de la cuenta
-            cmbTipoCuenta.SelectedIndex = Convert.ToInt32(unaCuenta.tipoCuenta) - 1;
-            cmbPais.SelectedIndex = Convert.ToInt32(unaCuenta.Pais) - 1;
-            cmbMoneda.SelectedIndex = Convert.ToInt32(unaCuenta.Moneda) - 1;
+            cmbTipoCuenta.SelectedValue = Convert.ToInt32(unaCuenta.tipoCuenta);
+            cmbPais.SelectedValue = Convert.ToInt32(unaCuenta.Pais);
+            cmbMoneda.SelectedValue = Convert.ToInt32(unaCuenta.Moneda);
 
         }
 
@@ -87,22 +99,47 @@ namespace PagoElectronico.ABM_Cuenta
 
         #region botones, vista
 
-
-
-        private void cmbCliente_SelectedIndexChanged(object sender, EventArgs e)
+        private void btnModificar_Click(object sender, EventArgs e)
         {
-            //cargar cmb Cuentas
-            DataSet dsCuentas = ObtenerCuentasPorClienteID();
-            DropDownListManager.CargarCombo(cmbCuenta, dsCuentas.Tables[0], "cuenta_numero", "cuenta_numero", false, "");
+            unaCuenta.Cliente.cliente_id = unCliente.cliente_id;
+            unaCuenta.cuenta_id = Convert.ToInt64(txtCuenta.Text);
+
+             //VERIFICAR QUE NO TIENE SUSCRIPCIONES PENDIENTES AL TIPO CUENTA ANTERIOR. 
+            //COMO SE AUTOFACTURA LA COMISION POR APERTURA CUENTA Y MODIFICACION CUENTA CADA VEZ QUE LE HAGO LA FACTURACION,
+            //SI LLEGA A TENER PAGADAS AL MENOS UNA SUSCRIPCION SIGNIFICA QUE TAMBIEN FACTURO LA APERTURA/MODIFICACION CUENTA.
+            //POR LO QUE NO HACE FALTA QUE ME FIJE SI PAGO LA COMISION POR APERTURA/MODIFIACION.
+
+            Int64 cantidadSuscripcionesAPagar = unCliente.TraerCantidadSuscripcionesPendientesAFacturarPorClienteIDYCuentaID(unaCuenta.cuenta_id);
+            
+            //Si llega a cambiar el tipo cuenta me tengo  que fijar que no tengas suscripciones pendientes. Si las tiene no puede modificar el tipo cuenta!!
+            if (cantidadSuscripcionesAPagar > 0 && unaCuenta.tipoCuenta != Convert.ToInt64(cmbTipoCuenta.SelectedValue))
+            {
+                MessageBox.Show("La Cuenta: " + unaCuenta.cuenta_id + " Posee saldos pendientes a pagar. Elija otra cuenta", "No se puede Modificar TipoCuenta");
+                this.Close();
+            }
+            else
+            {
+                bindToUnaCuenta();
+                unaCuenta.UpdateCuenta();
+                MessageBox.Show("Se modificó correctamente la cuenta: " + unaCuenta.cuenta_id, "Modificación exitosa!");
+                this.Close();
+            }
+
         }
+
+        private void btnCrear_Click(object sender, EventArgs e)
+        {
+            unaCuenta.Cliente.cliente_id = Convert.ToInt64(cmbCliente.SelectedValue);
+            bindToUnaCuenta();
+            unaCuenta.InsertCuenta();
+            MessageBox.Show("Se creó correctamente la Cuenta: " + txtCuenta.Text + "\nPais: " + cmbPais.Text + "\nMoneda: " + cmbMoneda.Text + "\nTipo Cuenta: " + cmbTipoCuenta.Text, "Nueva Cuenta");
+            this.Close();
+        }
+
 
         #endregion
         
         #region llamados base
-
-        #endregion
-
-        #region metodos privados
 
         public DataSet ObtenerClientes()
         {
@@ -126,20 +163,14 @@ namespace PagoElectronico.ABM_Cuenta
         public DataSet ObtenerCuentasPorClienteID()
         {
             Int64 clienteID = Convert.ToInt64(cmbCliente.SelectedValue);
+            unaCuenta.Cliente.cliente_id = clienteID;
             DataSet dsCuentas = unaCuenta.TraerCuentasPorClienteID();
             return dsCuentas;
         }
 
-        #endregion  
+        #endregion
 
-        private void btnModificar_Click(object sender, EventArgs e)
-        {
-            unaCuenta.Cliente.cliente_id = unCliente.cliente_id;
-            unaCuenta.cuenta_id = Convert.ToInt64(cmbCuenta.SelectedValue);
-            bindToUnaCuenta();
-            unaCuenta.UpdateCuenta();
-
-        }
+        #region metodos privados
 
         private void bindToUnaCuenta()
         {
@@ -148,12 +179,15 @@ namespace PagoElectronico.ABM_Cuenta
             unaCuenta.tipoCuenta = Convert.ToInt64(cmbTipoCuenta.SelectedValue);
         }
 
-        private void btnCrear_Click(object sender, EventArgs e)
-        {
-            unaCuenta.Cliente.cliente_id = Convert.ToInt64(cmbCliente.SelectedValue);
-            bindToUnaCuenta();
-            unaCuenta.InsertCuenta();
-        }
+        #endregion  
+
+
+
+
+
+
+
+
 
     }
 }

@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.gbSuscripciones = new System.Windows.Forms.GroupBox();
             this.btnAñadirSuscripcionesCuenta = new System.Windows.Forms.Button();
             this.cmbCuenta = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -53,7 +53,7 @@
             this.gridTransferencia = new System.Windows.Forms.DataGridView();
             this.btnGenerarFactura = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
-            this.groupBox4.SuspendLayout();
+            this.gbSuscripciones.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridModificacionTC)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -62,7 +62,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.groupBox4);
+            this.groupBox1.Controls.Add(this.gbSuscripciones);
             this.groupBox1.Controls.Add(this.cmbCliente);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.groupBox3);
@@ -75,26 +75,26 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "FACTURA";
             // 
-            // groupBox4
+            // gbSuscripciones
             // 
-            this.groupBox4.Controls.Add(this.btnAñadirSuscripcionesCuenta);
-            this.groupBox4.Controls.Add(this.cmbCuenta);
-            this.groupBox4.Controls.Add(this.label8);
-            this.groupBox4.Controls.Add(this.label4);
-            this.groupBox4.Controls.Add(this.txtSubTotalSuscr);
-            this.groupBox4.Controls.Add(this.label1);
-            this.groupBox4.Controls.Add(this.txtCostoUnitario);
-            this.groupBox4.Controls.Add(this.txtSuscripcionesAPagar);
-            this.groupBox4.Controls.Add(this.label7);
-            this.groupBox4.Controls.Add(this.txtSuscripcionesPendientes);
-            this.groupBox4.Controls.Add(this.label6);
-            this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-            this.groupBox4.Location = new System.Drawing.Point(28, 440);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(646, 137);
-            this.groupBox4.TabIndex = 10;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "SUSCRIPCIONES PENDIENTES";
+            this.gbSuscripciones.Controls.Add(this.btnAñadirSuscripcionesCuenta);
+            this.gbSuscripciones.Controls.Add(this.cmbCuenta);
+            this.gbSuscripciones.Controls.Add(this.label8);
+            this.gbSuscripciones.Controls.Add(this.label4);
+            this.gbSuscripciones.Controls.Add(this.txtSubTotalSuscr);
+            this.gbSuscripciones.Controls.Add(this.label1);
+            this.gbSuscripciones.Controls.Add(this.txtCostoUnitario);
+            this.gbSuscripciones.Controls.Add(this.txtSuscripcionesAPagar);
+            this.gbSuscripciones.Controls.Add(this.label7);
+            this.gbSuscripciones.Controls.Add(this.txtSuscripcionesPendientes);
+            this.gbSuscripciones.Controls.Add(this.label6);
+            this.gbSuscripciones.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+            this.gbSuscripciones.Location = new System.Drawing.Point(28, 440);
+            this.gbSuscripciones.Name = "gbSuscripciones";
+            this.gbSuscripciones.Size = new System.Drawing.Size(646, 137);
+            this.gbSuscripciones.TabIndex = 10;
+            this.gbSuscripciones.TabStop = false;
+            this.gbSuscripciones.Text = "SUSCRIPCIONES PENDIENTES";
             // 
             // btnAñadirSuscripcionesCuenta
             // 
@@ -324,8 +324,8 @@
             this.Load += new System.EventHandler(this.Facturacion_De_Costos_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
+            this.gbSuscripciones.ResumeLayout(false);
+            this.gbSuscripciones.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridModificacionTC)).EndInit();
@@ -358,7 +358,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtSubTotalSuscr;
         private System.Windows.Forms.TextBox txtCostoUnitario;
-        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.GroupBox gbSuscripciones;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ComboBox cmbCuenta;
         private System.Windows.Forms.Button btnAñadirSuscripcionesCuenta;
