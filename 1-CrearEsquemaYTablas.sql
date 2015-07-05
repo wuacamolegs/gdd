@@ -2,7 +2,6 @@
 
 CREATE SCHEMA [OOZMA_KAPPA] AUTHORIZATION [gd];
 GO
-BEGIN TRANSACTION
 
 USE [GD1C2015]
 
@@ -61,10 +60,12 @@ CREATE TABLE [OOZMA_KAPPA].[Cuenta](
 	[cuenta_pais_id] numeric(18, 0)NOT NULL,
 	[cuenta_moneda_id] numeric(18, 0)NOT NULL DEFAULT(1),
 	[cuenta_tipo_cuenta_id] numeric(18, 0)NOT NULL,
-	[cuenta_estado] bit NOT NULL DEFAULT(1),  --0 es false deshabilitada , 1 true habilitada
 	[cuenta_saldo] numeric(18, 0)NOT NULL DEFAULT(0),
-	[cuenta_fecha_apertura] [datetime] NOT NULL DEFAULT(getdate()),
+	[cuenta_fecha_apertura] [datetime] NOT NULL,
 	[cuenta_fecha_cierre] [datetime] NOT NULL,
+	[cuenta_estado] bit NOT NULL DEFAULT(1),  --0 es false deshabilitada , 1 true habilitada
+	[cuenta_cerrada] bit NOT NULL DEFAULT (0),  --- 0 false, 1 true
+	[cuenta_pendiente_activacion] bit NOT NULL DEFAULT(0), --- 0 false, 1 true
 )
 
 --- TABLA DEPOSITO ---
@@ -315,9 +316,4 @@ CREATE TYPE [OOZMA_KAPPA].[TVP_Item] AS TABLE(
 )
 
 GO
-
-
-COMMIT
-
-
 

@@ -29,6 +29,7 @@ namespace Clases
         private Usuario _usuario;
         private Int64 _tipo_cuenta;
         private Int64 _pais;
+        private Int64 _moneda;
 
         #endregion
 
@@ -59,6 +60,12 @@ namespace Clases
         {
             get { return _tipo_cuenta; }
             set { _tipo_cuenta = value; }
+        }
+
+        public Int64 Moneda
+        {
+            get { return _moneda; }
+            set { _moneda = value; }
         }
 
         public Int64 Pais
@@ -172,6 +179,28 @@ namespace Clases
             parameterList.Add(new SqlParameter("@Dni", this.Cliente.Documento));
         }
 
+        private void setearListaDeParametrosSinFecha()
+        {
+            this.parameterList.Clear();
+            parameterList.Add(new SqlParameter("@Cuenta_id",this.cuenta_id));
+            parameterList.Add(new SqlParameter("@Cliente_id", this.Cliente.cliente_id));
+            parameterList.Add(new SqlParameter("@Pais", this.Pais));
+            parameterList.Add(new SqlParameter("@Moneda", this.Moneda));
+            parameterList.Add(new SqlParameter("@Tipo_Cuenta", this.tipoCuenta));
+        }
+
+        private void setearListaDeParametrosSinCuentaID()
+        {
+            this.parameterList.Clear();
+            parameterList.Add(new SqlParameter("@Cliente_id", this.Cliente.cliente_id));
+            parameterList.Add(new SqlParameter("@Pais", this.Pais));
+            parameterList.Add(new SqlParameter("@Moneda", this.Moneda));
+            parameterList.Add(new SqlParameter("@Tipo_Cuenta", this.tipoCuenta));
+            parameterList.Add(new SqlParameter("@Fecha", Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"])));
+        }
+
+
+
         #endregion
 
         #region llamados a la base
@@ -211,6 +240,37 @@ namespace Clases
             return ds;
         }
 
+        public void UpdateCuenta()
+        {
+            this.setearListaDeParametrosSinFecha();
+            this.Modificar(parameterList);
+        }
+
+        public void InsertCuenta()
+        {
+            this.setearListaDeParametrosSinCuentaID();
+            this.Guardar(parameterList);
+        }
+
+
+
+        public DataSet ObtenerCuentasPorUsuarioID(long usuarioID)
+        {
+            setearListaDeParametrosConUsuarioID(usuarioID);
+            DataSet ds = this.TraerListado(parameterList, "PorUsuarioID");
+            return ds;
+        }
+
+
+
+        public DataSet TraerCuentaPorFiltrosCliente()
+        {
+            setearListaDeParametrosConFiltros();
+            DataSet ds = this.TraerListado(parameterList, "ConFiltros");
+            return ds;
+        }
+
+
         #endregion
 
         #region metodos privados
@@ -218,22 +278,6 @@ namespace Clases
         #endregion
 
 
-
-        public DataSet ObtenerCuentasPorUsuarioID(long usuarioID)
-        {
-            setearListaDeParametrosConUsuarioID(usuarioID);
-            DataSet ds = this.TraerListado(parameterList,"PorUsuarioID");
-            return ds;
-        }
-
-
-
-        public DataSet TraerCuentaPorFiltrosCliente()
-        {//TODO: CUANDO GINO SUBA SUS CAMBIOS AGREGAR EN EL SP TRAERCUENTAFILTROS EL CLIENTE_ESTADO
-            setearListaDeParametrosConFiltros();
-            DataSet ds = this.TraerListado(parameterList, "ConFiltros");
-            return ds;
-        }
 
 
     }

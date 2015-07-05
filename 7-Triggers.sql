@@ -102,6 +102,9 @@
 		DECLARE @Cuenta numeric(18,0);
 		DECLARE @Fecha DateTime;
 		DECLARE @Costo int = 0;
+		DECLARE @DiasVigencia int;
+		DECLARE @Contador int = 0;
+		DECLARE @CostoPorSuscripcion numeric(18,2)
 		
 		SELECT TOP 1 @Cuenta = cuenta_id, @Cliente = cuenta_cliente_id, @Fecha = cuenta_fecha_apertura
 		FROM inserted 
@@ -109,7 +112,19 @@
 		
 		SELECT @Costo = tipo_cuenta_costo_apertura
 		FROM OOZMA_KAPPA.Cuenta, OOZMA_KAPPA.Tipo_Cuenta
-		WHERE tipo_cuenta_id =  cuenta_tipo_cuenta_id AND cuenta_id = @Cuenta; 
+		WHERE tipo_cuenta_id =  cuenta_tipo_cuenta_id AND cuenta_id = @Cuenta;
+		
+		--ANADIR SUSCRIPCIONES A TRANSACCIONES PENDIENTES
+		SELECT @Costo = tipo_cuenta_costo_apertura, @CostoPorSuscripcion = tipo_cuenta_costo_modificacion / tipo_cuenta_dias_vigencia, @DiasVigencia = tipo_cuenta_dias_vigencia
+		FROM OOZMA_KAPPA.Cuenta, OOZMA_KAPPA.Tipo_Cuenta
+		WHERE tipo_cuenta_id =  cuenta_tipo_cuenta_id AND cuenta_id = @Cuenta;  
+		
+		WHILE @Contador <= @DiasVigencia
+		BEGIN 
+			INSERT INTO OOZMA_KAPPA.Transacciones_Pendientes (transaccion_pendiente_importe, transaccion_pendiente_descr, transaccion_pendiente_cliente_id, transaccion_pendiente_fecha, transaccion_pendiente_cuenta_id)
+			VALUES(@CostoPorSuscripcion, 'Suscripciones por Apertura Cuenta', @Cliente, @Fecha, @Cuenta)
+			SET @Contador = @Contador + 1;
+		END
 		
 		INSERT INTO OOZMA_KAPPA.Transacciones_Pendientes (transaccion_pendiente_importe, transaccion_pendiente_descr, transaccion_pendiente_cliente_id, transaccion_pendiente_fecha, transaccion_pendiente_cuenta_id)
 		VALUES (@Costo, 'Modificaciones Tipo Cuenta', @Cliente, @Fecha, @Cuenta);
@@ -129,17 +144,26 @@
 	DECLARE @Fecha DateTime;
 	DECLARE @Costo int = 0;
 	DECLARE @CostoPorSuscripcion int;
+	DECLARE @DiasVigencia int;
+	DECLARE @Contador int = 0;
 	
 	SELECT TOP 1 @Cuenta = cuenta_id, @Cliente = cuenta_cliente_id, @Fecha = cuenta_fecha_apertura
 	FROM inserted 
 	ORDER BY cuenta_fecha_apertura DESC;
 	
-	SELECT @Costo = tipo_cuenta_costo_apertura, @CostoPorSuscripcion = tipo_cuenta_costo_apertura / tipo_cuenta_dias_vigencia
+	SELECT @Costo = tipo_cuenta_costo_apertura, @CostoPorSuscripcion = tipo_cuenta_costo_apertura / tipo_cuenta_dias_vigencia, @DiasVigencia = tipo_cuenta_dias_vigencia
 	FROM OOZMA_KAPPA.Cuenta, OOZMA_KAPPA.Tipo_Cuenta
 	WHERE tipo_cuenta_id =  cuenta_tipo_cuenta_id AND cuenta_id = @Cuenta; 
 	
+	WHILE @Contador <= @DiasVigencia
+		BEGIN 
+			INSERT INTO OOZMA_KAPPA.Transacciones_Pendientes (transaccion_pendiente_importe, transaccion_pendiente_descr, transaccion_pendiente_cliente_id, transaccion_pendiente_fecha, transaccion_pendiente_cuenta_id)
+			VALUES(@CostoPorSuscripcion, 'Suscripciones por Apertura Cuenta', @Cliente, @Fecha, @Cuenta)
+			SET @Contador = @Contador + 1;
+		END
+		
 	INSERT INTO OOZMA_KAPPA.Transacciones_Pendientes (transaccion_pendiente_importe, transaccion_pendiente_descr, transaccion_pendiente_cliente_id, transaccion_pendiente_fecha, transaccion_pendiente_cuenta_id)
-	VALUES (@CostoPorSuscripcion, 'Suscripciones por Apertura Cuenta', @Cliente, @Fecha, @Cuenta);
+		VALUES (@Costo, 'Modificaciones Tipo Cuenta', @Cliente, @Fecha, @Cuenta);
 	
 	COMMIT;
 	GO
@@ -208,4 +232,4 @@
 
 	GO
 	
-
+	

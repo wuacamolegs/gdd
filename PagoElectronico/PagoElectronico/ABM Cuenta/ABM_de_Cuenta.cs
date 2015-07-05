@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Configuration;
 using Clases;
 using Utilities;
+using Conexion;
 
 namespace PagoElectronico.ABM_Cuenta
 {
@@ -29,39 +30,57 @@ namespace PagoElectronico.ABM_Cuenta
         {
             InitializeComponent();
             unUsuario = user;
-            unCliente.Usuario = unUsuario;
-            unaCuenta.Cliente = unCliente;
-            //cargar combos moneda pais y tipo cuenta
-
-            //Cargar Combo Moneda
-            DataSet dsMoneda = unaMoneda.TraerTodasLasMonedas();
-            DropDownListManager.CargarCombo(cmbMoneda, dsMoneda.Tables[0], "moneda_id", "moneda_nombre", false, "");
-
-            //CargarCombo Paises
-            DataSet dsPaises = unUsuario.TraerListado("PaisesCompleto");
-            DropDownListManager.CargarCombo(cmbPais, dsPaises.Tables[0], "pais_id", "pais_descripcion", false, "");
         }
 
-        private void ABM_de_Cuenta_Load(object sender, EventArgs e)
+        internal void AbrirParaCrear() //TODO tengo que entrar con el user
         {
-            unUsuario = unaCuenta.Usuario;
-            unCliente = unaCuenta.Cliente;
+            btnModificar.Visible = false;
+            btnCrear.Visible = true;
+            txtCliente.Visible = false;
+
             DataSet dsClientes = ObtenerClientes();
             DropDownListManager.CargarCombo(cmbCliente, dsClientes.Tables[0], "cliente_id", "cliente_nombre", false, "");
+            cargarDatos();
         }
 
         internal void AbrirParaModificar(Cuenta cuenta)
         {
-            unaCuenta = cuenta;
-            unCliente.cliente_id = unaCuenta.Cliente.cliente_id;
+            cmbCliente.Visible = false;
             btnCrear.Visible = false;
             btnModificar.Visible = true;
+            txtCliente.Visible = true;
+
+            //MOSTRAR CLIENTE CUENTA A MODIFICAR
+            unaCuenta = cuenta;
+            unCliente.cliente_id = unaCuenta.Cliente.cliente_id;
+            txtCliente.Text = unaCuenta.Cliente.Nombre;
+
+            //MOSTRAR CUENTA A MODIFICAR
+            DataSet ds = unaCuenta.TraerCuentaPorCuentaID(unaCuenta.cuenta_id);
+            DropDownListManager.CargarCombo(cmbCuenta,ds.Tables[0], "cuenta_id", "cuenta_id", false, "");
+
+            cargarDatos();
+
+            //que los combos muestren los datos de la cuenta
+            cmbTipoCuenta.SelectedIndex = Convert.ToInt32(unaCuenta.tipoCuenta) - 1;
+            cmbPais.SelectedIndex = Convert.ToInt32(unaCuenta.Pais) - 1;
+            cmbMoneda.SelectedIndex = Convert.ToInt32(unaCuenta.Moneda) - 1;
+
         }
 
-        internal void AbrirParaCrear()
+        private void cargarDatos()
         {
-            btnModificar.Visible = false;
-            btnCrear.Visible = true;
+            //Cargar Combo Moneda
+            DataSet dsMoneda = unaMoneda.TraerTodasLasMonedas();
+            DropDownListManager.CargarCombo(cmbMoneda, dsMoneda.Tables[0], "id_Moneda", "Moneda", false, "");
+
+            //Cargar Combo Paises
+            DataSet dsPaises = SQLHelper.ExecuteDataSet("traerListadoPaisesCompleto");
+            DropDownListManager.CargarCombo(cmbPais, dsPaises.Tables[0], "pais_id", "pais_nombre", false, "");
+
+            //Cargar Compo tipo Cuenta
+            DataSet dsTipoCuenta = SQLHelper.ExecuteDataSet("traerListadoTipoCuentaCompleto");
+            DropDownListManager.CargarCombo(cmbTipoCuenta, dsTipoCuenta.Tables[0], "tipo_cuenta_id", "tipo_cuenta_nombre", false, "");
         }
 
         #endregion
@@ -112,6 +131,29 @@ namespace PagoElectronico.ABM_Cuenta
         }
 
         #endregion  
+
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            unaCuenta.Cliente.cliente_id = unCliente.cliente_id;
+            unaCuenta.cuenta_id = Convert.ToInt64(cmbCuenta.SelectedValue);
+            bindToUnaCuenta();
+            unaCuenta.UpdateCuenta();
+
+        }
+
+        private void bindToUnaCuenta()
+        {
+            unaCuenta.Moneda = Convert.ToInt64(cmbMoneda.SelectedValue);
+            unaCuenta.Pais = Convert.ToInt64(cmbPais.SelectedValue);
+            unaCuenta.tipoCuenta = Convert.ToInt64(cmbTipoCuenta.SelectedValue);
+        }
+
+        private void btnCrear_Click(object sender, EventArgs e)
+        {
+            unaCuenta.Cliente.cliente_id = Convert.ToInt64(cmbCliente.SelectedValue);
+            bindToUnaCuenta();
+            unaCuenta.InsertCuenta();
+        }
 
     }
 }

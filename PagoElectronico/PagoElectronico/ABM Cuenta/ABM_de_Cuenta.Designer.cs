@@ -41,6 +41,7 @@
             this.cmbCliente = new System.Windows.Forms.ComboBox();
             this.btnCrear = new System.Windows.Forms.Button();
             this.btnModificar = new System.Windows.Forms.Button();
+            this.txtCliente = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -165,6 +166,7 @@
             this.btnCrear.TabIndex = 8;
             this.btnCrear.Text = "Crear";
             this.btnCrear.UseVisualStyleBackColor = true;
+            this.btnCrear.Click += new System.EventHandler(this.btnCrear_Click);
             // 
             // btnModificar
             // 
@@ -175,6 +177,15 @@
             this.btnModificar.TabIndex = 9;
             this.btnModificar.Text = "Modificar";
             this.btnModificar.UseVisualStyleBackColor = true;
+            this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
+            // 
+            // txtCliente
+            // 
+            this.txtCliente.Location = new System.Drawing.Point(189, 46);
+            this.txtCliente.Name = "txtCliente";
+            this.txtCliente.ReadOnly = true;
+            this.txtCliente.Size = new System.Drawing.Size(266, 20);
+            this.txtCliente.TabIndex = 10;
             // 
             // ABM_de_Cuenta
             // 
@@ -182,14 +193,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(521, 369);
-            this.Controls.Add(this.btnModificar);
+            this.Controls.Add(this.txtCliente);
             this.Controls.Add(this.btnCrear);
             this.Controls.Add(this.cmbCliente);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.btnModificar);
             this.Name = "ABM_de_Cuenta";
             this.Text = "PAGO ELECTRONICO - CUENTAS";
-            this.Load += new System.EventHandler(this.ABM_de_Cuenta_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -212,5 +223,6 @@
         private System.Windows.Forms.ComboBox cmbCuenta;
         private System.Windows.Forms.Button btnCrear;
         private System.Windows.Forms.Button btnModificar;
+        private System.Windows.Forms.TextBox txtCliente;
     }
 }

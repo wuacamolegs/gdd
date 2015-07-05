@@ -159,7 +159,7 @@ namespace Clases
    
             if (ds.Tables[0].Rows.Count == 1)
             {
-                DataRowToObject(ds.Tables[0].Rows[0]);
+                this.DataRowToObject(ds.Tables[0].Rows[0]);
                 encontroUsuario = true;
             }
             return encontroUsuario;

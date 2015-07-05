@@ -66,3 +66,4 @@ E:\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.Depositos.Dep
 E:\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.Facturacion.Facturas.resources
 A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.ABM_Cuenta.ListadoCuenta.resources
 A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.ABM_Cuenta.ABM_de_Cuenta.resources
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.ABM_Cliente.frmCliente.resources

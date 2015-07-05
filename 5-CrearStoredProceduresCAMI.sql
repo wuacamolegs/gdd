@@ -54,6 +54,14 @@ DROP PROCEDURE [OOZMA_KAPPA].[TraerListadoCuentaPorUsuarioID]
 GO
 DROP PROCEDURE OOZMA_KAPPA.traerListadoCuentaConFiltros 
 GO
+DROP PROCEDURE OOZMA_KAPPA.TraerListadoTipoDocumento
+GO
+DROP PROCEDURE OOZMA_KAPPA.traerListadoPaisesCompleto
+GO
+DROP PROCEDURE OOZMA_KAPPA.traerListadoTipoCuentaCompleto
+GO
+
+
 
 
 ----- Crear Stored Procedures -----
@@ -91,8 +99,7 @@ CREATE PROCEDURE [OOZMA_KAPPA].[deshabilitarUsuario]
 	@usuario_id int
 AS
 BEGIN
-	UPDATE [OOZMA_KAPPA].Usuario SET usuario_estado = 0 WHERE usuario_id = @usuario_id;
-	
+	UPDATE [OOZMA_KAPPA].Usuario SET usuario_estado = 0 WHERE usuario_id = @usuario_id;	
 END
 GO
 
@@ -147,7 +154,7 @@ CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoCuentaActivasPorClienteID]
 	@Fecha datetime
 AS
 BEGIN
-	SELECT cuenta_id as cuenta_numero, cuenta_estado, cuenta_saldo, cuenta_fecha_apertura as fecha_apertura, cuenta_fecha_cierre as fecha_cierre FROM OOZMA_KAPPA.Cuenta WHERE cuenta_cliente_id = @cliente_id AND cuenta_estado = 1 AND DATEDIFF(YEAR, cuenta_fecha_cierre, @Fecha) >= 0 AND DATEDIFF(MONTH, cuenta_fecha_cierre, @Fecha) >= 0;
+	SELECT cuenta_id as cuenta_numero, cuenta_estado, cuenta_saldo, cuenta_fecha_apertura as fecha_apertura, cuenta_fecha_cierre as fecha_cierre FROM OOZMA_KAPPA.Cuenta WHERE cuenta_cliente_id = @cliente_id AND cuenta_estado = 1 AND DATEDIFF(YEAR, cuenta_fecha_cierre, @Fecha) >= 0 AND DATEDIFF(MONTH, cuenta_fecha_cierre, @Fecha) >= 0 AND cuenta_cerrada = 0 AND cuenta_pendiente_activacion = 0;
 END
 GO
 
@@ -155,7 +162,7 @@ CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoCuentaPorClienteID]
 	@cliente_id numeric(18,0)
 AS
 BEGIN
-	SELECT cuenta_id as cuenta_numero, cuenta_estado, cuenta_saldo, cuenta_fecha_apertura as fecha_apertura, cuenta_fecha_cierre as fecha_cierre FROM OOZMA_KAPPA.Cuenta WHERE cuenta_cliente_id = @cliente_id;
+	SELECT cuenta_id as cuenta_numero, cuenta_estado, cuenta_saldo, cuenta_fecha_apertura as fecha_apertura, cuenta_fecha_cierre as fecha_cierre FROM OOZMA_KAPPA.Cuenta WHERE cuenta_cliente_id = @cliente_id AND cuenta_cerrada = 0 AND cuenta_pendiente_activacion = 0;
 END
 GO
 
@@ -163,7 +170,7 @@ CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoCuentaporCuentaID]
 	@cuenta_id numeric(18,0)
 AS
 BEGIN
-	SELECT * FROM [OOZMA_KAPPA].Cuenta WHERE cuenta_id = @cuenta_id;
+	SELECT cuenta_id, cuenta_cliente_id, cuenta_estado, cuenta_fecha_apertura, cuenta_fecha_cierre, cuenta_moneda_id, cuenta_pais_id, cuenta_saldo, cuenta_tipo_cuenta_id FROM [OOZMA_KAPPA].Cuenta WHERE cuenta_id = @cuenta_id;
 END
 GO
 
@@ -351,7 +358,7 @@ GO
 CREATE PROCEDURE [OOZMA_KAPPA].[TraerListadoCuentaCompleto]
 AS
 BEGIN
-		SELECT cuenta_id, cliente_id, (cliente_nombre + ' ' + cliente_apellido) as cliente_nombre, cuenta_estado, cuenta_fecha_apertura, cuenta_fecha_cierre, cuenta_moneda_id, cuenta_pais_id, cuenta_saldo, cuenta_tipo_cuenta_id FROM OOZMA_KAPPA.Cuenta, OOZMA_KAPPA.Cliente WHERE cliente_id = cuenta_cliente_id and cliente_estado = 1;
+	SELECT cuenta_id, cliente_id, (cliente_nombre + ' ' + cliente_apellido) as cliente_nombre, cuenta_estado, cuenta_fecha_apertura, cuenta_fecha_cierre, cuenta_moneda_id, cuenta_pais_id, cuenta_saldo, cuenta_tipo_cuenta_id FROM OOZMA_KAPPA.Cuenta, OOZMA_KAPPA.Cliente WHERE cliente_id = cuenta_cliente_id and cliente_estado = 1 AND cuenta_estado = 1 AND cuenta_cerrada = 0 AND cuenta_pendiente_activacion = 0;
 END
 GO
 
@@ -359,7 +366,7 @@ CREATE PROCEDURE [OOZMA_KAPPA].[TraerListadoCuentaPorUsuarioID]
 	@usuario_id numeric(18,0)
 AS
 BEGIN
-	SELECT cuenta_id, cliente_id, (cliente_nombre + ' ' + cliente_apellido) as cliente_nombre, cuenta_estado, cuenta_fecha_apertura, cuenta_fecha_cierre, cuenta_moneda_id, cuenta_pais_id, cuenta_saldo, cuenta_tipo_cuenta_id FROM OOZMA_KAPPA.Cuenta, OOZMA_KAPPA.Cliente WHERE cliente_id = cuenta_cliente_id AND cliente_usuario_id = @usuario_id; 
+	SELECT cuenta_id, cliente_id, (cliente_nombre + ' ' + cliente_apellido) as cliente_nombre, cuenta_estado, cuenta_fecha_apertura, cuenta_fecha_cierre, cuenta_moneda_id, cuenta_pais_id, cuenta_saldo, cuenta_tipo_cuenta_id FROM OOZMA_KAPPA.Cuenta, OOZMA_KAPPA.Cliente WHERE cliente_id = cuenta_cliente_id AND cliente_usuario_id = @usuario_id  AND cuenta_estado = 1 AND cuenta_cerrada = 0 AND cuenta_pendiente_activacion = 0;
 END
 GO
 
@@ -377,21 +384,44 @@ BEGIN
     AND		cliente_apellido LIKE (CASE WHEN @Apellido <> '' THEN '%' + @Apellido + '%' ELSE cliente_apellido END) 
     AND		(@Tipo_Dni is null OR @Tipo_Dni = -1 OR CONVERT(VARCHAR(10), cliente_tipo_documento_id) LIKE '%' + CONVERT(VARCHAR(10), @Tipo_Dni) + '%')     
     AND		(@Dni is null OR @Dni = 0 OR CONVERT(VARCHAR(10), cliente_numero_documento) LIKE '%' + CONVERT(VARCHAR(10), @Dni) + '%')
-    AND		cliente_estado = 1;
+    AND		cliente_estado = 1
+    AND		cuenta_cerrada = 0 
+    AND		cuenta_pendiente_activacion = 0;
 END
 GO
 
-CREATE PROCEDURE OOZMA_KAPPA.traerListadoClienteTodosLosTiposDNI
+CREATE PROCEDURE OOZMA_KAPPA.TraerListadoTipoDocumento
 AS
 BEGIN
 	SELECT tipo_documento_id as td_id, tipo_documento_descripcion as td_descripcion FROM OOZMA_KAPPA.Tipo_documento;
 END
 GO
 
-
-CREATE PROCEDURE OOZMA_KAPPA.traerListadoUsuarioPaisesCompleto
+CREATE PROCEDURE OOZMA_KAPPA.traerListadoPaisesCompleto
 AS
 BEGIN
 	SELECT pais_id, pais_nombre FROM OOZMA_KAPPA.Pais
+END
+GO
+
+CREATE PROCEDURE OOZMA_KAPPA.traerListadoTipoCuentaCompleto
+AS
+BEGIN
+	SELECT tipo_cuenta_id, tipo_cuenta_nombre FROM OOZMA_KAPPA.Tipo_cuenta;
+END
+GO
+
+CREATE PROCEDURE OOZMA_KAPPA.UpdateCuenta
+	@Cuenta_id numeric(18,0),
+	@Cliente_id numeric(18,0),
+	@Pais numeric(18,0),
+	@Moneda numeric(18,0),
+	@Tipo_Cuenta numeric(18,0)
+AS
+BEGIN
+	UPDATE [OOZMA_KAPPA].Cuenta SET cuenta_pais_id = @Pais,
+									cuenta_moneda_id = @Moneda,
+									cuenta_tipo_cuenta_id = @Tipo_Cuenta
+	WHERE cuenta_id = @Cuenta_id;
 END
 GO

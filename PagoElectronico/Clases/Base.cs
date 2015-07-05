@@ -46,8 +46,9 @@ namespace Clases
         {
             Int64 result = SQLHelper.ExecuteNonQuery(_strModificar + NombreEntidad(), CommandType.StoredProcedure, parameterList);
             if (result > 0)
+            {
                 return true;
-
+            }
             return false;
         }
 

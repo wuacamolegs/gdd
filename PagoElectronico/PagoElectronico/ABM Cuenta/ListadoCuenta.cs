@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Configuration;
 using Clases;
 using Utilities;
+using Conexion;
 
 
 namespace PagoElectronico.ABM_Cuenta
@@ -32,7 +33,7 @@ namespace PagoElectronico.ABM_Cuenta
         public void abrirConUsuario(Usuario user)
         {
             unUsuario = user;
-            unCliente.Usuario = user;
+            unCliente.Usuario = unUsuario;
             unaCuenta.Cliente = unCliente;
             this.Show();
         }
@@ -46,8 +47,8 @@ namespace PagoElectronico.ABM_Cuenta
 
 
             //CARGO CMB TIPO DNI
-            DataSet ds = unCliente.TraerListado("TodosLosTiposDNI");
-            DropDownListManager.CargarCombo(cmbTipoDNI, ds.Tables[0], "td_id", "td_descripcion", false, "");
+            DataSet dsTipoDNI = SQLHelper.ExecuteDataSet("TraerListadoTipoDocumento");
+            DropDownListManager.CargarCombo(cmbTipoDNI, dsTipoDNI.Tables[0], "td_id", "td_descripcion", false, "");
             cmbTipoDNI.SelectedIndex = -1;
         }
 
@@ -218,11 +219,14 @@ namespace PagoElectronico.ABM_Cuenta
         private void btnModificar_Click(object sender, EventArgs e)
         {
             ABM_de_Cuenta abmCuenta = new ABM_de_Cuenta(unUsuario);
-            //TODO CARGAR DATOS CUENTA
             unaCuenta.cuenta_id = Convert.ToInt64(((DataRowView)gridCuentas.CurrentRow.DataBoundItem)["cuenta_id"]);
             unaCuenta.Cliente.cliente_id = Convert.ToInt64(((DataRowView)gridCuentas.CurrentRow.DataBoundItem)["cliente_id"]);
+            unaCuenta.Cliente.Nombre = Convert.ToString(((DataRowView)gridCuentas.CurrentRow.DataBoundItem)["cliente_nombre"]);
             unaCuenta.tipoCuenta = Convert.ToInt64(((DataRowView)gridCuentas.CurrentRow.DataBoundItem)["cuenta_tipo_cuenta_id"]);
             unaCuenta.Pais = Convert.ToInt64(((DataRowView)gridCuentas.CurrentRow.DataBoundItem)["cuenta_pais_id"]);
+            unaCuenta.Moneda = Convert.ToInt64(((DataRowView)gridCuentas.CurrentRow.DataBoundItem)["cuenta_moneda_id"]);
+
+            MessageBox.Show("Cuenta a Modificar: \n Cuenta: " + unaCuenta.cuenta_id + "\n Cliente: " + unaCuenta.Cliente.Nombre, "Cuenta a Modificar");
 
             abmCuenta.AbrirParaModificar(unaCuenta);
             this.Hide();

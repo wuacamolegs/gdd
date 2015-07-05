@@ -175,7 +175,7 @@
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(130, 38);
             this.btnEliminar.TabIndex = 13;
-            this.btnEliminar.Text = "Eliminar";
+            this.btnEliminar.Text = "Cerrar Cuenta";
             this.btnEliminar.UseVisualStyleBackColor = true;
             this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
