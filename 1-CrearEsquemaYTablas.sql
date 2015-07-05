@@ -191,7 +191,7 @@ CREATE TABLE [OOZMA_KAPPA].[Rol](
 INSERT INTO[OOZMA_KAPPA].[Rol] (rol_nombre, rol_estado) VALUES ('Administrador',1);
 INSERT INTO[OOZMA_KAPPA].[Rol] (rol_nombre, rol_estado) VALUES ('Cliente',1);
 
----- TABLA TARJETA ----
+---- TABLA EMISOR ----
 
 CREATE TABLE [OOZMA_KAPPA].[Emisor](
 	[emisor_id] numeric (18,0) IDENTITY (1,1),
@@ -208,6 +208,7 @@ CREATE TABLE [OOZMA_KAPPA].[Tarjeta](
 	[tarjeta_vencimiento] [datetime] NOT NULL,
 	[tarjeta_emisor] varchar(255) NOT NULL,
 	[tarjeta_cliente_id] numeric (18,0) NOT NULL,
+	[tarjeta_estado] bit NOT NULL DEFAULT (1) --0 con baja logica (vencida, desasociada), 1 activa
 )
 
 --- TABLA TIPO_CUENTA ---
