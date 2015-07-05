@@ -38,11 +38,11 @@ namespace PagoElectronico.ABM_Cliente
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             ObtenerClientes();
-            unCliente.Nombre = Convert.ToString(labelNombre);
-            unCliente.Apellido = Convert.ToString(labelApellido);
-            unCliente.TipoDocumento = Convert.ToString(cmbTipoDoc);
-            unCliente.Documento = Convert.ToInt64(labelDNI);
-            unCliente.Mail = Convert.ToString(labelMail);
+            unCliente.Nombre = Convert.ToString(txtNombre);
+            unCliente.Apellido = Convert.ToString(txtApellido);
+            unCliente.TipoDocumento = Convert.ToString(cmbTipoDoc.SelectedValue);
+            unCliente.Documento = Convert.ToInt64(txtDNI);
+            unCliente.Mail = Convert.ToString(txtMail);
             cargarGrilla();
 
         }

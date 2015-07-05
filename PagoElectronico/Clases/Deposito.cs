@@ -28,6 +28,7 @@ namespace Clases
         private Int64 _importe;
         private Cliente _cliente;
         private Tarjeta _tarjeta;
+        private Int64 _moneda;
         
 
        // MONEDA SE PONE? ES POR DEFAULT U$D Y EN CUENTA NO SE PUSO.
@@ -65,6 +66,11 @@ namespace Clases
             set { _cuenta = value; }
         }
 
+        public Int64 Moneda
+        {
+            get { return _moneda; }
+            set { _moneda = value; }
+        }
 
         public Int64 Importe
         {
@@ -126,8 +132,9 @@ namespace Clases
         {
             this.parameterList.Clear();
             parameterList.Add(new SqlParameter("@deposito_cuenta_id", this.Cuenta.cuenta_id));
-            parameterList.Add(new SqlParameter("@deposito_fecha", Convert.ToInt64(ConfigurationManager.AppSettings["Fecha"])));
+            parameterList.Add(new SqlParameter("@deposito_fecha", Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"])));
             parameterList.Add(new SqlParameter("@deposito_importe", this.Importe));
+            parameterList.Add(new SqlParameter("@deposito_moneda", this.Moneda));
             parameterList.Add(new SqlParameter("deposito_tarjeta_id", this.Tarjeta.tarjeta_id));
             parameterList.Add(new SqlParameter("deposito_cliente_id", this.Cliente.cliente_id));
         }

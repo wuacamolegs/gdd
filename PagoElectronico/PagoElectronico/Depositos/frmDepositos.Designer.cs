@@ -44,6 +44,7 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblCliente
@@ -88,7 +89,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.label4.Location = new System.Drawing.Point(35, 143);
+            this.label4.Location = new System.Drawing.Point(22, 19);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(70, 16);
             this.label4.TabIndex = 6;
@@ -97,7 +98,7 @@
             // cmbCuenta
             // 
             this.cmbCuenta.FormattingEnabled = true;
-            this.cmbCuenta.Location = new System.Drawing.Point(146, 90);
+            this.cmbCuenta.Location = new System.Drawing.Point(146, 141);
             this.cmbCuenta.Name = "cmbCuenta";
             this.cmbCuenta.Size = new System.Drawing.Size(254, 21);
             this.cmbCuenta.TabIndex = 7;
@@ -111,6 +112,7 @@
             this.btnAceptar.TabIndex = 8;
             this.btnAceptar.Text = "ACEPTAR";
             this.btnAceptar.UseVisualStyleBackColor = true;
+            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
             // cmbCliente
             // 
@@ -125,7 +127,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.label5.Location = new System.Drawing.Point(35, 95);
+            this.label5.Location = new System.Drawing.Point(35, 146);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(64, 16);
             this.label5.TabIndex = 9;
@@ -134,7 +136,7 @@
             // cmbTarjeta
             // 
             this.cmbTarjeta.FormattingEnabled = true;
-            this.cmbTarjeta.Location = new System.Drawing.Point(146, 139);
+            this.cmbTarjeta.Location = new System.Drawing.Point(133, 15);
             this.cmbTarjeta.Name = "cmbTarjeta";
             this.cmbTarjeta.Size = new System.Drawing.Size(255, 21);
             this.cmbTarjeta.TabIndex = 10;
@@ -156,7 +158,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Location = new System.Drawing.Point(12, 75);
+            this.groupBox2.Location = new System.Drawing.Point(12, 126);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(419, 45);
             this.groupBox2.TabIndex = 13;
@@ -164,7 +166,9 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Location = new System.Drawing.Point(12, 126);
+            this.groupBox3.Controls.Add(this.cmbTarjeta);
+            this.groupBox3.Controls.Add(this.label4);
+            this.groupBox3.Location = new System.Drawing.Point(12, 75);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(419, 45);
             this.groupBox3.TabIndex = 14;
@@ -192,11 +196,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(473, 385);
             this.Controls.Add(this.txtImporte);
-            this.Controls.Add(this.cmbTarjeta);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.cmbCuenta);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.cmbMoneda);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -209,6 +211,9 @@
             this.Controls.Add(this.groupBox5);
             this.Name = "frmDepositos";
             this.Text = "Depositos";
+            this.Load += new System.EventHandler(this.frmDepositos_Load);
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

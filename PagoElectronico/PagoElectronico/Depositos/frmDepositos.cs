@@ -18,7 +18,7 @@ namespace PagoElectronico.Depositos
         #region Atributos
 
         public Usuario unUsuario = new Usuario();
-        public Cliente unCliente;
+        public Cliente unCliente = new Cliente();
         public Deposito depositoActual = new Deposito();
         public Tarjeta unaTarjeta = new Tarjeta();
         public Cuenta unaCuenta = new Cuenta();
@@ -39,14 +39,23 @@ namespace PagoElectronico.Depositos
             this.Show();
         }
 
-        private void Depositos_Load(object sender, EventArgs e)
-        { 
+        private void frmDepositos_Load(object sender, EventArgs e)
+        {
+            unCliente.Usuario = unUsuario;
+            depositoActual.Cliente = unCliente;
+            depositoActual.Cuenta = unaCuenta;
+            unaTarjeta.Cliente = unCliente;
+            unaCuenta.Cliente = unCliente;
+            depositoActual.Tarjeta = unaTarjeta;
+
             DataSet dsClientes = ObtenerClientes();
             DropDownListManager.CargarCombo(cmbCliente, dsClientes.Tables[0], "cliente_id", "cliente_nombre", false, "");
+
             DataSet dsMoneda = unaMoneda.TraerTodasLasMonedas();
-            DropDownListManager.CargarCombo(cmbMoneda, dsMoneda.Tables[0], "moneda_id", "moneda_nombre", false, "");
+            DropDownListManager.CargarCombo(cmbMoneda, dsMoneda.Tables[0], "id_Moneda", "Moneda", false, "");
 
         }
+
 
         #endregion
 
@@ -54,15 +63,34 @@ namespace PagoElectronico.Depositos
         private void ComboCliente_SelectedIndexChanged(object sender, EventArgs e)
         { 
             //cargar CMB cuenta
-
             unaCuenta.Cliente.cliente_id = Convert.ToInt64 (cmbCliente.SelectedValue) ;
             DataSet dsCuenta = unaCuenta.TraerCuentasActivasPorClienteID();
-            DropDownListManager.CargarCombo(cmbCuenta, dsCuenta.Tables[0], "cuenta_id", "cuenta_id", false, "");
+            if (dsCuenta.Tables[0].Rows.Count == 0)
+            {
+                MessageBox.Show("El Cliente no posee Cuentas Activas. Por favor ingrese otro Cliente", "No hay Cuentas Activas");
+                cmbMoneda.SelectedIndex = -1;
+            }
+            else
+            {
+                DropDownListManager.CargarCombo(cmbCuenta, dsCuenta.Tables[0], "cuenta_numero", "cuenta_numero", false, "");
 
-            //Cargar CMB Tarjeta
-            unaTarjeta.Cliente.cliente_id = Convert.ToInt64(cmbCliente.SelectedValue);
-            DataSet dsTarjetas = unaTarjeta.ObtenerTarjetasPorClienteiD();
-            DropDownListManager.CargarCombo(cmbTarjeta, dsTarjetas.Tables[0], "tarjeta_id", "tarjeta_id", false, "");
+                //Cargar CMB Tarjeta
+                unaTarjeta.Cliente.cliente_id = Convert.ToInt64(cmbCliente.SelectedValue);
+                DataSet dsTarjetas = unaTarjeta.ObtenerTarjetasPorClienteiD();
+                if (dsTarjetas.Tables[0].Rows.Count == 0)
+                {
+                    MessageBox.Show("El Cliente no posee Tarjetas Activas. Por favor ingrese otro Cliente", "No hay Tarjetas Activas");
+                    cmbCuenta.SelectedIndex = -1;
+                    cmbMoneda.SelectedIndex = -1;
+                }
+                else
+                {
+                    DropDownListManager.CargarCombo(cmbTarjeta, dsTarjetas.Tables[0], "tarjeta_numero", "tarjeta_numero", false, "");
+                }
+            }
+
+
+
 
         }
 
@@ -76,13 +104,14 @@ namespace PagoElectronico.Depositos
                 depositoActual.Cuenta.cuenta_id = Convert.ToInt64(cmbCuenta.SelectedValue);
                 depositoActual.Tarjeta.tarjeta_id = Convert.ToInt64(cmbTarjeta.SelectedValue);
                 depositoActual.Importe = Convert.ToInt64(txtImporte.Text);
+                depositoActual.Moneda = Convert.ToInt64(cmbMoneda.SelectedValue);
                 depositoActual.EfectuarDeposito();
-
-
+                MessageBox.Show("Se generó deposito de:" + depositoActual.Importe + "\n al Cliente: " + depositoActual.Cliente.cliente_id + "\n en la Cuenta: " + depositoActual.Cuenta.cuenta_id + "\n con Tarjeta: " + depositoActual.Tarjeta.tarjeta_id, "Deposito Exitoso");
+                this.Close();
             }
 
         }
-
+            
         #endregion
 
         #region Metodos Privados
@@ -109,26 +138,47 @@ namespace PagoElectronico.Depositos
         //Validar Importe no nulo, mayor a cero y tipo de dato correcto
         private bool ValidarCampos()
         {
-            string errores = "";
-            errores = Validator.ValidarNulo(txtImporte.Text, "Importe");
-            errores = errores + Validator.SoloNumerosODecimales(txtImporte.Text, "Importe");
-            errores = errores + Validator.MayorACero(txtImporte.Text, "Importe");
-            if (errores.Length > 0)
+            string strErrores = "";
+            strErrores = strErrores + Validator.ValidarNulo(txtImporte.Text, "Importe");
+
+            if (strErrores.Length > 0)
             {
-                MessageBox.Show(errores);
+                MessageBox.Show(strErrores);
                 txtImporte.Clear();
                 return false;
             }
             else
             {
-                return true;
-            }
+                strErrores = strErrores + Validator.SoloNumerosODecimales(txtImporte.Text, "Importe");
+                if (strErrores.Length > 0)
+                {
+                    MessageBox.Show(strErrores);
+                    txtImporte.Clear();
+                    return false;
 
+                }
+                else
+                {
+                    strErrores = strErrores + Validator.MayorACero(txtImporte.Text, "Importe");
+                    if (strErrores.Length > 0)
+                    {
+                        MessageBox.Show(strErrores);
+                        txtImporte.Clear();
+                        return false;
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                }
+            }
         }
 
 
 
         #endregion
+
+
 
     }
 }

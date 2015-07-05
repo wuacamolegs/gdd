@@ -106,12 +106,11 @@ namespace Clases
 
         #region setters
 
-        private void setearListaParametrosConClienteIDyCuentaID()
+        private void setearListaParametrosConClienteIDYFecha()
         {
             this.parameterList.Clear();
-            parameterList.Add(new SqlParameter("@tarjeta_id", this.tarjeta_id));
-            parameterList.Add(new SqlParameter("@cuenta_id", this.Cuenta.cuenta_id));
             parameterList.Add(new SqlParameter("@cliente_id", this.Cliente.cliente_id));
+            parameterList.Add(new SqlParameter("@Fecha", Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"])));
         
         }
 
@@ -125,7 +124,7 @@ namespace Clases
 
         public DataSet ObtenerTarjetasPorClienteiD()
         {
-            this.setearListaParametrosConClienteIDyCuentaID();
+            this.setearListaParametrosConClienteIDYFecha();
             DataSet ds = this.TraerListado(parameterList, "ActivasPorClienteID");
             return ds;
         }

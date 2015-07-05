@@ -6,7 +6,7 @@ DROP PROCEDURE [OOZMA_KAPPA].insertDeposito
 GO
 DROP PROCEDURE [OOZMA_KAPPA].traerListadoMonedaCompleto
 GO
-DROP PROCEDURE [OOZMA_KAPPA].traerListadoTarjetasActivas
+DROP PROCEDURE [OOZMA_KAPPA].traerListadoTarjetaActivasPorClienteID
 GO
 DROP PROCEDURE [OOZMA_KAPPA].[updateRol]
 GO
@@ -43,10 +43,11 @@ CREATE PROCEDURE [OOZMA_KAPPA].[insertDeposito]
 	@deposito_cliente_id numeric (18,0),
 	@deposito_importe numeric (18,0),
 	@deposito_tarjeta_id numeric (18,0),
-	@deposito_fecha datetime
+	@deposito_fecha datetime,
+	@deposito_moneda numeric(18,0)
 AS
-	INSERT INTO OOZMA_KAPPA.Deposito(deposito_cuenta_id, deposito_cliente_id, deposito_importe, deposito_tarjeta_id, deposito_fecha)
-	VALUES (@deposito_cuenta_id, @deposito_cliente_id, @deposito_importe, @deposito_tarjeta_id, @deposito_fecha);
+	INSERT INTO OOZMA_KAPPA.Deposito(deposito_cuenta_id, deposito_cliente_id, deposito_importe, deposito_tarjeta_id, deposito_fecha, deposito_moneda_id)
+	VALUES (@deposito_cuenta_id, @deposito_cliente_id, @deposito_importe, @deposito_tarjeta_id, @deposito_fecha, @deposito_moneda);
 	
 GO	
 
@@ -58,13 +59,13 @@ AS
 GO
 
 ---SP traerListadoTarjetasActivas----
-CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoTarjetasActivas]
+CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoTarjetaActivasPorClienteID]
 	@cliente_id numeric (18,0),
-	@deposito_fecha datetime
+	@Fecha datetime
 	
 AS
 	SELECT tarjeta_id AS tarjeta_numero, tarjeta_vencimiento FROM OOZMA_KAPPA.Tarjeta
-	WHERE tarjeta_cliente_id = @cliente_id AND CONVERT(varchar(10), tarjeta_vencimiento, 103) > CONVERT(varchar(10),@deposito_fecha, 103)
+	WHERE tarjeta_cliente_id = @cliente_id AND CONVERT(varchar(10), tarjeta_vencimiento, 103) > CONVERT(varchar(10),@Fecha, 103)
 	
 GO
 
@@ -157,5 +158,4 @@ CREATE PROCEDURE OOZMA_KAPPA.traerListadoRolesPorNombre
 AS
 	SELECT * FROM OOZMA_KAPPA.Rol where rol_nombre LIKE '%' + @rol_nombre + '%' and rol_eliminado = 1 
 GO
-
 
