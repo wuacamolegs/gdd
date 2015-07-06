@@ -41,7 +41,7 @@ Go
 
 -- LISTADO ESTADISTICO (1) : Clientes que alguna de sus cuentas fueron inhabilitadas por no pagar los costos de transacción --
 
-Create Procedure listado_estadistico_1 (@fechaDES date, @fechaHAS date)
+Create Procedure [OOZMA_KAPPA].listado_estadistico_1 (@fechaDES date, @fechaHAS date)
 As
 Begin
   Select distinct cliente_id as ClienteID, cliente_apellido+','+cliente_nombre as ApellidoNombre, cuenta_id as CuentaID
@@ -53,7 +53,7 @@ Go
 
 -- LISTADO ESTADISTICO (2) : Clientes con mayor cantidad de comisiones facturadas en todas sus cuentas
 
-Create Procedure mayor_cant_comisiones (@fechaDES date, @fechaHAS date)
+Create Procedure [OOZMA_KAPPA].mayor_cant_comisiones (@fechaDES date, @fechaHAS date)
 As
 Begin
 Select cliente_id, SUM(item_factura_costo)Comision
@@ -68,7 +68,7 @@ Go
 -- LISTADO ESTADISTICO (3) : Clientes con mayor cantidad de transacciones realizadas entre cuentas propias --
 	
 	
-Create Procedure cliente_con_mayor_cant_transacciones (@fechaDES date, @fechaHAS date)
+Create Procedure [OOZMA_KAPPA].cliente_con_mayor_cant_transacciones (@fechaDES date, @fechaHAS date)
 As
 Begin
 	Select cliente_id, SUM(Transacciones)CantidadTotalDeTransacciones
@@ -96,7 +96,7 @@ Go
 -- LISTADO ESTADISTICO (4) : Paises con mayor cantidad de movimientos tanto ingresos como egresos --
 
 
-Create Procedure paises_mayor_movimientos (@fechaDES date, @fechaHAS date)
+Create Procedure [OOZMA_KAPPA].paises_mayor_movimientos (@fechaDES date, @fechaHAS date)
 As
 Begin
 Select d.Pais, (Depositado+Retirado+TransferenciaEnviada+TransferenciaRecivida)Ingresos_mas_Egresos
@@ -124,7 +124,7 @@ Go
 -- LISTADO ESTADISTICO (5) : Total facturado para los distintos tipos de cuentas --
 
 
-Create Procedure total_facturado_tipo_de_cuentas (@fechaDES date, @fechaHAS date)
+Create Procedure [OOZMA_KAPPA].total_facturado_tipo_de_cuentas (@fechaDES date, @fechaHAS date)
 As
 Begin
    Select cuenta_tipo_cuenta_id, SUM(factura_importe)TotalFacturado
