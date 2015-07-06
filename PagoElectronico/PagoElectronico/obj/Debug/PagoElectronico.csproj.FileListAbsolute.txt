@@ -106,5 +106,3 @@ C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\PagoElectronico\PagoElectronico\obj\De
 C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.csproj.GenerateResource.Cache
 A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.ABM_Cuenta.ListadoCuenta.resources
 A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.ABM_Cuenta.ABM_de_Cuenta.resources
-A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.ABM_Cliente.abm_tarjetas.resources
-A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.ABM_Cliente.formTarjeta.resources

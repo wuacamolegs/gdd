@@ -16,7 +16,7 @@ GO
 
 CREATE TABLE [OOZMA_KAPPA].[Administrador](
 	[administrador_id] numeric(18, 0) IDENTITY (1,1),
-	[administrador_estado] bit  NOT NULL DEFAULT (1),  --- 0 DESHABILITADO, 1 HABILITADO
+	[administrador_estado] bit  NOT NULL DEFAULT (0),  --- 1 DESHABILITADO, 0 HABILITADO
 	[administrador_username] [varchar](255) NOT NULL,
 	[administrador_usuario_id] numeric(18, 0)NOT NULL,
 )
@@ -36,8 +36,8 @@ CREATE TABLE [OOZMA_KAPPA].[Cheque](
 	[cheque_fecha] [datetime] NOT NULL,
 	[cheque_importe] numeric(18, 2)NOT NULL,
 	[cheque_banco_id] numeric(18, 0)NOT NULL,
-	[cheque_destino_cliente_id] numeric(18, 0)NOT NULL,	--creo que el cliente nos va a falicitar la performance al momento de hacer un cheque. si no cada vez que se hace un cheque hay que recorrer la tabla de clientes tambien para buscar su id. de ultima dsp lo sacamos! 
-)												--y si lo dejamos va a ser mas facil hacer los cheques! 
+	[cheque_destino_cliente_id] numeric(18, 0)NOT NULL,	
+)												
 
 --- TABLA CLIENTE ---
 
@@ -55,7 +55,7 @@ CREATE TABLE [OOZMA_KAPPA].[Cliente](
 	[cliente_piso] numeric(18, 0)NOT NULL,
 	[cliente_depto] [varchar](10) NOT NULL,  --saco cliente cuenta id porq un cliente puede tener varias cuentas. sus varias cuentas se reflejan en la tabla cuentas.
 	[cliente_mail] [varchar](255),
-	[cliente_estado] bit NOT NULL DEFAULT (1), ---  0 DESHABILITADO, 1 HABILITADO
+	[cliente_estado] bit NOT NULL DEFAULT (0), ---  1 DESHABILITADO, 0 HABILITADO
 )
 
 --- TABLA CUENTA ---
@@ -69,9 +69,9 @@ CREATE TABLE [OOZMA_KAPPA].[Cuenta](
 	[cuenta_saldo] numeric(18, 0)NOT NULL DEFAULT(0),
 	[cuenta_fecha_apertura] [datetime] NOT NULL,
 	[cuenta_fecha_cierre] [datetime] NOT NULL,
-	[cuenta_estado] bit NOT NULL DEFAULT(1),  --0 es false deshabilitada , 1 true habilitada
-	[cuenta_cerrada] bit NOT NULL DEFAULT (0),  --- 0 false, 1 true
-	[cuenta_pendiente_activacion] bit NOT NULL DEFAULT(1), --- 0 false, 1 true
+	[cuenta_estado] bit NOT NULL DEFAULT(0),  --1 es false deshabilitada , 0 true habilitada
+	[cuenta_cerrada] bit NOT NULL DEFAULT (1),  --- 1 false, 0 true
+	[cuenta_pendiente_activacion] bit NOT NULL DEFAULT(1), --- 1 false, 0 true
 )
 
 --- TABLA DEPOSITO ---
@@ -190,8 +190,8 @@ CREATE TABLE [OOZMA_KAPPA].[Retiro](
 CREATE TABLE [OOZMA_KAPPA].[Rol](
 	[rol_id] numeric(18, 0) IDENTITY (1,1),
 	[rol_nombre] [nvarchar](255) NOT NULL,
-	[rol_estado] bit NOT NULL DEFAULT(1),   --DESHABILITADO 0, HABILITADO 1
-	[rol_eliminado] bit NOT NULL DEFAULT (1), --ELIMINADO 0 (BAJA LOGICA), NO ELIMINADO 1
+	[rol_estado] bit NOT NULL DEFAULT(0),   --DESHABILITADO 1, HABILITADO 0
+	[rol_eliminado] bit NOT NULL DEFAULT (0), --ELIMINADO 1 (BAJA LOGICA), NO ELIMINADO 0
 )
 
 INSERT INTO[OOZMA_KAPPA].[Rol] (rol_nombre, rol_estado) VALUES ('Administrador',1);
@@ -214,7 +214,7 @@ CREATE TABLE [OOZMA_KAPPA].[Tarjeta](
 	[tarjeta_vencimiento] [datetime] NOT NULL,
 	[tarjeta_emisor] varchar(255) NOT NULL,
 	[tarjeta_cliente_id] numeric (18,0) NOT NULL,
-	[tarjeta_estado] bit NOT NULL DEFAULT (1) --0 con baja logica (vencida, desasociada), 1 activa
+	[tarjeta_estado] bit NOT NULL DEFAULT (0) --1 con baja logica (vencida, desasociada), 0 activa
 )
 
 --- TABLA TIPO_CUENTA ---
@@ -284,8 +284,8 @@ CREATE TABLE [OOZMA_KAPPA].[Usuario](
 	[usuario_fecha_creacion] [datetime] NOT NULL,
 	[usuario_fecha_ultima_modificacion] [datetime] NOT NULL,
 	[usuario_pregunta_secreta] [nvarchar](64) NOT NULL,
-	[usuario_respuesta_secreta] [nvarchar](64) NOT NULL,   -- 0 deshabilitado, 1 habilitado
-	[usuario_estado] bit NOT NULL DEFAULT(1),  --puede estar habilitado como no habilitado, ya sea por el estado del rol, o por logins incorrectos
+	[usuario_respuesta_secreta] [nvarchar](64) NOT NULL,   -- 1 deshabilitado, 0 habilitado
+	[usuario_estado] bit NOT NULL DEFAULT(0),  
 )
 
 
@@ -562,7 +562,7 @@ COMMIT
 	,50000  --COMO NO ESTA EL MONTO DE CADA CUENTA CONSIDEREMOS ESTE VALOR PARA TODAS.
 	,Cuenta_Fecha_Creacion   --cuenta moneda y estado les puse default 1(dolar) y "Habilitada"
 	,(SELECT DATEADD(DAY,tipo_cuenta_dias_vigencia,Cuenta_Fecha_Creacion)FROM OOZMA_KAPPA.Tipo_cuenta WHERE tipo_cuenta_id = 4)    --segun el tipo cuenta la fecha de cierre
-	,0
+	,1
  FROM gd_esquema.Maestra
  WHERE Cuenta_Numero IS NOT NULL);
    
@@ -779,7 +779,7 @@ AS
 BEGIN 
     SELECT *
     FROM OOZMA_KAPPA.Usuario
-    WHERE usuario_username = @Username AND usuario_estado = 1;
+    WHERE usuario_username = @Username AND usuario_estado = 0;
 END
 GO
 
@@ -788,7 +788,7 @@ CREATE PROCEDURE [OOZMA_KAPPA].traerListadoRolesPorId_Usuario
 AS
 BEGIN
 	SELECT r.rol_id as rol_id, r.rol_nombre as rol_nombre , r.rol_estado as rol_estado FROM OOZMA_KAPPA.Usuario_rol ur, OOZMA_KAPPA.Rol r 
-	WHERE usuario_id = @usuario_id  AND ur.rol_id = r.rol_id and r.rol_eliminado = 1 ;
+	WHERE usuario_id = @usuario_id  AND ur.rol_id = r.rol_id and r.rol_eliminado = 0 ;
 END
 GO
 
@@ -806,7 +806,7 @@ CREATE PROCEDURE [OOZMA_KAPPA].[deshabilitarUsuario]
 	@usuario_id int
 AS
 BEGIN
-	UPDATE [OOZMA_KAPPA].Usuario SET usuario_estado = 0 WHERE usuario_id = @usuario_id;	
+	UPDATE [OOZMA_KAPPA].Usuario SET usuario_estado = 1 WHERE usuario_id = @usuario_id;	
 END
 GO
 
@@ -826,14 +826,14 @@ GO
 CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoRoles]
 AS
 BEGIN
-	SELECT rol_id as id_Rol, rol_nombre as Nombre FROM OOZMA_KAPPA.Rol WHERE rol_eliminado = 1;
+	SELECT rol_id as id_Rol, rol_nombre as Nombre, rol_estado FROM OOZMA_KAPPA.Rol WHERE rol_eliminado = 0;
 END
 GO
 
 CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoClienteCompleto]
 AS
 BEGIN
-	SELECT cliente_id as cliente_id,(cliente_apellido +' '+ cliente_nombre) as cliente_nombre, cliente_numero_documento as cliente_documento FROM OOZMA_KAPPA.Cliente where cliente_estado = 1;
+	SELECT cliente_id as cliente_id,(cliente_apellido +' '+ cliente_nombre) as cliente_nombre, cliente_numero_documento as cliente_documento FROM OOZMA_KAPPA.Cliente where cliente_estado = 0;
 END
 GO
 
@@ -842,7 +842,7 @@ CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoClientePorUsuarioID]
 AS
 BEGIN
 	SELECT cliente_id as cliente_id,(cliente_apellido +' '+ cliente_nombre) as cliente_nombre, cliente_numero_documento as cliente_documento FROM OOZMA_KAPPA.Cliente 
-	WHERE cliente_usuario_id = @usuario_id and cliente_estado = 1;
+	WHERE cliente_usuario_id = @usuario_id and cliente_estado = 0;
 END
 GO
 
@@ -851,7 +851,7 @@ CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoClientePorClienteID]
 AS
 BEGIN
 	SELECT cliente_id, cliente_nombre, cliente_apellido, cliente_numero_documento, cliente_fecha_nacimiento 
-	FROM OOZMA_KAPPA.Cliente WHERE cliente_id = @cliente_id and cliente_estado = 1;
+	FROM OOZMA_KAPPA.Cliente WHERE cliente_id = @cliente_id and cliente_estado = 0;
 END
 GO
 
@@ -861,7 +861,7 @@ CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoCuentaActivasPorClienteID]
 	@Fecha datetime
 AS
 BEGIN
-	SELECT cuenta_id as cuenta_numero, cuenta_estado, cuenta_saldo, cuenta_fecha_apertura as fecha_apertura, cuenta_fecha_cierre as fecha_cierre FROM OOZMA_KAPPA.Cuenta WHERE cuenta_cliente_id = @cliente_id AND cuenta_estado = 1 AND DATEDIFF(YEAR, cuenta_fecha_cierre, @Fecha) >= 0 AND DATEDIFF(MONTH, cuenta_fecha_cierre, @Fecha) >= 0 AND cuenta_cerrada = 0 AND cuenta_pendiente_activacion = 0;
+	SELECT cuenta_id as cuenta_numero, cuenta_estado, cuenta_saldo, cuenta_fecha_apertura as fecha_apertura, cuenta_fecha_cierre as fecha_cierre FROM OOZMA_KAPPA.Cuenta WHERE cuenta_cliente_id = @cliente_id AND cuenta_estado = 0 AND DATEDIFF(YEAR, cuenta_fecha_cierre, @Fecha) >= 0 AND DATEDIFF(MONTH, cuenta_fecha_cierre, @Fecha) >= 0 AND cuenta_cerrada = 1 AND cuenta_pendiente_activacion = 1;
 END
 GO
 
@@ -869,7 +869,7 @@ CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoCuentaPorClienteID]
 	@cliente_id numeric(18,0)
 AS
 BEGIN
-	SELECT cuenta_id as cuenta_numero, cuenta_estado, cuenta_saldo, cuenta_fecha_apertura as fecha_apertura, cuenta_fecha_cierre as fecha_cierre FROM OOZMA_KAPPA.Cuenta WHERE cuenta_cliente_id = @cliente_id AND cuenta_cerrada = 0 AND cuenta_pendiente_activacion = 0;
+	SELECT cuenta_id as cuenta_numero, cuenta_estado, cuenta_saldo, cuenta_fecha_apertura as fecha_apertura, cuenta_fecha_cierre as fecha_cierre FROM OOZMA_KAPPA.Cuenta WHERE cuenta_cliente_id = @cliente_id AND cuenta_cerrada = 1 AND cuenta_pendiente_activacion = 1;
 END
 GO
 
@@ -1064,7 +1064,7 @@ GO
 CREATE PROCEDURE [OOZMA_KAPPA].[TraerListadoCuentaCompleto]
 AS
 BEGIN
-	SELECT cuenta_id, cliente_id, (cliente_nombre + ' ' + cliente_apellido) as cliente_nombre, cuenta_estado, cuenta_fecha_apertura, cuenta_fecha_cierre, cuenta_moneda_id, cuenta_pais_id, cuenta_saldo, cuenta_tipo_cuenta_id FROM OOZMA_KAPPA.Cuenta, OOZMA_KAPPA.Cliente WHERE cliente_id = cuenta_cliente_id and cliente_estado = 1 AND cuenta_estado = 1 AND cuenta_cerrada = 0 AND cuenta_pendiente_activacion = 0;
+	SELECT cuenta_id, cliente_id, (cliente_nombre + ' ' + cliente_apellido) as cliente_nombre, cuenta_estado, cuenta_fecha_apertura, cuenta_fecha_cierre, cuenta_moneda_id, cuenta_pais_id, cuenta_saldo, cuenta_tipo_cuenta_id FROM OOZMA_KAPPA.Cuenta, OOZMA_KAPPA.Cliente WHERE cliente_id = cuenta_cliente_id AND cuenta_cerrada = 1 ;
 END
 GO
 
@@ -1072,7 +1072,7 @@ CREATE PROCEDURE [OOZMA_KAPPA].[TraerListadoCuentaPorUsuarioID]
 	@usuario_id numeric(18,0)
 AS
 BEGIN
-	SELECT cuenta_id, cliente_id, (cliente_nombre + ' ' + cliente_apellido) as cliente_nombre, cuenta_estado, cuenta_fecha_apertura, cuenta_fecha_cierre, cuenta_moneda_id, cuenta_pais_id, cuenta_saldo, cuenta_tipo_cuenta_id FROM OOZMA_KAPPA.Cuenta, OOZMA_KAPPA.Cliente WHERE cliente_id = cuenta_cliente_id AND cliente_usuario_id = @usuario_id  AND cuenta_estado = 1 AND cuenta_cerrada = 0 AND cuenta_pendiente_activacion = 0;
+	SELECT cuenta_id, cliente_id, (cliente_nombre + ' ' + cliente_apellido) as cliente_nombre, cuenta_estado, cuenta_fecha_apertura, cuenta_fecha_cierre, cuenta_moneda_id, cuenta_pais_id, cuenta_saldo, cuenta_tipo_cuenta_id FROM OOZMA_KAPPA.Cuenta, OOZMA_KAPPA.Cliente WHERE cliente_id = cuenta_cliente_id AND cliente_usuario_id = @usuario_id AND cuenta_cerrada = 1 ;
 END
 GO
 
@@ -1090,9 +1090,7 @@ BEGIN
     AND		cliente_apellido LIKE (CASE WHEN @Apellido <> '' THEN '%' + @Apellido + '%' ELSE cliente_apellido END) 
     AND		(@Tipo_Dni is null OR @Tipo_Dni = -1 OR CONVERT(VARCHAR(10), cliente_tipo_documento_id) LIKE '%' + CONVERT(VARCHAR(10), @Tipo_Dni) + '%')     
     AND		(@Dni is null OR @Dni = 0 OR CONVERT(VARCHAR(10), cliente_numero_documento) LIKE '%' + CONVERT(VARCHAR(10), @Dni) + '%')
-    AND		cliente_estado = 1
-    AND		cuenta_cerrada = 0 
-    AND		cuenta_pendiente_activacion = 0;
+    AND		cuenta_cerrada = 1;
 END
 GO
 
@@ -1146,8 +1144,8 @@ CREATE PROCEDURE OOZMA_KAPPA.InsertCuenta
 	@Fecha datetime
 AS
 BEGIN
-	INSERT INTO OOZMA_KAPPA.Cuenta (cuenta_cliente_id, cuenta_pais_id, cuenta_moneda_id, cuenta_tipo_cuenta_id, cuenta_fecha_cierre)(
-	SELECT @Cliente_id, @Pais, @Moneda, @Tipo_Cuenta, DATEADD(DAY,tipo_cuenta_dias_vigencia,@Fecha)
+	INSERT INTO OOZMA_KAPPA.Cuenta (cuenta_cliente_id, cuenta_pais_id, cuenta_moneda_id, cuenta_tipo_cuenta_id,cuenta_fecha_apertura, cuenta_fecha_cierre)(
+	SELECT @Cliente_id, @Pais, @Moneda, @Tipo_Cuenta,@Fecha, DATEADD(DAY,tipo_cuenta_dias_vigencia,@Fecha)
 	FROM OOZMA_KAPPA.Tipo_cuenta WHERE tipo_cuenta_id = @Tipo_Cuenta);
 END
 GO
@@ -1170,7 +1168,7 @@ CREATE PROCEDURE OOZMA_KAPPA.DeleteCuenta
 	@cuenta_id numeric(18,0)
 AS
 BEGIN
-	UPDATE OOZMA_KAPPA.Cuenta SET cuenta_cerrada = 1 WHERE cuenta_id = @cuenta_id;
+	UPDATE OOZMA_KAPPA.Cuenta SET cuenta_cerrada = 0 WHERE cuenta_id = @cuenta_id;
 END
 GO
 
@@ -1179,7 +1177,7 @@ GO
 
 CREATE PROCEDURE [OOZMA_KAPPA].traerListadoRolesCompleto
 AS 
-	SELECT rol_id , rol_nombre FROM OOZMA_KAPPA.Rol where rol_eliminado = 1;  ---rol_eliminado = 1 está activo (no eliminado)
+	SELECT rol_id , rol_nombre FROM OOZMA_KAPPA.Rol where rol_eliminado = 0;  ---rol_eliminado = 1 está activo (no eliminado)
 GO
 
 CREATE PROCEDURE OOZMA_KAPPA.updateRol
@@ -1194,14 +1192,14 @@ GO
 CREATE PROCEDURE OOZMA_KAPPA.deshabilitarRol
 	@rol_id int
 AS
-	UPDATE OOZMA_KAPPA.Rol SET rol_estado = 0   ---rol_estado = 0 es deshabilitado
+	UPDATE OOZMA_KAPPA.Rol SET rol_estado = 1   ---rol_estado = 1 es deshabilitado
 	WHERE rol_id = @rol_id
 GO
 
 CREATE PROCEDURE OOZMA_KAPPA.deleteRol
 	@rol_id int
 AS
-	UPDATE OOZMA_KAPPA.Rol SET rol_eliminado = 0  --rol_eliminado = 0 es baja lógica
+	UPDATE OOZMA_KAPPA.Rol SET rol_eliminado = 1  --rol_eliminado = 1 es baja lógica
 	WHERE rol_id = @rol_id
 GO
 
@@ -1235,7 +1233,7 @@ AS
 	SELECT * FROM OOZMA_KAPPA.Usuario_rol WHERE rol_id = @rol_id
 GO
 
-CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoRolesConFiltros]  --SOLO PARA TRAER ROLES SEGUN NOMBRE O ESTADO. NO TIENE EN CUENTA TRAER ROLES ELIMINADOS CUANDO BUSCA POR NOMBRE
+CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoRolesConFiltros] 
     @rol_nombre nvarchar(255),
 	@rol_estado bit
 AS 
@@ -1286,7 +1284,7 @@ CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoTarjetaActivasPorClienteID]
 AS
 	SELECT tarjeta_id AS tarjeta_numero,tarjeta_emisor,tarjeta_fecha_emision,tarjeta_vencimiento FROM OOZMA_KAPPA.Tarjeta
 	WHERE tarjeta_cliente_id = @cliente_id AND CONVERT(varchar(10), tarjeta_vencimiento, 103) > CONVERT(varchar(10),@Fecha, 103)
-	AND tarjeta_estado = 1
+	AND tarjeta_estado = 0
 GO
 
 CREATE PROCEDURE [OOZMA_KAPPA].[insertTarjeta] 
@@ -1299,7 +1297,7 @@ CREATE PROCEDURE [OOZMA_KAPPA].[insertTarjeta]
 	
 AS
 	INSERT INTO OOZMA_KAPPA.Tarjeta(tarjeta_id, tarjeta_codigo_seguridad, tarjeta_fecha_emision, tarjeta_vencimiento, tarjeta_emisor, tarjeta_cliente_id, tarjeta_estado)
-	VALUES (@tarjeta_id, @tarjeta_codigo_seguridad, @tarjeta_fecha_emision, @tarjeta_vencimiento, @tarjeta_emisor, @cliente_id, 1);
+	VALUES (@tarjeta_id, @tarjeta_codigo_seguridad, @tarjeta_fecha_emision, @tarjeta_vencimiento, @tarjeta_emisor, @cliente_id, 0);
 	
 GO	
 
@@ -1321,7 +1319,7 @@ CREATE PROCEDURE OOZMA_KAPPA.deleteTarjeta
 	@tarjeta_id numeric (18,0), -----SE TIENE QUE ENCRIPTAR EL TARJETA_ID 16 digitos, solo ultimos 4 visibles.
 	@tarjeta_estado bit
 AS
-	UPDATE OOZMA_KAPPA.Tarjeta SET @tarjeta_estado = 0
+	UPDATE OOZMA_KAPPA.Tarjeta SET @tarjeta_estado = 1
 	WHERE tarjeta_id = @tarjeta_id
 GO
 
@@ -1334,6 +1332,141 @@ AS
 GO
 
 
+-- TRAER CUENTA DESTINO DESDE UN CLIENTE DESTINO "TRANSFERENCIAS ENTRE CUENTAS"  --
+
+
+CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoCuentaPorCliente_NoCerradas]
+	@cliente_id numeric(18,0), @fecha date 
+AS
+Begin	
+	SELECT cuenta_id as cuenta_numero, cuenta_estado, cuenta_saldo, cuenta_fecha_apertura as fecha_apertura, cuenta_fecha_cierre as fecha_cierre 
+	   FROM OOZMA_KAPPA.Cuenta 
+	   WHERE cuenta_cliente_id = @cliente_id And CONVERT(varchar(10), cuenta_fecha_cierre, 103) > CONVERT(varchar(10), @fecha, 103)
+End	                                         	                                        
+GO
+
+	       
+
+
+-- INSERTAR LA NUEVA TRANSFRRENCIA --
+
+CREATE Procedure [OOZMA_KAPPA].insertTransferencia 
+(@cuenta_origen numeric(18,0), @cuenta_destino numeric(18,0), @cuenta_importe numeric(18,2), @cuenta_fecha dateTime)
+As
+Begin
+   Declare @costo numeric(18,2)
+   If (@cuenta_origen = @cuenta_destino)
+      Begin
+        Set @costo = 0;
+      End
+   Else 
+      Begin
+          Select @costo = tipo_cuenta_costo_transferencia 
+              From OOZMA_KAPPA.Cuenta, OOZMA_KAPPA.Tipo_cuenta 
+              Where cuenta_id = @cuenta_origen
+      End
+   Insert Into OOZMA_KAPPA.Transferencia(transferencia_origen_cuenta_id, transferencia_destino_cuenta_id, transferencia_importe, transferencia_costo ,transferencia_fecha)
+          Values(@cuenta_origen, @cuenta_destino, @cuenta_importe, @costo, @cuenta_fecha)
+End
+Go
+
+-- LISTADO ESTADISTICO (1) : Clientes que alguna de sus cuentas fueron inhabilitadas por no pagar los costos de transacción --
+
+Create Procedure [OOZMA_KAPPA].listado_estadistico_1 (@fechaDES date, @fechaHAS date)
+As
+Begin
+  Select distinct cliente_id as ClienteID, cliente_apellido+','+cliente_nombre as ApellidoNombre, cuenta_id as CuentaID
+	From OOZMA_KAPPA.Cliente Join OOZMA_KAPPA.Transacciones_Pendientes On (transaccion_pendiente_cliente_id = cliente_id)
+	                         Join OOZMA_KAPPA.Cuenta On (cuenta_id = transaccion_pendiente_cuenta_id)
+	Where cuenta_estado = 0 And CONVERT(varchar(10), transaccion_pendiente_fecha, 103) Between CONVERT(varchar(10), @fechaDES, 103) And CONVERT(varchar(10), @fechaHAS, 103)
+End
+Go
+
+-- LISTADO ESTADISTICO (2) : Clientes con mayor cantidad de comisiones facturadas en todas sus cuentas
+
+Create Procedure [OOZMA_KAPPA].mayor_cant_comisiones (@fechaDES date, @fechaHAS date)
+As
+Begin
+Select cliente_id, SUM(item_factura_costo)Comision
+	From OOZMA_KAPPA.Cliente Join OOZMA_KAPPA.Factura On (cliente_id = factura_cliente_id)
+	                         Join OOZMA_KAPPA.Item_factura On (factura_numero = item_factura_numero_factura)
+    Where CONVERT(varchar(10), factura_fecha, 103) Between CONVERT(varchar(10), @fechaDES, 103) And CONVERT(varchar(10), @fechaHAS, 103)
+    Group By cliente_id
+    Order By SUM(item_factura_costo) DESC
+End
+Go
+
+-- LISTADO ESTADISTICO (3) : Clientes con mayor cantidad de transacciones realizadas entre cuentas propias --
+	
+	
+Create Procedure [OOZMA_KAPPA].cliente_con_mayor_cant_transacciones (@fechaDES date, @fechaHAS date)
+As
+Begin
+	Select cliente_id, SUM(Transacciones)CantidadTotalDeTransacciones
+	   From (Select cliente_id, c.cuenta_id, (Retiros+Transferencias+Depositos) as Transacciones
+	            From OOZMA_KAPPA.Cliente Join OOZMA_KAPPA.Cuenta c On (cliente_id = cuenta_cliente_id)
+	                                     Join (Select cuenta_id, COUNT(retiro_id)Retiros 
+										          From OOZMA_KAPPA.Cuenta Join OOZMA_KAPPA.Retiro On (cuenta_id = retiro_cuenta_id) 
+										          Where CONVERT(varchar(10), retiro_fecha, 103) Between CONVERT(varchar(10), @fechaDES, 103) And CONVERT(varchar(10), @fechaHAS, 103)
+										          Group By cuenta_id)R On (c.cuenta_id = R.cuenta_id)
+							             Join (Select cuenta_id, COUNT(transferencia_id)Transferencias
+									            	From OOZMA_KAPPA.Cuenta Join OOZMA_KAPPA.Transferencia On (cuenta_id = transferencia_origen_cuenta_id)
+									            	Where CONVERT(varchar(10), transferencia_fecha, 103) Between CONVERT(varchar(10), @fechaDES, 103) And CONVERT(varchar(10), @fechaHAS, 103)
+									            	Group By cuenta_id)T On (c.cuenta_id = T.cuenta_id)
+							             Join (Select cuenta_id, COUNT(deposito_id)Depositos
+									            	From OOZMA_KAPPA.Cuenta Join OOZMA_KAPPA.Deposito On (cuenta_id = deposito_cuenta_id)
+									            	Where CONVERT(varchar(10), deposito_fecha, 103) Between CONVERT(varchar(10), @fechaDES, 103) And CONVERT(varchar(10), @fechaHAS, 103)
+									            	Group By cuenta_id)D On (c.cuenta_id = D.cuenta_id))Menjunje
+      
+	   Group By cliente_id
+	   Order By CantidadTotalDeTransacciones DESC
+	
+End
+Go
+
+-- LISTADO ESTADISTICO (4) : Paises con mayor cantidad de movimientos tanto ingresos como egresos --
+
+
+Create Procedure [OOZMA_KAPPA].paises_mayor_movimientos (@fechaDES date, @fechaHAS date)
+As
+Begin
+Select d.Pais, (Depositado+Retirado+TransferenciaEnviada+TransferenciaRecivida)Ingresos_mas_Egresos
+	From (Select cliente_pais_residente_id as Pais, SUM(deposito_importe)Depositado
+	         From OOZMA_KAPPA.Cliente Join OOZMA_KAPPA.Deposito On (cliente_id = deposito_cliente_id)
+	         Where CONVERT(varchar(10), deposito_fecha, 103) Between CONVERT(varchar(10), @fechaDES, 103) And CONVERT(varchar(10), @fechaHAS, 103)
+	         Group By cliente_pais_residente_id) d Join (Select cuenta_pais_id as Pais, SUM(retiro_importe)Retirado
+	                                                        From OOZMA_KAPPA.Cuenta Join OOZMA_KAPPA.Retiro On (cuenta_id = retiro_cuenta_id)
+	                                                        Where CONVERT(varchar(10), retiro_fecha, 103) Between CONVERT(varchar(10), @fechaDES, 103) And CONVERT(varchar(10), @fechaHAS, 103)
+	                                                        Group By cuenta_pais_id) r On (d.Pais = r.Pais)
+	                                               Join (Select c1.cuenta_pais_id as Pais, SUM(transferencia_importe)TransferenciaEnviada
+	                                                        From OOZMA_KAPPA.Transferencia Join OOZMA_KAPPA.Cuenta c1 On (transferencia_origen_cuenta_id = c1.cuenta_id)
+	                                                                                       Join OOZMA_KAPPA.Cuenta c2 On (transferencia_destino_cuenta_id = c2.cuenta_id)
+	                                                        Where c1.cuenta_pais_id != c2.cuenta_pais_id And (CONVERT(varchar(10), transferencia_fecha, 103) Between CONVERT(varchar(10), @fechaDES, 103) And CONVERT(varchar(10), @fechaHAS, 103))
+	                                                        Group By c1.cuenta_pais_id) te On (d.Pais = te.Pais)
+	                                               Join (Select c2.cuenta_pais_id as Pais, SUM(transferencia_importe)TransferenciaRecivida
+	                                                        From OOZMA_KAPPA.Transferencia Join OOZMA_KAPPA.Cuenta c1 On (transferencia_origen_cuenta_id = c1.cuenta_id)
+	                                                                                       Join OOZMA_KAPPA.Cuenta c2 On (transferencia_destino_cuenta_id = c2.cuenta_id)
+	                                                        Where c1.cuenta_pais_id != c2.cuenta_pais_id And (CONVERT(varchar(10), transferencia_fecha, 103) Between CONVERT(varchar(10), @fechaDES, 103) And CONVERT(varchar(10), @fechaHAS, 103))
+	                                                        Group By c2.cuenta_pais_id) tr On (d.Pais = tr.Pais)
+	  Order By Ingresos_mas_Egresos DESC
+End
+Go
+
+-- LISTADO ESTADISTICO (5) : Total facturado para los distintos tipos de cuentas --
+
+
+Create Procedure [OOZMA_KAPPA].total_facturado_tipo_de_cuentas (@fechaDES date, @fechaHAS date)
+As
+Begin
+   Select cuenta_tipo_cuenta_id, SUM(factura_importe)TotalFacturado
+      From OOZMA_KAPPA.Cuenta Join OOZMA_KAPPA.Cliente On (cliente_id = cuenta_cliente_id)
+                           Join OOZMA_KAPPA.Factura On (cliente_id = factura_cliente_id)
+      Where CONVERT(varchar(10), factura_fecha, 103) Between CONVERT(varchar(10), @fechaDES, 103) And CONVERT(varchar(10), @fechaHAS, 103)
+      Group By cuenta_tipo_cuenta_id
+End
+Go                                
+
+	
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------TRIGGERS---------------------------------------------------------------------------
@@ -1554,7 +1687,7 @@ BEGIN TRANSACTION
 
 	IF (@contador = 5)
 	BEGIN
-	UPDATE OOZMA_KAPPA.Cuenta SET cuenta_estado = 0 WHERE cuenta_id = @cuenta
+	UPDATE OOZMA_KAPPA.Cuenta SET cuenta_estado = 1 WHERE cuenta_id = @cuenta
 	END
 COMMIT
 GO

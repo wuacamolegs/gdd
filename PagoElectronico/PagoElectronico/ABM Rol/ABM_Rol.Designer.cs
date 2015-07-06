@@ -112,7 +112,7 @@
             this.Controls.Add(this.dtgListado);
             this.Name = "ABM_de_Rol";
             this.Text = "PAGO ELECTRONICO - ABM ROL";
-            this.Load += new System.EventHandler(this.ABM_de_Rol_Load_1);
+            this.Load += new System.EventHandler(this.ABM_de_Rol_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dtgListado)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

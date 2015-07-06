@@ -129,7 +129,7 @@ GO
 CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoRoles]
 AS
 BEGIN
-	SELECT rol_id as id_Rol, rol_nombre as Nombre FROM OOZMA_KAPPA.Rol WHERE rol_eliminado = 1;
+	SELECT rol_id as id_Rol, rol_nombre as Nombre, rol_estado FROM OOZMA_KAPPA.Rol WHERE rol_eliminado = 1;
 END
 GO
 

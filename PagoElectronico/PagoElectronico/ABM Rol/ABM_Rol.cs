@@ -35,7 +35,7 @@ namespace PagoElectronico.ABM_Rol
             this.Show();
         }
 
-        private void ABM_de_Rol_Load_1(object sender, EventArgs e)
+        private void ABM_de_Rol_Load(object sender, EventArgs e)
         {
             //Cargargrilla
             DataSet dsRol = unRol.traerRoles();
@@ -58,14 +58,14 @@ namespace PagoElectronico.ABM_Rol
             DataGridViewTextBoxColumn clmID = new DataGridViewTextBoxColumn();
             clmID.Width = 80;
             clmID.ReadOnly = true;
-            clmID.DataPropertyName = "rol_id";
+            clmID.DataPropertyName = "id_Rol";
             clmID.HeaderText = "ID ROL";
             dtgListado.Columns.Add(clmID);
 
             DataGridViewTextBoxColumn clmNombre = new DataGridViewTextBoxColumn();
             clmNombre.Width = 150;
             clmNombre.ReadOnly = true;
-            clmNombre.DataPropertyName = "rol_nombre";
+            clmNombre.DataPropertyName = "Nombre";
             clmNombre.HeaderText = "Nombre";
             dtgListado.Columns.Add(clmNombre);
 
@@ -175,11 +175,11 @@ namespace PagoElectronico.ABM_Rol
 
         private Int64 valorIdSeleccionado()
         {
-            return Convert.ToInt64(((DataRowView)dtgListado.CurrentRow.DataBoundItem)["rol_id"]);
+            return Convert.ToInt64(((DataRowView)dtgListado.CurrentRow.DataBoundItem)["id_Rol"]);
         }
         private string valorNombreSeleccionado()
         {
-            return ((DataRowView)dtgListado.CurrentRow.DataBoundItem)["rol_nombre"].ToString();
+            return ((DataRowView)dtgListado.CurrentRow.DataBoundItem)["Nombre"].ToString();
         }
         private bool valorHabilitadoSeleccionado()
         {

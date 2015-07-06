@@ -214,6 +214,17 @@ namespace Clases
             parameterList.Add(new SqlParameter("@Fecha", Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"])));
         }
 
+        private void setearListaDeParametrosCompleta()
+        {
+            this.parameterList.Clear();
+            parameterList.Add(new SqlParameter("@Cuenta_id", this.cuenta_id));
+            parameterList.Add(new SqlParameter("@Cliente_id", this.Cliente.cliente_id));
+            parameterList.Add(new SqlParameter("@Pais", this.Pais));
+            parameterList.Add(new SqlParameter("@Moneda", this.Moneda));
+            parameterList.Add(new SqlParameter("@Tipo_Cuenta", this.tipoCuenta));
+            parameterList.Add(new SqlParameter("@Fecha", Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"])));
+        }
+
 
 
         #endregion
@@ -257,7 +268,7 @@ namespace Clases
 
         public void UpdateCuenta()
         {
-            this.setearListaDeParametrosSinFecha();
+            this.setearListaDeParametrosCompleta();
             this.Modificar(parameterList);
         }
 
@@ -267,8 +278,7 @@ namespace Clases
             this.Guardar(parameterList);
         }
 
-
-
+ 
         public DataSet ObtenerCuentasPorUsuarioID(long usuarioID)
         {
             setearListaDeParametrosConUsuarioID(usuarioID);

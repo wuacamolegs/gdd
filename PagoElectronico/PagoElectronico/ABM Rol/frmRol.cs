@@ -91,8 +91,11 @@ namespace PagoElectronico.ABM_Rol
             //cargo el listado de funcionalidades pertenecientes al rol y le exijo al listado que se muestre solo
             //el nombre de las funciones
             lstFuncDelRol.Items.Clear();
-            foreach (Funcionalidad unaFunc in rolDelForm.Funcionalidades)
+            DataSet ds = Funcionalidad.ObtenerFuncionalidadesPorRol(rolDelForm.rol_id);
+            foreach (DataRow dr in ds.Tables[0].Rows)
             {
+                Funcionalidad unaFunc = new Funcionalidad();
+                unaFunc.DataRowToObject(dr);
                 lstFuncDelRol.Items.Add(unaFunc);
             }
             lstFuncDelRol.DisplayMember = "Nombre";

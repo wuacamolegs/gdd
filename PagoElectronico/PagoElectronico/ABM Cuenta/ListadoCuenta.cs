@@ -114,7 +114,7 @@ namespace PagoElectronico.ABM_Cuenta
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Abrir para crear 0", "");
+  
             ABM_de_Cuenta abmCuenta = new ABM_de_Cuenta(unUsuario);
             abmCuenta.AbrirParaCrear();
             abmCuenta.Show();
