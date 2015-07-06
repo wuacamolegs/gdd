@@ -1,0 +1,16 @@
+A:\Documents\GitHub\gdd\PagoElectronico\Conexion\obj\Debug\ResolveAssemblyReference.cache
+A:\Documents\GitHub\gdd\PagoElectronico\Conexion\bin\Debug\Conexion.dll
+A:\Documents\GitHub\gdd\PagoElectronico\Conexion\bin\Debug\Conexion.pdb
+A:\Documents\GitHub\gdd\PagoElectronico\Conexion\bin\Debug\Excepciones.dll
+A:\Documents\GitHub\gdd\PagoElectronico\Conexion\bin\Debug\Excepciones.pdb
+A:\Documents\GitHub\gdd\PagoElectronico\Conexion\obj\Debug\Conexion.dll
+A:\Documents\GitHub\gdd\PagoElectronico\Conexion\obj\Debug\Conexion.pdb
+E:\gdd\PagoElectronico\Conexion\bin\Debug\Conexion.dll
+E:\gdd\PagoElectronico\Conexion\bin\Debug\Conexion.pdb
+E:\gdd\PagoElectronico\Conexion\bin\Debug\Excepciones.dll
+E:\gdd\PagoElectronico\Conexion\bin\Debug\Excepciones.pdb
+E:\gdd\PagoElectronico\Conexion\obj\Debug\ResolveAssemblyReference.cache
+E:\gdd\PagoElectronico\Conexion\obj\Debug\Conexion.dll
+E:\gdd\PagoElectronico\Conexion\obj\Debug\Conexion.pdb
+A:\Documents\GitHub\gdd\PagoElectronico\Conexion\bin\Debug\Utilities.dll
+A:\Documents\GitHub\gdd\PagoElectronico\Conexion\bin\Debug\Utilities.pdb

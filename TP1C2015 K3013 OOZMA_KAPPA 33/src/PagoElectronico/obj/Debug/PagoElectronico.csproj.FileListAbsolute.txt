@@ -1,0 +1,111 @@
+A:\Documents\Facultad\Gestion de Datos\TP Utn Pago Electronico 1.1 - 1C 2015\Aplicacion Desktop\PagoElectronico\PagoElectronico\bin\Debug\PagoElectronico.exe
+A:\Documents\Facultad\Gestion de Datos\TP Utn Pago Electronico 1.1 - 1C 2015\Aplicacion Desktop\PagoElectronico\PagoElectronico\bin\Debug\PagoElectronico.pdb
+A:\Documents\Facultad\Gestion de Datos\TP Utn Pago Electronico 1.1 - 1C 2015\Aplicacion Desktop\PagoElectronico\PagoElectronico\obj\Debug\ResolveAssemblyReference.cache
+A:\Documents\Facultad\Gestion de Datos\TP Utn Pago Electronico 1.1 - 1C 2015\Aplicacion Desktop\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Properties.Resources.resources
+A:\Documents\Facultad\Gestion de Datos\TP Utn Pago Electronico 1.1 - 1C 2015\Aplicacion Desktop\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.csproj.GenerateResource.Cache
+A:\Documents\Facultad\Gestion de Datos\TP Utn Pago Electronico 1.1 - 1C 2015\Aplicacion Desktop\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.exe
+A:\Documents\Facultad\Gestion de Datos\TP Utn Pago Electronico 1.1 - 1C 2015\Aplicacion Desktop\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.pdb
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.exe
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.pdb
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\bin\Debug\PagoElectronico.exe.config
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\bin\Debug\PagoElectronico.exe
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\bin\Debug\PagoElectronico.pdb
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Debug\ResolveAssemblyReference.cache
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Inicio.resources
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Properties.Resources.resources
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.csproj.GenerateResource.Cache
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\bin\Debug\Conexion.dll
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\bin\Debug\Excepciones.dll
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\bin\Debug\Conexion.pdb
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\bin\Debug\Excepciones.pdb
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Login.LogIn.resources
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\bin\Debug\Clases.dll
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\bin\Debug\Utilities.dll
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\bin\Debug\Utilities.pdb
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\bin\Debug\Clases.pdb
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\bin\Debug\Log.dll
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\bin\Debug\Log.pdb
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Principal.resources
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.ABM_de_Usuario.ABM_Usuario.resources
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.ABM_Rol.ABM_de_Rol.resources
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Consulta_Saldos.Consulta_De_Saldos.resources
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Depositos.frmDepositos.resources
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Facturacion.Facturacion_De_Costos.resources
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Listados.Listado_Estadistico.resources
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Retiros.Retiro_Efectivo.resources
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Transferencias.Transferencias_Entre_Cuentas.resources
+E:\gdd\PagoElectronico\PagoElectronico\bin\Debug\PagoElectronico.exe.config
+E:\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.exe
+E:\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.pdb
+E:\gdd\PagoElectronico\PagoElectronico\bin\Debug\PagoElectronico.exe
+E:\gdd\PagoElectronico\PagoElectronico\bin\Debug\PagoElectronico.pdb
+E:\gdd\PagoElectronico\PagoElectronico\bin\Debug\Clases.dll
+E:\gdd\PagoElectronico\PagoElectronico\bin\Debug\Conexion.dll
+E:\gdd\PagoElectronico\PagoElectronico\bin\Debug\Excepciones.dll
+E:\gdd\PagoElectronico\PagoElectronico\bin\Debug\Log.dll
+E:\gdd\PagoElectronico\PagoElectronico\bin\Debug\Utilities.dll
+E:\gdd\PagoElectronico\PagoElectronico\bin\Debug\Conexion.pdb
+E:\gdd\PagoElectronico\PagoElectronico\bin\Debug\Utilities.pdb
+E:\gdd\PagoElectronico\PagoElectronico\bin\Debug\Excepciones.pdb
+E:\gdd\PagoElectronico\PagoElectronico\bin\Debug\Log.pdb
+E:\gdd\PagoElectronico\PagoElectronico\bin\Debug\Clases.pdb
+E:\gdd\PagoElectronico\PagoElectronico\obj\Debug\ResolveAssemblyReference.cache
+E:\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.ABM_Cliente.ABM_de_Cliente.resources
+E:\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.ABM_Cuenta.ABM_de_Cuenta.resources
+E:\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.ABM_de_Usuario.ABM_Usuario.resources
+E:\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.ABM_Rol.ABM_de_Rol.resources
+E:\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Consulta_Saldos.Consulta_De_Saldos.resources
+E:\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Depositos.frmDepositos.resources
+E:\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Facturacion.Facturacion_De_Costos.resources
+E:\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Inicio.resources
+E:\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Listados.Listado_Estadistico.resources
+E:\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Login.LogIn.resources
+E:\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Principal.resources
+E:\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Properties.Resources.resources
+E:\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Retiros.Retiro_Efectivo.resources
+E:\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Transferencias.Transferencias_Entre_Cuentas.resources
+E:\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.csproj.GenerateResource.Cache
+E:\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.ABM_Rol.frmRol.resources
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.ABM_Rol.frmRol.resources
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Facturacion.Facturas.resources
+E:\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.ABM_Cliente.frmCliente.resources
+E:\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Facturacion.Facturas.resources
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\PagoElectronico\PagoElectronico\bin\Debug\PagoElectronico.exe.config
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.exe
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.pdb
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\PagoElectronico\PagoElectronico\bin\Debug\PagoElectronico.exe
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\PagoElectronico\PagoElectronico\bin\Debug\PagoElectronico.pdb
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\PagoElectronico\PagoElectronico\bin\Debug\Clases.dll
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\PagoElectronico\PagoElectronico\bin\Debug\Conexion.dll
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\PagoElectronico\PagoElectronico\bin\Debug\Excepciones.dll
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\PagoElectronico\PagoElectronico\bin\Debug\Log.dll
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\PagoElectronico\PagoElectronico\bin\Debug\Utilities.dll
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\PagoElectronico\PagoElectronico\bin\Debug\Clases.pdb
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\PagoElectronico\PagoElectronico\bin\Debug\Log.pdb
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\PagoElectronico\PagoElectronico\bin\Debug\Utilities.pdb
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\PagoElectronico\PagoElectronico\bin\Debug\Excepciones.pdb
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\PagoElectronico\PagoElectronico\bin\Debug\Conexion.pdb
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\PagoElectronico\PagoElectronico\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.ABM_Cliente.ABM_de_Cliente.resources
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.ABM_Cliente.frmCliente.resources
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.ABM_Cuenta.ABM_de_Cuenta.resources
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.ABM_de_Usuario.ABM_Usuario.resources
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.ABM_Rol.ABM_de_Rol.resources
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.ABM_Rol.frmRol.resources
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Consulta_Saldos.Consulta_De_Saldos.resources
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Depositos.frmDepositos.resources
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Facturacion.Facturas.resources
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Facturacion.Facturacion_De_Costos.resources
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Inicio.resources
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Listados.Listado_Estadistico.resources
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Login.LogIn.resources
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Principal.resources
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Properties.Resources.resources
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Retiros.Retiro_Efectivo.resources
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Transferencias.Transferencias_Entre_Cuentas.resources
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.csproj.GenerateResource.Cache
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.ABM_Cuenta.ListadoCuenta.resources
+A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.ABM_Cuenta.ABM_de_Cuenta.resources
+A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Debug\PagoElectronico.exe.config
+A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Debug\PagoElectronico.exe
+A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Debug\PagoElectronico.pdb
