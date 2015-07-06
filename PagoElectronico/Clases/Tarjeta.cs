@@ -111,7 +111,6 @@ namespace Clases
             this.parameterList.Clear();
             parameterList.Add(new SqlParameter("@cliente_id", this.Cliente.cliente_id));
             parameterList.Add(new SqlParameter("@Fecha", Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"])));
-        
         }
 
         #endregion
@@ -127,6 +126,12 @@ namespace Clases
             this.setearListaParametrosConClienteIDYFecha();
             DataSet ds = this.TraerListado(parameterList, "ActivasPorClienteID");
             return ds;
+        }
+
+        public DataSet traerTarjetas()
+        {
+            setearListaParametrosConClienteIDYFecha();
+            return TraerListado(parameterList, "PorClienteID");
         }
     }
 }

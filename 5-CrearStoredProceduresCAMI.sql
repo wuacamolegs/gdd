@@ -422,20 +422,26 @@ GO
 
 CREATE PROCEDURE OOZMA_KAPPA.UpdateCuenta
 	@Cuenta_id numeric(18,0),
-	@Cliente_id numeric(18,0),   --VER QUE PASA SI SE CAMBIA EL TIPO CUENTA. TIENE QUE HABER PAGADO TODAS LAS SUSCRIPCIONES ANTERIORES!!!!!
+	@Cliente_id numeric(18,0),   
 	@Pais numeric(18,0),
 	@Moneda numeric(18,0),
-	@Tipo_Cuenta numeric(18,0)
+	@Tipo_Cuenta numeric(18,0),
+	@Fecha datetime
 AS
 BEGIN
+	
+	SELECT DATEADD(DAY,tipo_cuenta_dias_vigencia,@Fecha)
+	FROM OOZMA_KAPPA.Tipo_cuenta WHERE tipo_cuenta_id = @Tipo_Cuenta;
+
 	UPDATE [OOZMA_KAPPA].Cuenta SET cuenta_pais_id = @Pais,
 									cuenta_moneda_id = @Moneda,
-									cuenta_tipo_cuenta_id = @Tipo_Cuenta
+									cuenta_tipo_cuenta_id = @Tipo_Cuenta,
+									cuenta_fecha_cierre = @Fecha
 	WHERE cuenta_id = @Cuenta_id;
 END
 GO
 
-CREATE PROCEDURE OOZMA_KAPPA.InsertCuenta
+ALTER PROCEDURE OOZMA_KAPPA.InsertCuenta
 	@Cliente_id numeric(18,0),
 	@Pais numeric(18,0),
 	@Moneda numeric(18,0),
@@ -443,8 +449,8 @@ CREATE PROCEDURE OOZMA_KAPPA.InsertCuenta
 	@Fecha datetime
 AS
 BEGIN
-	INSERT INTO OOZMA_KAPPA.Cuenta (cuenta_cliente_id, cuenta_pais_id, cuenta_moneda_id, cuenta_tipo_cuenta_id, cuenta_fecha_apertura, cuenta_fecha_cierre)(
-	SELECT @Cliente_id, @Pais, @Moneda, @Tipo_Cuenta, @Fecha, DATEADD(DAY,tipo_cuenta_dias_vigencia,@Fecha)
+	INSERT INTO OOZMA_KAPPA.Cuenta (cuenta_cliente_id, cuenta_pais_id, cuenta_moneda_id, cuenta_tipo_cuenta_id, cuenta_fecha_cierre)(
+	SELECT @Cliente_id, @Pais, @Moneda, @Tipo_Cuenta, DATEADD(DAY,tipo_cuenta_dias_vigencia,@Fecha)
 	FROM OOZMA_KAPPA.Tipo_cuenta WHERE tipo_cuenta_id = @Tipo_Cuenta);
 END
 GO

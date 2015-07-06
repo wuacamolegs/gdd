@@ -47,22 +47,12 @@ namespace PagoElectronico.ABM_Cliente
             //Cargargrilla
             DataSet dsTarjetas = unaTarjeta.traerTarjetas();
             cargarGrilla(dsTarjetas);
-
         }
-
-
-
-
-
-
 
         #endregion
 
     
         #region botones y vistas
-
-
-
 
         private void cargarGrilla(DataSet dsTarjetas)
         {
@@ -113,10 +103,10 @@ namespace PagoElectronico.ABM_Cliente
             unaTarjeta.tarjeta_vencimiento = valorVencimientoSeleccionado();
         }
 
-        private void btnModificar_Click(object sender, EventArgs e) //TODO
+        //private void btnModificar_Click(object sender, EventArgs e) //TODO
         
  
-        private void btnAgregar_Click(object sender, EventArgs e) //TODO
+        //private void btnAgregar_Click(object sender, EventArgs e) //TODO
        
 
         private void btnDesactivar_Click(object sender, EventArgs e)
@@ -162,7 +152,7 @@ namespace PagoElectronico.ABM_Cliente
 
 
         #region metodos privados
-
+/*
             private Int64 valorIdSeleccionado()
         {
             return Convert.ToInt64(((DataRowView)dtgTarjetas.CurrentRow.DataBoundItem)["tarjeta_id"]);
@@ -179,7 +169,7 @@ namespace PagoElectronico.ABM_Cliente
         private DateTime valorVencimientoSeleccionado()//TODO
         {
             return ((DataRowView)dtgTarjetas.CurrentRow.DataBoundItem)["tarjeta_vencimiento"].To();
-        }
+        } */
 
 
         #endregion
