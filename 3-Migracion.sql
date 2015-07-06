@@ -28,7 +28,7 @@ COMMIT
  
  COMMIT
 
--- TABLA USUARIO --   CAMBIE EL USERNAME POR EL DNI, CREO QUE LO HABIAMOS DICHO ASI
+-- TABLA USUARIO --   
 
 BEGIN TRANSACTION
  
@@ -252,18 +252,10 @@ COMMIT
  
  COMMIT
 
--- TABLA USUARIO ROL -- completo todos los clientes
-
-BEGIN TRANSACTION
-
-INSERT INTO [OOZMA_KAPPA].Usuario_rol(usuario_id,usuario_username, rol_id)(
-SELECT usuario_id, usuario_username, rol_id FROM OOZMA_KAPPA.Usuario, OOZMA_KAPPA.Rol WHERE rol_nombre = 'Cliente' );
-
-COMMIT
 
 -- CREACION DE USUARIOS DEFAULT admin --
 
---un usuario con username ADMIN y contrase;a w23e
+-- un usuario con username ADMIN y contrase;a w23e
 -- y varios admin mas por lo que dice el enunciado. tomamos los primeros 5 usuarios de la tabla usuario y los hacemos administradores tambien.
 
 BEGIN TRANSACTION   
@@ -272,15 +264,13 @@ INSERT INTO [OOZMA_KAPPA].Usuario
 (usuario_username,usuario_nombreYapellido,usuario_password,usuario_fecha_creacion,usuario_fecha_ultima_modificacion, usuario_pregunta_secreta , usuario_respuesta_secreta)
  (SELECT 123,
   'administrador general',
-  '52D77462B24987175C8D7DAB901A5967E927FFC8D0B6E4A234E07A4AEC5E3724', 
+  '52D77462B24987175C8D7DAB901A5967E927FFC8D0B6E4A234E07A4AEC5E3724', --RESPUESTA w23e
   GETDATE(),GETDATE(),
   'Color preferido?',
   'AF4C20351356D258C57B16291CCEB8BAEE3D4DEE410061EA66D7C636EFE075CC'); --RESPUESTA SECRETA azul
-  
 COMMIT
 
 --YA TODOS LOS USUARIOS DE LA TABLA MAESTRA ESTAN CREADOS CON CONTRASENA : user Y RESPUESTA SECRETA: azul ya encriptadas
-
 
 -- TABLA USUARIO ROL --
 
@@ -290,9 +280,17 @@ INSERT INTO [OOZMA_KAPPA].Usuario_rol(usuario_id,usuario_username,rol_id) (SELEC
 
 COMMIT
 
-BEGIN TRANSACTION  --agrego rol cliente al admin
+--HAGO QUE TODOS LOS USUARIOS SEAN CLIENTES, Y QUE SOLO LOS PRIMEROS 5 SEAN TAMBIEN ADMINS
 
-INSERT INTO [OOZMA_KAPPA].Usuario_rol(usuario_id,usuario_username,rol_id) (SELECT DISTINCT usuario_id,123,2 FROM OOZMA_KAPPA.Usuario WHERE usuario_username = 123);
+BEGIN TRANSACTION
+
+INSERT INTO [OOZMA_KAPPA].Usuario_rol(usuario_id,usuario_username, rol_id)(
+SELECT usuario_id, usuario_username, rol_id FROM OOZMA_KAPPA.Usuario, OOZMA_KAPPA.Rol WHERE rol_nombre = 'Cliente' );
 
 COMMIT
 
+BEGIN TRANSACTION
+
+INSERT INTO [OOZMA_KAPPA].Usuario_rol(usuario_id,usuario_username,rol_id) (SELECT TOP 5 usuario_id,usuario_username,1 FROM OOZMA_KAPPA.Usuario);
+
+COMMIT
