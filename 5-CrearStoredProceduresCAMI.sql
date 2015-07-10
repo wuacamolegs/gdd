@@ -75,7 +75,6 @@ GO
 
 
 ----- Crear Stored Procedures -----
-
 CREATE PROCEDURE [OOZMA_KAPPA].traerUsuarioActivoPorUsername
     @Username nvarchar(255)
 AS
@@ -91,7 +90,7 @@ CREATE PROCEDURE [OOZMA_KAPPA].traerListadoRolesPorId_Usuario
 AS
 BEGIN
 	SELECT r.rol_id as rol_id, r.rol_nombre as rol_nombre , r.rol_estado as rol_estado FROM OOZMA_KAPPA.Usuario_rol ur, OOZMA_KAPPA.Rol r 
-	WHERE usuario_id = @usuario_id  AND ur.rol_id = r.rol_id and r.rol_eliminado = 1 ;
+	WHERE usuario_id = @usuario_id  AND ur.rol_id = r.rol_id and r.rol_eliminado = 0 ;
 END
 GO
 
@@ -129,7 +128,7 @@ GO
 CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoRoles]
 AS
 BEGIN
-	SELECT rol_id as id_Rol, rol_nombre as Nombre, rol_estado FROM OOZMA_KAPPA.Rol WHERE rol_eliminado = 1;
+	SELECT rol_id as id_Rol, rol_nombre as Nombre, rol_estado FROM OOZMA_KAPPA.Rol WHERE rol_eliminado = 0;
 END
 GO
 
@@ -367,7 +366,7 @@ GO
 CREATE PROCEDURE [OOZMA_KAPPA].[TraerListadoCuentaCompleto]
 AS
 BEGIN
-	SELECT cuenta_id, cliente_id, (cliente_nombre + ' ' + cliente_apellido) as cliente_nombre, cuenta_estado, cuenta_fecha_apertura, cuenta_fecha_cierre, cuenta_moneda_id, cuenta_pais_id, cuenta_saldo, cuenta_tipo_cuenta_id FROM OOZMA_KAPPA.Cuenta, OOZMA_KAPPA.Cliente WHERE cliente_id = cuenta_cliente_id and cliente_estado = 1 AND cuenta_estado = 1 AND cuenta_cerrada = 0 AND cuenta_pendiente_activacion = 0;
+	SELECT cuenta_id, cliente_id, (cliente_nombre + ' ' + cliente_apellido) as cliente_nombre, cuenta_estado, cuenta_fecha_apertura, cuenta_fecha_cierre, cuenta_moneda_id, cuenta_pais_id, cuenta_saldo, cuenta_tipo_cuenta_id FROM OOZMA_KAPPA.Cuenta, OOZMA_KAPPA.Cliente WHERE cliente_id = cuenta_cliente_id AND cuenta_cerrada = 0 ;
 END
 GO
 
@@ -375,7 +374,7 @@ CREATE PROCEDURE [OOZMA_KAPPA].[TraerListadoCuentaPorUsuarioID]
 	@usuario_id numeric(18,0)
 AS
 BEGIN
-	SELECT cuenta_id, cliente_id, (cliente_nombre + ' ' + cliente_apellido) as cliente_nombre, cuenta_estado, cuenta_fecha_apertura, cuenta_fecha_cierre, cuenta_moneda_id, cuenta_pais_id, cuenta_saldo, cuenta_tipo_cuenta_id FROM OOZMA_KAPPA.Cuenta, OOZMA_KAPPA.Cliente WHERE cliente_id = cuenta_cliente_id AND cliente_usuario_id = @usuario_id  AND cuenta_estado = 1 AND cuenta_cerrada = 0 AND cuenta_pendiente_activacion = 0;
+	SELECT cuenta_id, cliente_id, (cliente_nombre + ' ' + cliente_apellido) as cliente_nombre, cuenta_estado, cuenta_fecha_apertura, cuenta_fecha_cierre, cuenta_moneda_id, cuenta_pais_id, cuenta_saldo, cuenta_tipo_cuenta_id FROM OOZMA_KAPPA.Cuenta, OOZMA_KAPPA.Cliente WHERE cliente_id = cuenta_cliente_id AND cliente_usuario_id = @usuario_id AND cuenta_cerrada = 0 ;
 END
 GO
 
@@ -393,9 +392,7 @@ BEGIN
     AND		cliente_apellido LIKE (CASE WHEN @Apellido <> '' THEN '%' + @Apellido + '%' ELSE cliente_apellido END) 
     AND		(@Tipo_Dni is null OR @Tipo_Dni = -1 OR CONVERT(VARCHAR(10), cliente_tipo_documento_id) LIKE '%' + CONVERT(VARCHAR(10), @Tipo_Dni) + '%')     
     AND		(@Dni is null OR @Dni = 0 OR CONVERT(VARCHAR(10), cliente_numero_documento) LIKE '%' + CONVERT(VARCHAR(10), @Dni) + '%')
-    AND		cliente_estado = 1
-    AND		cuenta_cerrada = 0 
-    AND		cuenta_pendiente_activacion = 0;
+    AND		cuenta_cerrada = 0;
 END
 GO
 
@@ -441,7 +438,7 @@ BEGIN
 END
 GO
 
-ALTER PROCEDURE OOZMA_KAPPA.InsertCuenta
+CREATE PROCEDURE OOZMA_KAPPA.InsertCuenta
 	@Cliente_id numeric(18,0),
 	@Pais numeric(18,0),
 	@Moneda numeric(18,0),
@@ -449,8 +446,8 @@ ALTER PROCEDURE OOZMA_KAPPA.InsertCuenta
 	@Fecha datetime
 AS
 BEGIN
-	INSERT INTO OOZMA_KAPPA.Cuenta (cuenta_cliente_id, cuenta_pais_id, cuenta_moneda_id, cuenta_tipo_cuenta_id, cuenta_fecha_cierre)(
-	SELECT @Cliente_id, @Pais, @Moneda, @Tipo_Cuenta, DATEADD(DAY,tipo_cuenta_dias_vigencia,@Fecha)
+	INSERT INTO OOZMA_KAPPA.Cuenta (cuenta_cliente_id, cuenta_pais_id, cuenta_moneda_id, cuenta_tipo_cuenta_id,cuenta_fecha_apertura, cuenta_fecha_cierre)(
+	SELECT @Cliente_id, @Pais, @Moneda, @Tipo_Cuenta,@Fecha, DATEADD(DAY,tipo_cuenta_dias_vigencia,@Fecha)
 	FROM OOZMA_KAPPA.Tipo_cuenta WHERE tipo_cuenta_id = @Tipo_Cuenta);
 END
 GO
@@ -473,6 +470,10 @@ CREATE PROCEDURE OOZMA_KAPPA.DeleteCuenta
 	@cuenta_id numeric(18,0)
 AS
 BEGIN
-	UPDATE OOZMA_KAPPA.Cuenta SET cuenta_cerrada = 1 WHERE cuenta_id = @cuenta_id;
+	UPDATE OOZMA_KAPPA.Cuenta SET cuenta_cerrada = 0 WHERE cuenta_id = @cuenta_id;
 END
 GO
+
+
+UPDATE OOZMA_KAPPA.Cuenta SET cuenta_pendiente_activacion = 1 WHERE cuenta_id = 1111111111111217
+

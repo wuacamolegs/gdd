@@ -40,7 +40,7 @@ GO
 
 CREATE PROCEDURE [OOZMA_KAPPA].traerListadoRolesCompleto
 AS 
-	SELECT rol_id , rol_nombre FROM OOZMA_KAPPA.Rol where rol_eliminado = 1;  ---rol_eliminado = 1 está activo (no eliminado)
+	SELECT rol_id , rol_nombre FROM OOZMA_KAPPA.Rol where rol_eliminado = 0;  ---rol_eliminado = 0 está activo (no eliminado)
 GO
 
 CREATE PROCEDURE OOZMA_KAPPA.updateRol
@@ -62,7 +62,7 @@ GO
 CREATE PROCEDURE OOZMA_KAPPA.deleteRol
 	@rol_id int
 AS
-	UPDATE OOZMA_KAPPA.Rol SET rol_eliminado = 0  --rol_eliminado = 0 es baja lógica
+	UPDATE OOZMA_KAPPA.Rol SET rol_eliminado = 1  --rol_eliminado = 1 es baja lógica
 	WHERE rol_id = @rol_id
 GO
 
@@ -79,7 +79,7 @@ AS
 	INSERT INTO OOZMA_KAPPA.Rol	(rol_nombre, rol_estado)
 	VALUES(@rol_nombre, @rol_estado)
 	
-	SELECT @@IDENTITY AS id_Rol;
+	SELECT @@IDENTITY AS rol_id;
 GO
 
 CREATE PROCEDURE [OOZMA_KAPPA].[insertRol_Funcionalidad]
@@ -96,24 +96,24 @@ AS
 	SELECT * FROM OOZMA_KAPPA.Usuario_rol WHERE rol_id = @rol_id
 GO
 
-CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoRolesConFiltros]  --SOLO PARA TRAER ROLES SEGUN NOMBRE O ESTADO. NO TIENE EN CUENTA TRAER ROLES ELIMINADOS CUANDO BUSCA POR NOMBRE
+CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoRolesConFiltros] 
     @rol_nombre nvarchar(255),
 	@rol_estado bit
 AS 
 	IF(@rol_nombre= '' Or @rol_nombre IS NULL)
 		BEGIN
-			SELECT * FROM [OOZMA_KAPPA].Rol WHERE rol_estado = @rol_estado and rol_eliminado = 1; --- si esta eliminado es 0, sino 1
+			SELECT * FROM [OOZMA_KAPPA].Rol WHERE rol_estado = @rol_estado and rol_eliminado = 0; --- si esta eliminado es 1, sino 0
 		END	
 	ELSE
 		SELECT * FROM [OOZMA_KAPPA].Rol
-			WHERE rol_nombre LIKE '%' + @rol_nombre + '%' AND rol_estado = @rol_estado and rol_eliminado = 1;
+			WHERE rol_nombre LIKE '%' + @rol_nombre + '%' AND rol_estado = @rol_estado and rol_eliminado = 0;
 
 GO
 
 CREATE PROCEDURE OOZMA_KAPPA.traerListadoRolesPorNombre
 	@rol_nombre nvarchar(255)
 AS
-	SELECT * FROM OOZMA_KAPPA.Rol where rol_nombre LIKE '%' + @rol_nombre + '%' and rol_eliminado = 1 
+	SELECT * FROM OOZMA_KAPPA.Rol where rol_nombre LIKE '%' + @rol_nombre + '%' and rol_eliminado = 0 
 GO
 
 
@@ -193,9 +193,3 @@ CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoMonedaCompleto]
 AS
 	SELECT moneda_id as id_Moneda, moneda_nombre as Moneda FROM OOZMA_KAPPA.Moneda;
 GO
-
-
-
-
-
-

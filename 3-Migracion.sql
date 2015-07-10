@@ -37,7 +37,7 @@ INSERT INTO [OOZMA_KAPPA].[Usuario] ( usuario_username, usuario_nombreYapellido,
 	Cli_Nro_Doc
 	,Cli_Nombre + ' ' + Cli_Apellido
 	,'ECE6128060FCDA0AFC43C2D59109C410E89DE2BEF602D70ED62C0640FD795970'  --CONTRASE;A USER
-	,Cuenta_Fecha_Creacion              --HABIAN DICHO QUE NO AGREGUEMOS DIRECTAMENTE LOS STRING, QUE LOS PASEMOS COMO PARAMETRO. COMO SE HACE?
+	,Cuenta_Fecha_Creacion             
 	,Cuenta_Fecha_Creacion
 	,'Cual es tu color preferido?'
 	,'AF4C20351356D258C57B16291CCEB8BAEE3D4DEE410061EA66D7C636EFE075CC'
@@ -47,7 +47,7 @@ INSERT INTO [OOZMA_KAPPA].[Usuario] ( usuario_username, usuario_nombreYapellido,
 	
 COMMIT
 
- -- TABLA CLIENTE --    ANTES VA USUARIO
+ -- TABLA CLIENTE --  
  
  BEGIN TRANSACTION
  
@@ -70,15 +70,15 @@ COMMIT
 COMMIT
 
  
-  -- TABLA ITEM FACTURA -- ANTES TIENE QUE IR CLIENTE
+  -- TABLA ITEM FACTURA -- 
  
  BEGIN TRANSACTION
-	INSERT INTO [OOZMA_KAPPA].[Item_factura] (item_factura_desc, item_factura_costo, item_factura_numero_factura,item_factura_cantidad)(
-	SELECT Item_Factura_Descr, Item_Factura_Importe, Factura_Numero, 1 FROM gd_esquema.Maestra WHERE Item_Factura_Descr is not null);
+	INSERT INTO [OOZMA_KAPPA].[Item_factura] (item_factura_desc, item_transaccion_id ,item_factura_costo, item_factura_numero_factura,item_factura_cantidad)(
+	SELECT Item_Factura_Descr, 0 ,Item_Factura_Importe, Factura_Numero, 1 FROM gd_esquema.Maestra WHERE Item_Factura_Descr is not null);
  COMMIT
  
  
- ----TABLA CUENTA----   ANTES TIENE QUE IR CLIENTE
+ ----TABLA CUENTA---- 
  
  BEGIN TRANSACTION
   
@@ -118,7 +118,7 @@ INSERT INTO [OOZMA_KAPPA].[Transferencia] (transferencia_origen_cuenta_id, trans
 
 COMMIT
 
-  -- TABLA DEPOSITO--  NECESITA TABLA CLIENTES ANTES
+  -- TABLA DEPOSITO--  
   
  BEGIN TRANSACTION
  
@@ -165,13 +165,13 @@ COMMIT
  
  SET IDENTITY_INSERT [OOZMA_KAPPA].[Tarjeta] ON
  
- INSERT INTO [OOZMA_KAPPA].[Tarjeta] (tarjeta_id, tarjeta_codigo_seguridad, tarjeta_fecha_emision, tarjeta_vencimiento, tarjeta_emisor, tarjeta_cliente_id)(
-	SELECT DISTINCT  CAST(Tarjeta_Numero AS numeric(18,0))
+ INSERT INTO [OOZMA_KAPPA].[Tarjeta] ( tarjeta_id, tarjeta_codigo_seguridad, tarjeta_fecha_emision, tarjeta_vencimiento, tarjeta_emisor, tarjeta_cliente_id)(
+	SELECT DISTINCT Tarjeta_numero
 	, Tarjeta_Codigo_Seg
     , Tarjeta_Fecha_Emision
-	, Tarjeta_Fecha_Vencimiento
-	, Tarjeta_Emisor_Descripcion
-	, (select cliente_id from [OOZMA_KAPPA].[Cliente] where Cli_Nro_Doc = cliente_numero_documento)
+    , Tarjeta_Fecha_Vencimiento
+	, (SELECT emisor_id FROM OOZMA_KAPPA.Emisor WHERE emisor_descripcion = Tarjeta_Emisor_Descripcion)
+	, (SELECT cliente_id FROM [OOZMA_KAPPA].[Cliente] WHERE Cli_Nro_Doc = cliente_numero_documento)
 	FROM gd_esquema.Maestra
  WHERE Tarjeta_Numero IS NOT NULL);
  
@@ -199,9 +199,7 @@ COMMIT
  
  --TABLA CHEQUE --
 
---el cheuqe lo hace un cliente para si mismo, entonces el cliente destino es esa misma persona que lo emite. 
-
- BEGIN TRANSACTION  --NECESITA CUENTA y CLIENTE ANTES
+ BEGIN TRANSACTION  
  
  SET IDENTITY_INSERT [OOZMA_KAPPA].[Cheque] ON
 
@@ -235,7 +233,7 @@ COMMIT
  COMMIT
  
 
-  -- TABLA FACTURA --  NECESITA ITEM FACTURA, CLIENTES ANTES
+  -- TABLA FACTURA --  
  
  BEGIN TRANSACTION
  
@@ -253,7 +251,7 @@ COMMIT
  COMMIT
 
 
--- CREACION DE USUARIOS DEFAULT admin --
+-- CREACION DE USUARIOS DEFAULT ADMIN --
 
 -- un usuario con username ADMIN y contrase;a w23e
 -- y varios admin mas por lo que dice el enunciado. tomamos los primeros 5 usuarios de la tabla usuario y los hacemos administradores tambien.
@@ -288,9 +286,15 @@ INSERT INTO [OOZMA_KAPPA].Usuario_rol(usuario_id,usuario_username, rol_id)(
 SELECT usuario_id, usuario_username, rol_id FROM OOZMA_KAPPA.Usuario, OOZMA_KAPPA.Rol WHERE rol_nombre = 'Cliente' );
 
 COMMIT
+GO
 
 BEGIN TRANSACTION
 
 INSERT INTO [OOZMA_KAPPA].Usuario_rol(usuario_id,usuario_username,rol_id) (SELECT TOP 5 usuario_id,usuario_username,1 FROM OOZMA_KAPPA.Usuario);
 
 COMMIT
+GO
+
+
+
+

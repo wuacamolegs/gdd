@@ -258,7 +258,8 @@ BEGIN TRANSACTION
 		IF(@Descripcion LIKE 'Modificaciones Tipo Cuenta')
 		BEGIN
 			UPDATE OOZMA_KAPPA.Cuenta 
-			SET cuenta_pendiente_activacion = 0
+			SET cuenta_pendiente_activacion = 0,
+			cuenta_estado = 1
 			WHERE cuenta_id = @Cuenta;
 		END
 	FETCH NEXT FROM transaccionesCursor INTO @Cliente, @Cuenta, @Descripcion;
@@ -269,5 +270,3 @@ BEGIN TRANSACTION
 
 COMMIT
 GO
-
-

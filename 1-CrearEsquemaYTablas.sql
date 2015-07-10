@@ -30,8 +30,8 @@ CREATE TABLE [OOZMA_KAPPA].[Cheque](
 	[cheque_fecha] [datetime] NOT NULL,
 	[cheque_importe] numeric(18, 2)NOT NULL,
 	[cheque_banco_id] numeric(18, 0)NOT NULL,
-	[cheque_destino_cliente_id] numeric(18, 0)NOT NULL,	--creo que el cliente nos va a falicitar la performance al momento de hacer un cheque. si no cada vez que se hace un cheque hay que recorrer la tabla de clientes tambien para buscar su id. de ultima dsp lo sacamos! 
-)												--y si lo dejamos va a ser mas facil hacer los cheques! 
+	[cheque_destino_cliente_id] numeric(18, 0)NOT NULL,	
+)												
 
 --- TABLA CLIENTE ---
 
@@ -47,9 +47,9 @@ CREATE TABLE [OOZMA_KAPPA].[Cliente](
 	[cliente_calle] [varchar](255) NOT NULL,
 	[cliente_numero] numeric(18, 0)NOT NULL,
 	[cliente_piso] numeric(18, 0)NOT NULL,
-	[cliente_depto] [varchar](10) NOT NULL,  --saco cliente cuenta id porq un cliente puede tener varias cuentas. sus varias cuentas se reflejan en la tabla cuentas.
+	[cliente_depto] [varchar](10) NOT NULL, 
 	[cliente_mail] [varchar](255),
-	[cliente_estado] bit NOT NULL DEFAULT (1), ---  0 DESHABILITADO, 1 HABILITADO
+	[cliente_estado] bit NOT NULL DEFAULT (1), ---  0 deshabilitado 1 habilitado
 )
 
 --- TABLA CUENTA ---
@@ -65,8 +65,10 @@ CREATE TABLE [OOZMA_KAPPA].[Cuenta](
 	[cuenta_fecha_cierre] [datetime] NOT NULL,
 	[cuenta_estado] bit NOT NULL DEFAULT(1),  --0 es false deshabilitada , 1 true habilitada
 	[cuenta_cerrada] bit NOT NULL DEFAULT (0),  --- 0 false, 1 true
-	[cuenta_pendiente_activacion] bit NOT NULL DEFAULT(1), --- 0 false, 1 true
+	[cuenta_pendiente_activacion] bit NOT NULL DEFAULT(1), --- 0 false 1 true
 )
+
+select * from OOZMA_KAPPA.Cuenta
 
 --- TABLA DEPOSITO ---
 
@@ -137,6 +139,7 @@ INSERT INTO[OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUE
 
 CREATE TABLE [OOZMA_KAPPA].[Item_factura](
 	[item_factura_id] numeric(18, 0) IDENTITY (1,1),
+	[item_transaccion_id] numeric(18,0) NOT NULL,
 	[item_factura_desc] [varchar](255) NOT NULL,
 	[item_factura_costo] numeric(18, 2) NOT NULL,
 	[item_factura_numero_factura] numeric(18,0) NOT NULL,
@@ -185,7 +188,7 @@ CREATE TABLE [OOZMA_KAPPA].[Rol](
 	[rol_id] numeric(18, 0) IDENTITY (1,1),
 	[rol_nombre] [nvarchar](255) NOT NULL,
 	[rol_estado] bit NOT NULL DEFAULT(1),   --DESHABILITADO 0, HABILITADO 1
-	[rol_eliminado] bit NOT NULL DEFAULT (1), --ELIMINADO 0 (BAJA LOGICA), NO ELIMINADO 1
+	[rol_eliminado] bit NOT NULL DEFAULT (0), --ELIMINADO 1 (BAJA LOGICA), NO ELIMINADO 0
 )
 
 INSERT INTO[OOZMA_KAPPA].[Rol] (rol_nombre, rol_estado) VALUES ('Administrador',1);
@@ -206,7 +209,7 @@ CREATE TABLE [OOZMA_KAPPA].[Tarjeta](
 	[tarjeta_codigo_seguridad] varchar(3) NOT NULL,
 	[tarjeta_fecha_emision] [datetime] NOT NULL,
 	[tarjeta_vencimiento] [datetime] NOT NULL,
-	[tarjeta_emisor] varchar(255) NOT NULL,
+	[tarjeta_emisor] numeric(18,0) NOT NULL,
 	[tarjeta_cliente_id] numeric (18,0) NOT NULL,
 	[tarjeta_estado] bit NOT NULL DEFAULT (1) --0 con baja logica (vencida, desasociada), 1 activa
 )
@@ -278,12 +281,8 @@ CREATE TABLE [OOZMA_KAPPA].[Usuario](
 	[usuario_fecha_creacion] [datetime] NOT NULL,
 	[usuario_fecha_ultima_modificacion] [datetime] NOT NULL,
 	[usuario_pregunta_secreta] [nvarchar](64) NOT NULL,
-	[usuario_respuesta_secreta] [nvarchar](64) NOT NULL,   -- 0 deshabilitado, 1 habilitado
-	[usuario_estado] bit NOT NULL DEFAULT(1),  --puede estar habilitado como no habilitado, ya sea por el estado del rol, o por logins incorrectos
-	--VER QUE PASA CUANDO ESTA DESHABILITADO POR LOGINS, Y UN ROL PASA DE ACTIVO A NO ACTIVO Y LUEGO A ACTIVO OTRA VEZ!! 
-	--tendria que haber un estado para cada cosa? estadoRol, estadoLogin, o solo estadoLogin e ir verificando que el rol este activo o no cuando se quiera iniciar sesion
-	-- CREO QUE VA A CONVENIR que este estado represente solo el login, y que cuando inicie sesion no se muestren los roles inhabilitados y listo.
-	-- TAMBIEN HAY QUE VER QUE PASA CUANDO SE DESACTIVA UNA CUENTA DE UN CLIENTE. SI SE BLOQUEA EL CLINETE O NO.
+	[usuario_respuesta_secreta] [nvarchar](64) NOT NULL,   
+	[usuario_estado] bit NOT NULL DEFAULT(1),  -- 0 deshabilitado, 1 habilitado
 )
 
 
@@ -316,4 +315,3 @@ CREATE TYPE [OOZMA_KAPPA].[TVP_Item] AS TABLE(
 )
 
 GO
-

@@ -112,14 +112,20 @@ namespace PagoElectronico.ABM_Rol
         {
             //si el boton tocado es desactivar, le pregunto si esta seguro de deshabilitarlo.
             //si toca que si, instancio el rol y lo deshabilito. sino, no hago nada
-            DialogResult dr = MessageBox.Show("¿Está seguro que desea deshabilitar el rol?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (dr == DialogResult.Yes)
-            {
-                Rol unRol = new Rol(valorIdSeleccionado(), valorNombreSeleccionado(), valorHabilitadoSeleccionado());
-                unRol.Deshabilitar();
-                MessageBox.Show("El rol ha sido deshabilitado", "Deshabilitado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                CargarListadoDeRoles();
-            }
+            if(valorHabilitadoSeleccionado()){
+
+                DialogResult dr = MessageBox.Show("¿Está seguro que desea deshabilitar el rol?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (dr == DialogResult.Yes)
+                {
+                    Rol unRol = new Rol(valorIdSeleccionado(), valorNombreSeleccionado(), valorHabilitadoSeleccionado());
+                    unRol.Deshabilitar();
+                    MessageBox.Show("El rol ha sido deshabilitado", "Deshabilitado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    CargarListadoDeRoles();
+                }
+            }else{
+                MessageBox.Show("El rol ya se encuentra deshabilitado. \n Vuelva a habilitarlo desde la seccion Modificación", "Deshabilitado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }           
+
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
@@ -162,6 +168,8 @@ namespace PagoElectronico.ABM_Rol
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            DataSet dsRoles = unRol.traerRoles();
+            cargarGrilla(dsRoles);
 
         }
 

@@ -10,3 +10,10 @@ E:\gdd\PagoElectronico\Log\obj\Release\Log.dll
 E:\gdd\PagoElectronico\Log\obj\Release\Log.pdb
 A:\Documents\GitHub\gdd\PagoElectronico\Log\bin\Release\Utilities.dll
 A:\Documents\GitHub\gdd\PagoElectronico\Log\bin\Release\Utilities.pdb
+A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\Log\bin\Release\Log.dll
+A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\Log\bin\Release\Log.pdb
+A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\Log\bin\Release\Utilities.dll
+A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\Log\bin\Release\Utilities.pdb
+A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\Log\obj\Release\ResolveAssemblyReference.cache
+A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\Log\obj\Release\Log.dll
+A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\Log\obj\Release\Log.pdb

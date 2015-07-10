@@ -1,6 +1,8 @@
 ----- Crear Foreign Keys -----
 
 BEGIN TRANSACTION
+
+BEGIN TRANSACTION
 ALTER TABLE [OOZMA_KAPPA].[Retiro]
 ADD FOREIGN KEY ([retiro_cuenta_id])
 REFERENCES [OOZMA_KAPPA].[Cuenta](cuenta_id);
@@ -133,6 +135,12 @@ REFERENCES [OOZMA_KAPPA].[Factura](factura_numero);
 COMMIT
 
 BEGIN TRANSACTION
+ALTER TABLE [OOZMA_KAPPA].[Item_Factura]
+ADD FOREIGN KEY ([item_transaccion_id])
+REFERENCES [OOZMA_KAPPA].[Transacciones_Pendientes](transaccion_pendiente_id);
+COMMIT
+
+BEGIN TRANSACTION
 ALTER TABLE [OOZMA_KAPPA].[Factura]
 ADD FOREIGN KEY ([factura_cliente_id])
 REFERENCES [OOZMA_KAPPA].[Cliente](cliente_id);
@@ -172,6 +180,12 @@ ADD FOREIGN KEY (tarjeta_cliente_id)
 REFERENCES [OOZMA_KAPPA].[Cliente](cliente_id);
 COMMIT
 
+BEGIN TRANSACTION
+ALTER TABLE [OOZMA_KAPPA].[Tarjeta]
+ADD FOREIGN KEY ([tarjeta_emisor])
+REFERENCES [OOZMA_KAPPA].[Emisor](emisor_id);
+COMMIT
+
 
 BEGIN TRANSACTION
 ALTER TABLE [OOZMA_KAPPA].[Transacciones_pendientes]
@@ -186,3 +200,4 @@ ADD FOREIGN KEY (transaccion_pendiente_cuenta_id)
 REFERENCES [OOZMA_KAPPA].[Cuenta](cuenta_id);
 COMMIT
 
+ROLLBACK

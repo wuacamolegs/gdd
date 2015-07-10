@@ -220,6 +220,7 @@ namespace Clases
             setearListaDeParametrosConIdRol();
             Deshabilitar(parameterList);
             parameterList.Clear();
+
         }
 
         public void Eliminar()
@@ -236,7 +237,7 @@ namespace Clases
         public void modificarFuncionalidades()
         {
             //lo que hago es eliminar todas las funcionalidades que tenia el rol y volver a crearlas
-            //al volver a crearlas, si eran las mismas, vuelvo a obtener las mismas, si son distInt64as, las 
+            //al volver a crearlas, si eran las mismas, vuelvo a obtener las mismas, si son distintas, las 
             //obtengo modificadas
             setearListaDeParametrosConIdRol();
             SQLHelper.ExecuteDataSet(_strEliminar + "Rol_Funcionalidad" + "_PorIdRol", CommandType.StoredProcedure, "Rol_Funcionalidad", parameterList);

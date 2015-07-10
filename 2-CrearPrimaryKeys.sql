@@ -135,4 +135,3 @@ ALTER TABLE [OOZMA_KAPPA].[Administrador]
 ADD PRIMARY KEY ([administrador_id]);
 COMMIT
 	
-

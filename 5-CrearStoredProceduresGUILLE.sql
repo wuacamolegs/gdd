@@ -1,6 +1,4 @@
 ----- Crear Stored Procedures -----
-
-
 -- TRAER CUENTA DESTINO DESDE UN CLIENTE DESTINO "TRANSFERENCIAS ENTRE CUENTAS"  --
 
 
@@ -133,6 +131,4 @@ Begin
       Where CONVERT(varchar(10), factura_fecha, 103) Between CONVERT(varchar(10), @fechaDES, 103) And CONVERT(varchar(10), @fechaHAS, 103)
       Group By cuenta_tipo_cuenta_id
 End
-Go                                
-
-	
+Go    
