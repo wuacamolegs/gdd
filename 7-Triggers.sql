@@ -204,15 +204,19 @@ BEGIN TRANSACTION
 	DECLARE @cliente numeric(18,0)
 	DECLARE @cuenta numeric(18,0)
 	DECLARE @contador tinyint
+	DECLARE @pendiente_activacion bit
 
 	SET @cliente = (SELECT transaccion_pendiente_cliente_id FROM INSERTED)
 	SET @cuenta = (SELECT transaccion_pendiente_cuenta_id FROM INSERTED)
 	SET @contador = (SELECT COUNT(*) FROM OOZMA_KAPPA.Transacciones_Pendientes WHERE transaccion_pendiente_cliente_id = @cliente
 	AND transaccion_pendiente_cuenta_id = @cuenta)
+	SET @pendiente_activacion = (Select cuenta_pendiente_activacion From OOZMA_KAPPA.Cuenta Where cuenta_id = @cuenta)
 
 	IF (@contador = 5)
 	BEGIN
 	UPDATE OOZMA_KAPPA.Cuenta SET cuenta_estado = 0 WHERE cuenta_id = @cuenta
+	INSERT INTO OOZMA_KAPPA.Historial_cuentas(historial_pendientes_de_activacion,historial_transacciones_superadas,historial_cuenta_eliminada,historial_cliente_id,historial_cuenta_id,historial_fecha) 
+	Values(@pendiente_activacion,1,0,@cliente,@cuenta,getDate())
 	END
 COMMIT
 GO
@@ -270,3 +274,43 @@ BEGIN TRANSACTION
 
 COMMIT
 GO
+
+-- TRIGGER HISTORIAL INSERT EN CUENTA --
+
+Create Trigger ins_cuenta_ins_historial
+On OOZMA_KAPPA.Cuenta
+After Insert
+As Begin Transaction
+ Declare @cliente_id numeric(18,0), @cuenta_id numeric(18,0), @fecha Date, @estado bit
+ Select @cliente_id = cuenta_cliente_id, @cuenta_id = cuenta_id, @estado = cuenta_estado From inserted 
+ 
+ Insert Into OOZMA_KAPPA.Historial_cuentas(historial_estado, historial_pendientes_de_activacion, historial_transacciones_superadas, historial_cliente_id, historial_cuenta_id, historial_fecha)
+    Values(@estado,1,0,@cliente_id,@cuenta_id,getDate())
+Commit;
+
+Go
+
+-- TRIGGER HISTORIAL UPDATE EN CUENTA --
+
+Create Trigger upd_cuenta_ins_historial
+On OOZMA_KAPPA.Cuenta
+After Update 
+As 
+Begin Transaction
+
+Declare @cliente_id numeric(18,0), @cuenta_id numeric(18,0);
+Declare @pendiente_activacion_viejo bit, @pendiente_activacion_nuevo bit, @estado_viejo bit, @estado_nuevo bit;
+Declare @fecha Date;
+
+ Select @cliente_id = cuenta_cliente_id, @cuenta_id = cuenta_id From inserted;
+ Set @pendiente_activacion_viejo = (Select cuenta_pendiente_activacion From deleted);
+ Set @pendiente_activacion_nuevo = (Select cuenta_pendiente_activacion From inserted);
+ Set @estado_viejo = (Select cuenta_estado From deleted);
+ Set @estado_nuevo = (Select cuenta_estado From inserted);
+
+ If ((@pendiente_activacion_viejo != @pendiente_activacion_nuevo) And (@estado_viejo != @estado_nuevo))
+   Insert Into OOZMA_KAPPA.Historial_cuentas(historial_estado,historial_pendientes_de_activacion,historial_transacciones_superadas,historial_cliente_id,historial_cuenta_id,historial_fecha)
+    Values(@estado_nuevo, @pendiente_activacion_nuevo,(Select Top 1 historial_transacciones_superadas From OOZMA_KAPPA.Historial_cuentas Where historial_cuenta_id = @cuenta_id Order By historial_fecha DESC),@cliente_id,@cuenta_id,getDate())
+    
+ Commit;
+Go
