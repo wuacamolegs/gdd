@@ -135,3 +135,8 @@ ALTER TABLE [OOZMA_KAPPA].[Administrador]
 ADD PRIMARY KEY ([administrador_id]);
 COMMIT
 	
+	
+BEGIN TRANSACTION
+ALTER TABLE [OOZMA_KAPPA].[historial_clientes]
+ADD PRIMARY KEY ([historial_id]);
+COMMIT

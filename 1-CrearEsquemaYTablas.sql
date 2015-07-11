@@ -315,3 +315,19 @@ CREATE TYPE [OOZMA_KAPPA].[TVP_Item] AS TABLE(
 )
 
 GO
+
+
+-- TABLA DE HISTORIAL CLIENTE --
+
+CREATE TABLE [OOZMA_KAPPA].[Historial_clientes]
+(
+[historial_id] numeric(18,0) IDENTITY(1,1),
+[historial_pendientes_de_activacion] bit NOT NULL DEFAULT(0),     -- 1 por este motivo, 0 NO --
+[historial_transacciones_superadas] bit NOT NULL DEFAULT(0),      -- 1 por este motivo, 0 NO --
+[historial_falta_de_pago] bit NOT NULL DEFAULT(0),                -- 1 por este motivo, 0 NO --
+[historial_cliente_id] numeric(18,0) NOT NULL,
+[historial_cuenta_id] numeric(18,0) NOT NULL,
+[historial_fecha] [datetime] NOT NULL,
+)
+
+

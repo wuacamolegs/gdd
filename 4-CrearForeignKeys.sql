@@ -176,7 +176,7 @@ COMMIT
 
 BEGIN TRANSACTION
 ALTER TABLE [OOZMA_KAPPA].[Tarjeta]
-ADD FOREIGN KEY (tarjeta_cliente_id)
+ADD FOREIGN KEY ([tarjeta_cliente_id])
 REFERENCES [OOZMA_KAPPA].[Cliente](cliente_id);
 COMMIT
 
@@ -189,15 +189,28 @@ COMMIT
 
 BEGIN TRANSACTION
 ALTER TABLE [OOZMA_KAPPA].[Transacciones_pendientes]
-ADD FOREIGN KEY (transaccion_pendiente_cliente_id)
+ADD FOREIGN KEY ([transaccion_pendiente_cliente_id])
 REFERENCES [OOZMA_KAPPA].[Cliente](cliente_id);
 COMMIT
 
 
 BEGIN TRANSACTION
 ALTER TABLE [OOZMA_KAPPA].[Transacciones_pendientes]
-ADD FOREIGN KEY (transaccion_pendiente_cuenta_id)
+ADD FOREIGN KEY ([transaccion_pendiente_cuenta_id])
 REFERENCES [OOZMA_KAPPA].[Cuenta](cuenta_id);
 COMMIT
+
+BEGIN TRANSACTION
+ALTER TABLE [OOZMA_KAPPA].[Historial_clientes]
+ADD FOREIGN KEY ([historial_cliente_id])
+REFERENCES [OOZMA_KAPPA].[Cliente](cliente_id);
+COMMIT
+
+BEGIN TRANSACTION
+ALTER TABLE [OOZMA_KAPPA].[Historial_clientes]
+ADD FOREIGN KEY ([historial_cuenta_id])
+REFERENCES [OOZMA_KAPPA].[Cuenta](cuenta_id);
+COMMIT
+
 
 ROLLBACK
