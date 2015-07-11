@@ -283,7 +283,7 @@ namespace Clases
 
         private void setearListaDeParametros()
         {
-            parameterList.Add(new SqlParameter("@cliente_id", this.cliente_id));
+            //parameterList.Add(new SqlParameter("@id_Cliente", this.id_Cliente));
             parameterList.Add(new SqlParameter("@Tipo_Dni", "Dni"));
             parameterList.Add(new SqlParameter("@Dni", this.Documento));
             parameterList.Add(new SqlParameter("@Apellido", this.Apellido));
@@ -295,7 +295,7 @@ namespace Clases
             parameterList.Add(new SqlParameter("@Calle", this.Calle));
             parameterList.Add(new SqlParameter("@Dom_piso", this.PisoDireccion));
             parameterList.Add(new SqlParameter("@Dom_depto", this.DeptoDireccion));
-            parameterList.Add(new SqlParameter("@Estado", this.estado));
+            parameterList.Add(new SqlParameter("@Activo", this.estado));
         }
 
         #endregion
@@ -361,6 +361,7 @@ namespace Clases
         {
             parameterList.Clear();
             setearListaDeParametros();
+            setearListaDeParametrosConClienteID(this.cliente_id);
             DataSet ds2 = SQLHelper.ExecuteDataSet("validarDniEnCliente", CommandType.StoredProcedure, parameterList);
             if ((ds2.Tables[0].Rows.Count == 0))
             {
@@ -453,7 +454,8 @@ namespace Clases
             DataSet ds2 = SQLHelper.ExecuteDataSet("validarDniEnCliente", CommandType.StoredProcedure, parameterList);
             if ((ds2.Tables[0].Rows.Count == 0))
             {
-                // que me trae los clientes where dni = DniIngresado
+                // se ejecuto un procedure que me traia los clientes where telefono = telfonoIngresado
+                // y otro que me trae los clientes where dni = DniIngresado
                 // solo si los dos ds estan vacios se inserta el cliente en la BD                
                 this.Guardar(parameterList); //el sp, esta en Base.cs//
             }

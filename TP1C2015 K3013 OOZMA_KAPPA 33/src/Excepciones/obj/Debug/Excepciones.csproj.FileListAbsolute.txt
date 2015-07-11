@@ -12,10 +12,3 @@ A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\Excepciones\bin\Debug\
 A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\Excepciones\obj\Debug\ResolveAssemblyReference.cache
 A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\Excepciones\obj\Debug\Excepciones.dll
 A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\Excepciones\obj\Debug\Excepciones.pdb
-C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\Excepciones\bin\Debug\Excepciones.dll
-C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\Excepciones\bin\Debug\Excepciones.pdb
-C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\Excepciones\bin\Debug\Utilities.dll
-C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\Excepciones\bin\Debug\Utilities.pdb
-C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\Excepciones\obj\Debug\ResolveAssemblyReference.cache
-C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\Excepciones\obj\Debug\Excepciones.dll
-C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\Excepciones\obj\Debug\Excepciones.pdb

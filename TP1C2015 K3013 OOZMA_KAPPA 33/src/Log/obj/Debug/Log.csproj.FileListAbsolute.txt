@@ -12,10 +12,3 @@ A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\Log\bin\Debug\Utilitie
 A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\Log\obj\Debug\ResolveAssemblyReference.cache
 A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\Log\obj\Debug\Log.dll
 A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\Log\obj\Debug\Log.pdb
-C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\Log\bin\Debug\Log.dll
-C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\Log\bin\Debug\Log.pdb
-C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\Log\bin\Debug\Utilities.dll
-C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\Log\bin\Debug\Utilities.pdb
-C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\Log\obj\Debug\ResolveAssemblyReference.cache
-C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\Log\obj\Debug\Log.dll
-C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\Log\obj\Debug\Log.pdb
