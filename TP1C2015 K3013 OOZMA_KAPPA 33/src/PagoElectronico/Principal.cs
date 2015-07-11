@@ -8,7 +8,7 @@ using Conexion;
 using Clases;
 using Utilities;
 using PagoElectronico.ABM_Rol;
-//using PagoElectronico.ABM_Cliente;
+using PagoElectronico.ABM_Cliente;
 using PagoElectronico.ABM_Cuenta;
 using PagoElectronico.ABM_de_Usuario;
 using PagoElectronico.Consulta_Saldos;
@@ -118,9 +118,9 @@ namespace PagoElectronico
 
         private void cLIENTEToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           // ABM_de_Cliente abmCliente = new ABM_de_Cliente();
+           ListadoCliente abmCliente = new ListadoCliente();
 
-            //abmCliente.abrirConUsuario(unUsuario);
+           abmCliente.abrirConUsuario(unUsuario);
         }
 
         private void aBMCUENTAToolStripMenuItem_Click(object sender, EventArgs e)
