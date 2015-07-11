@@ -137,6 +137,6 @@ COMMIT
 	
 	
 BEGIN TRANSACTION
-ALTER TABLE [OOZMA_KAPPA].[historial_clientes]
+ALTER TABLE [OOZMA_KAPPA].[historial_cuentas]
 ADD PRIMARY KEY ([historial_id]);
 COMMIT
