@@ -474,6 +474,3 @@ BEGIN
 END
 GO
 
-
-UPDATE OOZMA_KAPPA.Cuenta SET cuenta_pendiente_activacion = 1 WHERE cuenta_id = 1111111111111217
-

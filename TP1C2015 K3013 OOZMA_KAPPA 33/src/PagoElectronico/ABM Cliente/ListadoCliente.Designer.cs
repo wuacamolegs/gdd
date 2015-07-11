@@ -44,6 +44,7 @@
             this.txtDNI = new System.Windows.Forms.TextBox();
             this.txtMail = new System.Windows.Forms.TextBox();
             this.btnLimpiarFiltros = new System.Windows.Forms.Button();
+            this.btnVer = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dtgClientes)).BeginInit();
             this.SuspendLayout();
             // 
@@ -55,6 +56,7 @@
             this.btnAgregar.TabIndex = 0;
             this.btnAgregar.Text = "Agregar";
             this.btnAgregar.UseVisualStyleBackColor = true;
+            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
             // btnModificar
             // 
@@ -64,6 +66,7 @@
             this.btnModificar.TabIndex = 1;
             this.btnModificar.Text = "Modificar";
             this.btnModificar.UseVisualStyleBackColor = true;
+            this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
             // 
             // btnEliminar
             // 
@@ -73,6 +76,7 @@
             this.btnEliminar.TabIndex = 2;
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.UseVisualStyleBackColor = true;
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
             // btnBuscar
             // 
@@ -82,6 +86,7 @@
             this.btnBuscar.TabIndex = 3;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // labelNombre
             // 
@@ -180,12 +185,24 @@
             this.btnLimpiarFiltros.TabIndex = 15;
             this.btnLimpiarFiltros.Text = "Limpiar Filtros";
             this.btnLimpiarFiltros.UseVisualStyleBackColor = true;
+            this.btnLimpiarFiltros.Click += new System.EventHandler(this.btnLimpiarFiltros_Click);
             // 
-            // frmCliente
+            // btnVer
+            // 
+            this.btnVer.Location = new System.Drawing.Point(734, 188);
+            this.btnVer.Name = "btnVer";
+            this.btnVer.Size = new System.Drawing.Size(75, 23);
+            this.btnVer.TabIndex = 16;
+            this.btnVer.Text = "Ver";
+            this.btnVer.UseVisualStyleBackColor = true;
+            this.btnVer.Click += new System.EventHandler(this.btnVer_Click);
+            // 
+            // ListadoCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1071, 545);
+            this.Controls.Add(this.btnVer);
             this.Controls.Add(this.btnLimpiarFiltros);
             this.Controls.Add(this.txtMail);
             this.Controls.Add(this.txtDNI);
@@ -202,8 +219,9 @@
             this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnModificar);
             this.Controls.Add(this.btnAgregar);
-            this.Name = "frmCliente";
+            this.Name = "ListadoCliente";
             this.Text = "PAGO ELECTRONICO - ABM CLIENTES";
+            this.Load += new System.EventHandler(this.ListadoCliente_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dtgClientes)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -228,5 +246,6 @@
         private System.Windows.Forms.TextBox txtDNI;
         private System.Windows.Forms.TextBox txtMail;
         private System.Windows.Forms.Button btnLimpiarFiltros;
+        private System.Windows.Forms.Button btnVer;
     }
 }

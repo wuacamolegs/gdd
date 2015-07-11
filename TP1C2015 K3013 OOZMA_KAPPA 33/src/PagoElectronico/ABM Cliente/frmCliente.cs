@@ -19,7 +19,7 @@ namespace PagoElectronico.ABM_Cliente
             InitializeComponent();
         }
 
-        frmCliente frmPadre = new frmCliente(); /* CAMBIE ListadoCliente por frmCliente, en el tp de los chicos descia listado, total hace un inicialiteComponent y es lo mismo*/
+        ListadoCliente frmPadre = new ListadoCliente(); /* CAMBIE ListadoCliente por frmCliente, en el tp de los chicos descia listado, total hace un inicialiteComponent y es lo mismo*/
         Cliente clienteDelForm = new Cliente();
         private int _id_usuario_registrado;
 
@@ -35,7 +35,7 @@ namespace PagoElectronico.ABM_Cliente
         // Este form se puede abrir para ver los Datos de un Cliente, para modificarlos,
         // para crear uno nuevo(se crea tambien un usuario default) o para registrar un nuevo Cliente
         // despues de haber reistrado un usuario. 
-        public void AbrirParaVer(Cliente unCliente, frmCliente frmEnviador)
+        public void AbrirParaVer(Cliente unCliente, ListadoCliente frmEnviador)
         {
             frmPadre = frmEnviador;
             clienteDelForm = unCliente;
@@ -70,7 +70,7 @@ namespace PagoElectronico.ABM_Cliente
             btnAceptarMCliente.Visible = false;
             btnAceptarRCliente.Visible = false;
         }
-        public void AbrirParaModificar(Cliente unCliente, frmCliente frmEnviador)
+        public void AbrirParaModificar(Cliente unCliente, ListadoCliente frmEnviador)
         {
             frmPadre = frmEnviador;
             clienteDelForm = unCliente;
@@ -90,9 +90,13 @@ namespace PagoElectronico.ABM_Cliente
 
             btnAceptarACliente.Visible = false;
             btnAceptarRCliente.Visible = false;
+            txtUsername.Visible = false;
+            txtPassword.Visible = false;
+            txtPregunta.Visible = false;
+            txtRespuesta.Visible = false;
 
         }
-        public void AbrirParaAgregar(frmCliente frmEnviador)
+        public void AbrirParaAgregar(ListadoCliente frmEnviador)
         {
             frmPadre = frmEnviador;
             this.Show();
@@ -165,12 +169,12 @@ namespace PagoElectronico.ABM_Cliente
                 clienteDelForm.PisoDireccion = Int32.Parse(txtPiso.Text);
                 clienteDelForm.FechaNacimiento = DateTime.Parse(txtFechaNac.Text);
                 clienteDelForm.Mail = txtMail.Text;
-                clienteDelForm.Estado = chkActivo.Checked;
+                clienteDelForm.estado = chkActivo.Checked;
 
                 // despues de setear los atributos al clienteDelForm segun los datos ingresados
                 // le pido al cliente se encargue de modificar los datos.
 
-                clienteDelForm.ModificarDatos(); /* TODO VER */
+                clienteDelForm.ModificarDatos();
                 DialogResult dr = MessageBox.Show("El Cliente ha sido modificado", "Perfecto!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (dr == DialogResult.OK)
                 {
@@ -214,7 +218,7 @@ namespace PagoElectronico.ABM_Cliente
                 unClienteNuevo.Mail = txtMail.Text;
                 unClienteNuevo.Usuario = new Usuario();
                 unClienteNuevo.Usuario.CrearDefault(Convert.ToString(unClienteNuevo.Documento));
-                unClienteNuevo.Estado = true;
+                unClienteNuevo.estado = true;
 
                 // se instancio un nuevo Cliente y se le setearon todos los atributos segun los datos
                 // ingresados. Ahora le pido al cliente que guarde e inserte sus datos en la BD.
@@ -266,7 +270,7 @@ namespace PagoElectronico.ABM_Cliente
 
                 unClienteNuevo.Usuario = new Usuario();
                 unClienteNuevo.Usuario.CrearDefault(Convert.ToString(unClienteNuevo.Documento));
-                unClienteNuevo.Estado = true;
+                unClienteNuevo.estado = true;
 
                 // Se crea un nuevo Cliente y se le setean los atributos con los datos ingresados.
                 // se le pide al cliente que guarden los datos en la BD. Para esto, se manda el id
@@ -297,6 +301,9 @@ namespace PagoElectronico.ABM_Cliente
             }
         }
 
+        
+        
+
         private void ValidarCampos()
         {
             // lo primero que se hace Luego de ejecutarse el evento Click en los botones "Aceptar"
@@ -306,9 +313,11 @@ namespace PagoElectronico.ABM_Cliente
             strErrores += Validator.ValidarNulo(txtApellido.Text, "Apellido");
             strErrores += Validator.SoloNumeros(txtDNI.Text, "Dni");
             strErrores += Validator.ValidarNulo(txtMail.Text, "Mail");
+            strErrores += Validator.ValidarNulo(txtPais.Text, "Pais");
             strErrores += Validator.ValidarNulo(txtCalle.Text, "Calle");
-            strErrores += Validator.ValidarNulo(txtNumero.Text, "Numero de calle");
-            strErrores += Validator.SoloNumerosPeroOpcional(txtPiso.Text, "Numero de Piso");
+            strErrores += Validator.ValidarNulo(txtNumero.Text, "Numero");
+            strErrores += Validator.SoloNumerosPeroOpcional(txtPiso.Text, "Piso");
+            strErrores += Validator.ValidarNulo(txtDepto.Text, "Depto");
             strErrores += Validator.ValidarNulo(txtPais.Text, "Pais");
             strErrores += Validator.ValidarNulo(txtFechaNac.Text, "Fecha de nacimiento");
             if (strErrores.Length > 0)
@@ -316,6 +325,17 @@ namespace PagoElectronico.ABM_Cliente
                 throw new Exception(strErrores);
             }
         }
+
+        private void label12_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void frmCliente_Load(object sender, EventArgs e)
+        {
+
+        }
+
        
     }
 }

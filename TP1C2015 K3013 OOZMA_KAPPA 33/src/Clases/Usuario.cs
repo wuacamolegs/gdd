@@ -38,6 +38,14 @@ namespace Clases
 
         }
 
+        public void CrearDefault(string unNombreDeUsuario)
+        {
+            this.Username = unNombreDeUsuario;
+            this.Password = Encryptor.GetSHA256(unNombreDeUsuario);
+            this.Estado = true;
+        }
+
+
         #endregion
 
         #region properties
@@ -117,6 +125,14 @@ namespace Clases
             return boolClave;
         }
 
+        public int GuardarYObtenerID()
+        {
+            setearListaDeParametros();
+            DataSet dsNuevoUsuario = this.GuardarYObtenerID(parameterList);
+            this.usuario_id = Convert.ToInt32(dsNuevoUsuario.Tables[0].Rows[0]["id_Usuario"]);
+            return this.usuario_id;
+        } 
+
 
         #endregion
 
@@ -129,6 +145,13 @@ namespace Clases
         {
             parameterList.Add(new SqlParameter("@Username", this.Username)); //el nombre de la variable @Username de aca tiene que ser igual a la del store procedure que defini en .sql
 
+        }
+
+        private void setearListaDeParametros()
+        {
+            parameterList.Add(new SqlParameter("@Username", this.Username));
+            parameterList.Add(new SqlParameter("@Clave", this.Password));
+            parameterList.Add(new SqlParameter("@Estado", this.Estado));
         }
 
         private void setearListaDeParametrosSoloConIdUsuario()

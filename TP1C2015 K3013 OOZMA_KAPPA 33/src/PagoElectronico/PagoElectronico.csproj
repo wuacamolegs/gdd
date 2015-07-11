@@ -66,18 +66,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ABM Cliente\abm_tarjetas.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ABM Cliente\abm_tarjetas.Designer.cs">
-      <DependentUpon>abm_tarjetas.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ABM Cliente\formTarjeta.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ABM Cliente\formTarjeta.Designer.cs">
-      <DependentUpon>formTarjeta.cs</DependentUpon>
-    </Compile>
     <Compile Include="ABM Cliente\frmCliente.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -170,12 +158,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="ABM Cliente\abm_tarjetas.resx">
-      <DependentUpon>abm_tarjetas.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ABM Cliente\formTarjeta.resx">
-      <DependentUpon>formTarjeta.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="ABM Cliente\frmCliente.resx">
       <DependentUpon>frmCliente.cs</DependentUpon>
     </EmbeddedResource>
