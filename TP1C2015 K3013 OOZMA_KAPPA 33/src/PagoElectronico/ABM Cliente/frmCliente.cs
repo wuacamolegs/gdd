@@ -19,7 +19,7 @@ namespace PagoElectronico.ABM_Cliente
             InitializeComponent();
         }
 
-        ListadoCliente frmPadre = new ListadoCliente(); /* CAMBIE ListadoCliente por frmCliente, en el tp de los chicos descia listado, total hace un inicialiteComponent y es lo mismo*/
+        frmCliente frmPadre = new frmCliente(); /* CAMBIE ListadoCliente por frmCliente, en el tp de los chicos descia listado, total hace un inicialiteComponent y es lo mismo*/
         Cliente clienteDelForm = new Cliente();
         private int _id_usuario_registrado;
 
@@ -35,7 +35,7 @@ namespace PagoElectronico.ABM_Cliente
         // Este form se puede abrir para ver los Datos de un Cliente, para modificarlos,
         // para crear uno nuevo(se crea tambien un usuario default) o para registrar un nuevo Cliente
         // despues de haber reistrado un usuario. 
-        public void AbrirParaVer(Cliente unCliente, ListadoCliente frmEnviador)
+        public void AbrirParaVer(Cliente unCliente, frmCliente frmEnviador)
         {
             frmPadre = frmEnviador;
             clienteDelForm = unCliente;
@@ -70,7 +70,7 @@ namespace PagoElectronico.ABM_Cliente
             btnAceptarMCliente.Visible = false;
             btnAceptarRCliente.Visible = false;
         }
-        public void AbrirParaModificar(Cliente unCliente, ListadoCliente frmEnviador)
+        public void AbrirParaModificar(Cliente unCliente, frmCliente frmEnviador)
         {
             frmPadre = frmEnviador;
             clienteDelForm = unCliente;
@@ -92,7 +92,7 @@ namespace PagoElectronico.ABM_Cliente
             btnAceptarRCliente.Visible = false;
 
         }
-        public void AbrirParaAgregar(ListadoCliente frmEnviador)
+        public void AbrirParaAgregar(frmCliente frmEnviador)
         {
             frmPadre = frmEnviador;
             this.Show();

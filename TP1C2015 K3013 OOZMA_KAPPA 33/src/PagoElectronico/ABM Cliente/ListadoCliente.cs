@@ -11,7 +11,7 @@ using Clases;
 
 namespace PagoElectronico.ABM_Cliente
 {
-    public partial class frmCliente : Form
+    public partial class ListadoCliente : Form
     {
         #region variables
         public Cliente unCliente = new Cliente();
@@ -21,7 +21,7 @@ namespace PagoElectronico.ABM_Cliente
         #endregion
 
         #region initialize
-        public frmCliente()
+        public ListadoCliente()
         {
             InitializeComponent();
         }
