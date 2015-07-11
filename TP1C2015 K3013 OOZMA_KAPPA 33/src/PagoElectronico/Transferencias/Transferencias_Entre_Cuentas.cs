@@ -18,8 +18,6 @@ namespace PagoElectronico.Transferencias
 
         public Cliente unClienteOrigen = new Cliente();
 
-        public Cliente unClienteDestino = new Cliente();
-         
         public Cuenta unaCuentaOrigen = new Cuenta();
 
         public Cuenta unaCuentaDestino = new Cuenta();
@@ -36,6 +34,9 @@ namespace PagoElectronico.Transferencias
         public void abrirConUsuario(Usuario user)
         {
             unUsuario = user;
+            unClienteOrigen.Usuario = unUsuario;
+            unaTransferencia.CuentaOrigen = unaCuentaOrigen;
+            unaTransferencia.CuentaDestino = unaCuentaDestino;
             this.Show();
         }
 
@@ -50,11 +51,7 @@ namespace PagoElectronico.Transferencias
             DataSet dsClienteOrigen = this.ObtenerClientes();
             DropDownListManager.CargarCombo(cmbClienteOrigen, dsClienteOrigen.Tables[0], "cliente_id", "cliente_nombre", false, "");
 
-            //cargar cmbClienteDestino
-            DataSet dsClienteDestino = unClienteOrigen.ObtenerTodosLosClientes(unUsuario.usuario_id);
-            DropDownListManager.CargarCombo(cmbClienteDestino, dsClienteDestino.Tables[0], "cliente_id", "cliente_nombre", false, ""); 
-
-            
+                       
         }
  
         private void cmbClienteOrigen_SelectedIndexChanged(object sender, EventArgs e)
@@ -64,15 +61,6 @@ namespace PagoElectronico.Transferencias
             DataSet dsCuentaOrigen = traerCuentasPorCliente(unClienteOrigen);
             DropDownListManager.CargarCombo(cmbCuentaOrigen, dsCuentaOrigen.Tables[0], "cuenta_numero", "cuenta_numero", false, "");
 
-        }
-
-        private void cmbClienteDestino_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //cargar CuentasClienteDestino
-            unClienteDestino.cliente_id = Convert.ToInt64(cmbClienteDestino.SelectedValue);
-            DataSet dsCuentaDestino = traerCuentasPorCliente(unClienteDestino);
-            DropDownListManager.CargarCombo(cmbCuentaDestino, dsCuentaDestino.Tables[0], "cuenta_numero", "cuenta_numero", false, "");
- 
         }
 
         private void cmbCuentaOrigen_SelectedIndexChanged(object sender, EventArgs e)
@@ -90,9 +78,9 @@ namespace PagoElectronico.Transferencias
         {
             if (ValidarCampos())
                 {
-                    MessageBox.Show("Transaccion Exitosa", "Validacion Exitosa");
-                    
+                   
                     realizarAccionesTransferencia();
+                    
                 }
                        
         }
@@ -129,46 +117,68 @@ namespace PagoElectronico.Transferencias
 
         private bool ValidarCampos()
         {
-            string strErrores = "";
-            strErrores = strErrores + Validator.ValidarNulo(txtImporte.Text, "Importe");
+            unaCuentaDestino.cuenta_id = Convert.ToInt64(txtCuentaDestino.Text);
+            if (unaCuentaDestino.validarCuentaDestino())
+            {
+                string strErrores = "";
+                strErrores = strErrores + Validator.ValidarNulo(txtImporte.Text, "Importe");
 
-            if (strErrores.Length > 0)
-            {
-                MessageBox.Show(strErrores);
-                txtImporte.Clear();
-                return false;
-            }
-            else
-            {
-                strErrores = strErrores + Validator.SoloNumerosODecimales(txtImporte.Text, "Importe");
                 if (strErrores.Length > 0)
                 {
                     MessageBox.Show(strErrores);
                     txtImporte.Clear();
                     return false;
-
                 }
                 else
                 {
-                    strErrores = strErrores + Validator.MayorACero(txtImporte.Text, "Importe");
+                    strErrores = strErrores + Validator.SoloNumerosODecimales(txtImporte.Text, "Importe");
                     if (strErrores.Length > 0)
                     {
                         MessageBox.Show(strErrores);
                         txtImporte.Clear();
                         return false;
+
                     }
                     else
                     {
-                        return true;
+                        strErrores = strErrores + Validator.MayorACero(txtImporte.Text, "Importe");
+                        if (strErrores.Length > 0)
+                        {
+                            MessageBox.Show(strErrores);
+                            txtImporte.Clear();
+                            return false;
+                        }
+                        else
+                        {
+                            Int64 Importe = Convert.ToInt64(txtImporte.Text);
+                            Int64 Saldo = Convert.ToInt64(txtSaldo.Text);
+                            if (Importe <= Saldo)
+                            {
+                                return true;
+                            }
+                            else
+                            {
+                                MessageBox.Show("No se ha realizado la transferencia ya que no cuenta con suficiente saldo", "Saldo insuficiente");
+                                return false;
+                            }
+
+
+                        }
                     }
                 }
             }
+            else
+            {
+                MessageBox.Show("La cuenta de destino que ingreso es inexistente", "Cuenta inexistente");
+                txtCuentaDestino.Clear();
+                return false;
+            }        
         }
 
 
         private void realizarAccionesTransferencia()
         {
-            if (Convert.ToInt64(cmbCuentaDestino.SelectedValue) == Convert.ToInt64(cmbCuentaOrigen.SelectedValue))
+            if (Convert.ToInt64(txtCuentaDestino.Text) == Convert.ToInt64(cmbCuentaOrigen.SelectedValue))
             {
                 MessageBox.Show("No se puede realizar una transferencia entre mismas cuentas. Seleccione otra Cuenta", "Cuenta Incorrecta");
                 txtImporte.Clear();
@@ -180,13 +190,15 @@ namespace PagoElectronico.Transferencias
                 DataSet dsClienteOrigen = unClienteOrigen.TraerClientePorID(clienteOrigenID);
                 unClienteOrigen.DataRowToObject(dsClienteOrigen.Tables[0].Rows[0]);
 
-                Int64 clienteDestinoID = Convert.ToInt64(cmbClienteDestino.SelectedValue);
-                DataSet dsClienteDestino = unClienteDestino.TraerClientePorID(clienteDestinoID);
-                unClienteDestino.DataRowToObject(dsClienteDestino.Tables[0].Rows[0]);
-
-                Int64 cuentaDestinoID = Convert.ToInt64(cmbCuentaDestino.SelectedValue);
+               
+                Int64 cuentaDestinoID = Convert.ToInt64(txtCuentaDestino.Text);
                 DataSet dsCuentaDestino = unaCuentaDestino.TraerCuentaPorCuentaID(cuentaDestinoID);
                 unaCuentaDestino.DataRowToObject(dsCuentaDestino.Tables[0].Rows[0]);
+
+                Int64 cuentaOrigenID = Convert.ToInt64(cmbCuentaOrigen.SelectedValue);
+                DataSet dsCuentaOrigen = unaCuentaOrigen.TraerCuentaPorCuentaID(cuentaOrigenID);
+                unaCuentaOrigen.DataRowToObject(dsCuentaOrigen.Tables[0].Rows[0]);
+
 
                 unaTransferencia.CuentaOrigen = unaCuentaOrigen;
                 unaTransferencia.CuentaDestino = unaCuentaDestino;
@@ -198,13 +210,16 @@ namespace PagoElectronico.Transferencias
         private void generarTransferenciaExitosa()
         {
             unaTransferencia.CuentaOrigen.cuenta_id = Convert.ToInt64(cmbCuentaOrigen.SelectedValue);
-            unaTransferencia.CuentaDestino.cuenta_id = Convert.ToInt64(cmbCuentaDestino.SelectedValue);
+            unaTransferencia.CuentaDestino.cuenta_id = Convert.ToInt64(txtCuentaDestino.Text);
             unaTransferencia.Importe = Convert.ToInt64(txtImporte.Text);
             unaTransferencia.Fecha = Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]);
 
             unaTransferencia.GenerarTransferencia();
+            MessageBox.Show("Transaccion Exitosa", "Validacion Exitosa");
             txtSaldo.Clear();
             this.Hide();
+        
+        
         }
      
      #endregion

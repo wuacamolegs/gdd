@@ -32,6 +32,8 @@ DROP PROCEDURE [OOZMA_KAPPA].updateTarjeta
 GO
 DROP PROCEDURE [OOZMA_KAPPA].deleteTarjeta
 GO
+DROP PROCEDURE [OOZMA_KAPPA].traerListadoCuentaExiste
+GO
 
 
 ---------------------------------------- Crear Stored Procedures -----
@@ -193,3 +195,13 @@ CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoMonedaCompleto]
 AS
 	SELECT moneda_id as id_Moneda, moneda_nombre as Moneda FROM OOZMA_KAPPA.Moneda;
 GO
+
+
+----SP CUENTA---
+
+CREATE PROCEDURE[OOZMA_KAPPA].[traerListadoCuentaExiste]
+@cuenta_id numeric(18,0)
+AS
+	SELECT * FROM OOZMA_KAPPA.Cuenta where @cuenta_id = cuenta_id
+	
+GO	

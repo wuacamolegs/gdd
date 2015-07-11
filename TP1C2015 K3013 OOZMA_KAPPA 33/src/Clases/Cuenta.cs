@@ -324,5 +324,17 @@ namespace Clases
 
 
 
+
+        public bool validarCuentaDestino()
+        {
+            setearListaDeParametrosConCuentaID(this.cuenta_id);
+            DataSet ds = this.TraerListado(parameterList, "Existe");
+            if (ds.Tables[0].Rows.Count > 0) 
+            {
+                return true;
+            }else{
+                return false;
+            }
+        }
     }
 }

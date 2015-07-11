@@ -36,10 +36,8 @@
             this.cmbClienteOrigen = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.cmbCuentaDestino = new System.Windows.Forms.ComboBox();
+            this.txtCuentaDestino = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.cmbClienteDestino = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.txtImporte = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -60,7 +58,7 @@
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(33, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(226, 162);
+            this.groupBox1.Size = new System.Drawing.Size(253, 162);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Origen";
@@ -122,53 +120,31 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.cmbCuentaDestino);
+            this.groupBox2.Controls.Add(this.txtCuentaDestino);
             this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Controls.Add(this.cmbClienteDestino);
-            this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Location = new System.Drawing.Point(330, 12);
+            this.groupBox2.Location = new System.Drawing.Point(298, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(232, 162);
+            this.groupBox2.Size = new System.Drawing.Size(264, 162);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Destino";
             // 
-            // cmbCuentaDestino
+            // txtCuentaDestino
             // 
-            this.cmbCuentaDestino.FormattingEnabled = true;
-            this.cmbCuentaDestino.Location = new System.Drawing.Point(69, 86);
-            this.cmbCuentaDestino.Name = "cmbCuentaDestino";
-            this.cmbCuentaDestino.Size = new System.Drawing.Size(157, 21);
-            this.cmbCuentaDestino.TabIndex = 3;
+            this.txtCuentaDestino.Location = new System.Drawing.Point(76, 35);
+            this.txtCuentaDestino.Name = "txtCuentaDestino";
+            this.txtCuentaDestino.Size = new System.Drawing.Size(182, 20);
+            this.txtCuentaDestino.TabIndex = 3;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(3, 86);
+            this.label4.Location = new System.Drawing.Point(6, 35);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(64, 16);
             this.label4.TabIndex = 2;
             this.label4.Text = "CUENTA";
-            // 
-            // cmbClienteDestino
-            // 
-            this.cmbClienteDestino.FormattingEnabled = true;
-            this.cmbClienteDestino.Location = new System.Drawing.Point(69, 35);
-            this.cmbClienteDestino.Name = "cmbClienteDestino";
-            this.cmbClienteDestino.Size = new System.Drawing.Size(157, 21);
-            this.cmbClienteDestino.TabIndex = 1;
-            this.cmbClienteDestino.SelectedIndexChanged += new System.EventHandler(this.cmbClienteDestino_SelectedIndexChanged);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(6, 35);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(64, 16);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "CLIENTE";
             // 
             // groupBox3
             // 
@@ -237,15 +213,13 @@
         private System.Windows.Forms.ComboBox cmbClienteOrigen;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.ComboBox cmbCuentaDestino;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox cmbClienteDestino;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.TextBox txtImporte;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnConfirmar;
         private System.Windows.Forms.TextBox txtSaldo;
         private System.Windows.Forms.Label Saldo;
+        private System.Windows.Forms.TextBox txtCuentaDestino;
     }
 }

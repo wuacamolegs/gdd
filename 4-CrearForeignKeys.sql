@@ -134,11 +134,11 @@ ADD FOREIGN KEY ([item_factura_numero_factura])
 REFERENCES [OOZMA_KAPPA].[Factura](factura_numero);
 COMMIT
 
-BEGIN TRANSACTION
+/*BEGIN TRASACTION
 ALTER TABLE [OOZMA_KAPPA].[Item_Factura]
 ADD FOREIGN KEY ([item_transaccion_id])
 REFERENCES [OOZMA_KAPPA].[Transacciones_Pendientes](transaccion_pendiente_id);
-COMMIT
+COMMIT*/
 
 BEGIN TRANSACTION
 ALTER TABLE [OOZMA_KAPPA].[Factura]
