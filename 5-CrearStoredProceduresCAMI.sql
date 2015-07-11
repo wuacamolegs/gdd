@@ -325,12 +325,15 @@ BEGIN TRANSACTION
 	 BEGIN
 	 
 		WITH suscripciones AS (SELECT TOP (@CantidadSuscripciones) * 
-					 FROM OOZMA_KAPPA.Transacciones_Pendientes WHERE  transaccion_pendiente_cliente_id = @Cliente AND
-																	  transaccion_pendiente_cuenta_id = @Cuenta
-																   	  ORDER BY transaccion_pendiente_fecha)
+							 FROM OOZMA_KAPPA.Transacciones_Pendientes WHERE  transaccion_pendiente_cliente_id = @Cliente AND
+																			  transaccion_pendiente_cuenta_id = @Cuenta
+															   				  ORDER BY transaccion_pendiente_fecha)
 		DELETE FROM suscripciones;
 		
+		UPDATE OOZMA_KAPPA.Cuenta SET cuenta_estado = 1, cuenta_pendiente_activacion = 0 WHERE cuenta_id = @Cuenta
+		
 		FETCH NEXT FROM itemsSuscripciones INTO @Cliente, @Cuenta, @CantidadSuscripciones;
+		
 	 END
 	 	
 	
@@ -338,6 +341,7 @@ BEGIN TRANSACTION
 	 
 	CLOSE itemsSuscripciones;
 	DEALLOCATE itemsSuscripciones;
+	
 
 	INSERT INTO OOZMA_KAPPA.Factura (factura_importe, factura_fecha, factura_cliente_id)
 	VALUES (@factura_importe, @factura_fecha, @factura_cliente_id);

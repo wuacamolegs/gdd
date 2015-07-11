@@ -114,7 +114,7 @@ namespace PagoElectronico.ABM_Cuenta
             //Si llega a cambiar el tipo cuenta me tengo  que fijar que no tengas suscripciones pendientes. Si las tiene no puede modificar el tipo cuenta!!
             if (cantidadSuscripcionesAPagar > 0 && unaCuenta.tipoCuenta != Convert.ToInt64(cmbTipoCuenta.SelectedValue))
             {
-                MessageBox.Show("La Cuenta: " + unaCuenta.cuenta_id + " Posee saldos pendientes a pagar. Elija otra cuenta", "No se puede Modificar TipoCuenta");
+                MessageBox.Show("La Cuenta: " + unaCuenta.cuenta_id + "Posee saldos pendientes a pagar. Elija otra cuenta", "No se puede Modificar TipoCuenta");
                 this.Close();
             }
             else
