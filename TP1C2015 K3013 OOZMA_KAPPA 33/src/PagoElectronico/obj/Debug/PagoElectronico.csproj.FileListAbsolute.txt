@@ -139,3 +139,38 @@ A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\De
 A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Debug\PagoElectronico.Retiros.Retiro_Efectivo.resources
 A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Debug\PagoElectronico.Transferencias.Transferencias_Entre_Cuentas.resources
 A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Debug\PagoElectronico.csproj.GenerateResource.Cache
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Debug\PagoElectronico.exe.config
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Debug\PagoElectronico.exe
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Debug\PagoElectronico.pdb
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Debug\PagoElectronico.exe
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Debug\PagoElectronico.pdb
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Debug\Clases.dll
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Debug\Conexion.dll
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Debug\Excepciones.dll
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Debug\Log.dll
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Debug\Utilities.dll
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Debug\Clases.pdb
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Debug\Log.pdb
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Debug\Utilities.pdb
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Debug\Excepciones.pdb
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Debug\Conexion.pdb
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Debug\PagoElectronico.ABM_Cliente.frmCliente.resources
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Debug\PagoElectronico.ABM_Cliente.ListadoCliente.resources
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Debug\PagoElectronico.ABM_Cuenta.ABM_de_Cuenta.resources
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Debug\PagoElectronico.ABM_Cuenta.ListadoCuenta.resources
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Debug\PagoElectronico.ABM_de_Usuario.ABM_Usuario.resources
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Debug\PagoElectronico.ABM_Rol.ABM_de_Rol.resources
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Debug\PagoElectronico.ABM_Rol.frmRol.resources
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Debug\PagoElectronico.Consulta_Saldos.Consulta_De_Saldos.resources
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Debug\PagoElectronico.Depositos.frmDepositos.resources
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Debug\PagoElectronico.Facturacion.Facturas.resources
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Debug\PagoElectronico.Facturacion.Facturacion_De_Costos.resources
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Debug\PagoElectronico.Inicio.resources
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Debug\PagoElectronico.Listados.Listado_Estadistico.resources
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Debug\PagoElectronico.Login.LogIn.resources
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Debug\PagoElectronico.Principal.resources
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Debug\PagoElectronico.Properties.Resources.resources
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Debug\PagoElectronico.Retiros.Retiro_Efectivo.resources
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Debug\PagoElectronico.Transferencias.Transferencias_Entre_Cuentas.resources
+C:\Users\GUILLERMO\Desktop\Gestion VM\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Debug\PagoElectronico.csproj.GenerateResource.Cache
