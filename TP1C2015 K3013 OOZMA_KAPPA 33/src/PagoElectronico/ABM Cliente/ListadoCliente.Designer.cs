@@ -136,8 +136,9 @@
             // 
             // cmbTipoDoc
             // 
+            this.cmbTipoDoc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbTipoDoc.FormattingEnabled = true;
-            this.cmbTipoDoc.Location = new System.Drawing.Point(86, 16);
+            this.cmbTipoDoc.Location = new System.Drawing.Point(395, 15);
             this.cmbTipoDoc.Name = "cmbTipoDoc";
             this.cmbTipoDoc.Size = new System.Drawing.Size(192, 21);
             this.cmbTipoDoc.TabIndex = 9;
@@ -152,10 +153,11 @@
             // 
             // txtNombre
             // 
-            this.txtNombre.Location = new System.Drawing.Point(395, 16);
+            this.txtNombre.Location = new System.Drawing.Point(86, 15);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(192, 20);
             this.txtNombre.TabIndex = 11;
+            this.txtNombre.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNombre_KeyPress);
             // 
             // txtApellido
             // 
@@ -163,6 +165,7 @@
             this.txtApellido.Name = "txtApellido";
             this.txtApellido.Size = new System.Drawing.Size(192, 20);
             this.txtApellido.TabIndex = 12;
+            this.txtApellido.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtApellido_KeyPress);
             // 
             // txtDNI
             // 
@@ -195,13 +198,13 @@
             this.groupBox1.Controls.Add(this.labelNombre);
             this.groupBox1.Controls.Add(this.txtMail);
             this.groupBox1.Controls.Add(this.btnBuscar);
+            this.groupBox1.Controls.Add(this.cmbTipoDoc);
             this.groupBox1.Controls.Add(this.labelApellido);
             this.groupBox1.Controls.Add(this.txtDNI);
             this.groupBox1.Controls.Add(this.labelDNI);
             this.groupBox1.Controls.Add(this.txtApellido);
             this.groupBox1.Controls.Add(this.labelTipoDni);
             this.groupBox1.Controls.Add(this.labelMail);
-            this.groupBox1.Controls.Add(this.cmbTipoDoc);
             this.groupBox1.Location = new System.Drawing.Point(13, 13);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(854, 98);

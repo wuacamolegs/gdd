@@ -87,7 +87,6 @@ namespace PagoElectronico.ABM_Cuenta
                 DataSet ds = unaCuenta.TraerCuentaPorFiltrosCliente();
                 cargarGrilla(ds);
             }
-
         }
 
         private void btnLimpiarFiltros_Click(object sender, EventArgs e)
@@ -230,19 +229,19 @@ namespace PagoElectronico.ABM_Cuenta
 
         private bool ValidarCampos()
         {
-            if (txtDNI.Text != "") 
-            { 
-                Validator.EsNumero(txtDNI.Text); 
-            }
-            if (txtNombre.Text != "")
+            string strerrores = "";
+            if (txtDNI.Text != "")
             {
-
+                strerrores = Validator.SoloNumeros(txtDNI.Text, "DNI");
+                if (strerrores.Length > 0)
+                {
+                    MessageBox.Show(strerrores, "Campos Erroneos");
+                    txtDNI.Text = "";
+                    return false;
+                }
+                else { return true; }
             }
-            if (txtApellido.Text != "")
-            {
-
-            }
-            return true;
+            else { return true; }
         }
 
         private void cargarDatosCuenta()

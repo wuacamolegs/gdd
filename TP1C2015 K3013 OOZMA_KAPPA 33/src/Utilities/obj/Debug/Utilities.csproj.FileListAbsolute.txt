@@ -3,3 +3,8 @@ A:\Documents\GitHub\gdd\PagoElectronico\Utilities\bin\Debug\Utilities.pdb
 A:\Documents\GitHub\gdd\PagoElectronico\Utilities\obj\Debug\ResolveAssemblyReference.cache
 A:\Documents\GitHub\gdd\PagoElectronico\Utilities\obj\Debug\Utilities.dll
 A:\Documents\GitHub\gdd\PagoElectronico\Utilities\obj\Debug\Utilities.pdb
+A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\Utilities\bin\Debug\Utilities.dll
+A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\Utilities\bin\Debug\Utilities.pdb
+A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\Utilities\obj\Debug\ResolveAssemblyReference.cache
+A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\Utilities\obj\Debug\Utilities.dll
+A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\Utilities\obj\Debug\Utilities.pdb

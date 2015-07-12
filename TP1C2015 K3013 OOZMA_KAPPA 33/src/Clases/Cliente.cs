@@ -17,6 +17,7 @@ namespace Clases
     {
         #region variables
         List<SqlParameter> parameterList = new List<SqlParameter>();
+
         #endregion
 
         #region atributos
@@ -253,66 +254,36 @@ namespace Clases
 
         }
 
-        private void setearListaDeParametrosConFiltros(string Nombre, string Apellido, string TipoDni, Int64 Dni, string Mail)
+        private void setearListaDeParametrosConFiltros(string Nombre, string Apellido, int TipoDni, string Dni, string Mail)
         {
-            parameterList.Add(new SqlParameter("@Nombre", Nombre));
-            parameterList.Add(new SqlParameter("@Apellido", Apellido));
-            parameterList.Add(new SqlParameter("@Tipo_Dni", TipoDni));
-            parameterList.Add(new SqlParameter("@Dni", Dni));
-            parameterList.Add(new SqlParameter("@Mail", Mail));
-        }
-
-        private void setearListaDeParametrosCompleta()
-        {
-            parameterList.Add(new SqlParameter("@id_Cliente", this.cliente_id));
-            parameterList.Add(new SqlParameter("@Tipo_Dni", this.TipoDocumento));
-            parameterList.Add(new SqlParameter("@Dni", this.Documento));
-
-            parameterList.Add(new SqlParameter("@Apellido", this.Apellido));
-            parameterList.Add(new SqlParameter("@Nombre", this.Nombre));    //TODO: ARREGLAR NOMBRES VARIABLES, TIENEN QUE SER IGUAL A LOS NOMBRES
-            parameterList.Add(new SqlParameter("@Fecha_nac", this.FechaNacimiento)); // DE LAS COLUMNAS DE LAS TABLAS
-            parameterList.Add(new SqlParameter("@Mail", this.Mail));
-
-            parameterList.Add(new SqlParameter("@Dom_calle", this.Calle));
-            parameterList.Add(new SqlParameter("@Dom_nro_calle", this.NumeroDireccion));
-            parameterList.Add(new SqlParameter("@Dom_piso", this.PisoDireccion));
-            parameterList.Add(new SqlParameter("@Dom_depto", this.DeptoDireccion));
-            parameterList.Add(new SqlParameter("@Pais_residente", this.PaisResidente));
-            parameterList.Add(new SqlParameter("@Estado", this.estado));
+            parameterList.Add(new SqlParameter("@cliente_nombre", Nombre));
+            parameterList.Add(new SqlParameter("@cliente_apellido", Apellido));
+            parameterList.Add(new SqlParameter("@cliente_tipo_documento_id", TipoDni));
+            parameterList.Add(new SqlParameter("@cliente_numero_documento", Dni));
+            parameterList.Add(new SqlParameter("@cliente_mail", Mail));
         }
 
         private void setearListaDeParametros()
         {
-            //parameterList.Add(new SqlParameter("@id_Cliente", this.id_Cliente));
-            parameterList.Add(new SqlParameter("@Tipo_Dni", "Dni"));
-            parameterList.Add(new SqlParameter("@Dni", this.Documento));
-            parameterList.Add(new SqlParameter("@Apellido", this.Apellido));
-            parameterList.Add(new SqlParameter("@Nombre", this.Nombre));
-            parameterList.Add(new SqlParameter("@Fecha_nac", this.FechaNacimiento));
-            parameterList.Add(new SqlParameter("@Mail", this.Mail));
-            parameterList.Add(new SqlParameter("@Pais_id", this.PaisResidente));
-            parameterList.Add(new SqlParameter("@Numero_calle", this.NumeroDireccion));
-            parameterList.Add(new SqlParameter("@Calle", this.Calle));
-            parameterList.Add(new SqlParameter("@Dom_piso", this.PisoDireccion));
-            parameterList.Add(new SqlParameter("@Dom_depto", this.DeptoDireccion));
-            parameterList.Add(new SqlParameter("@Activo", this.estado));
+            parameterList.Add(new SqlParameter("@cliente_id", this.cliente_id));
+            parameterList.Add(new SqlParameter("@cliente_tipo_documento_id", this.TipoDocumento));
+            parameterList.Add(new SqlParameter("@cliente_numero_documento", this.Documento));
+            parameterList.Add(new SqlParameter("@cliente_apellido", this.Apellido));
+            parameterList.Add(new SqlParameter("@cliente_nombre", this.Nombre));
+            parameterList.Add(new SqlParameter("@cliente_fecha_nacimiento", this.FechaNacimiento));
+            parameterList.Add(new SqlParameter("@cliente_mail", this.Mail));
+            parameterList.Add(new SqlParameter("@cliente_pais_id", this.PaisResidente));
+            parameterList.Add(new SqlParameter("@cliente_numero", this.NumeroDireccion));
+            parameterList.Add(new SqlParameter("@cliente_calle", this.Calle));
+            parameterList.Add(new SqlParameter("@cliente_direccion", this.PisoDireccion));
+            parameterList.Add(new SqlParameter("@cliente_depto", this.DeptoDireccion));
+            parameterList.Add(new SqlParameter("@cliente_estado", this.estado));
         }
 
         #endregion
 
         #region llamados a la bd
 
-        public void CargarObjetoClienteConId()
-        {
-            //Con el id del cliente me traigo de la BD todos los datos del Cliente
-            setearListaDeParametrosConClienteID(this.cliente_id);
-            DataSet ds = SQLHelper.ExecuteDataSet("traerClienteConId", CommandType.StoredProcedure, parameterList);
-            parameterList.Clear();
-            if (ds.Tables[0].Rows.Count == 1)
-            {
-                DataRowToObject(ds.Tables[0].Rows[0]);
-            }
-        }
 
         public DataSet obtenerTodosLosClientes()
         {
@@ -323,12 +294,11 @@ namespace Clases
 
         //Cuando le pasen este metodo a un cliente antes tienen que crearlo, ahi usar unCliente = new Cliente(unNombre, unApellido, unTipoDni, unDni, unMail); 
         // y despues basta con llamarlo como this.
-        public static DataSet obtenerTodosLosClientesConFiltros(string unNombre, string unApellido, string unTipoDni, Int64 unDni, string unMail)
+        public DataSet obtenerTodosLosClientesConFiltros(string unNombre, string unApellido, int unTipoDni, string unDni, string unMail)
         {
-            Cliente unCliente = new Cliente(unNombre, unApellido, unTipoDni, unDni, unMail);
-            unCliente.setearListaDeParametrosConFiltros(unCliente.Nombre, unCliente.Apellido, unCliente.TipoDocumento, unCliente.Documento, unCliente.Mail);
-            DataSet ds = unCliente.TraerListado(unCliente.parameterList, "ConFiltros");
-            unCliente.parameterList.Clear();
+            this.setearListaDeParametrosConFiltros(unNombre, unApellido, unTipoDni, unDni, unMail);
+            DataSet ds = this.TraerListado(parameterList, "ConFiltros");
+            this.parameterList.Clear();
             return ds;
         }
 
@@ -470,6 +440,13 @@ namespace Clases
        
     
        
+    
+        public DataSet TraerClientePorIDConTodosLosDatos(int clienteID)
+        {
+            setearListaDeParametrosConClienteID(Convert.ToInt64(cliente_id));
+            return TraerListado(parameterList, "ConTodoPorClienteID");
+
+        }
     }
 }
  

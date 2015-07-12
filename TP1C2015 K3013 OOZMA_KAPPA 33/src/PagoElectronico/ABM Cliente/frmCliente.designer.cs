@@ -58,15 +58,15 @@
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.txtPregunta = new System.Windows.Forms.TextBox();
-            this.txtRespuesta = new System.Windows.Forms.TextBox();
+            this.gbUsuario = new System.Windows.Forms.GroupBox();
             this.txtPassword = new System.Windows.Forms.TextBox();
+            this.txtRespuesta = new System.Windows.Forms.TextBox();
+            this.txtPregunta = new System.Windows.Forms.TextBox();
             this.btnNuevoCliente = new System.Windows.Forms.Button();
             this.btnModificar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
+            this.gbUsuario.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -352,26 +352,26 @@
             this.label15.TabIndex = 33;
             this.label15.Text = "PASSWORD";
             // 
-            // groupBox3
+            // gbUsuario
             // 
-            this.groupBox3.Controls.Add(this.txtPassword);
-            this.groupBox3.Controls.Add(this.txtRespuesta);
-            this.groupBox3.Controls.Add(this.txtPregunta);
-            this.groupBox3.Controls.Add(this.label15);
-            this.groupBox3.Controls.Add(this.label13);
-            this.groupBox3.Controls.Add(this.label14);
-            this.groupBox3.Location = new System.Drawing.Point(335, 208);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(344, 143);
-            this.groupBox3.TabIndex = 34;
-            this.groupBox3.TabStop = false;
+            this.gbUsuario.Controls.Add(this.txtPassword);
+            this.gbUsuario.Controls.Add(this.txtRespuesta);
+            this.gbUsuario.Controls.Add(this.txtPregunta);
+            this.gbUsuario.Controls.Add(this.label15);
+            this.gbUsuario.Controls.Add(this.label13);
+            this.gbUsuario.Controls.Add(this.label14);
+            this.gbUsuario.Location = new System.Drawing.Point(335, 208);
+            this.gbUsuario.Name = "gbUsuario";
+            this.gbUsuario.Size = new System.Drawing.Size(344, 143);
+            this.gbUsuario.TabIndex = 34;
+            this.gbUsuario.TabStop = false;
             // 
-            // txtPregunta
+            // txtPassword
             // 
-            this.txtPregunta.Location = new System.Drawing.Point(148, 25);
-            this.txtPregunta.Name = "txtPregunta";
-            this.txtPregunta.Size = new System.Drawing.Size(189, 21);
-            this.txtPregunta.TabIndex = 34;
+            this.txtPassword.Location = new System.Drawing.Point(148, 105);
+            this.txtPassword.Name = "txtPassword";
+            this.txtPassword.Size = new System.Drawing.Size(189, 21);
+            this.txtPassword.TabIndex = 36;
             // 
             // txtRespuesta
             // 
@@ -380,12 +380,12 @@
             this.txtRespuesta.Size = new System.Drawing.Size(189, 21);
             this.txtRespuesta.TabIndex = 35;
             // 
-            // txtPassword
+            // txtPregunta
             // 
-            this.txtPassword.Location = new System.Drawing.Point(148, 105);
-            this.txtPassword.Name = "txtPassword";
-            this.txtPassword.Size = new System.Drawing.Size(189, 21);
-            this.txtPassword.TabIndex = 36;
+            this.txtPregunta.Location = new System.Drawing.Point(148, 25);
+            this.txtPregunta.Name = "txtPregunta";
+            this.txtPregunta.Size = new System.Drawing.Size(189, 21);
+            this.txtPregunta.TabIndex = 34;
             // 
             // btnNuevoCliente
             // 
@@ -404,6 +404,7 @@
             this.btnModificar.TabIndex = 36;
             this.btnModificar.Text = "Modificar";
             this.btnModificar.UseVisualStyleBackColor = true;
+            this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
             // 
             // frmCliente
             // 
@@ -412,7 +413,7 @@
             this.ClientSize = new System.Drawing.Size(691, 457);
             this.Controls.Add(this.btnModificar);
             this.Controls.Add(this.btnNuevoCliente);
-            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.gbUsuario);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnVolver);
@@ -423,8 +424,8 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
+            this.gbUsuario.ResumeLayout(false);
+            this.gbUsuario.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -461,7 +462,7 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.GroupBox gbUsuario;
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.TextBox txtRespuesta;
         private System.Windows.Forms.TextBox txtPregunta;

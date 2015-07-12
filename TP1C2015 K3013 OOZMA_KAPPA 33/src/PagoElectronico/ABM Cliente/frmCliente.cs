@@ -72,10 +72,14 @@ namespace PagoElectronico.ABM_Cliente
         }
         public void AbrirParaModificar(Cliente unCliente, ListadoCliente frmEnviador)
         {
+            txtPassword.Visible = false;
+            txtRespuesta.Visible = false;
+            txtRespuesta.Visible = false;
+            gbUsuario.Visible = false;
+
             frmPadre = frmEnviador;
             clienteDelForm = unCliente;
-            this.Show();
-
+            
             txtNombre.Text = unCliente.Nombre;
             txtApellido.Text = unCliente.Apellido;
             cmbDNI.Text = unCliente.TipoDocumento;
@@ -87,12 +91,7 @@ namespace PagoElectronico.ABM_Cliente
             txtPais.Text = Convert.ToString(unCliente.PaisResidente);
             txtFechaNac.Text = unCliente.FechaNacimiento.ToString();
 
-
-            //btnAceptarACliente.Visible = false;
-            //btnAceptarRCliente.Visible = false;
-            txtPassword.Visible = false;
-            txtRespuesta.Visible = false;
-            txtRespuesta.Visible = false;
+            this.Show();
 
         }
         public void AbrirParaAgregar(ListadoCliente frmEnviador)
@@ -325,14 +324,11 @@ namespace PagoElectronico.ABM_Cliente
             }
         }
 
-        private void label12_Click(object sender, EventArgs e)
+        private void btnModificar_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void frmCliente_Load(object sender, EventArgs e)
-        {
 
-        }
     }
 }
