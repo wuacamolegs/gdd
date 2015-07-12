@@ -206,7 +206,7 @@ namespace PagoElectronico.ABM_Cliente
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             frmCliente _frmCliente = new frmCliente();
-            _frmCliente.AbrirParaAgregar(this);
+            _frmCliente.AbrirParaAgregar();
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)

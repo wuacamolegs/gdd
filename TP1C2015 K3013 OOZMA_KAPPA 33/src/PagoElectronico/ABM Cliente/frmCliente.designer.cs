@@ -59,12 +59,15 @@
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.gbUsuario = new System.Windows.Forms.GroupBox();
+            this.btnAceptarMCliente = new System.Windows.Forms.Button();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.txtRespuesta = new System.Windows.Forms.TextBox();
             this.txtPregunta = new System.Windows.Forms.TextBox();
             this.btnNuevoCliente = new System.Windows.Forms.Button();
             this.btnModificar = new System.Windows.Forms.Button();
             this.linkTarjetas = new System.Windows.Forms.LinkLabel();
+            this.btnAceptarACliente = new System.Windows.Forms.Button();
+            this.btnAceptarRCliente = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.gbUsuario.SuspendLayout();
@@ -367,6 +370,15 @@
             this.gbUsuario.TabIndex = 34;
             this.gbUsuario.TabStop = false;
             // 
+            // btnAceptarMCliente
+            // 
+            this.btnAceptarMCliente.Location = new System.Drawing.Point(273, 405);
+            this.btnAceptarMCliente.Name = "btnAceptarMCliente";
+            this.btnAceptarMCliente.Size = new System.Drawing.Size(112, 27);
+            this.btnAceptarMCliente.TabIndex = 40;
+            this.btnAceptarMCliente.Text = "Aceptar";
+            this.btnAceptarMCliente.UseVisualStyleBackColor = true;
+            // 
             // txtPassword
             // 
             this.txtPassword.Location = new System.Drawing.Point(148, 105);
@@ -418,11 +430,33 @@
             this.linkTarjetas.TabStop = true;
             this.linkTarjetas.Text = "Asociar/Desasociar Tarjetas";
             // 
+            // btnAceptarACliente
+            // 
+            this.btnAceptarACliente.Location = new System.Drawing.Point(273, 405);
+            this.btnAceptarACliente.Name = "btnAceptarACliente";
+            this.btnAceptarACliente.Size = new System.Drawing.Size(112, 27);
+            this.btnAceptarACliente.TabIndex = 38;
+            this.btnAceptarACliente.Text = "Aceptar";
+            this.btnAceptarACliente.UseVisualStyleBackColor = true;
+            // 
+            // btnAceptarRCliente
+            // 
+            this.btnAceptarRCliente.Location = new System.Drawing.Point(273, 405);
+            this.btnAceptarRCliente.Name = "btnAceptarRCliente";
+            this.btnAceptarRCliente.Size = new System.Drawing.Size(112, 27);
+            this.btnAceptarRCliente.TabIndex = 39;
+            this.btnAceptarRCliente.Text = "Aceptar";
+            this.btnAceptarRCliente.UseVisualStyleBackColor = true;
+            this.btnAceptarRCliente.Click += new System.EventHandler(this.btnAceptarRCliente_Click_1);
+            // 
             // frmCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(656, 440);
+            this.Controls.Add(this.btnAceptarMCliente);
+            this.Controls.Add(this.btnAceptarRCliente);
+            this.Controls.Add(this.btnAceptarACliente);
             this.Controls.Add(this.linkTarjetas);
             this.Controls.Add(this.btnModificar);
             this.Controls.Add(this.btnNuevoCliente);
@@ -484,5 +518,8 @@
         private System.Windows.Forms.Button btnNuevoCliente;
         private System.Windows.Forms.Button btnModificar;
         private System.Windows.Forms.LinkLabel linkTarjetas;
+        private System.Windows.Forms.Button btnAceptarACliente;
+        private System.Windows.Forms.Button btnAceptarRCliente;
+        private System.Windows.Forms.Button btnAceptarMCliente;
     }
 }

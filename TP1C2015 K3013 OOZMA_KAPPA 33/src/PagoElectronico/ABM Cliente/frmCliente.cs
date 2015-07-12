@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using Clases;
 using Utilities;
 using Excepciones;
+using Conexion;
 
 namespace PagoElectronico.ABM_Cliente
 {
@@ -66,9 +67,9 @@ namespace PagoElectronico.ABM_Cliente
             txtPais.Enabled = false;
             txtFechaNac.Enabled = false;
 
-            //btnAceptarACliente.Visible = false;
-            //btnAceptarMCliente.Visible = false;
-            //btnAceptarRCliente.Visible = false;
+            btnAceptarACliente.Visible = false;
+            btnAceptarMCliente.Visible = false;
+            btnAceptarRCliente.Visible = false;
         }
         public void AbrirParaModificar(Cliente unCliente, ListadoCliente frmEnviador)
         {
@@ -79,6 +80,8 @@ namespace PagoElectronico.ABM_Cliente
 
             frmPadre = frmEnviador;
             clienteDelForm = unCliente;
+
+            this.Show();
             
             txtNombre.Text = unCliente.Nombre;
             txtApellido.Text = unCliente.Apellido;
@@ -91,12 +94,14 @@ namespace PagoElectronico.ABM_Cliente
             txtPais.Text = Convert.ToString(unCliente.PaisResidente);
             txtFechaNac.Text = unCliente.FechaNacimiento.ToString();
 
-            this.Show();
+            btnAceptarACliente.Visible = false;
+            btnAceptarMCliente.Visible = true;
+            btnAceptarRCliente.Visible = false;
 
         }
         public void AbrirParaAgregar()
         {
-            cmbDNI.SelectedIndex = 0;
+            cmbDNI.SelectedIndex = -1;
             txtDNI.Enabled = true;
             txtNombre.Text = "";
             txtApellido.Text = "";
@@ -107,11 +112,16 @@ namespace PagoElectronico.ABM_Cliente
             txtNumero.Text = "";
             txtFechaNac.Text = Convert.ToString(DateTime.Today);
             txtPais.Text = "";
-            chkActivo.Visible = false;
+            chkActivo.Visible = true;
 
-           // btnAceptarMCliente.Visible = false;
-            //btnAceptarACliente.Visible = true;
-            //btnAceptarRCliente.Visible = false;
+            //Cargar combo tipo dni
+            DataSet dsTipoDNI = SQLHelper.ExecuteDataSet("TraerListadoTipoDocumento");
+            DropDownListManager.CargarCombo(cmbDNI, dsTipoDNI.Tables[0], "td_id", "td_descripcion", false, "");
+            cmbDNI.SelectedIndex = -1;
+
+           btnAceptarMCliente.Visible = false;
+           btnAceptarACliente.Visible = true;
+           btnAceptarRCliente.Visible = false;
         }
         public void AbrirParaRegistrarNuevoCliente(int id_usuario)
         {
@@ -134,10 +144,10 @@ namespace PagoElectronico.ABM_Cliente
             // atributo id_usuario_regustrado
             this.id_usuario_registrado = id_usuario;
 
-            //btnAceptarMCliente.Visible = false;
-           // btnAceptarACliente.Visible = false;
-            //btnVolver.Visible = false;
-            //btnAceptarRCliente.Visible = true;
+           btnAceptarMCliente.Visible = false;
+           btnAceptarACliente.Visible = false;
+           btnVolver.Visible = false;
+           btnAceptarRCliente.Visible = true;
         }
 
         private void btnVolver_Click(object sender, EventArgs e)
@@ -146,53 +156,39 @@ namespace PagoElectronico.ABM_Cliente
             frmPadre.BringToFront();
             this.Close();
         }
-        private void btnAceptarMCliente_Click(object sender, EventArgs e)
+
+        private void ValidarCampos()
         {
-            try
+            // lo primero que se hace Luego de ejecutarse el evento Click en los botones "Aceptar"
+            // ya sea para alta o modificacion es la validacion de datos
+            string strErrores = "";
+            strErrores += Validator.ValidarNulo(txtNombre.Text, "Nombre");
+            strErrores += Validator.ValidarNulo(txtApellido.Text, "Apellido");
+            strErrores += Validator.SoloNumeros(txtDNI.Text, "Dni");
+            strErrores += Validator.ValidarNulo(txtMail.Text, "Mail");
+            strErrores += Validator.ValidarNulo(txtPais.Text, "Pais");
+            strErrores += Validator.ValidarNulo(txtCalle.Text, "Calle");
+            strErrores += Validator.ValidarNulo(txtNumero.Text, "Numero");
+            strErrores += Validator.SoloNumerosPeroOpcional(txtPiso.Text, "Piso");
+            strErrores += Validator.ValidarNulo(txtDepto.Text, "Depto");
+            strErrores += Validator.ValidarNulo(txtPais.Text, "Pais");
+            strErrores += Validator.ValidarNulo(txtFechaNac.Text, "Fecha de nacimiento");
+            if (strErrores.Length > 0)
             {
-                ValidarCampos();
-
-                clienteDelForm.Apellido = txtApellido.Text;
-                clienteDelForm.Nombre = txtNombre.Text;
-                clienteDelForm.Documento = Int32.Parse(txtDNI.Text);
-                clienteDelForm.TipoDocumento = cmbDNI.Text;
-                clienteDelForm.Calle = txtCalle.Text;
-                clienteDelForm.PaisResidente = Convert.ToInt32(txtPais.Text);
-                clienteDelForm.DeptoDireccion = txtDepto.Text;
-                clienteDelForm.NumeroDireccion = Convert.ToInt32(txtCalle.Text);
-                if (!String.IsNullOrEmpty(txtPiso.Text)) clienteDelForm.PisoDireccion = -1;
-                clienteDelForm.PisoDireccion = Int32.Parse(txtPiso.Text);
-                clienteDelForm.FechaNacimiento = DateTime.Parse(txtFechaNac.Text);
-                clienteDelForm.Mail = txtMail.Text;
-                clienteDelForm.estado = chkActivo.Checked;
-
-                // despues de setear los atributos al clienteDelForm segun los datos ingresados
-                // le pido al cliente se encargue de modificar los datos.
-
-                clienteDelForm.ModificarDatos();
-                DialogResult dr = MessageBox.Show("El Cliente ha sido modificado", "Perfecto!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                if (dr == DialogResult.OK)
-                {
-                    this.Close();
-                    frmPadre.BringToFront();
-                }
-
-                //se vuelve a actualizar la grilla
-                frmPadre.CargarListadoDeClientes();
-            }
-            catch (ErrorConsultaException ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (BadInsertException ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw new Exception(strErrores);
             }
         }
+
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void frmCliente_Load(object sender, EventArgs e)
+        {
+
+        }
+
         private void btnAceptarACliente_Click(object sender, EventArgs e)
         {
             try
@@ -243,7 +239,56 @@ namespace PagoElectronico.ABM_Cliente
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void btnAceptarRCliente_Click(object sender, EventArgs e)
+
+        private void btnAceptarMCliente_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ValidarCampos();
+
+                clienteDelForm.Apellido = txtApellido.Text;
+                clienteDelForm.Nombre = txtNombre.Text;
+                clienteDelForm.Documento = Int32.Parse(txtDNI.Text);
+                clienteDelForm.TipoDocumento = cmbDNI.Text;
+                clienteDelForm.Calle = txtCalle.Text;
+                clienteDelForm.PaisResidente = Convert.ToInt32(txtPais.Text);
+                clienteDelForm.DeptoDireccion = txtDepto.Text;
+                clienteDelForm.NumeroDireccion = Convert.ToInt32(txtCalle.Text);
+                if (!String.IsNullOrEmpty(txtPiso.Text)) clienteDelForm.PisoDireccion = -1;
+                clienteDelForm.PisoDireccion = Int32.Parse(txtPiso.Text);
+                clienteDelForm.FechaNacimiento = DateTime.Parse(txtFechaNac.Text);
+                clienteDelForm.Mail = txtMail.Text;
+                clienteDelForm.estado = chkActivo.Checked;
+
+                // despues de setear los atributos al clienteDelForm segun los datos ingresados
+                // le pido al cliente se encargue de modificar los datos.
+
+                clienteDelForm.ModificarDatos();
+                DialogResult dr = MessageBox.Show("El Cliente ha sido modificado", "Perfecto!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (dr == DialogResult.OK)
+                {
+                    this.Close();
+                    frmPadre.BringToFront();
+                }
+
+                //se vuelve a actualizar la grilla
+                frmPadre.CargarListadoDeClientes();
+            }
+            catch (ErrorConsultaException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (BadInsertException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnAceptarRCliente_Click_1(object sender, EventArgs e)
         {
             try
             {
@@ -296,41 +341,7 @@ namespace PagoElectronico.ABM_Cliente
             }
         }
 
-
-
-
-        private void ValidarCampos()
-        {
-            // lo primero que se hace Luego de ejecutarse el evento Click en los botones "Aceptar"
-            // ya sea para alta o modificacion es la validacion de datos
-            string strErrores = "";
-            strErrores += Validator.ValidarNulo(txtNombre.Text, "Nombre");
-            strErrores += Validator.ValidarNulo(txtApellido.Text, "Apellido");
-            strErrores += Validator.SoloNumeros(txtDNI.Text, "Dni");
-            strErrores += Validator.ValidarNulo(txtMail.Text, "Mail");
-            strErrores += Validator.ValidarNulo(txtPais.Text, "Pais");
-            strErrores += Validator.ValidarNulo(txtCalle.Text, "Calle");
-            strErrores += Validator.ValidarNulo(txtNumero.Text, "Numero");
-            strErrores += Validator.SoloNumerosPeroOpcional(txtPiso.Text, "Piso");
-            strErrores += Validator.ValidarNulo(txtDepto.Text, "Depto");
-            strErrores += Validator.ValidarNulo(txtPais.Text, "Pais");
-            strErrores += Validator.ValidarNulo(txtFechaNac.Text, "Fecha de nacimiento");
-            if (strErrores.Length > 0)
-            {
-                throw new Exception(strErrores);
-            }
-        }
-
-        private void btnModificar_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void frmCliente_Load(object sender, EventArgs e)
-        {
-
-        }
-
-
     }
 }
+
+ 
