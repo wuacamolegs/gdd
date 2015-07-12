@@ -43,20 +43,20 @@
             this.label6 = new System.Windows.Forms.Label();
             this.cmbCliente = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.gbModificacion = new System.Windows.Forms.GroupBox();
             this.txtSubTotalModificacionTC = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.gridModificacionTC = new System.Windows.Forms.DataGridView();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.gbTransferencias = new System.Windows.Forms.GroupBox();
             this.txtSubTotalTransferencia = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.gridTransferencia = new System.Windows.Forms.DataGridView();
             this.btnGenerarFactura = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.gbSuscripciones.SuspendLayout();
-            this.groupBox3.SuspendLayout();
+            this.gbModificacion.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridModificacionTC)).BeginInit();
-            this.groupBox2.SuspendLayout();
+            this.gbTransferencias.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridTransferencia)).BeginInit();
             this.SuspendLayout();
             // 
@@ -65,8 +65,8 @@
             this.groupBox1.Controls.Add(this.gbSuscripciones);
             this.groupBox1.Controls.Add(this.cmbCliente);
             this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.groupBox3);
-            this.groupBox1.Controls.Add(this.groupBox2);
+            this.groupBox1.Controls.Add(this.gbModificacion);
+            this.groupBox1.Controls.Add(this.gbTransferencias);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(10, 10);
             this.groupBox1.Name = "groupBox1";
@@ -219,18 +219,18 @@
             this.label5.TabIndex = 2;
             this.label5.Text = "CLIENTE";
             // 
-            // groupBox3
+            // gbModificacion
             // 
-            this.groupBox3.Controls.Add(this.txtSubTotalModificacionTC);
-            this.groupBox3.Controls.Add(this.label3);
-            this.groupBox3.Controls.Add(this.gridModificacionTC);
-            this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox3.Location = new System.Drawing.Point(28, 287);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(645, 145);
-            this.groupBox3.TabIndex = 0;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "MODIFICACION TIPO CUENTA";
+            this.gbModificacion.Controls.Add(this.txtSubTotalModificacionTC);
+            this.gbModificacion.Controls.Add(this.label3);
+            this.gbModificacion.Controls.Add(this.gridModificacionTC);
+            this.gbModificacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbModificacion.Location = new System.Drawing.Point(28, 287);
+            this.gbModificacion.Name = "gbModificacion";
+            this.gbModificacion.Size = new System.Drawing.Size(645, 145);
+            this.gbModificacion.TabIndex = 0;
+            this.gbModificacion.TabStop = false;
+            this.gbModificacion.Text = "MODIFICACION TIPO CUENTA";
             // 
             // txtSubTotalModificacionTC
             // 
@@ -260,18 +260,18 @@
             this.gridModificacionTC.Size = new System.Drawing.Size(604, 80);
             this.gridModificacionTC.TabIndex = 0;
             // 
-            // groupBox2
+            // gbTransferencias
             // 
-            this.groupBox2.Controls.Add(this.txtSubTotalTransferencia);
-            this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Controls.Add(this.gridTransferencia);
-            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(28, 83);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(646, 198);
-            this.groupBox2.TabIndex = 0;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "TRANSFERENCIAS";
+            this.gbTransferencias.Controls.Add(this.txtSubTotalTransferencia);
+            this.gbTransferencias.Controls.Add(this.label2);
+            this.gbTransferencias.Controls.Add(this.gridTransferencia);
+            this.gbTransferencias.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbTransferencias.Location = new System.Drawing.Point(28, 83);
+            this.gbTransferencias.Name = "gbTransferencias";
+            this.gbTransferencias.Size = new System.Drawing.Size(646, 198);
+            this.gbTransferencias.TabIndex = 0;
+            this.gbTransferencias.TabStop = false;
+            this.gbTransferencias.Text = "TRANSFERENCIAS";
             // 
             // txtSubTotalTransferencia
             // 
@@ -326,11 +326,11 @@
             this.groupBox1.PerformLayout();
             this.gbSuscripciones.ResumeLayout(false);
             this.gbSuscripciones.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
+            this.gbModificacion.ResumeLayout(false);
+            this.gbModificacion.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridModificacionTC)).EndInit();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.gbTransferencias.ResumeLayout(false);
+            this.gbTransferencias.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridTransferencia)).EndInit();
             this.ResumeLayout(false);
 
@@ -339,8 +339,8 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox gbModificacion;
+        private System.Windows.Forms.GroupBox gbTransferencias;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView gridModificacionTC;
         private System.Windows.Forms.DataGridView gridTransferencia;

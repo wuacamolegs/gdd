@@ -127,7 +127,6 @@ namespace Clases
         public void GenerarFactura()
         {
             setearListaParametrosSinNumeroFactura();
-            MessageBox.Show("factura: " + this.Numero + "\nCliente " + this.Cliente + "\nImporte " + this.Importe, "FACTURA");
             this.Guardar(parameterList);
             DataSet ds = this.TraerListado("UltimaGenerada");
             this.DataRowToObjectConIDFactura(ds.Tables[0].Rows[0]);

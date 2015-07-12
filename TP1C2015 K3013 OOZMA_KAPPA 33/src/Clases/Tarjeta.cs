@@ -23,7 +23,7 @@ namespace Clases
 
         private Int64 _tarjeta_id;
         private Cuenta _cuenta;
-        private string _codigo_seguridad;
+        private Int64 _codigo_seguridad;
         private DateTime _fecha_emision;
         private DateTime _fecha_vencimiento;
         private Cliente _cliente;
@@ -80,7 +80,7 @@ namespace Clases
             set { _fecha_vencimiento = value; }
         }
 
-        public string CodigoSeguridad
+        public Int64 CodigoSeguridad
         {
             get { return _codigo_seguridad; }
             set { _codigo_seguridad = value; }
@@ -112,7 +112,7 @@ namespace Clases
         public override void DataRowToObject(DataRow dr)
         {
             this.tarjeta_id = Convert.ToInt64(dr["tarjeta_id"]);
-            this.CodigoSeguridad = Convert.ToString(dr["tarjeta_codigo_seguridad"]);
+            this.CodigoSeguridad = Convert.ToInt64(dr["tarjeta_codigo_seguridad"]);
             this.FechaEmision = Convert.ToDateTime(dr["tarjeta_fecha_emision"]);
             this.FechaVencimiento = Convert.ToDateTime(dr["tarjeta_vencimiento"]);
             this.Cuenta.cuenta_id = Convert.ToInt64(dr["tarjeta_cuenta_numero"]);
@@ -126,6 +126,29 @@ namespace Clases
             this.parameterList.Clear();
             parameterList.Add(new SqlParameter("@cliente_id", this.Cliente.cliente_id));
             parameterList.Add(new SqlParameter("@Fecha", Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"])));
+        }
+
+        private void setearListaParametrosParaModificar()
+        {
+            this.parameterList.Clear();
+            parameterList.Add(new SqlParameter("@tarjeta_id", this.tarjeta_id ));
+            parameterList.Add(new SqlParameter("@tarjeta_emisor", this.Emisor));
+            parameterList.Add(new SqlParameter("@tarjeta_fecha_vencimiento", this.FechaVencimiento));
+            parameterList.Add(new SqlParameter("@tarjeta_estado", this.Estado));
+        }
+
+        private void setearListaParametrosConTarjetaID()
+        {
+            this.parameterList.Clear();
+            parameterList.Add(new SqlParameter("@tarjeta_id", this.tarjeta_id));
+        }
+
+        private void setearListaParametrosConClienteIDEmisorYFecha()
+        {
+            this.parameterList.Clear();
+            parameterList.Add(new SqlParameter("@cliente_id", this.Cliente.cliente_id));
+            parameterList.Add(new SqlParameter("@Fecha", Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"])));
+            parameterList.Add(new SqlParameter("@tarjeta_emisor", this.Emisor));
         }
 
         #endregion
@@ -147,6 +170,30 @@ namespace Clases
         {
             setearListaParametrosConClienteIDYFecha();
             return TraerListado(parameterList, "PorClienteID");
+        }
+
+        public void Desactivar()
+        {
+            setearListaParametrosConTarjetaID();
+            this.Deshabilitar(parameterList);
+        }
+
+        public void UpdateTarjeta()
+        {
+            setearListaParametrosParaModificar();
+            this.Modificar(parameterList);
+        }
+
+        public void CrearNueva()
+        {
+            setearListaParametrosConClienteIDYFecha();
+            this.Guardar(parameterList);
+        }
+
+        public DataSet traerTarjetasActivas()
+        {
+            setearListaParametrosConClienteIDYFecha();
+            return this.TraerListado(parameterList, "ActivasPorClienteID");
         }
     }
 }

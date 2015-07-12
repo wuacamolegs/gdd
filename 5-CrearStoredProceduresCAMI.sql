@@ -494,3 +494,37 @@ BEGIN
 	SELECT cliente_id as cliente_id,(cliente_apellido +' '+ cliente_nombre) as cliente_nombre, cliente_numero_documento as cliente_documento FROM OOZMA_KAPPA.Transacciones_Pendientes, OOZMA_KAPPA.Cliente WHERE cliente_id = transaccion_pendiente_cliente_id AND cliente_usuario_id = @usuario_id;
 END
 GO
+
+CREATE PROCEDURE OOZMA_KAPPA.TraerListadoEmisorTarjeta
+AS
+BEGIN
+	SELECT emisor_id, emisor_descripcion FROM OOZMA_KAPPA.Emisor;
+END
+GO
+
+
+/*
+
+1)
+deshabilitar tarjeta
+
+2)
+updateTarjeta
+tarjeta_id
+	    _emisor
+	    _fecha_vencimiento
+		 _estado
+
+
+3)
+insertTarjeta
+cliente_id
+Fecha
+tarjeta_emisor
+
+4)
+traerListadoTarjetaActivasPorClienteID
+
+
+
+*/

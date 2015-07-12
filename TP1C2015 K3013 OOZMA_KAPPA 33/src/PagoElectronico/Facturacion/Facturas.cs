@@ -87,7 +87,7 @@ namespace PagoElectronico.Facturacion
             //cuando genero factura tambien mando tabla con suscripciones por cuenta
             unaFactura.GenerarFactura();
             unaFactura.AñadirItems(unaFactura.Numero, Convert.ToDecimal(txtCantidadTransf.Text), Convert.ToDecimal(txtTransferencia.Text), Convert.ToDecimal(txtCantidadMod.Text), Convert.ToDecimal(txtModificacion.Text), Convert.ToDecimal(txtCantidadSuscr.Text), Convert.ToDecimal(txtSuscripciones.Text));
-            MessageBox.Show("Se genero la Factura: " + unaFactura.Numero + "\nCliente: " + unaFactura.Cliente.cliente_id + "\nImporte: " + unaFactura.Importe + "\nFecha: " + unaFactura.Fecha, "Factura");
+            MessageBox.Show("FACTURA GENERADA EXITOSAMENTE: " + unaFactura.Numero + "\nCliente: " + unaFactura.Cliente.cliente_id + "\nImporte: " + unaFactura.Importe + "\nFecha: " + unaFactura.Fecha, "Factura");
             this.Close();
         }
 

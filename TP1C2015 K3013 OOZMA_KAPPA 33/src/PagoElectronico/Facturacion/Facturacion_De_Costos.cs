@@ -20,6 +20,7 @@ namespace PagoElectronico.Facturacion
         public Usuario unUsuario = new Usuario();
         public Cliente unCliente = new Cliente();
         public Factura unaFactura = new Factura();
+        public Cuenta unaCuenta = new Cuenta();
         Decimal subtotalSuscripciones = 0;
         Int64 cantidadSuscAPagar = 0;
         Int64 cantidadTransferencias = 0;
@@ -29,6 +30,7 @@ namespace PagoElectronico.Facturacion
         #endregion
 
         #region initialize
+
         public Facturacion_De_Costos()
         {
             InitializeComponent();
@@ -39,14 +41,24 @@ namespace PagoElectronico.Facturacion
         {
             unUsuario = user;
             unCliente.Usuario = user;
+            unaCuenta.Cliente = unCliente;
             unaFactura.Cliente = unCliente;
             this.Show();
         }
 
         private void Facturacion_De_Costos_Load(object sender, EventArgs e)
         {
+            //Traigo solo los clientes que tengan cosas a facturar (los que aparecen en transacciones pendientes)
             DataSet dsClientes = ObtenerClientes();
-            DropDownListManager.CargarCombo(cmbCliente, dsClientes.Tables[0], "cliente_id", "cliente_nombre", false, "");
+            if (dsClientes.Tables[0].Rows.Count > 0)
+            {
+                DropDownListManager.CargarCombo(cmbCliente, dsClientes.Tables[0], "cliente_id", "cliente_nombre", false, "");
+                MessageBox.Show("EXISTEN Clientes con transacciones pendientes a Facturar", "");
+            }
+            else 
+            {
+                MessageBox.Show("No se encuentran Clientes con transacciones pendientes a Facturar", "");
+            }
         }
 
         #endregion
@@ -55,37 +67,46 @@ namespace PagoElectronico.Facturacion
             
         private void cmbCliente_SelectedIndexChanged(object sender, EventArgs e)
         {
-            unCliente.cliente_id = Convert.ToInt64(cmbCliente.SelectedValue);
-            
-            //Traer cuentas asociadas al cliente    
-            DataSet dsCuentas = ObtenerCuentasPorClienteId();
+                DataSet dsCuentas = ObtenerCuentasAFacturarPorClienteId();
 
-            //Si no tiene cuentas con suscripciones a pagar escondo grupo suscripciones
-            if (dsCuentas.Tables[0].Rows.Count == 0) 
-            {
-                gbSuscripciones.Visible = false;
-            }
-            else
-            {
-                DropDownListManager.CargarCombo(cmbCuenta, dsCuentas.Tables[0], "cuenta_id", "cuenta_id", false, "");
-            }
+                //Si no tiene cuentas con suscripciones a pagar escondo grupo suscripciones
+                if (dsCuentas.Tables[0].Rows.Count == 0)
+                {
+                    gbSuscripciones.Visible = false;
+                }
+                else
+                {
+                    DropDownListManager.CargarCombo(cmbCuenta, dsCuentas.Tables[0], "cuenta_id", "cuenta_id", false, "");
+                }
+
+                //Traer transacciones realizadas por el cliente
+
+                //1. TRANSFERENCIAS
+
+                DataSet dsTransferencias = unCliente.TraerTransferenciasAFacturarPorClienteID();
+                if (dsTransferencias.Tables[0].Rows.Count > 0)
+                {
+                    cargarDataGrids(dsTransferencias, gridTransferencia);
+                    cargarSubtotales(txtSubTotalTransferencia, gridTransferencia);
+                }
+                else
+                {
+                    gbTransferencias.Visible = false;
+                }
 
 
+                //2. COSTOS POR MODIFICACION TIPO CUENTA
 
-            //Traer transacciones realizadas por el cliente
-
-            //1. TRANSFERENCIAS
-
-            DataSet dsTransferencias = unCliente.TraerTransferenciasAFacturarPorClienteID();
-            cargarDataGrids(dsTransferencias, gridTransferencia);
-            cargarSubtotales(txtSubTotalTransferencia, gridTransferencia);
-
-            //2. COSTOS POR MODIFICACION TIPO CUENTA
-            
-            DataSet dsModificacionTC = unCliente.TraerModificacionesTipoCuentaAFacturarPorClienteID();
-            cargarDataGrids(dsModificacionTC, gridModificacionTC);
-            cargarSubtotales(txtSubTotalModificacionTC, gridModificacionTC);
-            
+                DataSet dsModificacionTC = unCliente.TraerModificacionesTipoCuentaAFacturarPorClienteID();
+                if (dsModificacionTC.Tables[0].Rows.Count > 0)
+                {
+                    cargarDataGrids(dsModificacionTC, gridModificacionTC);
+                    cargarSubtotales(txtSubTotalModificacionTC, gridModificacionTC);
+                }
+                else
+                {
+                    gbModificacion.Visible = false;
+                }
         }
 
 
@@ -126,11 +147,18 @@ namespace PagoElectronico.Facturacion
            DataSet ds = unaFactura.Cliente.TraerClientePorID(unCliente.cliente_id);
            unaFactura.Cliente.DataRowToObject(ds.Tables[0].Rows[0]);
            unaFactura.Fecha = Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]);
-           cantidadTransferencias = gridTransferencia.Rows.Count - 1; //me cuenta la ultima fila que esta vacia. por eso le resto uno.
-           cantidadModificaciones = gridModificacionTC.Rows.Count - 1;
+          
+           
+           if (gridTransferencia.Rows.Count == 0) { cantidadTransferencias = 0; }
+           else{cantidadTransferencias = gridTransferencia.Rows.Count - 1; } //me cuenta la ultima fila que esta vacia. por eso le resto uno}
+           if (gridModificacionTC.Rows.Count == 0) { cantidadModificaciones = 0; }
+           else { cantidadModificaciones = gridModificacionTC.Rows.Count - 1; }
+
+  
            unCliente.cliente_id = Convert.ToInt64(cmbCliente.SelectedValue);
            Facturas frmFacturas = new Facturas();
-           frmFacturas.AbrirCon(unaFactura, txtSubTotalTransferencia.Text, txtSubTotalModificacionTC.Text, subtotalSuscripciones, cantidadTransferencias, cantidadModificaciones, cantidadSuscAPagar);  
+           frmFacturas.AbrirCon(unaFactura, txtSubTotalTransferencia.Text, txtSubTotalModificacionTC.Text, subtotalSuscripciones, cantidadTransferencias, cantidadModificaciones, cantidadSuscAPagar);
+           this.Close();
        }
 
        private void cmbCuenta_SelectedIndexChanged(object sender, EventArgs e)
@@ -189,12 +217,12 @@ namespace PagoElectronico.Facturacion
             DataSet ds = new DataSet();
             if (unUsuario.Rol.rol_id == 1)
             {
-                DataSet dsClientes = unCliente.ObtenerTodosLosClientes(unUsuario.usuario_id);
+                DataSet dsClientes = unCliente.ObtenerTodosLosClientesConCosasAFacturar();
                 ds = dsClientes;
             }
             else
             {
-                DataSet dsClienteUsuario = unCliente.ObtenerClientesPorUsuarioID(unUsuario.usuario_id);
+                DataSet dsClienteUsuario = unCliente.ObtenerClientesPorUsuarioIDSiFacturaAlgo(unUsuario.usuario_id);
                 ds = dsClienteUsuario;
             }
 
@@ -202,16 +230,14 @@ namespace PagoElectronico.Facturacion
 
         }
 
-        public DataSet ObtenerCuentasPorClienteId()
+        public DataSet ObtenerCuentasAFacturarPorClienteId()
         {
-            Int64 clienteID = Convert.ToInt64(cmbCliente.SelectedValue);
-            DataSet dsClientes = unCliente.TraerClientePorID(clienteID);
-            unCliente.DataRowToObject(dsClientes.Tables[0].Rows[0]);
+            //cargar cmb Cuentas
+            MessageBox.Show("cliente: " + Convert.ToInt64(cmbCliente.SelectedValue));
+            unaCuenta.Cliente.cliente_id = Convert.ToInt64(cmbCliente.SelectedValue);
+            DataSet dsCuenta = unaCuenta.TraerCuentasACobrarPorClienteID();
 
-            Cuenta unaCuenta = new Cuenta(unCliente, unUsuario);
-            DataSet dsCuentas = unaCuenta.TraerCuentasACobrarPorClienteID();
-
-            return dsCuentas;
+            return dsCuenta;
 
         }
 

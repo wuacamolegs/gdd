@@ -30,7 +30,7 @@ DROP PROCEDURE [OOZMA_KAPPA].insertTarjeta
 GO
 DROP PROCEDURE [OOZMA_KAPPA].updateTarjeta
 GO
-DROP PROCEDURE [OOZMA_KAPPA].deleteTarjeta
+DROP PROCEDURE [OOZMA_KAPPA].deshabilitarTarjeta
 GO
 DROP PROCEDURE [OOZMA_KAPPA].traerListadoCuentaExiste
 GO
@@ -153,42 +153,33 @@ AS
 GO
 
 CREATE PROCEDURE [OOZMA_KAPPA].[insertTarjeta] 
-	@tarjeta_id numeric (18,0), -----SE TIENE QUE ENCRIPTAR EL TARJETA_ID 16 digitos, solo ultimos 4 visibles.
-	@tarjeta_codigo_seguridad varchar (3),
-	@tarjeta_fecha_emision datetime,
-	@tarjeta_vencimiento datetime,
+	@Fecha datetime,
 	@tarjeta_emisor varchar(255),
 	@cliente_id numeric (18,0)
 	
 AS
-	INSERT INTO OOZMA_KAPPA.Tarjeta(tarjeta_id, tarjeta_codigo_seguridad, tarjeta_fecha_emision, tarjeta_vencimiento, tarjeta_emisor, tarjeta_cliente_id, tarjeta_estado)
-	VALUES (@tarjeta_id, @tarjeta_codigo_seguridad, @tarjeta_fecha_emision, @tarjeta_vencimiento, @tarjeta_emisor, @cliente_id, 1);
-	
+	INSERT INTO OOZMA_KAPPA.Tarjeta(tarjeta_fecha_emision, tarjeta_vencimiento, tarjeta_emisor, tarjeta_cliente_id, tarjeta_estado, tarjeta_codigo_seguridad)
+	VALUES (@Fecha, DATEADD(year,1,@Fecha), @tarjeta_emisor, @cliente_id, 1,
+			(SELECT TOP 1 (tarjeta_codigo_seguridad + 1) FROM OOZMA_KAPPA.Tarjeta ORDER BY tarjeta_codigo_seguridad));
 GO	
 
 CREATE PROCEDURE OOZMA_KAPPA.updateTarjeta
-	@tarjeta_id numeric (18,0), -----SE TIENE QUE ENCRIPTAR EL TARJETA_ID 16 digitos, solo ultimos 4 visibles.
-	@tarjeta_codigo_seguridad varchar (3),
-	@tarjeta_fecha_emision datetime,
-	@tarjeta_vencimiento datetime,
+	@tarjeta_id numeric (18,0), 
 	@tarjeta_emisor varchar(255),
-	@cliente_id numeric (18,0),
 	@tarjeta_estado bit
 AS
-	UPDATE OOZMA_KAPPA.Tarjeta SET tarjeta_codigo_seguridad=@tarjeta_codigo_seguridad, tarjeta_fecha_emision=@tarjeta_fecha_emision,
-	tarjeta_vencimiento=@tarjeta_vencimiento, tarjeta_emisor=@tarjeta_emisor, tarjeta_cliente_id=@cliente_id, @tarjeta_estado=tarjeta_estado
+	UPDATE OOZMA_KAPPA.Tarjeta SET tarjeta_emisor=@tarjeta_emisor,@tarjeta_estado = tarjeta_estado
 	WHERE tarjeta_id=@tarjeta_id
 GO
 
-CREATE PROCEDURE OOZMA_KAPPA.deleteTarjeta	
-	@tarjeta_id numeric (18,0), -----SE TIENE QUE ENCRIPTAR EL TARJETA_ID 16 digitos, solo ultimos 4 visibles.
-	@tarjeta_estado bit
+
+CREATE PROCEDURE OOZMA_KAPPA.deshabilitarTarjeta
+	@tarjeta_id numeric(18,0)
 AS
-	UPDATE OOZMA_KAPPA.Tarjeta SET @tarjeta_estado = 0
-	WHERE tarjeta_id = @tarjeta_id
+BEGIN
+	UPDATE OOZMA_KAPPA.Tarjeta SET tarjeta_estado = 0 WHERE tarjeta_id = @tarjeta_id;
+END
 GO
-
-
 
 -------- SP MONEDA--------------
 CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoMonedaCompleto]

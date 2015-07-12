@@ -40,7 +40,7 @@
             // 
             this.lblSeleccione.AutoSize = true;
             this.lblSeleccione.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.lblSeleccione.Location = new System.Drawing.Point(24, 41);
+            this.lblSeleccione.Location = new System.Drawing.Point(9, 24);
             this.lblSeleccione.Name = "lblSeleccione";
             this.lblSeleccione.Size = new System.Drawing.Size(153, 18);
             this.lblSeleccione.TabIndex = 0;
@@ -49,25 +49,26 @@
             // btnAgregar
             // 
             this.btnAgregar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.btnAgregar.Location = new System.Drawing.Point(333, 28);
+            this.btnAgregar.Location = new System.Drawing.Point(333, 18);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(115, 31);
             this.btnAgregar.TabIndex = 1;
             this.btnAgregar.Text = "Nueva tarjeta";
             this.btnAgregar.UseVisualStyleBackColor = true;
+            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
             // dtgTarjetas
             // 
             this.dtgTarjetas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgTarjetas.Location = new System.Drawing.Point(12, 81);
+            this.dtgTarjetas.Location = new System.Drawing.Point(4, 55);
             this.dtgTarjetas.Name = "dtgTarjetas";
-            this.dtgTarjetas.Size = new System.Drawing.Size(436, 192);
+            this.dtgTarjetas.Size = new System.Drawing.Size(444, 192);
             this.dtgTarjetas.TabIndex = 2;
             // 
             // btnModificar
             // 
             this.btnModificar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.btnModificar.Location = new System.Drawing.Point(199, 294);
+            this.btnModificar.Location = new System.Drawing.Point(215, 253);
             this.btnModificar.Name = "btnModificar";
             this.btnModificar.Size = new System.Drawing.Size(113, 30);
             this.btnModificar.TabIndex = 3;
@@ -78,7 +79,7 @@
             // btnDesactivar
             // 
             this.btnDesactivar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.btnDesactivar.Location = new System.Drawing.Point(334, 294);
+            this.btnDesactivar.Location = new System.Drawing.Point(334, 253);
             this.btnDesactivar.Name = "btnDesactivar";
             this.btnDesactivar.Size = new System.Drawing.Size(114, 30);
             this.btnDesactivar.TabIndex = 4;
@@ -90,7 +91,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(461, 354);
+            this.ClientSize = new System.Drawing.Size(453, 294);
             this.Controls.Add(this.btnDesactivar);
             this.Controls.Add(this.btnModificar);
             this.Controls.Add(this.dtgTarjetas);

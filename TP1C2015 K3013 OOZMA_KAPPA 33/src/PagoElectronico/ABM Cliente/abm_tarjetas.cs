@@ -15,11 +15,9 @@ namespace PagoElectronico.ABM_Cliente
 {
     public partial class abm_tarjetas : Form
     {
-
         
         #region Variables
 
-        public Usuario unUsuario = new Usuario();
         public Cliente unCliente = new Cliente();
         public Tarjeta unaTarjeta = new Tarjeta();
         
@@ -34,10 +32,9 @@ namespace PagoElectronico.ABM_Cliente
         }
        
         
-        public void abrirConUsuario(Usuario user)
+        public void abrirConCliente(Cliente cliente)
         {
-            unUsuario = user;
-            unCliente.Usuario = unUsuario;
+            unCliente = cliente;
             unaTarjeta.Cliente = unCliente;
             this.Show();
         }
@@ -105,40 +102,43 @@ namespace PagoElectronico.ABM_Cliente
         {
             dtgTarjetas.SelectedRows.ToString();
             unaTarjeta.tarjeta_id = valorIdSeleccionado();
-            unaTarjeta.tarjeta_emisor = valorEmisorSeleccionado();
-            unaTarjeta.tarjeta_fecha_emision = valorEmisionSeleccionado();
-            unaTarjeta.tarjeta_vencimiento = valorVencimientoSeleccionado();
+            unaTarjeta.Emisor = valorEmisorSeleccionado();
+            unaTarjeta.FechaEmision = valorEmisionSeleccionado();
+            unaTarjeta.FechaVencimiento = valorVencimientoSeleccionado();
         }
 
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
             formTarjeta formTarjeta = new formTarjeta();
-            MessageBox.Show("TARJETA ID: " + valorIdSeleccionado() + "\n EMISOR: " + valorEmisorSeleccionado() + "\n ESTADO: " + valorEstadoSeleccionado(), "");
+            MessageBox.Show("TARJETA ID: " + valorIdSeleccionado() + "\nEMISOR: " + valorEmisorSeleccionado() + "\nESTADO: " + valorEstadoSeleccionado(), "");
             unaTarjeta.tarjeta_id = valorIdSeleccionado();
             unaTarjeta.Emisor = valorEmisorSeleccionado();
             unaTarjeta.Estado = valorEstadoSeleccionado();
             unaTarjeta.FechaVencimiento = valorVencimientoSeleccionado();
             unaTarjeta.FechaEmision = valorEmisionSeleccionado();
             unaTarjeta.CodigoSeguridad = valorCodigoSeguridad();
-            formRol.AbrirParaModificar(unRol, this);
-
+            this.Close();
+            formTarjeta.Show();
+            formTarjeta.abrirParaModificarCon(unaTarjeta);
         }
 
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-
+            formTarjeta frmTarjeta = new formTarjeta();
+            this.Close();
+            frmTarjeta.Show();
+            frmTarjeta.abrirParaAsociarNueva(unaTarjeta);
         }
        
 
         private void btnDesactivar_Click(object sender, EventArgs e)
         {
-            
             DialogResult dr = MessageBox.Show("¿Está seguro que desea desactivar la tarjeta?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dr == DialogResult.Yes)
             {
-               Tarjeta unaTarjeta = new Rol(valorIdSeleccionado(), valorEmisorSeleccionado(), valorEmisionSeleccionado(), valorVencimientoSeleccionado());
+                unaTarjeta.tarjeta_id = valorIdSeleccionado();
                 unaTarjeta.Desactivar();
                 MessageBox.Show("La tarjeta ha sido desactivada", "Desactivada", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 CargarListadoDeTarjetas();
@@ -165,13 +165,6 @@ namespace PagoElectronico.ABM_Cliente
 
         }
 
-
-        #endregion
-
-
-
-
-        #region llamados a la base
 
         #endregion
 
@@ -207,6 +200,8 @@ namespace PagoElectronico.ABM_Cliente
         }
 
         #endregion
+
+
 
 
     }

@@ -233,8 +233,7 @@ AS BEGIN TRANSACTION
 COMMIT;
 
 GO
-	
-	
+
 -- UPDATE ESTADO CUENTA AFTER FACTURACION --
 -- Luego de facturar a un cliente, se habrán pagado los costos por apertura/modificacion cuenta, por lo que tengo que activar aquellas cuentas que hayan sido abonadas.
 -- me fijo cuando se sacan las transacciones de la tabla transacciones_pendientes. ahi tengo los datos cuenta y cliente

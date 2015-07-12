@@ -64,6 +64,7 @@
             this.txtPregunta = new System.Windows.Forms.TextBox();
             this.btnNuevoCliente = new System.Windows.Forms.Button();
             this.btnModificar = new System.Windows.Forms.Button();
+            this.linkTarjetas = new System.Windows.Forms.LinkLabel();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.gbUsuario.SuspendLayout();
@@ -259,7 +260,7 @@
             // 
             // btnVolver
             // 
-            this.btnVolver.Location = new System.Drawing.Point(585, 409);
+            this.btnVolver.Location = new System.Drawing.Point(553, 405);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(87, 27);
             this.btnVolver.TabIndex = 26;
@@ -303,7 +304,7 @@
             this.groupBox1.Controls.Add(this.txtDNI);
             this.groupBox1.Controls.Add(this.txtMail);
             this.groupBox1.Controls.Add(this.txtPais);
-            this.groupBox1.Location = new System.Drawing.Point(39, 12);
+            this.groupBox1.Location = new System.Drawing.Point(7, 8);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(643, 190);
             this.groupBox1.TabIndex = 29;
@@ -319,7 +320,7 @@
             this.groupBox2.Controls.Add(this.txtPiso);
             this.groupBox2.Controls.Add(this.txtDepto);
             this.groupBox2.Controls.Add(this.txtNumero);
-            this.groupBox2.Location = new System.Drawing.Point(39, 208);
+            this.groupBox2.Location = new System.Drawing.Point(7, 204);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(288, 183);
             this.groupBox2.TabIndex = 30;
@@ -360,7 +361,7 @@
             this.gbUsuario.Controls.Add(this.label15);
             this.gbUsuario.Controls.Add(this.label13);
             this.gbUsuario.Controls.Add(this.label14);
-            this.gbUsuario.Location = new System.Drawing.Point(335, 208);
+            this.gbUsuario.Location = new System.Drawing.Point(303, 204);
             this.gbUsuario.Name = "gbUsuario";
             this.gbUsuario.Size = new System.Drawing.Size(344, 143);
             this.gbUsuario.TabIndex = 34;
@@ -389,7 +390,7 @@
             // 
             // btnNuevoCliente
             // 
-            this.btnNuevoCliente.Location = new System.Drawing.Point(433, 409);
+            this.btnNuevoCliente.Location = new System.Drawing.Point(401, 405);
             this.btnNuevoCliente.Name = "btnNuevoCliente";
             this.btnNuevoCliente.Size = new System.Drawing.Size(131, 27);
             this.btnNuevoCliente.TabIndex = 35;
@@ -398,7 +399,7 @@
             // 
             // btnModificar
             // 
-            this.btnModificar.Location = new System.Drawing.Point(433, 409);
+            this.btnModificar.Location = new System.Drawing.Point(401, 405);
             this.btnModificar.Name = "btnModificar";
             this.btnModificar.Size = new System.Drawing.Size(131, 27);
             this.btnModificar.TabIndex = 36;
@@ -406,11 +407,23 @@
             this.btnModificar.UseVisualStyleBackColor = true;
             this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
             // 
+            // linkTarjetas
+            // 
+            this.linkTarjetas.AutoSize = true;
+            this.linkTarjetas.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.linkTarjetas.Location = new System.Drawing.Point(4, 411);
+            this.linkTarjetas.Name = "linkTarjetas";
+            this.linkTarjetas.Size = new System.Drawing.Size(186, 17);
+            this.linkTarjetas.TabIndex = 37;
+            this.linkTarjetas.TabStop = true;
+            this.linkTarjetas.Text = "Asociar/Desasociar Tarjetas";
+            // 
             // frmCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(691, 457);
+            this.ClientSize = new System.Drawing.Size(656, 440);
+            this.Controls.Add(this.linkTarjetas);
             this.Controls.Add(this.btnModificar);
             this.Controls.Add(this.btnNuevoCliente);
             this.Controls.Add(this.gbUsuario);
@@ -427,6 +440,7 @@
             this.gbUsuario.ResumeLayout(false);
             this.gbUsuario.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -468,5 +482,6 @@
         private System.Windows.Forms.TextBox txtPregunta;
         private System.Windows.Forms.Button btnNuevoCliente;
         private System.Windows.Forms.Button btnModificar;
+        private System.Windows.Forms.LinkLabel linkTarjetas;
     }
 }
