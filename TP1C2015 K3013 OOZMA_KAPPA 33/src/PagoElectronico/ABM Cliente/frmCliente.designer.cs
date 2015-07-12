@@ -433,6 +433,7 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.Name = "frmCliente";
             this.Text = "Pago Electrónico - ABM Cliente";
+            this.Load += new System.EventHandler(this.frmCliente_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

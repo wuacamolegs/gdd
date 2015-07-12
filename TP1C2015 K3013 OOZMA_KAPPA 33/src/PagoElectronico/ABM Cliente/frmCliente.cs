@@ -19,7 +19,7 @@ namespace PagoElectronico.ABM_Cliente
             InitializeComponent();
         }
 
-        ListadoCliente frmPadre = new ListadoCliente(); /* CAMBIE ListadoCliente por frmCliente, en el tp de los chicos descia listado, total hace un inicialiteComponent y es lo mismo*/
+        ListadoCliente frmPadre = new ListadoCliente(); 
         Cliente clienteDelForm = new Cliente();
         private int _id_usuario_registrado;
 
@@ -94,11 +94,8 @@ namespace PagoElectronico.ABM_Cliente
             this.Show();
 
         }
-        public void AbrirParaAgregar(ListadoCliente frmEnviador)
+        public void AbrirParaAgregar()
         {
-            frmPadre = frmEnviador;
-            this.Show();
-
             cmbDNI.SelectedIndex = 0;
             txtDNI.Enabled = true;
             txtNombre.Text = "";
@@ -325,6 +322,11 @@ namespace PagoElectronico.ABM_Cliente
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void frmCliente_Load(object sender, EventArgs e)
         {
 
         }
