@@ -147,7 +147,7 @@ CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoTarjetaActivasPorClienteID]
 	@cliente_id numeric (18,0),
 	@Fecha datetime
 AS
-	SELECT tarjeta_id AS tarjeta_numero,tarjeta_emisor,tarjeta_fecha_emision,tarjeta_vencimiento FROM OOZMA_KAPPA.Tarjeta
+	SELECT tarjeta_id AS tarjeta_numero,tarjeta_emisor,tarjeta_fecha_emision,tarjeta_vencimiento, tarjeta_codigo_seguridad, tarjeta_estado FROM OOZMA_KAPPA.Tarjeta
 	WHERE tarjeta_cliente_id = @cliente_id AND CONVERT(varchar(10), tarjeta_vencimiento, 103) > CONVERT(varchar(10),@Fecha, 103)
 	AND tarjeta_estado = 1
 GO

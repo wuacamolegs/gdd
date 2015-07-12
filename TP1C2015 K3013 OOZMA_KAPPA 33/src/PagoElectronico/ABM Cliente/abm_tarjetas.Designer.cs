@@ -73,6 +73,7 @@
             this.btnModificar.TabIndex = 3;
             this.btnModificar.Text = "Modificar";
             this.btnModificar.UseVisualStyleBackColor = true;
+            this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
             // 
             // btnDesactivar
             // 
@@ -83,6 +84,7 @@
             this.btnDesactivar.TabIndex = 4;
             this.btnDesactivar.Text = "Desactivar";
             this.btnDesactivar.UseVisualStyleBackColor = true;
+            this.btnDesactivar.Click += new System.EventHandler(this.btnDesactivar_Click);
             // 
             // abm_tarjetas
             // 
@@ -95,7 +97,8 @@
             this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.lblSeleccione);
             this.Name = "abm_tarjetas";
-            this.Text = "abm_tarjetas";
+            this.Text = "Pago Electrónico - Tarjetas";
+            this.Load += new System.EventHandler(this.abm_tarjetas_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dtgTarjetas)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

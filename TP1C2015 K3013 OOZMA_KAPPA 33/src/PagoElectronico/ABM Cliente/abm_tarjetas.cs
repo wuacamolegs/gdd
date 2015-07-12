@@ -75,19 +75,26 @@ namespace PagoElectronico.ABM_Cliente
             clmEmisor.HeaderText = "EMISOR";
             dtgTarjetas.Columns.Add(clmEmisor);
 
-            DataGridViewCheckBoxColumn clmFechaEmision = new DataGridViewCheckBoxColumn();
+            DataGridViewTextBoxColumn clmFechaEmision = new DataGridViewTextBoxColumn();
             clmFechaEmision.Width = 80;
             clmFechaEmision.ReadOnly = true;
             clmFechaEmision.DataPropertyName = "tarjeta_fecha_emision";
             clmFechaEmision.HeaderText = "FECHA DE EMISION";
             dtgTarjetas.Columns.Add(clmFechaEmision);
 
-            DataGridViewCheckBoxColumn clmVencimiento = new DataGridViewCheckBoxColumn();
+            DataGridViewTextBoxColumn clmVencimiento = new DataGridViewTextBoxColumn();
             clmVencimiento.Width = 80;
             clmVencimiento.ReadOnly = true;
             clmVencimiento.DataPropertyName = "tarjeta_vencimiento";
             clmVencimiento.HeaderText = "FECHA DE VENCIMIENTO";
             dtgTarjetas.Columns.Add(clmVencimiento);
+
+            DataGridViewTextBoxColumn clmEstado = new DataGridViewTextBoxColumn();
+            clmVencimiento.Width = 80;
+            clmVencimiento.ReadOnly = true;
+            clmVencimiento.DataPropertyName = "tarjeta_estado";
+            clmVencimiento.HeaderText = "ESTADO";
+            dtgTarjetas.Columns.Add(clmEstado);
 
 
             //le inserto a la grilla el dataset obtenido
@@ -103,10 +110,26 @@ namespace PagoElectronico.ABM_Cliente
             unaTarjeta.tarjeta_vencimiento = valorVencimientoSeleccionado();
         }
 
-        //private void btnModificar_Click(object sender, EventArgs e) //TODO
-        
- 
-        //private void btnAgregar_Click(object sender, EventArgs e) //TODO
+
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            formTarjeta formTarjeta = new formTarjeta();
+            MessageBox.Show("TARJETA ID: " + valorIdSeleccionado() + "\n EMISOR: " + valorEmisorSeleccionado() + "\n ESTADO: " + valorEstadoSeleccionado(), "");
+            unaTarjeta.tarjeta_id = valorIdSeleccionado();
+            unaTarjeta.Emisor = valorEmisorSeleccionado();
+            unaTarjeta.Estado = valorEstadoSeleccionado();
+            unaTarjeta.FechaVencimiento = valorVencimientoSeleccionado();
+            unaTarjeta.FechaEmision = valorEmisionSeleccionado();
+            unaTarjeta.CodigoSeguridad = valorCodigoSeguridad();
+            formRol.AbrirParaModificar(unRol, this);
+
+        }
+
+
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+
+        }
        
 
         private void btnDesactivar_Click(object sender, EventArgs e)
@@ -146,31 +169,42 @@ namespace PagoElectronico.ABM_Cliente
         #endregion
 
 
+
+
         #region llamados a la base
 
         #endregion
 
 
         #region metodos privados
-/*
-            private Int64 valorIdSeleccionado()
+
+        private Int64 valorIdSeleccionado()
         {
             return Convert.ToInt64(((DataRowView)dtgTarjetas.CurrentRow.DataBoundItem)["tarjeta_id"]);
         }
-        private string valorEmisorSeleccionado()//TODO
+        private Int64 valorEmisorSeleccionado()
         {
-            return ((DataRowView)dtgTarjetas.CurrentRow.DataBoundItem)["tarjeta_emisor"].To();
+            return Convert.ToInt64(((DataRowView)dtgTarjetas.CurrentRow.DataBoundItem)["tarjeta_emisor"]);
         }
-        private DateTime valorEmisionSeleccionado()//TODO
+        private Boolean valorEstadoSeleccionado()
         {
-            return ((DataRowView)dtgTarjetas.CurrentRow.DataBoundItem)["tarjeta_fecha_emision"].To();
-        }  
-        
-        private DateTime valorVencimientoSeleccionado()//TODO
-        {
-            return ((DataRowView)dtgTarjetas.CurrentRow.DataBoundItem)["tarjeta_vencimiento"].To();
-        } */
+            return Convert.ToBoolean(((DataRowView)dtgTarjetas.CurrentRow.DataBoundItem)["tarjeta_estado"]);
+        }
 
+        private Int64 valorCodigoSeguridad()
+        {
+            return Convert.ToInt64(((DataRowView)dtgTarjetas.CurrentRow.DataBoundItem)["tarjeta_codigo_seguridad"]);
+        }
+
+        private DateTime valorEmisionSeleccionado()
+        {
+            return Convert.ToDateTime(((DataRowView)dtgTarjetas.CurrentRow.DataBoundItem)["tarjeta_fecha_emision"]);
+        }
+
+        private DateTime valorVencimientoSeleccionado()
+        {
+            return Convert.ToDateTime(((DataRowView)dtgTarjetas.CurrentRow.DataBoundItem)["tarjeta_vencimiento"]);
+        }
 
         #endregion
 

@@ -27,6 +27,9 @@ namespace Clases
         private DateTime _fecha_emision;
         private DateTime _fecha_vencimiento;
         private Cliente _cliente;
+        private Int64 _emisor;
+        private bool _estado;
+
         #endregion
 
         #region constructor
@@ -44,6 +47,18 @@ namespace Clases
         {
             get { return _tarjeta_id; }
             set {_tarjeta_id = value;}
+        }
+
+        public Int64 Emisor
+        {
+            get { return _emisor; }
+            set { _emisor = value; }
+        }
+
+        public bool Estado
+        {
+            get { return _estado; }
+            set { _estado = value; }
         }
 
         public Cuenta Cuenta
