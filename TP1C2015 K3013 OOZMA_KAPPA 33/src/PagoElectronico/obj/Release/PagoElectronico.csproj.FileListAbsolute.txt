@@ -66,8 +66,22 @@ E:\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.Depositos.Dep
 E:\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.Facturacion.Facturas.resources
 A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.ABM_Cuenta.ListadoCuenta.resources
 A:\Documents\GitHub\gdd\PagoElectronico\PagoElectronico\obj\Release\PagoElectronico.ABM_Cuenta.ABM_de_Cuenta.resources
+A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Release\PagoElectronico.exe.config
+A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Release\PagoElectronico.exe
+A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Release\PagoElectronico.pdb
+A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Release\PagoElectronico.exe
+A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Release\PagoElectronico.pdb
+A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Release\Clases.dll
+A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Release\Conexion.dll
+A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Release\Excepciones.dll
+A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Release\Log.dll
+A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Release\Utilities.dll
+A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Release\Clases.pdb
+A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Release\Log.pdb
+A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Release\Utilities.pdb
+A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Release\Excepciones.pdb
+A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Release\Conexion.pdb
 A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Release\ResolveAssemblyReference.cache
-A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Release\PagoElectronico.csproj.GenerateResource.Cache
 A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Release\PagoElectronico.ABM_Cuenta.ABM_de_Cuenta.resources
 A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Release\PagoElectronico.ABM_Cuenta.ListadoCuenta.resources
 A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Release\PagoElectronico.ABM_de_Usuario.ABM_Usuario.resources
@@ -84,20 +98,8 @@ A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Re
 A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Release\PagoElectronico.Properties.Resources.resources
 A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Release\PagoElectronico.Retiros.Retiro_Efectivo.resources
 A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Release\PagoElectronico.Transferencias.Transferencias_Entre_Cuentas.resources
-A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Release\PagoElectronico.exe.config
+A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Release\PagoElectronico.csproj.GenerateResource.Cache
+A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Release\PagoElectronico.ABM_Cliente.abm_tarjetas.resources
+A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Release\PagoElectronico.ABM_Cliente.formTarjeta.resources
 A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Release\PagoElectronico.ABM_Cliente.frmCliente.resources
-A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Release\PagoElectronico.exe
-A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Release\PagoElectronico.pdb
-A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Release\Clases.dll
-A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Release\Conexion.dll
-A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Release\Excepciones.dll
-A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Release\Log.dll
-A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Release\Utilities.dll
-A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Release\Clases.pdb
-A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Release\Log.pdb
-A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Release\Utilities.pdb
-A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Release\Excepciones.pdb
-A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Release\Conexion.pdb
-A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Release\PagoElectronico.exe
-A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Release\PagoElectronico.pdb
 A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Release\PagoElectronico.ABM_Cliente.ListadoCliente.resources

@@ -225,7 +225,7 @@ namespace Clases
             this.NumeroDireccion = Convert.ToInt64(dr["cliente_numero"]);
             this.PisoDireccion = Convert.ToInt64(dr["cliente_piso"]);
             this.DeptoDireccion = dr["cliente_depto"].ToString();
-            this.estado = Convert.ToBoolean(dr["cliente_estado"]);
+            this.estado = Convert.ToBoolean(dr["cliente_estado"]); 
         }
 
 
@@ -242,7 +242,7 @@ namespace Clases
         public void setearListaDeParametrosConClienteID(Int64 clienteID)
         {
             this.parameterList.Clear();
-            parameterList.Add(new SqlParameter("@cliente_id", this.cliente_id));
+            parameterList.Add(new SqlParameter("@cliente_id", clienteID));
         }
 
         private void setearListaDeParametrosConClienteIDYCuentaID(Int64 cliente_id, Int64 cuenta_id)
@@ -281,22 +281,6 @@ namespace Clases
             parameterList.Add(new SqlParameter("@Estado", this.estado));
         }
 
-        private void setearListaDeParametros()
-        {
-            //parameterList.Add(new SqlParameter("@id_Cliente", this.id_Cliente));
-            parameterList.Add(new SqlParameter("@Tipo_Dni", "Dni"));
-            parameterList.Add(new SqlParameter("@Dni", this.Documento));
-            parameterList.Add(new SqlParameter("@Apellido", this.Apellido));
-            parameterList.Add(new SqlParameter("@Nombre", this.Nombre));
-            parameterList.Add(new SqlParameter("@Fecha_nac", this.FechaNacimiento));
-            parameterList.Add(new SqlParameter("@Mail", this.Mail));
-            parameterList.Add(new SqlParameter("@Pais_id", this.PaisResidente));
-            parameterList.Add(new SqlParameter("@Numero_calle", this.NumeroDireccion));
-            parameterList.Add(new SqlParameter("@Calle", this.Calle));
-            parameterList.Add(new SqlParameter("@Dom_piso", this.PisoDireccion));
-            parameterList.Add(new SqlParameter("@Dom_depto", this.DeptoDireccion));
-            parameterList.Add(new SqlParameter("@Activo", this.estado));
-        }
 
         #endregion
 
@@ -323,7 +307,7 @@ namespace Clases
 
         //Cuando le pasen este metodo a un cliente antes tienen que crearlo, ahi usar unCliente = new Cliente(unNombre, unApellido, unTipoDni, unDni, unMail); 
         // y despues basta con llamarlo como this.
-        public static DataSet obtenerTodosLosClientesConFiltros(string unNombre, string unApellido, string unTipoDni, Int64 unDni, string unMail)
+        public DataSet obtenerTodosLosClientesConFiltros(string unNombre, string unApellido, string unTipoDni, Int64 unDni, string unMail)
         {
             Cliente unCliente = new Cliente(unNombre, unApellido, unTipoDni, unDni, unMail);
             unCliente.setearListaDeParametrosConFiltros(unCliente.Nombre, unCliente.Apellido, unCliente.TipoDocumento, unCliente.Documento, unCliente.Mail);
@@ -332,54 +316,6 @@ namespace Clases
             return ds;
         }
 
-
-        public void guardarDatosDeClienteNuevo()
-        {
-            setearListaDeParametros();
-            //Guardo tambien en la lista de parametros el id_rol (variable privada de la clase)
-            //Para que tambien se inserte la relacio id_rol id_usuario en la BD
-
-            DataSet ds2 = SQLHelper.ExecuteDataSet("validarDniEnCliente", CommandType.StoredProcedure, parameterList);
-            if ((ds2.Tables[0].Rows.Count == 0))
-            {
-                // se ejecuto un procedure que me traia los clientes where telefono = telfonoIngresado
-                // y otro que me trae los clientes where dni = DniIngresado
-                // solo si los dos ds estan vacios se inserta el usuarioDefault y el cliente en la BD
-                this.Usuario.usuario_id = this.Usuario.GuardarYObtenerID();
-                setearListaDeParametrosConUsuarioID(this.Usuario.usuario_id);
-                this.Guardar(parameterList);
-            }
-            else
-            {
-
-                if (ds2.Tables[0].Rows.Count != 0) throw new Exception("Ya existe un Cliente con este Dni. Por favor, ingrese otro.");
-            }
-            parameterList.Clear();
-        }
-
-        public void ModificarDatos()
-        {
-            parameterList.Clear();
-            setearListaDeParametros();
-            setearListaDeParametrosConClienteID(this.cliente_id);
-            DataSet ds2 = SQLHelper.ExecuteDataSet("validarDniEnCliente", CommandType.StoredProcedure, parameterList);
-            if ((ds2.Tables[0].Rows.Count == 0))
-            {
-                // se ejecuto un procedure que me traia los clientes where telefono = telfonoIngresado
-                // solo si el ds esta vacio se inserta el usuarioDefault y el cliente en la BD
-
-                if (this.Modificar(parameterList))
-                {
-                    parameterList.Clear();
-                }
-            }
-            else
-            {
-                if (ds2.Tables[0].Rows.Count != 0) throw new Exception("Ya existe un Cliente con este Dni. Por favor, ingrese otro.");
-            }
-            parameterList.Clear();
-
-        }
 
         public void Eliminar()
         {
@@ -445,31 +381,11 @@ namespace Clases
             };
         }
 
-        public void guardarDatosDeClienteNuevoRegistrado(int id_usuario)
-        {
-            setearListaDeParametros();
-            //Guardo tambien en la lista de parametros el id_rol (variable privada de la clase)
-            //Para que tambien se inserte la relacio id_rol id_usuario en la BD
-            setearListaDeParametrosConUsuarioID(id_usuario);
-            DataSet ds2 = SQLHelper.ExecuteDataSet("validarDniEnCliente", CommandType.StoredProcedure, parameterList);
-            if ((ds2.Tables[0].Rows.Count == 0))
-            {
-                // se ejecuto un procedure que me traia los clientes where telefono = telfonoIngresado
-                // y otro que me trae los clientes where dni = DniIngresado
-                // solo si los dos ds estan vacios se inserta el cliente en la BD                
-                this.Guardar(parameterList); //el sp, esta en Base.cs//
-            }
-            else
-            {
-                if (ds2.Tables[0].Rows.Count != 0) throw new Exception("Ya existe un Cliente con este Dni. Por favor, ingrese otro.");
-            }
-            parameterList.Clear();
-        }
-
         #endregion        
        
     
        
+
     }
 }
  

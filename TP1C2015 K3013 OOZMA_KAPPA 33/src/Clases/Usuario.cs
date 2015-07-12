@@ -38,14 +38,6 @@ namespace Clases
 
         }
 
-        public void CrearDefault(string unNombreDeUsuario)
-        {
-            this.Username = unNombreDeUsuario;
-            this.Password = Encryptor.GetSHA256(unNombreDeUsuario);
-            this.Estado = true;
-        }
-
-
         #endregion
 
         #region properties
@@ -91,7 +83,7 @@ namespace Clases
             set { _rol = value; }
         }
 
-
+      
         #endregion
 
         #region metodos publicos
@@ -113,25 +105,16 @@ namespace Clases
             this.Username = dr["usuario_username"].ToString();
             this.Password = dr["usuario_password"].ToString();
             this.Estado = Convert.ToBoolean(dr["usuario_estado"]);
-        }
+         }
 
         private bool esClaveAutoGenerada(DataRow dr)
         {
             string @claveAutoGenerada = "ECE6128060FCDA0AFC43C2D59109C410E89DE2BEF602D70ED62C0640FD795970";
             bool @boolClave = false;
-            if (claveAutoGenerada == dr["usuario_password"].ToString())
-            {
+            if(claveAutoGenerada == dr["usuario_password"].ToString()){
                 @boolClave = true;
             }
             return boolClave;
-        }
-
-        public int GuardarYObtenerID()
-        {
-            setearListaDeParametros();
-            DataSet dsNuevoUsuario = this.GuardarYObtenerID(parameterList);
-            this.usuario_id = Convert.ToInt32(dsNuevoUsuario.Tables[0].Rows[0]["id_Usuario"]);
-            return this.usuario_id;
         }
 
 
@@ -146,13 +129,6 @@ namespace Clases
         {
             parameterList.Add(new SqlParameter("@Username", this.Username)); //el nombre de la variable @Username de aca tiene que ser igual a la del store procedure que defini en .sql
 
-        }
-
-        private void setearListaDeParametros()
-        {
-            parameterList.Add(new SqlParameter("@Username", this.Username));
-            parameterList.Add(new SqlParameter("@Clave", this.Password));
-            parameterList.Add(new SqlParameter("@Estado", this.Estado));
         }
 
         private void setearListaDeParametrosSoloConIdUsuario()
@@ -176,18 +152,18 @@ namespace Clases
             bool @encontroUsuario = false;
 
             setearListaDeParametrosConUsuario();
-
+            
             DataSet ds = SQLHelper.ExecuteDataSet("traerUsuarioActivoPorUsername", CommandType.StoredProcedure, parameterList);
-
+            
             parameterList.Clear();
-
+   
             if (ds.Tables[0].Rows.Count == 1)
             {
                 this.DataRowToObject(ds.Tables[0].Rows[0]);
                 encontroUsuario = true;
             }
             return encontroUsuario;
-
+                                  
         }
 
         public void AsignarRol(DataSet ds)
@@ -202,7 +178,7 @@ namespace Clases
         }
 
         #endregion
-
+        
         #region metodos privados
 
         public void Deshabilitar()
@@ -235,7 +211,6 @@ namespace Clases
         }
 
         #endregion
-
 
         
     }
