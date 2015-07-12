@@ -61,7 +61,7 @@
             this.groupBox1.Size = new System.Drawing.Size(253, 162);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Origen";
+            this.groupBox1.Text = "ORIGEN";
             // 
             // Saldo
             // 
@@ -74,7 +74,7 @@
             // 
             // txtSaldo
             // 
-            this.txtSaldo.BackColor = System.Drawing.Color.YellowGreen;
+            this.txtSaldo.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.txtSaldo.Location = new System.Drawing.Point(117, 125);
             this.txtSaldo.Name = "txtSaldo";
             this.txtSaldo.ReadOnly = true;
@@ -127,11 +127,11 @@
             this.groupBox2.Size = new System.Drawing.Size(264, 162);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Destino";
+            this.groupBox2.Text = "DESTINO";
             // 
             // txtCuentaDestino
             // 
-            this.txtCuentaDestino.Location = new System.Drawing.Point(76, 35);
+            this.txtCuentaDestino.Location = new System.Drawing.Point(76, 76);
             this.txtCuentaDestino.Name = "txtCuentaDestino";
             this.txtCuentaDestino.Size = new System.Drawing.Size(182, 20);
             this.txtCuentaDestino.TabIndex = 3;
@@ -140,7 +140,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(6, 35);
+            this.label4.Location = new System.Drawing.Point(6, 76);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(64, 16);
             this.label4.TabIndex = 2;

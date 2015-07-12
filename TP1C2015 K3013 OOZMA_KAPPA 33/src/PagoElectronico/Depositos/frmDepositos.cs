@@ -53,6 +53,7 @@ namespace PagoElectronico.Depositos
 
             DataSet dsMoneda = unaMoneda.TraerTodasLasMonedas();
             DropDownListManager.CargarCombo(cmbMoneda, dsMoneda.Tables[0], "id_Moneda", "Moneda", false, "");
+            cmbMoneda.SelectedIndex = -1;
 
         }
 
@@ -86,11 +87,11 @@ namespace PagoElectronico.Depositos
                 else
                 {
                     DropDownListManager.CargarCombo(cmbTarjeta, dsTarjetas.Tables[0], "tarjeta_numero", "tarjeta_numero", false, "");
+                    cmbCuenta.SelectedIndex = -1;
+                    cmbMoneda.SelectedIndex = -1;
+                    cmbTarjeta.SelectedIndex = -1;
                 }
             }
-
-
-
 
         }
 
@@ -106,7 +107,7 @@ namespace PagoElectronico.Depositos
                 depositoActual.Importe = Convert.ToInt64(txtImporte.Text);
                 depositoActual.Moneda = Convert.ToInt64(cmbMoneda.SelectedValue);
                 depositoActual.EfectuarDeposito();
-                MessageBox.Show("Se generó deposito de:" + depositoActual.Importe + "\n al Cliente: " + depositoActual.Cliente.cliente_id + "\n en la Cuenta: " + depositoActual.Cuenta.cuenta_id + "\n con Tarjeta: " + depositoActual.Tarjeta.tarjeta_id, "Deposito Exitoso");
+                MessageBox.Show("DEPOSITO EXITOSO DE: " + depositoActual.Importe +"\nCliente: " + depositoActual.Cliente.cliente_id + "\nCuenta: " + depositoActual.Cuenta.cuenta_id + "\nTarjeta: " + depositoActual.Tarjeta.tarjeta_id, "Deposito Exitoso");
                 this.Close();
             }
 

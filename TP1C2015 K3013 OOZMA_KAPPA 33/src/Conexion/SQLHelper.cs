@@ -14,11 +14,14 @@ namespace Conexion
     public class SQLHelper
     {
         #region atributos
+
         private static SqlConnection _cnnConexion;
         private static SqlTransaction _trans;
+
         #endregion
 
         #region properties
+
         public static SqlConnection CnnConexion
         {
             get { return SQLHelper._cnnConexion; }
@@ -30,6 +33,7 @@ namespace Conexion
             get { return SQLHelper._trans; }
             set { SQLHelper._trans = value; }
         }
+
         #endregion
 
         public static void Inicializar()

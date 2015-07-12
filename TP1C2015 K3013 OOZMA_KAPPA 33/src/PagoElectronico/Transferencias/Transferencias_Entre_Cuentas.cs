@@ -117,62 +117,66 @@ namespace PagoElectronico.Transferencias
 
         private bool ValidarCampos()
         {
-            unaCuentaDestino.cuenta_id = Convert.ToInt64(txtCuentaDestino.Text);
-            if (unaCuentaDestino.validarCuentaDestino())
+            if (txtCuentaDestino.Text == "") { MessageBox.Show("Debe ingresar una Cuenta", "Datos Faltantes"); txtImporte.Text = "" ;return false; }
+            else
             {
-                string strErrores = "";
-                strErrores = strErrores + Validator.ValidarNulo(txtImporte.Text, "Importe");
+                unaCuentaDestino.cuenta_id = Convert.ToInt64(txtCuentaDestino.Text);
+                if (unaCuentaDestino.validarCuentaDestino())
+                {
+                    string strErrores = "";
+                    strErrores = strErrores + Validator.ValidarNulo(txtImporte.Text, "Importe");
 
-                if (strErrores.Length > 0)
-                {
-                    MessageBox.Show(strErrores);
-                    txtImporte.Clear();
-                    return false;
-                }
-                else
-                {
-                    strErrores = strErrores + Validator.SoloNumerosODecimales(txtImporte.Text, "Importe");
                     if (strErrores.Length > 0)
                     {
                         MessageBox.Show(strErrores);
                         txtImporte.Clear();
                         return false;
-
                     }
                     else
                     {
-                        strErrores = strErrores + Validator.MayorACero(txtImporte.Text, "Importe");
+                        strErrores = strErrores + Validator.SoloNumerosODecimales(txtImporte.Text, "Importe");
                         if (strErrores.Length > 0)
                         {
                             MessageBox.Show(strErrores);
                             txtImporte.Clear();
                             return false;
+
                         }
                         else
                         {
-                            Int64 Importe = Convert.ToInt64(txtImporte.Text);
-                            Int64 Saldo = Convert.ToInt64(txtSaldo.Text);
-                            if (Importe <= Saldo)
+                            strErrores = strErrores + Validator.MayorACero(txtImporte.Text, "Importe");
+                            if (strErrores.Length > 0)
                             {
-                                return true;
+                                MessageBox.Show(strErrores);
+                                txtImporte.Clear();
+                                return false;
                             }
                             else
                             {
-                                MessageBox.Show("No se ha realizado la transferencia ya que no cuenta con suficiente saldo", "Saldo insuficiente");
-                                return false;
+                                Int64 Importe = Convert.ToInt64(txtImporte.Text);
+                                Int64 Saldo = Convert.ToInt64(txtSaldo.Text);
+                                if (Importe <= Saldo)
+                                {
+                                    return true;
+                                }
+                                else
+                                {
+                                    MessageBox.Show("No se ha realizado la transferencia ya que no cuenta con suficiente saldo", "Saldo insuficiente");
+                                    return false;
+                                }
+
+
                             }
-
-
                         }
                     }
                 }
+                else
+                {
+                    MessageBox.Show("La cuenta de destino que ingreso es inexistente", "Cuenta inexistente");
+                    txtCuentaDestino.Clear();
+                    return false;
+                }
             }
-            else
-            {
-                MessageBox.Show("La cuenta de destino que ingreso es inexistente", "Cuenta inexistente");
-                txtCuentaDestino.Clear();
-                return false;
-            }        
         }
 
 
@@ -215,7 +219,7 @@ namespace PagoElectronico.Transferencias
             unaTransferencia.Fecha = Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]);
 
             unaTransferencia.GenerarTransferencia();
-            MessageBox.Show("Transaccion Exitosa", "Validacion Exitosa");
+            MessageBox.Show("TRANSFERENCIA EXITOSA!\nCuenta Origen: " + unaTransferencia.CuentaOrigen.cuenta_id + "\nCuenta Destino: " + unaTransferencia.CuentaDestino.cuenta_id + "\nImporte: " + unaTransferencia.Importe + "\nFecha: " + unaTransferencia.Fecha, "Validacion Exitosa");
             txtSaldo.Clear();
             this.Hide();
         

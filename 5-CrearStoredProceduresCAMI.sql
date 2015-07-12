@@ -158,12 +158,12 @@ END
 GO
 
 
-CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoCuentaActivasPorClienteID]
+ALTER PROCEDURE [OOZMA_KAPPA].[traerListadoCuentaActivasPorClienteID]
 	@cliente_id numeric(18,0),
 	@Fecha datetime
 AS
 BEGIN
-	SELECT cuenta_id as cuenta_numero, cuenta_estado, cuenta_saldo, cuenta_fecha_apertura as fecha_apertura, cuenta_fecha_cierre as fecha_cierre FROM OOZMA_KAPPA.Cuenta WHERE cuenta_cliente_id = @cliente_id AND cuenta_estado = 1 AND DATEDIFF(YEAR, cuenta_fecha_cierre, @Fecha) >= 0 AND DATEDIFF(MONTH, cuenta_fecha_cierre, @Fecha) >= 0 AND cuenta_cerrada = 0 AND cuenta_pendiente_activacion = 0;
+	SELECT cuenta_id as cuenta_numero, cuenta_estado, cuenta_saldo, cuenta_fecha_apertura as fecha_apertura, cuenta_fecha_cierre as fecha_cierre FROM OOZMA_KAPPA.Cuenta WHERE cuenta_cliente_id = @cliente_id AND cuenta_estado = 1 AND cuenta_cerrada = 0 AND cuenta_pendiente_activacion = 0;
 END
 GO
 
@@ -260,7 +260,7 @@ CREATE PROCEDURE [OOZMA_KAPPA].[TraerListadoCuentaAPagarPorClienteID]
 	@cliente_id numeric(18,0)
 AS
 BEGIN 
-	SELECT DISTINCT transaccion_pendiente_cuenta_id as cuenta_id FROM OOZMA_KAPPA.Transacciones_Pendientes WHERE transaccion_pendiente_cliente_id = @cliente_id;
+	SELECT DISTINCT transaccion_pendiente_cuenta_id as cuenta_id FROM OOZMA_KAPPA.Transacciones_Pendientes WHERE transaccion_pendiente_cliente_id = @cliente_id AND transaccion_pendiente_descr = 'Suscripciones por Apertura Cuenta';
 END
 GO
 
@@ -478,6 +478,19 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE OOZMA_KAPPA.TraerListadoClienteConCosasAFacturar
+AS
+BEGIN
+	SELECT DISTINCT cliente_id as cliente_id,(cliente_apellido +' '+ cliente_nombre) as cliente_nombre, cliente_numero_documento as cliente_documento FROM Transacciones_Pendientes, Cliente WHERE transaccion_pendiente_cliente_id = cliente_id;
+END
+GO
 
-UPDATE OOZMA_KAPPA.Cuenta SET cuenta_pendiente_activacion = 1 WHERE cuenta_id = 1111111111111217
 
+
+CREATE PROCEDURE OOZMA_KAPPA.TraerListadoClienteConCosasAFacturarPorUsuarioID
+	@usuario_id numeric(18,0)
+AS
+BEGIN
+	SELECT cliente_id as cliente_id,(cliente_apellido +' '+ cliente_nombre) as cliente_nombre, cliente_numero_documento as cliente_documento FROM OOZMA_KAPPA.Transacciones_Pendientes, OOZMA_KAPPA.Cliente WHERE cliente_id = transaccion_pendiente_cliente_id AND cliente_usuario_id = @usuario_id;
+END
+GO

@@ -379,6 +379,10 @@ namespace Clases
         {
             this.setearListaDeParametrosConClienteID(clienteID);
             DataSet ds = this.TraerListado(this.parameterList, "porClienteID");
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                this.DataRowToObject(ds.Tables[0].Rows[0]);
+            }
             this.parameterList.Clear();
             return ds;
         }
@@ -446,6 +450,17 @@ namespace Clases
             setearListaDeParametrosConClienteID(Convert.ToInt64(cliente_id));
             return TraerListado(parameterList, "ConTodoPorClienteID");
 
+        }
+
+        public DataSet ObtenerTodosLosClientesConCosasAFacturar()
+        {
+            return TraerListado("ConCosasAFacturar");
+        }
+
+        public DataSet ObtenerClientesPorUsuarioIDSiFacturaAlgo(int userID)
+        {
+            setearListaDeParametrosConUsuarioID(userID);
+            return TraerListado(parameterList,"ConCosasAFacturarPorUsuarioID");
         }
     }
 }

@@ -17,13 +17,14 @@ namespace PagoElectronico.Retiros
     {
         #region atributos
         public Usuario unUsuario = new Usuario();
-        public Cliente unCliente;
+        public Cliente unCliente = new Cliente();
         public Retiro retiroActual = new Retiro();
         public Cheque chequeActual = new Cheque();
         public Cuenta unaCuenta = new Cuenta();
         #endregion
 
         #region inicialize
+
         public Retiro_Efectivo()
         {
             InitializeComponent();
@@ -32,21 +33,29 @@ namespace PagoElectronico.Retiros
         public void abrirConUsuario(Usuario user)
         {
             unUsuario = user;
-            unCliente = new Cliente(unUsuario);
+            unCliente.Usuario = user;
+            unaCuenta.Cliente = unCliente;
+            chequeActual.Cliente = unCliente;
+            retiroActual.Cuenta = unaCuenta;
+            chequeActual.Cuenta = unaCuenta;
+            retiroActual.Cheque = chequeActual;
             this.Show();
         }
 
         private void Retiro_Efectivo_Load(object sender, EventArgs e)
         {
-
             //cargar cmb Clientes
             DataSet dsClientes = ObtenerClientes();
-            DropDownListManager.CargarCombo(cmbCliente, dsClientes.Tables[0], "cliente_id", "cliente_nombre", false, "");
+            if (dsClientes.Tables[0].Rows.Count > 0)
+            {
+                DropDownListManager.CargarCombo(cmbCliente, dsClientes.Tables[0], "cliente_id", "cliente_nombre", false, "");
+            }
 
             //cargar cmb banco
             Banco unBanco = new Banco();
             DataSet dsBancos = unBanco.ObtenerTodosLosBancos();
             DropDownListManager.CargarCombo(cmbBanco, dsBancos.Tables[0], "banco_id", "banco_nombre", false, "");
+            cmbBanco.SelectedIndex = -1;
         }
 
 
@@ -56,11 +65,14 @@ namespace PagoElectronico.Retiros
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+            unCliente.TraerClientePorID(Convert.ToInt64(cmbCliente.SelectedValue));
             if (ValidarCampos())
             {
                 if (Convert.ToInt64(txtDocumento.Text) == unCliente.Documento)
                 {                    
                     realizarAccionesRetiro();
+                    actualizarSaldo();
+                    cmbBanco.SelectedIndex = -1;
                 }
                 else
                 {
@@ -72,21 +84,32 @@ namespace PagoElectronico.Retiros
         private void cmbCliente_SelectedIndexChanged(object sender, EventArgs e)
         {
             //cargar cmb Cuentas
-            DataSet dsCuentas = ObtenerCuentasActivasPorClienteId();
-            DropDownListManager.CargarCombo(cmbCuenta, dsCuentas.Tables[0], "cuenta_numero", "cuenta_numero", false, "");
-
+            unaCuenta.Cliente.cliente_id = Convert.ToInt64(cmbCliente.SelectedValue);
+            DataSet dsCuenta = unaCuenta.TraerCuentasActivasPorClienteID();
+            if (dsCuenta.Tables[0].Rows.Count == 0)
+            {
+                MessageBox.Show("El Cliente no posee Cuentas Activas. Por favor seleccione otro Cliente", "No hay Cuentas Activas");
+                cmbBanco.SelectedIndex = -1;
+            }
+            else
+            {
+                DropDownListManager.CargarCombo(cmbCuenta, dsCuenta.Tables[0], "cuenta_numero", "cuenta_numero", false, "");
+            }
         }
 
         private void cmbCuenta_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            actualizarSaldo();
+        }
+
+        private void actualizarSaldo() 
         {
             Int64 cuentaID = Convert.ToInt64(cmbCuenta.SelectedValue);
             DataSet dsCuenta = unaCuenta.TraerCuentaPorCuentaID(cuentaID);
             unaCuenta.DataRowToObject(dsCuenta.Tables[0].Rows[0]);
             txtSaldoActual.Clear();
             string saldo = unaCuenta.saldo.ToString();
-            txtSaldoActual.Text = saldo;
-
-            
+            txtSaldoActual.Text = saldo;   
         }
 
         #endregion
@@ -95,7 +118,6 @@ namespace PagoElectronico.Retiros
 
         public DataSet ObtenerClientes()
         {
-            
             DataSet ds = new DataSet();
             if (unUsuario.Rol.rol_id == 1) 
             {
@@ -110,26 +132,6 @@ namespace PagoElectronico.Retiros
        
             return ds;
 
-        }
-
-        
-        public DataSet ObtenerCuentasActivasPorClienteId()
-        {
-            Int64 clienteID = Convert.ToInt64(cmbCliente.SelectedValue);
-            DataSet dsClientes = ObtenerClientePorID(clienteID);
-            unCliente.DataRowToObject(dsClientes.Tables[0].Rows[0]);
-
-            Cuenta unaCuenta = new Cuenta(unCliente, unUsuario);
-            DataSet dsCuentas = unaCuenta.TraerCuentasActivasPorClienteID();
-                               
-            return dsCuentas;
-
-        }
-
-        public DataSet ObtenerClientePorID(Int64 clienteID)
-        {
-            DataSet dsCliente = unCliente.TraerClientePorID(clienteID);
-            return dsCliente;
         }
 
         #endregion
@@ -174,7 +176,12 @@ namespace PagoElectronico.Retiros
                     }
                     else
                     {
-                        return true;
+                        if (cmbBanco.SelectedIndex == -1)
+                        {
+                            MessageBox.Show("Debe seleccionar un Banco", "Banco Erroneo");
+                            return false;
+                        }
+                        else { return true; }
                     }
                 }
             }
@@ -218,11 +225,9 @@ namespace PagoElectronico.Retiros
             retiroActual.Fecha = Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]);
             retiroActual.Importe = Convert.ToInt64(txtImporte.Text);
             retiroActual.GenerarRetiroDevolverSuID();
-            MessageBox.Show("retiro cheque: " + chequeActual.Cheque_id + " cuenta id: " + unaCuenta.cuenta_id + " fecha: " + retiroActual.Fecha + " importe " + retiroActual.Importe, "retiro" );
+            MessageBox.Show("RETIRO GENERADO EXITOSAMENTE!\nNumero Cheque: " + chequeActual.Cheque_id + "\nCuenta ID: " + unaCuenta.cuenta_id + "\nFecha: " + retiroActual.Fecha + "\nImporte " + retiroActual.Importe, "Retiro Exitoso" );
 
-            MessageBox.Show("Retiro generado exitosamente", "retiro exitoso");
-
-            
+         
             txtImporte.Clear();
             txtDocumento.Clear();
 

@@ -79,6 +79,7 @@
             // 
             // cmbMoneda
             // 
+            this.cmbMoneda.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbMoneda.FormattingEnabled = true;
             this.cmbMoneda.Location = new System.Drawing.Point(146, 188);
             this.cmbMoneda.Name = "cmbMoneda";
@@ -97,6 +98,7 @@
             // 
             // cmbCuenta
             // 
+            this.cmbCuenta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCuenta.FormattingEnabled = true;
             this.cmbCuenta.Location = new System.Drawing.Point(146, 141);
             this.cmbCuenta.Name = "cmbCuenta";
@@ -106,7 +108,7 @@
             // btnAceptar
             // 
             this.btnAceptar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.btnAceptar.Location = new System.Drawing.Point(291, 314);
+            this.btnAceptar.Location = new System.Drawing.Point(321, 291);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(110, 38);
             this.btnAceptar.TabIndex = 8;
@@ -116,6 +118,7 @@
             // 
             // cmbCliente
             // 
+            this.cmbCliente.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCliente.FormattingEnabled = true;
             this.cmbCliente.Location = new System.Drawing.Point(146, 39);
             this.cmbCliente.Name = "cmbCliente";
@@ -135,6 +138,7 @@
             // 
             // cmbTarjeta
             // 
+            this.cmbTarjeta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbTarjeta.FormattingEnabled = true;
             this.cmbTarjeta.Location = new System.Drawing.Point(133, 15);
             this.cmbTarjeta.Name = "cmbTarjeta";
@@ -194,7 +198,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(473, 385);
+            this.ClientSize = new System.Drawing.Size(446, 342);
             this.Controls.Add(this.txtImporte);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.btnAceptar);
@@ -210,7 +214,7 @@
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox5);
             this.Name = "frmDepositos";
-            this.Text = "Depositos";
+            this.Text = "PAGO ELECTRONICO  - DEPOSITOS";
             this.Load += new System.EventHandler(this.frmDepositos_Load);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
