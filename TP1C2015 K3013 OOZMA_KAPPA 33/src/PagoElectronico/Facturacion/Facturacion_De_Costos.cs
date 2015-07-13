@@ -53,7 +53,6 @@ namespace PagoElectronico.Facturacion
             if (dsClientes.Tables[0].Rows.Count > 0)
             {
                 DropDownListManager.CargarCombo(cmbCliente, dsClientes.Tables[0], "cliente_id", "cliente_nombre", false, "");
-                MessageBox.Show("EXISTEN Clientes con transacciones pendientes a Facturar", "");
             }
             else 
             {
@@ -76,6 +75,7 @@ namespace PagoElectronico.Facturacion
                 }
                 else
                 {
+                    gbSuscripciones.Visible = true;
                     DropDownListManager.CargarCombo(cmbCuenta, dsCuentas.Tables[0], "cuenta_id", "cuenta_id", false, "");
                 }
 
@@ -88,6 +88,7 @@ namespace PagoElectronico.Facturacion
                 {
                     cargarDataGrids(dsTransferencias, gridTransferencia);
                     cargarSubtotales(txtSubTotalTransferencia, gridTransferencia);
+                    gbTransferencias.Visible = true;
                 }
                 else
                 {
@@ -102,6 +103,7 @@ namespace PagoElectronico.Facturacion
                 {
                     cargarDataGrids(dsModificacionTC, gridModificacionTC);
                     cargarSubtotales(txtSubTotalModificacionTC, gridModificacionTC);
+                    gbTransferencias.Visible = true;
                 }
                 else
                 {
@@ -144,21 +146,27 @@ namespace PagoElectronico.Facturacion
         
        private void btnGenerarFactura_Click(object sender, EventArgs e)
        {
-           DataSet ds = unaFactura.Cliente.TraerClientePorID(unCliente.cliente_id);
-           unaFactura.Cliente.DataRowToObject(ds.Tables[0].Rows[0]);
-           unaFactura.Fecha = Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]);
-          
-           
-           if (gridTransferencia.Rows.Count == 0) { cantidadTransferencias = 0; }
-           else{cantidadTransferencias = gridTransferencia.Rows.Count - 1; } //me cuenta la ultima fila que esta vacia. por eso le resto uno}
-           if (gridModificacionTC.Rows.Count == 0) { cantidadModificaciones = 0; }
-           else { cantidadModificaciones = gridModificacionTC.Rows.Count - 1; }
+           if (gridTransferencia.Rows.Count > 0 || gridModificacionTC.Rows.Count > 0 || cantidadSuscAPagar > 0)
+           {
+               DataSet ds = unaFactura.Cliente.TraerClientePorID(unCliente.cliente_id);
+               unaFactura.Cliente.DataRowToObject(ds.Tables[0].Rows[0]);
+               unaFactura.Fecha = Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]);
 
-  
-           unCliente.cliente_id = Convert.ToInt64(cmbCliente.SelectedValue);
-           Facturas frmFacturas = new Facturas();
-           frmFacturas.AbrirCon(unaFactura, txtSubTotalTransferencia.Text, txtSubTotalModificacionTC.Text, subtotalSuscripciones, cantidadTransferencias, cantidadModificaciones, cantidadSuscAPagar);
-           this.Close();
+               if (gridTransferencia.Rows.Count == 0) { cantidadTransferencias = 0; }
+               else { cantidadTransferencias = gridTransferencia.Rows.Count - 1; } //me cuenta la ultima fila que esta vacia. por eso le resto uno}
+               if (gridModificacionTC.Rows.Count == 0) { cantidadModificaciones = 0; }
+               else { cantidadModificaciones = gridModificacionTC.Rows.Count - 1; }
+
+
+               unCliente.cliente_id = Convert.ToInt64(cmbCliente.SelectedValue);
+               Facturas frmFacturas = new Facturas();
+               frmFacturas.AbrirCon(unaFactura, txtSubTotalTransferencia.Text, txtSubTotalModificacionTC.Text, subtotalSuscripciones, cantidadTransferencias, cantidadModificaciones, cantidadSuscAPagar);
+               this.Close();
+           }
+           else
+           {
+               MessageBox.Show("No Existen Transacciones a Facturar.", "No se puede generar Factura");
+           }
        }
 
        private void cmbCuenta_SelectedIndexChanged(object sender, EventArgs e)
@@ -233,7 +241,6 @@ namespace PagoElectronico.Facturacion
         public DataSet ObtenerCuentasAFacturarPorClienteId()
         {
             //cargar cmb Cuentas
-            MessageBox.Show("cliente: " + Convert.ToInt64(cmbCliente.SelectedValue));
             unaCuenta.Cliente.cliente_id = Convert.ToInt64(cmbCliente.SelectedValue);
             DataSet dsCuenta = unaCuenta.TraerCuentasACobrarPorClienteID();
 

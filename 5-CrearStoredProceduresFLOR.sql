@@ -204,8 +204,3 @@ AS
 	
 GO	
 
-
-
-select * from OOZMA_KAPPA.Tarjeta, OOZMA_KAPPA.Emisor where tarjeta_cliente_id = 1 and tarjeta_emisor = emisor_id
-GO
-
