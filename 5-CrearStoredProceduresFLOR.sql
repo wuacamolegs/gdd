@@ -147,10 +147,17 @@ CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoTarjetaActivasPorClienteID]
 	@cliente_id numeric (18,0),
 	@Fecha datetime
 AS
-	SELECT tarjeta_id AS tarjeta_numero,tarjeta_emisor,tarjeta_fecha_emision,tarjeta_vencimiento FROM OOZMA_KAPPA.Tarjeta
+	SELECT tarjeta_id AS tarjeta_numero,tarjeta_emisor,tarjeta_fecha_emision,tarjeta_vencimiento, tarjeta_estado FROM OOZMA_KAPPA.Tarjeta
 	WHERE tarjeta_cliente_id = @cliente_id AND CONVERT(varchar(10), tarjeta_vencimiento, 103) > CONVERT(varchar(10),@Fecha, 103)
 	AND tarjeta_estado = 1
 GO
+
+CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoTarjetaPorClienteID]
+	@cliente_id numeric(18,0)
+AS
+	SELECT tarjeta_id AS tarjeta_numero,tarjeta_emisor,tarjeta_fecha_emision,tarjeta_vencimiento, tarjeta_estado FROM OOZMA_KAPPA.Tarjeta WHERE tarjeta_cliente_id = @cliente_id;
+GO
+
 
 CREATE PROCEDURE [OOZMA_KAPPA].[insertTarjeta] 
 	@Fecha datetime,
@@ -160,7 +167,7 @@ CREATE PROCEDURE [OOZMA_KAPPA].[insertTarjeta]
 AS
 	INSERT INTO OOZMA_KAPPA.Tarjeta(tarjeta_fecha_emision, tarjeta_vencimiento, tarjeta_emisor, tarjeta_cliente_id, tarjeta_estado, tarjeta_codigo_seguridad)
 	VALUES (@Fecha, DATEADD(year,1,@Fecha), @tarjeta_emisor, @cliente_id, 1,
-			(SELECT TOP 1 (tarjeta_codigo_seguridad + 1) FROM OOZMA_KAPPA.Tarjeta ORDER BY tarjeta_codigo_seguridad));
+			(SELECT TOP 1 (tarjeta_codigo_seguridad +1)  FROM OOZMA_KAPPA.Tarjeta ORDER BY tarjeta_codigo_seguridad DESC));
 GO	
 
 CREATE PROCEDURE OOZMA_KAPPA.updateTarjeta
@@ -168,7 +175,7 @@ CREATE PROCEDURE OOZMA_KAPPA.updateTarjeta
 	@tarjeta_emisor varchar(255),
 	@tarjeta_estado bit
 AS
-	UPDATE OOZMA_KAPPA.Tarjeta SET tarjeta_emisor=@tarjeta_emisor,@tarjeta_estado = tarjeta_estado
+	UPDATE OOZMA_KAPPA.Tarjeta SET tarjeta_emisor=@tarjeta_emisor, tarjeta_estado = @tarjeta_estado
 	WHERE tarjeta_id=@tarjeta_id
 GO
 
@@ -196,3 +203,9 @@ AS
 	SELECT * FROM OOZMA_KAPPA.Cuenta where @cuenta_id = cuenta_id
 	
 GO	
+
+
+
+select * from OOZMA_KAPPA.Tarjeta, OOZMA_KAPPA.Emisor where tarjeta_cliente_id = 1 and tarjeta_emisor = emisor_id
+GO
+

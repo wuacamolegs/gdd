@@ -61,7 +61,7 @@ namespace PagoElectronico.ABM_Cliente
             DataGridViewTextBoxColumn clmID = new DataGridViewTextBoxColumn();
             clmID.Width = 150;
             clmID.ReadOnly = true;
-            clmID.DataPropertyName = "tarjeta_id";
+            clmID.DataPropertyName = "tarjeta_numero";
             clmID.HeaderText = "NUMERO DE TARJETA";
             dtgTarjetas.Columns.Add(clmID);
 
@@ -86,7 +86,7 @@ namespace PagoElectronico.ABM_Cliente
             clmVencimiento.HeaderText = "FECHA DE VENCIMIENTO";
             dtgTarjetas.Columns.Add(clmVencimiento);
 
-            DataGridViewTextBoxColumn clmEstado = new DataGridViewTextBoxColumn();
+            DataGridViewCheckBoxColumn clmEstado = new DataGridViewCheckBoxColumn();
             clmVencimiento.Width = 80;
             clmVencimiento.ReadOnly = true;
             clmVencimiento.DataPropertyName = "tarjeta_estado";
@@ -117,7 +117,6 @@ namespace PagoElectronico.ABM_Cliente
             unaTarjeta.Estado = valorEstadoSeleccionado();
             unaTarjeta.FechaVencimiento = valorVencimientoSeleccionado();
             unaTarjeta.FechaEmision = valorEmisionSeleccionado();
-            unaTarjeta.CodigoSeguridad = valorCodigoSeguridad();
             this.Close();
             formTarjeta.Show();
             formTarjeta.abrirParaModificarCon(unaTarjeta);
@@ -151,7 +150,7 @@ namespace PagoElectronico.ABM_Cliente
             try
             {
                 //obtengo en un dataset todos los roles de la bd
-                DataSet dsTarjetas = unaTarjeta.traerTarjetasActivas();
+                DataSet dsTarjetas = unaTarjeta.traerTarjetas();
                 cargarGrilla(dsTarjetas);
             }
             catch (ErrorConsultaException ex)
@@ -173,7 +172,7 @@ namespace PagoElectronico.ABM_Cliente
 
         private Int64 valorIdSeleccionado()
         {
-            return Convert.ToInt64(((DataRowView)dtgTarjetas.CurrentRow.DataBoundItem)["tarjeta_id"]);
+            return Convert.ToInt64(((DataRowView)dtgTarjetas.CurrentRow.DataBoundItem)["tarjeta_numero"]);
         }
         private Int64 valorEmisorSeleccionado()
         {

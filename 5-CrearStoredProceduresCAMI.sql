@@ -502,29 +502,3 @@ BEGIN
 END
 GO
 
-
-/*
-
-1)
-deshabilitar tarjeta
-
-2)
-updateTarjeta
-tarjeta_id
-	    _emisor
-	    _fecha_vencimiento
-		 _estado
-
-
-3)
-insertTarjeta
-cliente_id
-Fecha
-tarjeta_emisor
-
-4)
-traerListadoTarjetaActivasPorClienteID
-
-
-
-*/

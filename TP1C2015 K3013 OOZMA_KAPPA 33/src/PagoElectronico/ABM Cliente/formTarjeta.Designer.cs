@@ -91,11 +91,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(315, 148);
-            this.Controls.Add(this.btnCrear);
             this.Controls.Add(this.cmbEmisor);
             this.Controls.Add(this.chkActivar);
             this.Controls.Add(this.lblEmisor);
             this.Controls.Add(this.btnModificar);
+            this.Controls.Add(this.btnCrear);
             this.Name = "formTarjeta";
             this.Text = "Pago Electrónico - Tarjetas";
             this.Load += new System.EventHandler(this.formTarjeta_Load);

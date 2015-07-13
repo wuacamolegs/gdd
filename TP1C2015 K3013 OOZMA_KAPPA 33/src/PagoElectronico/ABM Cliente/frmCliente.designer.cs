@@ -429,6 +429,7 @@
             this.linkTarjetas.TabIndex = 37;
             this.linkTarjetas.TabStop = true;
             this.linkTarjetas.Text = "Asociar/Desasociar Tarjetas";
+            this.linkTarjetas.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkTarjetas_LinkClicked);
             // 
             // btnAceptarACliente
             // 

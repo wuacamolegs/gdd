@@ -245,8 +245,6 @@ namespace PagoElectronico.ABM_Cliente
             frmCliente _frmCliente = new frmCliente();
             // instancio un nuevo cliente con el id_cliente del Cliente seleccionado en la grilla
             // a traves del cual voy a cargar todos los atributos del Cliente
-            
-            MessageBox.Show("cliente id: " + valorIdSeleccionado() + "\nnombre: ", "Cliente");
 
             Cliente unCliente = new Cliente(valorIdSeleccionado());
             

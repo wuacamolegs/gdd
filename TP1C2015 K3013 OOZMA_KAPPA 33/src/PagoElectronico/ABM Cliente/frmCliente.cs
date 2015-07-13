@@ -346,6 +346,14 @@ namespace PagoElectronico.ABM_Cliente
             }
         }
 
+        private void linkTarjetas_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            abm_tarjetas frmTarjeta = new abm_tarjetas();
+            frmTarjeta.abrirConCliente(clienteDelForm);
+            frmTarjeta.Show();
+
+        }
+
     }
 }
 

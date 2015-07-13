@@ -30,6 +30,7 @@ namespace PagoElectronico.ABM_Cliente
             unCliente = unaTarjeta.Cliente;
             cmbEmisor.SelectedValue = unaTarjeta.Emisor;
             chkActivar.Checked = unaTarjeta.Estado;
+            btnCrear.Visible = false;
         }
 
         private void formTarjeta_Load(object sender, EventArgs e)
@@ -44,6 +45,7 @@ namespace PagoElectronico.ABM_Cliente
         {
             unaTarjeta = tarjeta;
             chkActivar.Visible = false;
+            btnModificar.Visible = false;
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
@@ -52,6 +54,7 @@ namespace PagoElectronico.ABM_Cliente
             unaTarjeta.Estado = chkActivar.Checked;
             unaTarjeta.UpdateTarjeta();
             MessageBox.Show("Se Modificó correctamente la tarjeta: " + unaTarjeta.tarjeta_id, "Modificar Tarjeta");
+            this.Close();
         }
 
         private void btnCrear_Click(object sender, EventArgs e)
@@ -59,6 +62,8 @@ namespace PagoElectronico.ABM_Cliente
             unaTarjeta.Emisor = Convert.ToInt64(cmbEmisor.SelectedValue);
             unaTarjeta.FechaEmision = Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]);
             unaTarjeta.CrearNueva();
+            MessageBox.Show("Se creó una nueva Tarjeta para el cliente: " + unaTarjeta.Cliente.cliente_id, "Modificar Tarjeta");
+            this.Close();
         }
     }
 }

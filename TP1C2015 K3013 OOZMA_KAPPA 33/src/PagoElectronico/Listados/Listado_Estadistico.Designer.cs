@@ -73,7 +73,6 @@
             this.btnFiltrado1.TabIndex = 24;
             this.btnFiltrado1.Text = "Filtrado 1";
             this.btnFiltrado1.UseVisualStyleBackColor = true;
-            this.btnFiltrado1.Click += new System.EventHandler(this.btnFiltrado1_Click);
             // 
             // btnFiltrado5
             // 

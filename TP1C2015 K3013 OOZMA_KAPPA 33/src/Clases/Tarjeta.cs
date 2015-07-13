@@ -133,7 +133,6 @@ namespace Clases
             this.parameterList.Clear();
             parameterList.Add(new SqlParameter("@tarjeta_id", this.tarjeta_id ));
             parameterList.Add(new SqlParameter("@tarjeta_emisor", this.Emisor));
-            parameterList.Add(new SqlParameter("@tarjeta_fecha_vencimiento", this.FechaVencimiento));
             parameterList.Add(new SqlParameter("@tarjeta_estado", this.Estado));
         }
 
@@ -150,6 +149,14 @@ namespace Clases
             parameterList.Add(new SqlParameter("@Fecha", Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"])));
             parameterList.Add(new SqlParameter("@tarjeta_emisor", this.Emisor));
         }
+
+        private void setearListaParametrosConClienteID()
+        {
+            this.parameterList.Clear();
+            parameterList.Add(new SqlParameter("@cliente_id", this.Cliente.cliente_id));
+        }
+
+
 
         #endregion
 
@@ -168,9 +175,10 @@ namespace Clases
 
         public DataSet traerTarjetas()
         {
-            setearListaParametrosConClienteIDYFecha();
+            setearListaParametrosConClienteID();
             return TraerListado(parameterList, "PorClienteID");
         }
+
 
         public void Desactivar()
         {
@@ -186,7 +194,7 @@ namespace Clases
 
         public void CrearNueva()
         {
-            setearListaParametrosConClienteIDYFecha();
+            setearListaParametrosConClienteIDEmisorYFecha();
             this.Guardar(parameterList);
         }
 
