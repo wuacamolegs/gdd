@@ -36,6 +36,7 @@ namespace PagoElectronico.ABM_Cliente
         // Este form se puede abrir para ver los Datos de un Cliente, para modificarlos,
         // para crear uno nuevo(se crea tambien un usuario default) o para registrar un nuevo Cliente
         // despues de haber reistrado un usuario. 
+        
         public void AbrirParaVer(Cliente unCliente, ListadoCliente frmEnviador)
         {
             frmPadre = frmEnviador;
@@ -86,6 +87,7 @@ namespace PagoElectronico.ABM_Cliente
             txtNombre.Text = unCliente.Nombre;
             txtApellido.Text = unCliente.Apellido;
             cmbDNI.Text = unCliente.TipoDocumento;
+            txtDNI.Text = Convert.ToString(unCliente.Documento);
             txtMail.Text = unCliente.Mail;
             txtCalle.Text = Convert.ToString(unCliente.Calle);
             txtDepto.Text = unCliente.DeptoDireccion;
@@ -101,6 +103,8 @@ namespace PagoElectronico.ABM_Cliente
         }
         public void AbrirParaAgregar()
         {
+            this.Show();
+
             cmbDNI.SelectedIndex = -1;
             txtDNI.Enabled = true;
             txtNombre.Text = "";
@@ -122,6 +126,7 @@ namespace PagoElectronico.ABM_Cliente
            btnAceptarMCliente.Visible = false;
            btnAceptarACliente.Visible = true;
            btnAceptarRCliente.Visible = false;
+
         }
         public void AbrirParaRegistrarNuevoCliente(int id_usuario)
         {

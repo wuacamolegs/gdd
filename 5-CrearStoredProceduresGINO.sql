@@ -9,6 +9,13 @@ SELECT * FROM OOZMA_KAPPA.Cliente
 COMMIT;
 GO
 
+CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoCliente]
+AS
+BEGIN TRANSACTION
+SELECT * FROM OOZMA_KAPPA.Cliente
+COMMIT;
+GO
+
 -- TRAER LISTADO CLIENTE CON TODO POR CLIENTE ID--
 
 CREATE PROCEDURE [OOZMA_KAPPA].[TraerListadoClienteConTodoPorClienteID]
@@ -21,7 +28,7 @@ GO
 
 -- TRAER LISTADO CLIENTE CON FILTROS
 
-ALTER PROCEDURE [OOZMA_KAPPA].[traerListadoClienteConFiltros]
+CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoClienteConFiltros]
    @cliente_nombre varchar(255),
    @cliente_apellido varchar(255), 
    @cliente_tipo_documento_id numeric(18,0), 

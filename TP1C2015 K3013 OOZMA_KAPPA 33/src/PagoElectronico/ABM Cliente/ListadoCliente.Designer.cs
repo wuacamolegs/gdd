@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnNuevo = new System.Windows.Forms.Button();
+            this.btnNuevoCliente = new System.Windows.Forms.Button();
             this.btnModificar = new System.Windows.Forms.Button();
             this.btnEliminar = new System.Windows.Forms.Button();
             this.btnBuscar = new System.Windows.Forms.Button();
@@ -49,15 +49,15 @@
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // btnNuevo
+            // btnNuevoCliente
             // 
-            this.btnNuevo.Location = new System.Drawing.Point(14, 133);
-            this.btnNuevo.Name = "btnNuevo";
-            this.btnNuevo.Size = new System.Drawing.Size(116, 23);
-            this.btnNuevo.TabIndex = 0;
-            this.btnNuevo.Text = "Nuevo Cliente";
-            this.btnNuevo.UseVisualStyleBackColor = true;
-            this.btnNuevo.Click += new System.EventHandler(this.btnAgregar_Click);
+            this.btnNuevoCliente.Location = new System.Drawing.Point(47, 129);
+            this.btnNuevoCliente.Name = "btnNuevoCliente";
+            this.btnNuevoCliente.Size = new System.Drawing.Size(116, 23);
+            this.btnNuevoCliente.TabIndex = 0;
+            this.btnNuevoCliente.Text = "Nuevo Cliente";
+            this.btnNuevoCliente.UseVisualStyleBackColor = true;
+            this.btnNuevoCliente.Click += new System.EventHandler(this.btnNuevoCliente_Click);
             // 
             // btnModificar
             // 
@@ -220,7 +220,7 @@
             this.Controls.Add(this.dtgClientes);
             this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnModificar);
-            this.Controls.Add(this.btnNuevo);
+            this.Controls.Add(this.btnNuevoCliente);
             this.Name = "ListadoCliente";
             this.Text = "PAGO ELECTRONICO - ABM CLIENTES";
             this.Load += new System.EventHandler(this.ListadoCliente_Load);
@@ -233,7 +233,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btnNuevo;
+        private System.Windows.Forms.Button btnNuevoCliente;
         private System.Windows.Forms.Button btnModificar;
         private System.Windows.Forms.Button btnEliminar;
         private System.Windows.Forms.Button btnBuscar;

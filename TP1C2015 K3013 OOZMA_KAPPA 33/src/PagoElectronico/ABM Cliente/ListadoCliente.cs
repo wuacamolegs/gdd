@@ -202,13 +202,6 @@ namespace PagoElectronico.ABM_Cliente
 
         }
 
-  
-        private void btnAgregar_Click(object sender, EventArgs e)
-        {
-            frmCliente _frmCliente = new frmCliente();
-            _frmCliente.AbrirParaAgregar();
-        }
-
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             DialogResult dr = MessageBox.Show("¿Está seguro que desea dar de baja el Cliente?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -248,14 +241,19 @@ namespace PagoElectronico.ABM_Cliente
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            frmCliente formCliente = new frmCliente();
-            // instancio un nuevo cliente con el id_cleinte del Cliente seleccionado en la grilla
-            // a traves del cual voy a cargar todos los atributos del Cliente
-            MessageBox.Show("cliente id: "+ valorIdSeleccionado() + "\nnombre: ", "Cliente");
 
+            frmCliente _frmCliente = new frmCliente();
+            // instancio un nuevo cliente con el id_cliente del Cliente seleccionado en la grilla
+            // a traves del cual voy a cargar todos los atributos del Cliente
+            
+            MessageBox.Show("cliente id: " + valorIdSeleccionado() + "\nnombre: ", "Cliente");
+
+            Cliente unCliente = new Cliente(valorIdSeleccionado());
+            
             DataSet ds = unCliente.TraerClientePorIDConTodosLosDatos(valorIdSeleccionado());
             unCliente.DataRowToObjectCompleto(ds.Tables[0].Rows[0]);
-            formCliente.AbrirParaModificar(unCliente, this);
+            _frmCliente.AbrirParaModificar(unCliente, this);
+            
         }
 
 
@@ -279,6 +277,12 @@ namespace PagoElectronico.ABM_Cliente
         private void txtApellido_KeyPress(object sender, KeyPressEventArgs e)
         {
             Validator.SoloLetras(e);
+        }
+
+        private void btnNuevoCliente_Click(object sender, EventArgs e)
+        {
+            frmCliente _frmCliente = new frmCliente();
+            _frmCliente.AbrirParaAgregar();
         }
 
 

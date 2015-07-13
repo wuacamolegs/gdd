@@ -59,10 +59,10 @@
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.gbUsuario = new System.Windows.Forms.GroupBox();
-            this.btnAceptarMCliente = new System.Windows.Forms.Button();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.txtRespuesta = new System.Windows.Forms.TextBox();
             this.txtPregunta = new System.Windows.Forms.TextBox();
+            this.btnAceptarMCliente = new System.Windows.Forms.Button();
             this.btnNuevoCliente = new System.Windows.Forms.Button();
             this.btnModificar = new System.Windows.Forms.Button();
             this.linkTarjetas = new System.Windows.Forms.LinkLabel();
@@ -370,15 +370,6 @@
             this.gbUsuario.TabIndex = 34;
             this.gbUsuario.TabStop = false;
             // 
-            // btnAceptarMCliente
-            // 
-            this.btnAceptarMCliente.Location = new System.Drawing.Point(273, 405);
-            this.btnAceptarMCliente.Name = "btnAceptarMCliente";
-            this.btnAceptarMCliente.Size = new System.Drawing.Size(112, 27);
-            this.btnAceptarMCliente.TabIndex = 40;
-            this.btnAceptarMCliente.Text = "Aceptar";
-            this.btnAceptarMCliente.UseVisualStyleBackColor = true;
-            // 
             // txtPassword
             // 
             this.txtPassword.Location = new System.Drawing.Point(148, 105);
@@ -399,6 +390,15 @@
             this.txtPregunta.Name = "txtPregunta";
             this.txtPregunta.Size = new System.Drawing.Size(189, 21);
             this.txtPregunta.TabIndex = 34;
+            // 
+            // btnAceptarMCliente
+            // 
+            this.btnAceptarMCliente.Location = new System.Drawing.Point(273, 405);
+            this.btnAceptarMCliente.Name = "btnAceptarMCliente";
+            this.btnAceptarMCliente.Size = new System.Drawing.Size(112, 27);
+            this.btnAceptarMCliente.TabIndex = 40;
+            this.btnAceptarMCliente.Text = "Aceptar";
+            this.btnAceptarMCliente.UseVisualStyleBackColor = true;
             // 
             // btnNuevoCliente
             // 

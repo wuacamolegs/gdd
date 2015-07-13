@@ -442,9 +442,23 @@ namespace Clases
 
         #endregion        
        
-    
-       
-    
+        public void CargarObjetoClienteConId()
+        {
+            //Con el id del cliente me traigo de la BD todos los datos del Cliente
+            setearListaDeParametrosConIdCliente();
+            DataSet ds = SQLHelper.ExecuteDataSet("traerClienteConId", CommandType.StoredProcedure, parameterList);
+            parameterList.Clear();
+            if (ds.Tables[0].Rows.Count == 1)
+            {
+                DataRowToObject(ds.Tables[0].Rows[0]);
+            }
+        }
+
+        private void setearListaDeParametrosConIdCliente()
+        {
+            parameterList.Add(new SqlParameter("@id_Cliente", this._cliente_id));
+        } 
+      
         public DataSet TraerClientePorIDConTodosLosDatos(int clienteID)
         {
             setearListaDeParametrosConClienteID(Convert.ToInt64(cliente_id));
