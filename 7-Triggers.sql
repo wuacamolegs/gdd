@@ -269,3 +269,21 @@ BEGIN TRANSACTION
 
 COMMIT
 GO
+
+-- TRIGGER DESHABILITAR --
+
+CREATE TRIGGER deshabilitar_clientes_porRol
+ON [OOZMA_KAPPA].[Rol]
+AFTER UPDATE
+BEGIN TRANSACTION
+  DECLARE @estado bit, @nombre_rol varchar(255)
+  SELECT @estado = rol_eliminado, @nombre_rol = rol_nombre From inserted
+  
+  IF (@nombre_rol = 'Cliente')
+    UPDATE OOZMA_KAPPA.Cliente SET cliente_estado = @estado;
+  IF (@nombre_rol = 'Administrador')
+    UPDATE OOZMA_KAPPA.Administrador SET administrador_estado = @estado;
+COMMIT
+GO
+  
+  
