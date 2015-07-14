@@ -54,12 +54,12 @@ Go
 Create Procedure [OOZMA_KAPPA].TraerListadoClientesConMayorCantidadDeComisionesFacturadasEnTodasSusCuentas (@fechaDES date, @fechaHAS date)
 As
 Begin
-Select TOP 5 cliente_apellido+','+cliente_nombre as cliente_nombre, SUM(item_factura_costo) as Cantidad
+Select TOP 5 cliente_apellido+','+cliente_nombre as cliente_nombre, (item_factura_costo) as Cantidad
 	From OOZMA_KAPPA.Cliente Join OOZMA_KAPPA.Factura On (cliente_id = factura_cliente_id)
 	                         Join OOZMA_KAPPA.Item_factura On (factura_numero = item_factura_numero_factura)
     Where CONVERT(varchar(10), factura_fecha, 103) Between CONVERT(varchar(10), @fechaDES, 103) And CONVERT(varchar(10), @fechaHAS, 103)
-    Group By cliente_id, cliente_apellido, cliente_nombre
-    Order By SUM(item_factura_costo) DESC
+    Group By cliente_apellido, cliente_nombre
+    Order By COUNT(item_factura_costo) DESC
 End
 Go
 
@@ -69,8 +69,8 @@ Go
 Create Procedure [OOZMA_KAPPA].TraerListadoClientesConMayorCantidadDeTransaccionesRealizadasEntreCuentasPropias (@fechaDES date, @fechaHAS date)
 As
 Begin
-	Select cliente_id, SUM(Transacciones)as Cantidad
-	   From (Select cliente_id, c.cuenta_id, (Retiros+Transferencias+Depositos) as Transacciones
+	Select cliente_apellido+','+cliente_nombre as cliente_nombre, SUM(Transacciones)as Cantidad
+	   From (Select cliente_id, cliente_nombre, cliente_apellido, c.cuenta_id, (Retiros+Transferencias+Depositos) as Transacciones
 	            From OOZMA_KAPPA.Cliente Join OOZMA_KAPPA.Cuenta c On (cliente_id = cuenta_cliente_id)
 	                                     Join (Select cuenta_id, COUNT(retiro_id)Retiros 
 										          From OOZMA_KAPPA.Cuenta Join OOZMA_KAPPA.Retiro On (cuenta_id = retiro_cuenta_id) 
@@ -97,7 +97,7 @@ Go
 Create Procedure [OOZMA_KAPPA].TraerListadoPaisesConMayorCantidadDeMovimientosTantoIngresosComoEgresos (@fechaDES date, @fechaHAS date)
 As
 Begin
-Select TOP 5 d.Pais, (Depositado+Retirado+TransferenciaEnviada+TransferenciaRecivida) as cantidad_movimientos
+Select TOP 5 pais_nombre, (Depositado+Retirado+TransferenciaEnviada+TransferenciaRecivida) as cantidad_movimientos
 	From (Select cliente_pais_residente_id as Pais, SUM(deposito_importe) as Depositado
 	         From OOZMA_KAPPA.Cliente Join OOZMA_KAPPA.Deposito On (cliente_id = deposito_cliente_id)
 	         Where CONVERT(varchar(10), deposito_fecha, 103) Between CONVERT(varchar(10), @fechaDES, 103) And CONVERT(varchar(10), @fechaHAS, 103)
@@ -115,6 +115,7 @@ Select TOP 5 d.Pais, (Depositado+Retirado+TransferenciaEnviada+TransferenciaReci
 	                                                                                       Join OOZMA_KAPPA.Cuenta c2 On (transferencia_destino_cuenta_id = c2.cuenta_id)
 	                                                        Where c1.cuenta_pais_id != c2.cuenta_pais_id And (CONVERT(varchar(10), transferencia_fecha, 103) Between CONVERT(varchar(10), @fechaDES, 103) And CONVERT(varchar(10), @fechaHAS, 103))
 	                                                        Group By c2.cuenta_pais_id) tr On (d.Pais = tr.Pais)
+	                                               Join Pais On (d.Pais = pais_id)
 	  Order By cantidad_movimientos DESC
 End
 Go
