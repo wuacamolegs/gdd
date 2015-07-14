@@ -227,20 +227,20 @@ namespace PagoElectronico.Listados
 
         private void cargarParametrosSegundoTrimestre()
         {
-            Fecha_Desde = new DateTime(Convert.ToInt32(Año), 4, 1);
-            Fecha_Hasta = new DateTime(Convert.ToInt32(Año), 6, 30);
+            Fecha_Desde = new DateTime(Convert.ToInt32(Año), 04, 1);
+            Fecha_Hasta = new DateTime(Convert.ToInt32(Año), 06, 30);
         }
 
         private void cargarParametrosTercerTrimestre()
         {
-            Fecha_Desde = new DateTime(Convert.ToInt32(Año), 7, 1);
-            Fecha_Hasta = new DateTime(Convert.ToInt32(Año), 9, 30);
+            Fecha_Desde = new DateTime(Convert.ToInt32(Año), 07, 1);
+            Fecha_Hasta = new DateTime(Convert.ToInt32(Año), 09, 30);
         }
 
         private void cargarParametrosPrimerTrimestre()
         {
-            Fecha_Desde = new DateTime(Convert.ToInt32(Año), 1, 1);
-            Fecha_Hasta = new DateTime(Convert.ToInt32(Año), 3, 31);
+            Fecha_Desde = new DateTime(Convert.ToInt32(Año), 01, 1);
+            Fecha_Hasta = new DateTime(Convert.ToInt32(Año), 03, 31);
         }
 
 
