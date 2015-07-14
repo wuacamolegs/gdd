@@ -39,10 +39,10 @@ Go
 
 -- LISTADO ESTADISTICO (1) : Clientes que alguna de sus cuentas fueron inhabilitadas por no pagar los costos de transacción --
 
-Create Procedure [OOZMA_KAPPA].listado_estadistico_1 (@fechaDES date, @fechaHAS date)
+Create Procedure [OOZMA_KAPPA].TraerListadoClientesCuentasDeshabilitadasPorPendientesDeActivacion (@fechaDES date, @fechaHAS date)
 As
 Begin
-  Select distinct cliente_id as ClienteID, cliente_apellido+','+cliente_nombre as ApellidoNombre, cuenta_id as CuentaID
+  Select distinct TOP 5 cliente_apellido+','+cliente_nombre as cliente_nombre, cuenta_id
 	From OOZMA_KAPPA.Cliente Join OOZMA_KAPPA.Transacciones_Pendientes On (transaccion_pendiente_cliente_id = cliente_id)
 	                         Join OOZMA_KAPPA.Cuenta On (cuenta_id = transaccion_pendiente_cuenta_id)
 	Where cuenta_estado = 0 And CONVERT(varchar(10), transaccion_pendiente_fecha, 103) Between CONVERT(varchar(10), @fechaDES, 103) And CONVERT(varchar(10), @fechaHAS, 103)
@@ -51,14 +51,14 @@ Go
 
 -- LISTADO ESTADISTICO (2) : Clientes con mayor cantidad de comisiones facturadas en todas sus cuentas
 
-Create Procedure [OOZMA_KAPPA].mayor_cant_comisiones (@fechaDES date, @fechaHAS date)
+Create Procedure [OOZMA_KAPPA].TraerListadoClientesConMayorCantidadDeComisionesFacturadasEnTodasSusCuentas (@fechaDES date, @fechaHAS date)
 As
 Begin
-Select cliente_id, SUM(item_factura_costo)Comision
+Select TOP 5 cliente_apellido+','+cliente_nombre as cliente_nombre, SUM(item_factura_costo) as Cantidad
 	From OOZMA_KAPPA.Cliente Join OOZMA_KAPPA.Factura On (cliente_id = factura_cliente_id)
 	                         Join OOZMA_KAPPA.Item_factura On (factura_numero = item_factura_numero_factura)
     Where CONVERT(varchar(10), factura_fecha, 103) Between CONVERT(varchar(10), @fechaDES, 103) And CONVERT(varchar(10), @fechaHAS, 103)
-    Group By cliente_id
+    Group By cliente_id, cliente_apellido, cliente_nombre
     Order By SUM(item_factura_costo) DESC
 End
 Go
@@ -66,10 +66,10 @@ Go
 -- LISTADO ESTADISTICO (3) : Clientes con mayor cantidad de transacciones realizadas entre cuentas propias --
 	
 	
-Create Procedure [OOZMA_KAPPA].cliente_con_mayor_cant_transacciones (@fechaDES date, @fechaHAS date)
+Create Procedure [OOZMA_KAPPA].TraerListadoClientesConMayorCantidadDeTransaccionesRealizadasEntreCuentasPropias (@fechaDES date, @fechaHAS date)
 As
 Begin
-	Select cliente_id, SUM(Transacciones)CantidadTotalDeTransacciones
+	Select cliente_id, SUM(Transacciones)as Cantidad
 	   From (Select cliente_id, c.cuenta_id, (Retiros+Transferencias+Depositos) as Transacciones
 	            From OOZMA_KAPPA.Cliente Join OOZMA_KAPPA.Cuenta c On (cliente_id = cuenta_cliente_id)
 	                                     Join (Select cuenta_id, COUNT(retiro_id)Retiros 
@@ -86,7 +86,7 @@ Begin
 									            	Group By cuenta_id)D On (c.cuenta_id = D.cuenta_id))Menjunje
       
 	   Group By cliente_id
-	   Order By CantidadTotalDeTransacciones DESC
+	   Order By Cantidad DESC
 	
 End
 Go
@@ -94,11 +94,11 @@ Go
 -- LISTADO ESTADISTICO (4) : Paises con mayor cantidad de movimientos tanto ingresos como egresos --
 
 
-Create Procedure [OOZMA_KAPPA].paises_mayor_movimientos (@fechaDES date, @fechaHAS date)
+Create Procedure [OOZMA_KAPPA].TraerListadoPaisesConMayorCantidadDeMovimientosTantoIngresosComoEgresos (@fechaDES date, @fechaHAS date)
 As
 Begin
-Select d.Pais, (Depositado+Retirado+TransferenciaEnviada+TransferenciaRecivida)Ingresos_mas_Egresos
-	From (Select cliente_pais_residente_id as Pais, SUM(deposito_importe)Depositado
+Select TOP 5 d.Pais, (Depositado+Retirado+TransferenciaEnviada+TransferenciaRecivida) as cantidad_movimientos
+	From (Select cliente_pais_residente_id as Pais, SUM(deposito_importe) as Depositado
 	         From OOZMA_KAPPA.Cliente Join OOZMA_KAPPA.Deposito On (cliente_id = deposito_cliente_id)
 	         Where CONVERT(varchar(10), deposito_fecha, 103) Between CONVERT(varchar(10), @fechaDES, 103) And CONVERT(varchar(10), @fechaHAS, 103)
 	         Group By cliente_pais_residente_id) d Join (Select cuenta_pais_id as Pais, SUM(retiro_importe)Retirado
@@ -115,17 +115,17 @@ Select d.Pais, (Depositado+Retirado+TransferenciaEnviada+TransferenciaRecivida)I
 	                                                                                       Join OOZMA_KAPPA.Cuenta c2 On (transferencia_destino_cuenta_id = c2.cuenta_id)
 	                                                        Where c1.cuenta_pais_id != c2.cuenta_pais_id And (CONVERT(varchar(10), transferencia_fecha, 103) Between CONVERT(varchar(10), @fechaDES, 103) And CONVERT(varchar(10), @fechaHAS, 103))
 	                                                        Group By c2.cuenta_pais_id) tr On (d.Pais = tr.Pais)
-	  Order By Ingresos_mas_Egresos DESC
+	  Order By cantidad_movimientos DESC
 End
 Go
 
 -- LISTADO ESTADISTICO (5) : Total facturado para los distintos tipos de cuentas --
 
 
-Create Procedure [OOZMA_KAPPA].total_facturado_tipo_de_cuentas (@fechaDES date, @fechaHAS date)
+Create Procedure [OOZMA_KAPPA].TraerListadoTotalFacturadoParaLosDistintosTiposDeCuentas (@fechaDES date, @fechaHAS date)
 As
 Begin
-   Select cuenta_tipo_cuenta_id, SUM(factura_importe)TotalFacturado
+   Select cuenta_tipo_cuenta_id, SUM(factura_importe) as TotalFacturado
       From OOZMA_KAPPA.Cuenta Join OOZMA_KAPPA.Cliente On (cliente_id = cuenta_cliente_id)
                            Join OOZMA_KAPPA.Factura On (cliente_id = factura_cliente_id)
       Where CONVERT(varchar(10), factura_fecha, 103) Between CONVERT(varchar(10), @fechaDES, 103) And CONVERT(varchar(10), @fechaHAS, 103)
