@@ -54,7 +54,7 @@ Go
 Create Procedure [OOZMA_KAPPA].TraerListadoClientesConMayorCantidadDeComisionesFacturadasEnTodasSusCuentas (@fechaDES date, @fechaHAS date)
 As
 Begin
-Select TOP 5 cliente_apellido+','+cliente_nombre as cliente_nombre, (item_factura_costo) as Cantidad
+Select TOP 5 cliente_apellido+','+cliente_nombre as cliente_nombre, COUNT(item_factura_costo) as Cantidad
 	From OOZMA_KAPPA.Cliente Join OOZMA_KAPPA.Factura On (cliente_id = factura_cliente_id)
 	                         Join OOZMA_KAPPA.Item_factura On (factura_numero = item_factura_numero_factura)
     Where CONVERT(varchar(10), factura_fecha, 103) Between CONVERT(varchar(10), @fechaDES, 103) And CONVERT(varchar(10), @fechaHAS, 103)
