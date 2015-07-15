@@ -34,7 +34,10 @@ DROP PROCEDURE [OOZMA_KAPPA].deshabilitarTarjeta
 GO
 DROP PROCEDURE [OOZMA_KAPPA].traerListadoCuentaExiste
 GO
-
+DROP PROCEDURE [OOZMA_KAPPA].traerListadoRolesPorNombre
+GO
+DROP PROCEDURE [OOZMA_KAPPA].traerListadoTarjetaPorClienteiD
+GO
 
 ---------------------------------------- Crear Stored Procedures -----
 

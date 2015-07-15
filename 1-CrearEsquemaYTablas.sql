@@ -219,7 +219,7 @@ CREATE TABLE [OOZMA_KAPPA].[Tipo_cuenta](
 	[tipo_cuenta_id] numeric(18, 0) IDENTITY (1,1),
 	[tipo_cuenta_nombre] [varchar](255) NOT NULL,
 	[tipo_cuenta_dias_vigencia] numeric(18,0) NOT NULL,
-	[tipo_cuenta_costo_transferencia] numeric(18, 0)NOT NULL,
+	[tipo_cuenta_costo_transferencia] numeric(18, 2)NOT NULL,
 	[tipo_cuenta_costo_apertura] numeric(18, 0)NOT NULL,   
 	[tipo_cuenta_costo_modificacion] numeric(18, 0)NOT NULL,
 )
@@ -227,13 +227,13 @@ CREATE TABLE [OOZMA_KAPPA].[Tipo_cuenta](
 
 -- los costos se los puse yo (CAMI) --
 INSERT INTO[OOZMA_KAPPA].[Tipo_cuenta](tipo_cuenta_nombre, tipo_cuenta_costo_transferencia,tipo_cuenta_costo_apertura, tipo_cuenta_dias_vigencia, tipo_cuenta_costo_modificacion) 
-VALUES ('ORO',500,500,120,100);
+VALUES ('ORO',0.1,500,120,100);
 INSERT INTO[OOZMA_KAPPA].[Tipo_cuenta](tipo_cuenta_nombre, tipo_cuenta_costo_transferencia,tipo_cuenta_costo_apertura, tipo_cuenta_dias_vigencia, tipo_cuenta_costo_modificacion) 
-VALUES ('PLATA',400,400,90,50);
+VALUES ('PLATA',0.1,400,90,50);
 INSERT INTO[OOZMA_KAPPA].[Tipo_cuenta](tipo_cuenta_nombre, tipo_cuenta_costo_transferencia,tipo_cuenta_costo_apertura, tipo_cuenta_dias_vigencia, tipo_cuenta_costo_modificacion) 
-VALUES ('BRONCE',300,300,60,25);
+VALUES ('BRONCE',0.05,300,60,25);
 INSERT INTO[OOZMA_KAPPA].[Tipo_cuenta](tipo_cuenta_nombre, tipo_cuenta_costo_transferencia,tipo_cuenta_costo_apertura, tipo_cuenta_dias_vigencia, tipo_cuenta_costo_modificacion) 
-VALUES ('GRATUITA',0,0,30,10);
+VALUES ('GRATUITA',0.05,0,30,10);
 
 --- TABLA TIPO_DOCUMENTO ---
 
