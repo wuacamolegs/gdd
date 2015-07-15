@@ -85,7 +85,7 @@ Begin
 									            	Where CONVERT(varchar(10), deposito_fecha, 103) Between CONVERT(varchar(10), @fechaDES, 103) And CONVERT(varchar(10), @fechaHAS, 103)
 									            	Group By cuenta_id)D On (c.cuenta_id = D.cuenta_id))Menjunje
       
-	   Group By cliente_id
+	   Group By cliente_apellido,cliente_nombre
 	   Order By Cantidad DESC
 	
 End
