@@ -509,4 +509,9 @@ CREATE PROCEDURE OOZMA_KAPPA.InsertLogin
 	@Fecha datetime
 AS
 BEGIN
-	INSERT INTO OOZMA_KAPPA.Login(login_usuario_id,login_estado, [login_cant_intentos]
+	INSERT INTO OOZMA_KAPPA.Login(login_usuario_id,login_estado, login_cant_intentos, login_fecha_hora)
+	VALUES(@usuario_id,@Estado, @Intentos, @Fecha);
+END
+GO
+
+
