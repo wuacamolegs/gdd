@@ -158,7 +158,7 @@ END
 GO
 
 
-ALTER PROCEDURE [OOZMA_KAPPA].[traerListadoCuentaActivasPorClienteID]
+CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoCuentaActivasPorClienteID]
 	@cliente_id numeric(18,0),
 	@Fecha datetime
 AS
