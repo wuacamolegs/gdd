@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Configuration;
 
 namespace Utilities
 {
@@ -68,8 +69,9 @@ namespace Utilities
         public static string EsAño(string año, string nombreCampo)
         {
             Int64 unAño = Convert.ToInt64(año);
-            if (unAño < 1900 || unAño > 2014)
-                return "Tiene que ingresar un año válido, entre 1900 y 2015, para el campo " + nombreCampo + "\n";
+            MessageBox.Show("ANIO: " + unAño, "anio");
+            if (unAño < 1900 || unAño > 2016)
+                return "Tiene que ingresar un año válido, entre 1900 y 2016, para el campo " + nombreCampo + "\n";
 
             return string.Empty;
 

@@ -32,10 +32,10 @@
             this.cmbTrimestre = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.txtAño = new System.Windows.Forms.MaskedTextBox();
             this.cmbListado = new System.Windows.Forms.ComboBox();
             this.btnListar = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cmbAnio = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.gridListados)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -80,14 +80,6 @@
             this.label2.TabIndex = 35;
             this.label2.Text = "TRIMESTRE";
             // 
-            // txtAño
-            // 
-            this.txtAño.Location = new System.Drawing.Point(49, 20);
-            this.txtAño.Mask = "9999";
-            this.txtAño.Name = "txtAño";
-            this.txtAño.Size = new System.Drawing.Size(63, 20);
-            this.txtAño.TabIndex = 36;
-            // 
             // cmbListado
             // 
             this.cmbListado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -117,8 +109,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.cmbAnio);
             this.groupBox1.Controls.Add(this.cmbListado);
-            this.groupBox1.Controls.Add(this.txtAño);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.cmbTrimestre);
@@ -127,6 +119,52 @@
             this.groupBox1.Size = new System.Drawing.Size(464, 100);
             this.groupBox1.TabIndex = 39;
             this.groupBox1.TabStop = false;
+            // 
+            // cmbAnio
+            // 
+            this.cmbAnio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbAnio.FormattingEnabled = true;
+            this.cmbAnio.Items.AddRange(new object[] {
+            "1990",
+            "1991",
+            "1992",
+            "1993",
+            "1994",
+            "1995",
+            "1996",
+            "1997",
+            "1998",
+            "1999",
+            "2000",
+            "2001",
+            "2002",
+            "2003",
+            "2004",
+            "2005",
+            "2006",
+            "2007",
+            "2008",
+            "2009",
+            "2010",
+            "2011",
+            "2012",
+            "2013",
+            "2014",
+            "2015",
+            "2016",
+            "2017",
+            "2018",
+            "2019",
+            "2020",
+            "2021",
+            "2022",
+            "2023",
+            "2024",
+            "2025"});
+            this.cmbAnio.Location = new System.Drawing.Point(47, 19);
+            this.cmbAnio.Name = "cmbAnio";
+            this.cmbAnio.Size = new System.Drawing.Size(75, 21);
+            this.cmbAnio.TabIndex = 38;
             // 
             // Listado_Estadistico
             // 
@@ -151,9 +189,9 @@
         private System.Windows.Forms.ComboBox cmbTrimestre;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.MaskedTextBox txtAño;
         private System.Windows.Forms.ComboBox cmbListado;
         private System.Windows.Forms.Button btnListar;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.ComboBox cmbAnio;
     }
 }

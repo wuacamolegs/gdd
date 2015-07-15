@@ -68,7 +68,7 @@ CREATE TABLE [OOZMA_KAPPA].[Cuenta](
 	[cuenta_pendiente_activacion] bit NOT NULL DEFAULT(1), --- 0 false 1 true
 )
 
-select * from OOZMA_KAPPA.Cuenta
+
 
 --- TABLA DEPOSITO ---
 

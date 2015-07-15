@@ -43,14 +43,18 @@ namespace PagoElectronico.Listados
 
         private void btnListar_Click(object sender, EventArgs e)
         {
+            MessageBox.Show("ANIO: " + cmbAnio.Text, "anio");
+            gridListados.Columns.Clear();
             if (ValidarCampos())
             {
+                Año = cmbAnio.Text;
+
                 if (cmbTrimestre.SelectedIndex == 0) cargarParametrosPrimerTrimestre();
                 if (cmbTrimestre.SelectedIndex == 1) cargarParametrosSegundoTrimestre();
                 if (cmbTrimestre.SelectedIndex == 2) cargarParametrosTercerTrimestre();
                 if (cmbTrimestre.SelectedIndex == 3) cargarParametrosCuartoTrimestre();
 
-                Año = txtAño.Text;
+
 
                 setearListaDeParametrosConFechas();
                 
@@ -80,7 +84,7 @@ namespace PagoElectronico.Listados
         private void cargarListadoTotalFacturadoParaLosDistintosTiposDeCuentas()
         {
             //cuenta_tipo_cuenta_id TotalFacturado
-            DataSet ds1 = SQLHelper.ExecuteDataSet("TraerListadoListadoTotalFacturadoParaLosDistintosTiposDeCuentas", CommandType.StoredProcedure, parameterList);
+            DataSet ds1 = SQLHelper.ExecuteDataSet("TraerListadoTotalFacturadoParaLosDistintosTiposDeCuentas", CommandType.StoredProcedure, parameterList);
             cargarGrillaConTipoCuentaYCantidad(ds1);
         }
 
@@ -120,7 +124,7 @@ namespace PagoElectronico.Listados
             DataGridViewTextBoxColumn clmPais = new DataGridViewTextBoxColumn();
             clmPais.Width = 120;
             clmPais.ReadOnly = true;
-            clmPais.DataPropertyName = "pais_descripcion";
+            clmPais.DataPropertyName = "pais_nombre";
             clmPais.HeaderText = "PAIS";
             gridListados.Columns.Add(clmPais);
 
@@ -201,9 +205,9 @@ namespace PagoElectronico.Listados
         private bool ValidarCampos()
         {
             string strErrores = "";
-            strErrores += Validator.ValidarNulo(txtAño.Text, "Año");
-            strErrores += Validator.SoloNumeros(txtAño.Text, "Año");
-            strErrores += Validator.EsAño(txtAño.Text, "Año");
+            strErrores += Validator.ValidarNulo(cmbAnio.Text, "Año");
+            strErrores += Validator.SoloNumeros(cmbAnio.Text, "Año");
+            strErrores += Validator.EsAño(cmbAnio.Text, "Año");
             if (strErrores.Length > 0)
             {
                 MessageBox.Show(strErrores, "Errores");
@@ -221,27 +225,29 @@ namespace PagoElectronico.Listados
 
         private void cargarParametrosCuartoTrimestre()
         {
-            Fecha_Desde = new DateTime(Convert.ToInt32(Año), 10, 1);
+            Fecha_Desde = new DateTime(Convert.ToInt32(Año), 10, 01);
             Fecha_Hasta = new DateTime(Convert.ToInt32(Año), 12, 31);
         }
 
         private void cargarParametrosSegundoTrimestre()
         {
-            Fecha_Desde = new DateTime(Convert.ToInt32(Año), 04, 1);
+            Fecha_Desde = new DateTime(Convert.ToInt32(Año), 04, 01);
             Fecha_Hasta = new DateTime(Convert.ToInt32(Año), 06, 30);
         }
 
         private void cargarParametrosTercerTrimestre()
         {
-            Fecha_Desde = new DateTime(Convert.ToInt32(Año), 07, 1);
+            Fecha_Desde = new DateTime(Convert.ToInt32(Año), 07, 01);
             Fecha_Hasta = new DateTime(Convert.ToInt32(Año), 09, 30);
         }
 
         private void cargarParametrosPrimerTrimestre()
         {
-            Fecha_Desde = new DateTime(Convert.ToInt32(Año), 01, 1);
+            Fecha_Desde = new DateTime(Convert.ToInt32(Año), 01, 01);
             Fecha_Hasta = new DateTime(Convert.ToInt32(Año), 03, 31);
         }
+
+
 
 
     }

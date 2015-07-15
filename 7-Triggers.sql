@@ -275,6 +275,7 @@ GO
 CREATE TRIGGER deshabilitar_clientes_porRol
 ON [OOZMA_KAPPA].[Rol]
 AFTER UPDATE
+AS
 BEGIN TRANSACTION
   DECLARE @estado bit, @nombre_rol varchar(255)
   SELECT @estado = rol_eliminado, @nombre_rol = rol_nombre From inserted
