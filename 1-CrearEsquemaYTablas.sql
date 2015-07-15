@@ -150,8 +150,8 @@ CREATE TABLE [OOZMA_KAPPA].[Item_factura](
 CREATE TABLE [OOZMA_KAPPA].[Login](
 	[login_id] numeric(18, 0) IDENTITY (1,1),
 	[login_usuario_id] numeric(18, 0)NOT NULL,
-	[login_estado] numeric(18, 0)NOT NULL,  
-	[login_cant_numeric(18, 0)entos] numeric(18, 0)NOT NULL,
+	[login_estado] varchar(50) NOT NULL,  
+	[login_cant_intentos] numeric(18, 0)NOT NULL,
 	[login_fecha_hora] [datetime] NOT NULL,
 )
 

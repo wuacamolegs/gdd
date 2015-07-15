@@ -114,10 +114,8 @@ A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\De
 A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Debug\Clases.dll
 A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Debug\Conexion.dll
 A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Debug\Excepciones.dll
-A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Debug\Log.dll
 A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Debug\Utilities.dll
 A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Debug\Clases.pdb
-A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Debug\Log.pdb
 A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Debug\Utilities.pdb
 A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Debug\Excepciones.pdb
 A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\bin\Debug\Conexion.pdb
@@ -174,3 +172,5 @@ E:\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Debug\PagoElectroni
 E:\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Debug\PagoElectronico.csproj.GenerateResource.Cache
 A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Debug\PagoElectronico.ABM_Cliente.frmCliente.resources
 A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Debug\PagoElectronico.ABM_Cliente.ListadoCliente.resources
+A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Debug\PagoElectronico.ABM_Cliente.abm_tarjetas.resources
+A:\Documents\GitHub\gdd\TP1C2015 K3013 OOZMA_KAPPA 33\src\PagoElectronico\obj\Debug\PagoElectronico.ABM_Cliente.formTarjeta.resources

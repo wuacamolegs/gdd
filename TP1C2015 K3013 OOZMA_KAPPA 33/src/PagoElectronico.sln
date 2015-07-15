@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conexion", "Conexion\Conexi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Excepciones", "Excepciones\Excepciones.csproj", "{DE5B1F0E-CC46-490C-87CA-E2BD515F1BC7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Log", "Log\Log.csproj", "{55F19D4D-2EBC-4BD8-8581-2740D34B9245}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities", "Utilities\Utilities.csproj", "{ECD61283-865E-4F92-828D-8E230A73AE72}"
 EndProject
 Global
@@ -35,10 +33,6 @@ Global
 		{DE5B1F0E-CC46-490C-87CA-E2BD515F1BC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE5B1F0E-CC46-490C-87CA-E2BD515F1BC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE5B1F0E-CC46-490C-87CA-E2BD515F1BC7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{55F19D4D-2EBC-4BD8-8581-2740D34B9245}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{55F19D4D-2EBC-4BD8-8581-2740D34B9245}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{55F19D4D-2EBC-4BD8-8581-2740D34B9245}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{55F19D4D-2EBC-4BD8-8581-2740D34B9245}.Release|Any CPU.Build.0 = Release|Any CPU
 		{ECD61283-865E-4F92-828D-8E230A73AE72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{ECD61283-865E-4F92-828D-8E230A73AE72}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ECD61283-865E-4F92-828D-8E230A73AE72}.Release|Any CPU.ActiveCfg = Release|Any CPU

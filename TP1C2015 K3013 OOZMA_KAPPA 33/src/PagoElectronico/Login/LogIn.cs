@@ -12,7 +12,7 @@ using Clases;
 using Excepciones;
 using Utilities;
 using Conexion;
-using Log;
+using System.Data.SqlClient;
 using PagoElectronico.ABM_Cliente;
 
 namespace PagoElectronico.Login
@@ -20,12 +20,11 @@ namespace PagoElectronico.Login
     public partial class LogIn : Form
     {
         #region variables
-
+        List<SqlParameter> parameterList = new List<SqlParameter>();
         Int64 intentosFallidos = 0;
         string ultimoUserIngresado = "";
-        Int64 maxintentosFallidos = Convert.ToInt64(ConfigurationManager.AppSettings["MaxintentosFallidosLogIn"]);
-        Usuario unUsuario = new Usuario();
-        FSLogger logAuditoria; 
+        Int64 maxintentosFallidos = Convert.ToInt64(ConfigurationManager.AppSettings["MaxIntentosFallidosLogIn"]);
+        Usuario unUsuario = new Usuario(); 
 
         #endregion
         
@@ -38,7 +37,6 @@ namespace PagoElectronico.Login
 
         private void LogIn_Load(object sender, EventArgs e)
         {
-            logAuditoria = new FSLogger("LogInAuditoria");  //Creo archivo log con nombre LogInAuditoria, en la ruta actual
             btnSelecRol.Visible = false;
             lblRol.Visible = false;     //oculto botones de eleccion Rol. una vez que se loguea correctamente elije el rol.
             cmbRol.Visible = false;
@@ -98,7 +96,7 @@ namespace PagoElectronico.Login
                     
                     if (unUsuario.Password.Trim() == claveIngresada.Trim())
                     {
-                        logAuditoria.EscribirLog(unUsuario.Username, "Exitoso", intentosFallidos);
+                        registrarLogin(unUsuario.usuario_id, "Exitoso", intentosFallidos, DateTime.Today);
                         RealizarAccionesLogInExitoso();
                     }
                     else
@@ -109,7 +107,7 @@ namespace PagoElectronico.Login
                             ultimoUserIngresado = txtUsername.Text;
                         }
                         intentosFallidos++;
-                        logAuditoria.EscribirLog(unUsuario.Username, "Fallido", intentosFallidos);
+                        registrarLogin(unUsuario.usuario_id, "Fallido", intentosFallidos, DateTime.Today);
 
                         MessageBox.Show("El usuario o clave ingresado es incorrecto. Por favor, ingrese los datos correctamente", "Log In fallido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
@@ -233,6 +231,20 @@ namespace PagoElectronico.Login
             this.Hide();
             ABMCliente.Show();
             ABMCliente.AbrirParaAgregar();
+        }
+
+        private void registrarLogin(int usuario_id, string estado, long intentosFallidos, DateTime fecha)
+        {
+            parameterList.Clear();
+            parameterList.Add(new SqlParameter("@usuario_id",usuario_id));
+            parameterList.Add(new SqlParameter("@Estado",estado));
+            parameterList.Add(new SqlParameter("@Intentos",intentosFallidos));
+            parameterList.Add(new SqlParameter("@Fecha",fecha));
+
+            SQLHelper.ExecuteNonQuery("InsertLogin", CommandType.StoredProcedure, parameterList);
+    
+            
+
         }
 
 

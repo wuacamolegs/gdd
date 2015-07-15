@@ -104,20 +104,9 @@ BEGIN TRANSACTION
 INSERT INTO [OOZMA_KAPPA].[Transferencia] (transferencia_origen_cuenta_id, transferencia_destino_cuenta_id,
 										transferencia_importe, transferencia_costo, transferencia_fecha)(
 	SELECT Cuenta_Numero, Cuenta_Dest_Numero,  Trans_Importe, Trans_Costo_Trans, Transf_Fecha
-	FROM gd_esquema.Maestra	
-	WHERE transf_fecha IS NOT NULL AND Factura_Fecha is not null AND Cuenta_Numero != Cuenta_Dest_Numero AND Item_Factura_Descr is not null AND Item_Factura_Importe != 0);
-
+	FROM gd_esquema.Maestra	WHERE Item_Factura_Descr is not null);
+	
 COMMIT
-
-BEGIN TRANSACTION
- 
-INSERT INTO [OOZMA_KAPPA].[Transferencia] (transferencia_origen_cuenta_id, transferencia_destino_cuenta_id,
-									       transferencia_importe, transferencia_costo, transferencia_fecha)(
-	SELECT Cuenta_Numero, Cuenta_Dest_Numero,  Trans_Importe, Trans_Costo_Trans, Transf_Fecha
-	FROM gd_esquema.Maestra MA, OOZMA_KAPPA.Cliente CO, OOZMA_KAPPA.Cliente CD, OOZMA_KAPPA.Cuenta CU
-	WHERE CO.cliente_numero_documento = MA.Cli_Nro_Doc AND CD.cliente_id = CU.cuenta_cliente_id AND CU.cuenta_id = Cuenta_Dest_Numero  AND transf_fecha IS NOT NULL AND Factura_Fecha is not null AND Cuenta_Numero != Cuenta_Dest_Numero AND Item_Factura_Descr is not null AND Item_Factura_Importe = 0 AND CO.cliente_id = CD.cliente_id);
-COMMIT
-
 
   -- TABLA ITEM FACTURA --  	
  
