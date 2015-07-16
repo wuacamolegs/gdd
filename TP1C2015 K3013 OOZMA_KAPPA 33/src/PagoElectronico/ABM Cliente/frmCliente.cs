@@ -293,7 +293,7 @@ namespace PagoElectronico.ABM_Cliente
             }
         }
 
-        private void btnAceptarRCliente_Click_1(object sender, EventArgs e)
+        /*private void btnAceptarRCliente_Click_1(object sender, EventArgs e)
         {
             try
             {
@@ -344,7 +344,7 @@ namespace PagoElectronico.ABM_Cliente
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
+        }*/
 
         private void linkTarjetas_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
