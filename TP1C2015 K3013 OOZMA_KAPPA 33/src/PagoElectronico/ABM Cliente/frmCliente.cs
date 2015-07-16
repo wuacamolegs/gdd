@@ -78,6 +78,9 @@ namespace PagoElectronico.ABM_Cliente
             txtRespuesta.Visible = false;
             txtRespuesta.Visible = false;
             gbUsuario.Visible = false;
+            chkActivo.Visible = true;
+            
+
 
             frmPadre = frmEnviador;
             clienteDelForm = unCliente;
@@ -105,6 +108,11 @@ namespace PagoElectronico.ABM_Cliente
         {
             this.Show();
 
+
+            chkActivo.Visible = false;
+            linkTarjetas.Visible = false;
+
+
             cmbDNI.SelectedIndex = -1;
             txtDNI.Enabled = true;
             txtNombre.Text = "";
@@ -116,7 +124,6 @@ namespace PagoElectronico.ABM_Cliente
             txtNumero.Text = "";
             txtFechaNac.Text = Convert.ToString(DateTime.Today);
             txtPais.Text = "";
-            chkActivo.Visible = true;
 
             //Cargar combo tipo dni
             DataSet dsTipoDNI = SQLHelper.ExecuteDataSet("TraerListadoTipoDocumento");
@@ -184,15 +191,7 @@ namespace PagoElectronico.ABM_Cliente
             }
         }
 
-        private void btnModificar_Click(object sender, EventArgs e)
-        {
 
-        }
-
-        private void frmCliente_Load(object sender, EventArgs e)
-        {
-
-        }
 
         private void btnAceptarACliente_Click(object sender, EventArgs e)
         {
@@ -454,6 +453,21 @@ namespace PagoElectronico.ABM_Cliente
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void txtNombre_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Validator.SoloLetras(e);
+        }
+
+        private void txtApellido_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Validator.SoloLetras(e);
+        }
+
+        private void txtPregunta_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Validator.SoloLetras(e);
         }
 
     }

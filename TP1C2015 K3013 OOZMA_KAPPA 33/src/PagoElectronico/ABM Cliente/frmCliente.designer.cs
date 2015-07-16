@@ -185,6 +185,7 @@
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(189, 21);
             this.txtNombre.TabIndex = 11;
+            this.txtNombre.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNombre_KeyPress);
             // 
             // txtApellido
             // 
@@ -192,6 +193,7 @@
             this.txtApellido.Name = "txtApellido";
             this.txtApellido.Size = new System.Drawing.Size(189, 21);
             this.txtApellido.TabIndex = 12;
+            this.txtApellido.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtApellido_KeyPress);
             // 
             // txtDNI
             // 
@@ -377,10 +379,11 @@
             this.txtPregunta.Name = "txtPregunta";
             this.txtPregunta.Size = new System.Drawing.Size(189, 21);
             this.txtPregunta.TabIndex = 34;
+            this.txtPregunta.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPregunta_KeyPress);
             // 
             // btnAceptarMCliente
             // 
-            this.btnAceptarMCliente.Location = new System.Drawing.Point(320, 372);
+            this.btnAceptarMCliente.Location = new System.Drawing.Point(535, 405);
             this.btnAceptarMCliente.Name = "btnAceptarMCliente";
             this.btnAceptarMCliente.Size = new System.Drawing.Size(112, 27);
             this.btnAceptarMCliente.TabIndex = 40;
@@ -402,7 +405,7 @@
             // 
             // btnAceptarACliente
             // 
-            this.btnAceptarACliente.Location = new System.Drawing.Point(273, 405);
+            this.btnAceptarACliente.Location = new System.Drawing.Point(535, 405);
             this.btnAceptarACliente.Name = "btnAceptarACliente";
             this.btnAceptarACliente.Size = new System.Drawing.Size(112, 27);
             this.btnAceptarACliente.TabIndex = 38;
@@ -424,7 +427,6 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.Name = "frmCliente";
             this.Text = "Pago Electrónico - ABM Cliente";
-            this.Load += new System.EventHandler(this.frmCliente_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
