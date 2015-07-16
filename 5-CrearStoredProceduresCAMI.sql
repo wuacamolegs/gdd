@@ -135,7 +135,7 @@ GO
 CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoClienteCompleto]
 AS
 BEGIN
-	SELECT cliente_id as cliente_id,(cliente_apellido +' '+ cliente_nombre) as cliente_nombre, cliente_numero_documento as cliente_documento FROM OOZMA_KAPPA.Cliente where cliente_estado = 1;
+	SELECT cliente_id as cliente_id,(cliente_apellido +' '+ cliente_nombre) as cliente_nombre, cliente_numero_documento as cliente_documento FROM OOZMA_KAPPA.Cliente where cliente_estado = 1 AND cliente_eliminado = 0;
 END
 GO
 
@@ -144,7 +144,7 @@ CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoClientePorUsuarioID]
 AS
 BEGIN
 	SELECT cliente_id as cliente_id,(cliente_apellido +' '+ cliente_nombre) as cliente_nombre, cliente_numero_documento as cliente_documento FROM OOZMA_KAPPA.Cliente 
-	WHERE cliente_usuario_id = @usuario_id and cliente_estado = 1;
+	WHERE cliente_usuario_id = @usuario_id and cliente_estado = 1 AND cliente_eliminado = 0;
 END
 GO
 
@@ -153,7 +153,7 @@ CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoClientePorClienteID]
 AS
 BEGIN
 	SELECT cliente_id, cliente_nombre, cliente_apellido, cliente_numero_documento, cliente_fecha_nacimiento 
-	FROM OOZMA_KAPPA.Cliente WHERE cliente_id = @cliente_id and cliente_estado = 1;
+	FROM OOZMA_KAPPA.Cliente WHERE cliente_id = @cliente_id and cliente_estado = 1 AND cliente_eliminado = 0;
 END
 GO
 
@@ -491,7 +491,7 @@ CREATE PROCEDURE OOZMA_KAPPA.TraerListadoClienteConCosasAFacturarPorUsuarioID
 	@usuario_id numeric(18,0)
 AS
 BEGIN
-	SELECT cliente_id as cliente_id,(cliente_apellido +' '+ cliente_nombre) as cliente_nombre, cliente_numero_documento as cliente_documento FROM OOZMA_KAPPA.Transacciones_Pendientes, OOZMA_KAPPA.Cliente WHERE cliente_id = transaccion_pendiente_cliente_id AND cliente_usuario_id = @usuario_id;
+	SELECT cliente_id as cliente_id,(cliente_apellido +' '+ cliente_nombre) as cliente_nombre, cliente_numero_documento as cliente_documento FROM OOZMA_KAPPA.Transacciones_Pendientes, OOZMA_KAPPA.Cliente WHERE cliente_id = transaccion_pendiente_cliente_id AND cliente_usuario_id = @usuario_id AND cliente_eliminado = 0;
 END
 GO
 

@@ -12,7 +12,7 @@ GO
 CREATE PROCEDURE [OOZMA_KAPPA].[traerListadoCliente]
 AS
 BEGIN TRANSACTION
-SELECT * FROM OOZMA_KAPPA.Cliente
+SELECT * FROM OOZMA_KAPPA.Cliente WHERE cliente_eliminado = 0
 COMMIT;
 GO
 
@@ -22,7 +22,7 @@ CREATE PROCEDURE [OOZMA_KAPPA].[TraerListadoClienteConTodoPorClienteID]
 	@cliente_id numeric(18,0)
 AS
 BEGIN TRANSACTION
-SELECT * FROM OOZMA_KAPPA.Cliente WHERE cliente_id = @cliente_id
+SELECT * FROM OOZMA_KAPPA.Cliente WHERE cliente_id = @cliente_id AND cliente_eliminado = 0
 COMMIT;
 GO
 
