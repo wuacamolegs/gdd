@@ -200,4 +200,16 @@ ADD FOREIGN KEY (transaccion_pendiente_cuenta_id)
 REFERENCES [OOZMA_KAPPA].[Cuenta](cuenta_id);
 COMMIT
 
+BEGIN TRANSACTION
+ALTER TABLE [OOZMA_KAPPA].[Historial_cuentas]
+ADD FOREIGN KEY ([historial_cliente_id])
+REFERENCES [OOZMA_KAPPA].[Cliente](cliente_id);
+COMMIT
+
+BEGIN TRANSACTION
+ALTER TABLE [OOZMA_KAPPA].[Historial_cuentas]
+ADD FOREIGN KEY ([historial_cuenta_id])
+REFERENCES [OOZMA_KAPPA].[Cuenta](cuenta_id);
+COMMIT
+
 ROLLBACK
