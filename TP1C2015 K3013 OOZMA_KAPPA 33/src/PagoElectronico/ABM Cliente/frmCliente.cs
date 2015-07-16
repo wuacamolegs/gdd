@@ -70,7 +70,7 @@ namespace PagoElectronico.ABM_Cliente
 
             btnAceptarACliente.Visible = false;
             btnAceptarMCliente.Visible = false;
-            btnAceptarRCliente.Visible = false;
+         /*   btnAceptarRCliente.Visible = false;*/
         }
         public void AbrirParaModificar(Cliente unCliente, ListadoCliente frmEnviador)
         {
@@ -98,7 +98,7 @@ namespace PagoElectronico.ABM_Cliente
 
             btnAceptarACliente.Visible = false;
             btnAceptarMCliente.Visible = true;
-            btnAceptarRCliente.Visible = false;
+            /*btnAceptarRCliente.Visible = false;*/
 
         }
         public void AbrirParaAgregar()
@@ -125,7 +125,7 @@ namespace PagoElectronico.ABM_Cliente
 
            btnAceptarMCliente.Visible = false;
            btnAceptarACliente.Visible = true;
-           btnAceptarRCliente.Visible = false;
+           /*btnAceptarRCliente.Visible = false;*/
 
         }
         public void AbrirParaRegistrarNuevoCliente(int id_usuario)
@@ -152,7 +152,7 @@ namespace PagoElectronico.ABM_Cliente
            btnAceptarMCliente.Visible = false;
            btnAceptarACliente.Visible = false;
           /* btnVolver.Visible = false; */
-           btnAceptarRCliente.Visible = true;
+           /*btnAceptarRCliente.Visible = true;*/
         }
 
         private void btnVolver_Click(object sender, EventArgs e)

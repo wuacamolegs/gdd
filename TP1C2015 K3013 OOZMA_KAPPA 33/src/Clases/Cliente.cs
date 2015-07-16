@@ -245,7 +245,8 @@ namespace Clases
             this.parameterList.Clear();
             parameterList.Add(new SqlParameter("@cliente_id", this.cliente_id));
         }
-
+       
+        
         private void setearListaDeParametrosConClienteIDYCuentaID(Int64 cliente_id, Int64 cuenta_id)
         {
             this.parameterList.Clear();
@@ -309,7 +310,7 @@ namespace Clases
             //Guardo tambien en la lista de parametros el id_rol (variable privada de la clase)
             //Para que tambien se inserte la relacio id_rol id_usuario en la BD
 
-            DataSet ds2 = SQLHelper.ExecuteDataSet("validarDniEnCliente", CommandType.StoredProcedure, parameterList);
+            DataSet ds2 = SQLHelper.ExecuteDataSet("validarDniEnClienteAlta", CommandType.StoredProcedure, parameterList);
             if ((ds2.Tables[0].Rows.Count == 0))
             {
                 // se ejecuto un procedure que me traia los clientes where telefono = telfonoIngresado
@@ -329,10 +330,10 @@ namespace Clases
 
         public void ModificarDatos()
         {
-            parameterList.Clear();
-            setearListaDeParametros();
+            /*parameterList.Clear(); VER GINO LO COMENTE PORQUE SE REPETIA CODIGO CREO
+            setearListaDeParametros();*/
             setearListaDeParametrosConClienteID(this.cliente_id);
-            DataSet ds2 = SQLHelper.ExecuteDataSet("validarDniEnCliente", CommandType.StoredProcedure, parameterList);
+            DataSet ds2 = SQLHelper.ExecuteDataSet("validarDniEnClienteModificar", CommandType.StoredProcedure, parameterList);
             if ((ds2.Tables[0].Rows.Count == 0))
             {
                 // se ejecuto un procedure que me traia los clientes where telefono = telfonoIngresado
