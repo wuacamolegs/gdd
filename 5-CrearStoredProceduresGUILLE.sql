@@ -47,7 +47,9 @@ BEGIN
 	AND cuenta_id = transaccion_pendiente_cuenta_id
 	AND cuenta_cliente_id = cliente_id 
 	AND cuenta_estado = 0 
-	AND CONVERT(varchar(10), transaccion_pendiente_fecha, 103) BETWEEN CONVERT(varchar(10), @fechaDES, 103) AND CONVERT(varchar(10), @fechaHAS, 103)
+	--AND CONVERT(varchar(10), transaccion_pendiente_fecha, 103) BETWEEN CONVERT(varchar(10), @fechaDES, 103) AND CONVERT(varchar(10), @fechaHAS, 103)--
+	AND MONTH(transaccion_pendiente_fecha) BETWEEN MONTH(@fechaDES) AND MONTH(@fechaHAS)
+    AND YEAR(transaccion_pendiente_fecha) = YEAR(@fechaDES)
 	GROUP BY cliente_apellido, cliente_nombre
 	ORDER BY Cantidad DESC
 END
@@ -61,8 +63,10 @@ Begin
 Select TOP 5 cliente_apellido+', '+cliente_nombre as Cliente, COUNT(*) as Cantidad
 	From OOZMA_KAPPA.Cliente, OOZMA_KAPPA.Factura, OOZMA_KAPPA.Item_factura 
 	where cliente_id = factura_cliente_id and factura_numero = item_factura_numero_factura and
-    item_factura_desc like 'Comisión%' and
-    CONVERT(varchar(10), factura_fecha, 103) Between CONVERT(varchar(10), @fechaDES, 103) And CONVERT(varchar(10), @fechaHAS, 103)    
+    item_factura_desc like 'Comisión%' 
+  --  CONVERT(varchar(10), factura_fecha, 103) Between CONVERT(varchar(10), @fechaDES, 103) And CONVERT(varchar(10), @fechaHAS, 103)    --
+   	AND MONTH(factura_fecha) BETWEEN MONTH(@fechaDES) AND MONTH(@fechaHAS)
+    AND YEAR(factura_fecha) = YEAR(@fechaDES)
     Group By cliente_apellido, cliente_nombre
     Order By Cantidad DESC
 End
