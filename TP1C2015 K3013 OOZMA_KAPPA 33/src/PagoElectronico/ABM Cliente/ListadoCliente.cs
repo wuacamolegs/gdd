@@ -210,7 +210,17 @@ namespace PagoElectronico.ABM_Cliente
                 Cliente unCliente = new Cliente(valorIdSeleccionado());
                 unCliente.Eliminar();
                 MessageBox.Show("El Cliente ha sido eliminada", "Eliminada", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                CargarListadoDeClientes();
+
+                DataSet ds = ObtenerClientes();
+                cargarGrilla(ds);
+
+                //Cargar combo tipo dni
+                DataSet dsTipoDNI = SQLHelper.ExecuteDataSet("TraerListadoTipoDocumento");
+                DropDownListManager.CargarCombo(cmbTipoDoc, dsTipoDNI.Tables[0], "td_id", "td_descripcion", false, "");
+                cmbTipoDoc.SelectedIndex = -1;
+                
+                
+                /*CargarListadoDeClientes();  agregue el codigo de mas arriba, desde DataSet ds hasta -1;*/
             }
         }
 

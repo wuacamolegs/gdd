@@ -53,8 +53,8 @@ namespace PagoElectronico.ABM_Cliente
             txtDepto.Text = unCliente.DeptoDireccion;
             txtPiso.Text = unCliente.PisoDireccion.ToString();
             txtNumero.Text = unCliente.NumeroDireccion.ToString();
-            txtPais.Text = unCliente.PaisResidente.ToString();
-            txtFechaNac.Text = unCliente.FechaNacimiento.ToString();
+            cmbPais.Text = unCliente.PaisResidente.ToString();
+            dateTimePicker.Text = unCliente.FechaNacimiento.ToString();
 
             txtNombre.Enabled = false;
             txtApellido.Enabled = false;
@@ -65,8 +65,8 @@ namespace PagoElectronico.ABM_Cliente
             txtDepto.Enabled = false;
             txtPiso.Enabled = false;
             txtNumero.Enabled = false;
-            txtPais.Enabled = false;
-            txtFechaNac.Enabled = false;
+            cmbPais.Enabled = false;
+            dateTimePicker.Enabled = false;
 
             btnAceptarACliente.Visible = false;
             btnAceptarMCliente.Visible = false;
@@ -96,8 +96,8 @@ namespace PagoElectronico.ABM_Cliente
             txtDepto.Text = unCliente.DeptoDireccion;
             txtPiso.Text = Convert.ToString(unCliente.PisoDireccion);
             txtNumero.Text = Convert.ToString(unCliente.NumeroDireccion);
-            txtPais.Text = Convert.ToString(unCliente.PaisResidente);
-            txtFechaNac.Text = unCliente.FechaNacimiento.ToString();
+            cmbPais.Text = Convert.ToString(unCliente.PaisResidente);
+            dateTimePicker.Text = unCliente.FechaNacimiento.ToString();
 
             btnAceptarACliente.Visible = false;
             btnAceptarMCliente.Visible = true;
@@ -122,13 +122,16 @@ namespace PagoElectronico.ABM_Cliente
             txtDepto.Text = "";
             txtPiso.Text = "";
             txtNumero.Text = "";
-            txtFechaNac.Text = Convert.ToString(DateTime.Today);
-            txtPais.Text = "";
+            dateTimePicker.Text = Convert.ToString(DateTime.Today);
+            cmbPais.SelectedIndex = -1;
 
-            //Cargar combo tipo dni
+            //Cargar combo tipo dni y combo pais
             DataSet dsTipoDNI = SQLHelper.ExecuteDataSet("TraerListadoTipoDocumento");
+            DataSet dsPais = SQLHelper.ExecuteDataSet("TraerListadoPaises");
             DropDownListManager.CargarCombo(cmbDNI, dsTipoDNI.Tables[0], "td_id", "td_descripcion", false, "");
             cmbDNI.SelectedIndex = -1;
+            DropDownListManager.CargarCombo(cmbPais, dsPais.Tables[0], "pais_id", "pais_nombre", false, "");
+            cmbPais.SelectedIndex = -1;
 
            btnAceptarMCliente.Visible = false;
            btnAceptarACliente.Visible = true;
@@ -148,8 +151,8 @@ namespace PagoElectronico.ABM_Cliente
             txtDepto.Text = "";
             txtPiso.Text = "";
             txtNumero.Text = "";
-            txtFechaNac.Text = Convert.ToString(DateTime.Today);
-            txtPais.Text = "";
+            dateTimePicker.Text = Convert.ToString(DateTime.Today);
+            cmbPais.SelectedIndex = 0;
             chkActivo.Visible = false;
 
             // el id del usuario nuevo que se registro y recibi como parametro lo guardo en mi
@@ -178,13 +181,12 @@ namespace PagoElectronico.ABM_Cliente
             strErrores += Validator.ValidarNulo(txtApellido.Text, "Apellido");
             strErrores += Validator.SoloNumeros(txtDNI.Text, "Dni");
             strErrores += Validator.ValidarNulo(txtMail.Text, "Mail");
-            strErrores += Validator.ValidarNulo(txtPais.Text, "Pais");
+            strErrores += Validator.ValidarNulo(cmbPais.Text, "Pais");
             strErrores += Validator.ValidarNulo(txtCalle.Text, "Calle");
             strErrores += Validator.ValidarNulo(txtNumero.Text, "Numero");
             strErrores += Validator.SoloNumerosPeroOpcional(txtPiso.Text, "Piso");
             strErrores += Validator.ValidarNulo(txtDepto.Text, "Depto");
-            strErrores += Validator.ValidarNulo(txtPais.Text, "Pais");
-            strErrores += Validator.ValidarNulo(txtFechaNac.Text, "Fecha de nacimiento");
+            strErrores += Validator.ValidarNulo(dateTimePicker.Text, "Fecha de nacimiento");
             if (strErrores.Length > 0)
             {
                 throw new Exception(strErrores);
@@ -205,11 +207,11 @@ namespace PagoElectronico.ABM_Cliente
                 unClienteNuevo.Documento = Int32.Parse(txtDNI.Text);
                 unClienteNuevo.TipoDocumento = cmbDNI.Text;
                 unClienteNuevo.Calle = txtCalle.Text;
-                unClienteNuevo.PaisResidente = Convert.ToInt32(txtPais.Text);
+                unClienteNuevo.PaisResidente = Convert.ToInt32(cmbPais.Text);
                 unClienteNuevo.NumeroDireccion = Convert.ToInt32(txtNumero.Text);
                 unClienteNuevo.DeptoDireccion = txtDepto.Text;
                 if (!String.IsNullOrEmpty(txtPiso.Text)) unClienteNuevo.PisoDireccion = -1;
-                unClienteNuevo.FechaNacimiento = DateTime.Parse(txtFechaNac.Text);
+                unClienteNuevo.FechaNacimiento = DateTime.Parse(dateTimePicker.Text);
                 unClienteNuevo.Mail = txtMail.Text;
                 unClienteNuevo.Usuario = new Usuario();
                 unClienteNuevo.Usuario.CrearDefault(Convert.ToString(unClienteNuevo.Documento));
@@ -255,12 +257,12 @@ namespace PagoElectronico.ABM_Cliente
                 clienteDelForm.Documento = Int32.Parse(txtDNI.Text);
                 clienteDelForm.TipoDocumento = cmbDNI.Text;
                 clienteDelForm.Calle = txtCalle.Text;
-                clienteDelForm.PaisResidente = Convert.ToInt32(txtPais.Text);
+                clienteDelForm.PaisResidente = Convert.ToInt32(cmbPais.Text);
                 clienteDelForm.DeptoDireccion = txtDepto.Text;
                 clienteDelForm.NumeroDireccion = Convert.ToInt32(txtCalle.Text);
                 if (!String.IsNullOrEmpty(txtPiso.Text)) clienteDelForm.PisoDireccion = -1;
                 clienteDelForm.PisoDireccion = Int32.Parse(txtPiso.Text);
-                clienteDelForm.FechaNacimiento = DateTime.Parse(txtFechaNac.Text);
+                clienteDelForm.FechaNacimiento = DateTime.Parse(dateTimePicker.Text);
                 clienteDelForm.Mail = txtMail.Text;
                 clienteDelForm.estado = chkActivo.Checked;
 
@@ -364,12 +366,12 @@ namespace PagoElectronico.ABM_Cliente
                 clienteDelForm.Documento = Int32.Parse(txtDNI.Text);
                 clienteDelForm.TipoDocumento = cmbDNI.Text;
                 clienteDelForm.Calle = txtCalle.Text;
-                clienteDelForm.PaisResidente = Convert.ToInt32(txtPais.Text);
+                clienteDelForm.PaisResidente = Convert.ToInt32(cmbPais.Text);
                 clienteDelForm.NumeroDireccion = Convert.ToInt32(txtNumero.Text);
                 clienteDelForm.DeptoDireccion = txtDepto.Text;
                 if (!String.IsNullOrEmpty(txtPiso.Text)) clienteDelForm.PisoDireccion = -1;
                 clienteDelForm.PisoDireccion = Int32.Parse(txtPiso.Text);
-                clienteDelForm.FechaNacimiento = DateTime.Parse(txtFechaNac.Text);
+                clienteDelForm.FechaNacimiento = DateTime.Parse(dateTimePicker.Text);
                 clienteDelForm.Mail = txtMail.Text;
                 clienteDelForm.estado = chkActivo.Checked;
 
@@ -413,12 +415,12 @@ namespace PagoElectronico.ABM_Cliente
                 clienteDelForm.Documento = Int32.Parse(txtDNI.Text);
                 clienteDelForm.TipoDocumento = cmbDNI.Text;
                 clienteDelForm.Calle = txtCalle.Text;
-                clienteDelForm.PaisResidente = Convert.ToInt32(txtPais.Text);
+                clienteDelForm.PaisResidente = Convert.ToInt32(cmbPais.Text);
                 clienteDelForm.NumeroDireccion = Convert.ToInt32(txtNumero.Text);
                 clienteDelForm.DeptoDireccion = txtDepto.Text;
                 if (!String.IsNullOrEmpty(txtPiso.Text)) clienteDelForm.PisoDireccion = -1;
                 clienteDelForm.PisoDireccion = Int32.Parse(txtPiso.Text);
-                clienteDelForm.FechaNacimiento = DateTime.Parse(txtFechaNac.Text);
+                clienteDelForm.FechaNacimiento = DateTime.Parse(dateTimePicker.Text);
                 clienteDelForm.Mail = txtMail.Text;
                 clienteDelForm.estado = chkActivo.Checked;
                 

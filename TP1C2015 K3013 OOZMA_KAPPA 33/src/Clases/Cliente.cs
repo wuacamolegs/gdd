@@ -36,6 +36,7 @@ namespace Clases
         private string _depto;
         private string _mail;
         private bool _estado;
+        /*private bool _eliminado;*/
 
 
         #endregion
@@ -357,7 +358,6 @@ namespace Clases
             this.Eliminar(parameterList);
             parameterList.Clear();
         }
-
 
         public DataSet ObtenerClientesPorUsuarioID(Int64 unUsuarioID)
         {

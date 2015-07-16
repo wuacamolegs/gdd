@@ -50,6 +50,7 @@ CREATE TABLE [OOZMA_KAPPA].[Cliente](
 	[cliente_depto] [varchar](10) NOT NULL, 
 	[cliente_mail] [varchar](255),
 	[cliente_estado] bit NOT NULL DEFAULT (1), ---  0 deshabilitado 1 habilitado
+	[cliente_eliminado] bit NOT NULL DEFAULT (0), --- 0 no eliminado, 1 eliminado
 )
 
 --- TABLA CUENTA ---

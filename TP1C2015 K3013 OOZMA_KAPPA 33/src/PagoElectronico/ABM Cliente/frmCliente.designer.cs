@@ -43,16 +43,16 @@
             this.txtApellido = new System.Windows.Forms.TextBox();
             this.txtDNI = new System.Windows.Forms.TextBox();
             this.txtMail = new System.Windows.Forms.TextBox();
-            this.txtPais = new System.Windows.Forms.TextBox();
             this.txtCalle = new System.Windows.Forms.TextBox();
             this.txtPiso = new System.Windows.Forms.TextBox();
             this.txtNumero = new System.Windows.Forms.TextBox();
             this.txtDepto = new System.Windows.Forms.TextBox();
-            this.txtFechaNac = new System.Windows.Forms.TextBox();
             this.cmbDNI = new System.Windows.Forms.ComboBox();
             this.chkActivo = new System.Windows.Forms.CheckBox();
             this.label12 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.cmbPais = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
@@ -209,13 +209,6 @@
             this.txtMail.Size = new System.Drawing.Size(189, 21);
             this.txtMail.TabIndex = 15;
             // 
-            // txtPais
-            // 
-            this.txtPais.Location = new System.Drawing.Point(82, 103);
-            this.txtPais.Name = "txtPais";
-            this.txtPais.Size = new System.Drawing.Size(189, 21);
-            this.txtPais.TabIndex = 16;
-            // 
             // txtCalle
             // 
             this.txtCalle.Location = new System.Drawing.Point(82, 28);
@@ -243,13 +236,6 @@
             this.txtDepto.Name = "txtDepto";
             this.txtDepto.Size = new System.Drawing.Size(183, 21);
             this.txtDepto.TabIndex = 20;
-            // 
-            // txtFechaNac
-            // 
-            this.txtFechaNac.Location = new System.Drawing.Point(444, 104);
-            this.txtFechaNac.Name = "txtFechaNac";
-            this.txtFechaNac.Size = new System.Drawing.Size(189, 21);
-            this.txtFechaNac.TabIndex = 21;
             // 
             // cmbDNI
             // 
@@ -280,6 +266,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.dateTimePicker);
+            this.groupBox1.Controls.Add(this.cmbPais);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Controls.Add(this.label2);
@@ -291,16 +279,29 @@
             this.groupBox1.Controls.Add(this.label11);
             this.groupBox1.Controls.Add(this.cmbDNI);
             this.groupBox1.Controls.Add(this.txtNombre);
-            this.groupBox1.Controls.Add(this.txtFechaNac);
             this.groupBox1.Controls.Add(this.txtApellido);
             this.groupBox1.Controls.Add(this.txtDNI);
             this.groupBox1.Controls.Add(this.txtMail);
-            this.groupBox1.Controls.Add(this.txtPais);
             this.groupBox1.Location = new System.Drawing.Point(7, 8);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(643, 190);
             this.groupBox1.TabIndex = 29;
             this.groupBox1.TabStop = false;
+            // 
+            // dateTimePicker
+            // 
+            this.dateTimePicker.Location = new System.Drawing.Point(444, 105);
+            this.dateTimePicker.Name = "dateTimePicker";
+            this.dateTimePicker.Size = new System.Drawing.Size(189, 21);
+            this.dateTimePicker.TabIndex = 30;
+            // 
+            // cmbPais
+            // 
+            this.cmbPais.FormattingEnabled = true;
+            this.cmbPais.Location = new System.Drawing.Point(82, 103);
+            this.cmbPais.Name = "cmbPais";
+            this.cmbPais.Size = new System.Drawing.Size(121, 23);
+            this.cmbPais.TabIndex = 29;
             // 
             // groupBox2
             // 
@@ -455,12 +456,10 @@
         private System.Windows.Forms.TextBox txtApellido;
         private System.Windows.Forms.TextBox txtDNI;
         private System.Windows.Forms.TextBox txtMail;
-        private System.Windows.Forms.TextBox txtPais;
         private System.Windows.Forms.TextBox txtCalle;
         private System.Windows.Forms.TextBox txtPiso;
         private System.Windows.Forms.TextBox txtNumero;
         private System.Windows.Forms.TextBox txtDepto;
-        private System.Windows.Forms.TextBox txtFechaNac;
         private System.Windows.Forms.ComboBox cmbDNI;
         private System.Windows.Forms.CheckBox chkActivo;
         private System.Windows.Forms.Label label12;
@@ -476,5 +475,7 @@
         private System.Windows.Forms.LinkLabel linkTarjetas;
         private System.Windows.Forms.Button btnAceptarACliente;
         private System.Windows.Forms.Button btnAceptarMCliente;
+        private System.Windows.Forms.ComboBox cmbPais;
+        private System.Windows.Forms.DateTimePicker dateTimePicker;
     }
 }
