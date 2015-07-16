@@ -10,6 +10,7 @@ using Clases;
 using Utilities;
 using Excepciones;
 using Conexion;
+using System.Configuration;
 
 namespace PagoElectronico.ABM_Cliente
 {
@@ -46,14 +47,14 @@ namespace PagoElectronico.ABM_Cliente
 
             txtNombre.Text = unCliente.Nombre;
             txtApellido.Text = unCliente.Apellido;
-            cmbDNI.Text = unCliente.TipoDocumento;
+            cmbDNI.SelectedValue = unCliente.TipoDocumento;
             txtDNI.Text = Convert.ToString(unCliente.Documento);
             txtMail.Text = unCliente.Mail;
             txtCalle.Text = unCliente.Calle;
             txtDepto.Text = unCliente.DeptoDireccion;
             txtPiso.Text = unCliente.PisoDireccion.ToString();
             txtNumero.Text = unCliente.NumeroDireccion.ToString();
-            cmbPais.Text = unCliente.PaisResidente.ToString();
+            cmbPais.SelectedValue = unCliente.PaisResidente;
             dateTimePicker.Text = unCliente.FechaNacimiento.ToString();
 
             txtNombre.Enabled = false;
@@ -69,8 +70,7 @@ namespace PagoElectronico.ABM_Cliente
             dateTimePicker.Enabled = false;
 
             btnAceptarACliente.Visible = false;
-            btnAceptarMCliente.Visible = false;
-         /*   btnAceptarRCliente.Visible = false;*/
+            btnModificar.Visible = false;
         }
         public void AbrirParaModificar(Cliente unCliente, ListadoCliente frmEnviador)
         {
@@ -79,14 +79,17 @@ namespace PagoElectronico.ABM_Cliente
             txtRespuesta.Visible = false;
             gbUsuario.Visible = false;
             chkActivo.Visible = true;
+            txtDNI.Enabled = false;
+            dateTimePicker.Enabled = false;
+            cmbDNI.Enabled = false;
+           
 
             //Cargar combo tipo dni y combo pais
             DataSet dsTipoDNI = SQLHelper.ExecuteDataSet("TraerListadoTipoDocumento");
-            DataSet dsPais = SQLHelper.ExecuteDataSet("TraerListadoPaises");
+            DataSet dsPais = SQLHelper.ExecuteDataSet("traerListadoPaisesCompleto");
+
             DropDownListManager.CargarCombo(cmbDNI, dsTipoDNI.Tables[0], "td_id", "td_descripcion", false, "");
-            cmbDNI.SelectedIndex = -1;
             DropDownListManager.CargarCombo(cmbPais, dsPais.Tables[0], "pais_id", "pais_nombre", false, "");
-            cmbPais.SelectedIndex = -1;
 
             frmPadre = frmEnviador;
             clienteDelForm = unCliente;
@@ -95,21 +98,24 @@ namespace PagoElectronico.ABM_Cliente
             
             txtNombre.Text = unCliente.Nombre;
             txtApellido.Text = unCliente.Apellido;
-            cmbDNI.Text = unCliente.TipoDocumento;
+            cmbDNI.SelectedValue =  unCliente.TipoDocumento;
             txtDNI.Text = Convert.ToString(unCliente.Documento);
             txtMail.Text = unCliente.Mail;
             txtCalle.Text = Convert.ToString(unCliente.Calle);
             txtDepto.Text = unCliente.DeptoDireccion;
             txtPiso.Text = Convert.ToString(unCliente.PisoDireccion);
             txtNumero.Text = Convert.ToString(unCliente.NumeroDireccion);
-            cmbPais.Text = Convert.ToString(unCliente.PaisResidente);
+            cmbPais.SelectedValue = unCliente.PaisResidente;
             dateTimePicker.Text = unCliente.FechaNacimiento.ToString();
+            cmbDNI.SelectedValue = unCliente.TipoDocumento;
+            cmbPais.SelectedValue = Convert.ToInt32(unCliente.PaisResidente);
+
 
             btnAceptarACliente.Visible = false;
-            btnAceptarMCliente.Visible = true;
-            /*btnAceptarRCliente.Visible = false;*/
+            btnModificar.Visible = true;
 
         }
+
         public void AbrirParaAgregar()
         {
             this.Show();
@@ -130,53 +136,21 @@ namespace PagoElectronico.ABM_Cliente
             txtNumero.Text = "";
             dateTimePicker.Text = Convert.ToString(DateTime.Today);
             cmbPais.SelectedIndex = -1;
+            lblestado.Visible = false;
 
             //Cargar combo tipo dni y combo pais
             DataSet dsTipoDNI = SQLHelper.ExecuteDataSet("TraerListadoTipoDocumento");
-            DataSet dsPais = SQLHelper.ExecuteDataSet("TraerListadoPaises");
+            DataSet dsPais = SQLHelper.ExecuteDataSet("traerListadoPaisesCompleto");
             DropDownListManager.CargarCombo(cmbDNI, dsTipoDNI.Tables[0], "td_id", "td_descripcion", false, "");
             cmbDNI.SelectedIndex = -1;
             DropDownListManager.CargarCombo(cmbPais, dsPais.Tables[0], "pais_id", "pais_nombre", false, "");
             cmbPais.SelectedIndex = -1;
 
-           btnAceptarMCliente.Visible = false;
+           btnModificar.Visible = false;
            btnAceptarACliente.Visible = true;
-           /*btnAceptarRCliente.Visible = false;*/
 
         }
-        public void AbrirParaRegistrarNuevoCliente(int id_usuario)
-        {
-            this.Show();
 
-            cmbDNI.SelectedIndex = 0;
-            txtDNI.Enabled = true;
-            txtNombre.Text = "";
-            txtApellido.Text = "";
-            txtMail.Text = "";
-            txtCalle.Text = "";
-            txtDepto.Text = "";
-            txtPiso.Text = "";
-            txtNumero.Text = "";
-            dateTimePicker.Text = Convert.ToString(DateTime.Today);
-            cmbPais.SelectedIndex = 0;
-            chkActivo.Visible = false;
-
-            // el id del usuario nuevo que se registro y recibi como parametro lo guardo en mi
-            // atributo id_usuario_regustrado
-            this.id_usuario_registrado = id_usuario;
-
-           btnAceptarMCliente.Visible = false;
-           btnAceptarACliente.Visible = false;
-          /* btnVolver.Visible = false; */
-           /*btnAceptarRCliente.Visible = true;*/
-        }
-
-        private void btnVolver_Click(object sender, EventArgs e)
-        {
-            frmPadre.CargarListadoDeClientes();
-            frmPadre.BringToFront();
-            this.Close();
-        }
 
         private void ValidarCampos()
         {
@@ -199,160 +173,6 @@ namespace PagoElectronico.ABM_Cliente
             }
         }
 
-
-
-        private void btnAceptarACliente_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                ValidarCampos();
-                Cliente unClienteNuevo = new Cliente();
-
-                unClienteNuevo.Apellido = txtApellido.Text;
-                unClienteNuevo.Nombre = txtNombre.Text;
-                unClienteNuevo.Documento = Int32.Parse(txtDNI.Text);
-                unClienteNuevo.TipoDocumento = cmbDNI.Text;
-                unClienteNuevo.Calle = txtCalle.Text;
-                unClienteNuevo.PaisResidente = Convert.ToInt32(cmbPais.Text);
-                unClienteNuevo.NumeroDireccion = Convert.ToInt32(txtNumero.Text);
-                unClienteNuevo.DeptoDireccion = txtDepto.Text;
-                if (!String.IsNullOrEmpty(txtPiso.Text)) unClienteNuevo.PisoDireccion = -1;
-                unClienteNuevo.FechaNacimiento = DateTime.Parse(dateTimePicker.Text);
-                unClienteNuevo.Mail = txtMail.Text;
-                unClienteNuevo.Usuario = new Usuario();
-                unClienteNuevo.Usuario.CrearDefault(Convert.ToString(unClienteNuevo.Documento));
-                unClienteNuevo.estado = true;
-
-                // se instancio un nuevo Cliente y se le setearon todos los atributos segun los datos
-                // ingresados. Ahora le pido al cliente que guarde e inserte sus datos en la BD.
-
-                unClienteNuevo.guardarDatosDeClienteNuevo();
-                DialogResult dr = MessageBox.Show("El Cliente ha sido creado. Usuario y contraseña del nuevo usuario = " + Convert.ToString(unClienteNuevo.Documento), "Perfecto!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                if (dr == DialogResult.OK)
-                {
-                    this.Close();
-                    frmPadre.BringToFront();
-                }
-
-                //se actualiza la grilla
-                frmPadre.CargarListadoDeClientes();
-
-            }
-            catch (ErrorConsultaException ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (BadInsertException ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void btnAceptarMCliente_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                ValidarCampos();
-
-                clienteDelForm.Apellido = txtApellido.Text;
-                clienteDelForm.Nombre = txtNombre.Text;
-                clienteDelForm.Documento = Int32.Parse(txtDNI.Text);
-                clienteDelForm.TipoDocumento = cmbDNI.Text;
-                clienteDelForm.Calle = txtCalle.Text;
-                clienteDelForm.PaisResidente = Convert.ToInt32(cmbPais.Text);
-                clienteDelForm.DeptoDireccion = txtDepto.Text;
-                clienteDelForm.NumeroDireccion = Convert.ToInt32(txtCalle.Text);
-                if (!String.IsNullOrEmpty(txtPiso.Text)) clienteDelForm.PisoDireccion = -1;
-                clienteDelForm.PisoDireccion = Int32.Parse(txtPiso.Text);
-                clienteDelForm.FechaNacimiento = DateTime.Parse(dateTimePicker.Text);
-                clienteDelForm.Mail = txtMail.Text;
-                clienteDelForm.estado = chkActivo.Checked;
-
-                // despues de setear los atributos al clienteDelForm segun los datos ingresados
-                // le pido al cliente se encargue de modificar los datos.
-
-                clienteDelForm.ModificarDatos();
-                DialogResult dr = MessageBox.Show("El Cliente ha sido modificado", "Perfecto!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                if (dr == DialogResult.OK)
-                {
-                    this.Close();
-                    frmPadre.BringToFront();
-                }
-
-                //se vuelve a actualizar la grilla
-                frmPadre.CargarListadoDeClientes();
-            }
-            catch (ErrorConsultaException ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (BadInsertException ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        /*private void btnAceptarRCliente_Click_1(object sender, EventArgs e)
-        {
-            try
-            {
-                ValidarCampos();
-                Cliente unClienteNuevo = new Cliente();
-
-                unClienteNuevo.Apellido = txtApellido.Text;
-                unClienteNuevo.Nombre = txtNombre.Text;
-                unClienteNuevo.TipoDocumento = cmbDNI.Text;
-                unClienteNuevo.Documento = Int32.Parse(txtDNI.Text);
-                unClienteNuevo.Mail = txtMail.Text;
-                unClienteNuevo.Calle = txtCalle.Text;
-                unClienteNuevo.DeptoDireccion = txtDepto.Text;
-                if (!String.IsNullOrEmpty(txtPiso.Text)) unClienteNuevo.PisoDireccion = -1;
-                unClienteNuevo.PaisResidente = Convert.ToInt32(txtPais.Text);
-                unClienteNuevo.PisoDireccion = Int32.Parse(txtPiso.Text);
-                unClienteNuevo.NumeroDireccion = Convert.ToInt32(txtNumero.Text);
-                unClienteNuevo.FechaNacimiento = DateTime.Parse(txtFechaNac.Text);
-
-                unClienteNuevo.Usuario = new Usuario();
-                unClienteNuevo.Usuario.CrearDefault(Convert.ToString(unClienteNuevo.Documento));
-                unClienteNuevo.estado = true;
-
-                // Se crea un nuevo Cliente y se le setean los atributos con los datos ingresados.
-                // se le pide al cliente que guarden los datos en la BD. Para esto, se manda el id
-                // del nuevo usuario ingresado.
-                unClienteNuevo.guardarDatosDeClienteNuevoRegistrado(this.id_usuario_registrado);
-                DialogResult dr = MessageBox.Show("El Usuario ha sido registrado y el Cliente creado.", "Perfecto!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                if (dr == DialogResult.OK)
-                {
-                    this.Close();
-                }
-
-            }
-            catch (EntidadExistenteException ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (ErrorConsultaException ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (BadInsertException ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }*/
-
         private void linkTarjetas_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             abm_tarjetas frmTarjeta = new abm_tarjetas();
@@ -361,23 +181,25 @@ namespace PagoElectronico.ABM_Cliente
 
         }
 
-        private void btnAceptarMCliente_Click_1(object sender, EventArgs e)
+        private void btnModificar_Click(object sender, EventArgs e)
         {
             try
             {
                 ValidarCampos();
 
+
+                Cliente unClienteNuevo = new Cliente();
                 clienteDelForm.Apellido = txtApellido.Text;
                 clienteDelForm.Nombre = txtNombre.Text;
                 clienteDelForm.Documento = Int32.Parse(txtDNI.Text);
-                clienteDelForm.TipoDocumento = cmbDNI.Text;
+                clienteDelForm.TipoDocumento = Convert.ToInt64(cmbDNI.SelectedValue);
                 clienteDelForm.Calle = txtCalle.Text;
-                clienteDelForm.PaisResidente = Convert.ToInt32(cmbPais.Text);
+                clienteDelForm.PaisResidente = Convert.ToInt32(cmbPais.SelectedValue);
                 clienteDelForm.NumeroDireccion = Convert.ToInt32(txtNumero.Text);
                 clienteDelForm.DeptoDireccion = txtDepto.Text;
                 if (!String.IsNullOrEmpty(txtPiso.Text)) clienteDelForm.PisoDireccion = -1;
                 clienteDelForm.PisoDireccion = Int32.Parse(txtPiso.Text);
-                clienteDelForm.FechaNacimiento = DateTime.Parse(dateTimePicker.Text);
+                clienteDelForm.FechaNacimiento = dateTimePicker.Value.Date;
                 clienteDelForm.Mail = txtMail.Text;
                 clienteDelForm.estado = chkActivo.Checked;
 
@@ -389,7 +211,7 @@ namespace PagoElectronico.ABM_Cliente
                 if (dr == DialogResult.OK)
                 {
                     this.Close();
-                    /*frmPadre.BringToFront();*/
+
                 }
 
                 //se vuelve a actualizar la grilla
@@ -408,42 +230,45 @@ namespace PagoElectronico.ABM_Cliente
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        private void btnAceptarACliente_Click_1(object sender, EventArgs e)
+        
+        private void btnAceptarACliente_Click(object sender, EventArgs e)
         {
             try
             {
                 ValidarCampos();
-                Cliente unClienteNuevo = new Cliente();
 
+                Cliente unClienteNuevo = new Cliente();
                 clienteDelForm.Apellido = txtApellido.Text;
                 clienteDelForm.Nombre = txtNombre.Text;
                 clienteDelForm.Documento = Int32.Parse(txtDNI.Text);
-                clienteDelForm.TipoDocumento = cmbDNI.Text;
+                clienteDelForm.TipoDocumento = Convert.ToInt64(cmbDNI.SelectedValue);
                 clienteDelForm.Calle = txtCalle.Text;
-                clienteDelForm.PaisResidente = Convert.ToInt32(cmbPais.Text);
+                clienteDelForm.PaisResidente = Convert.ToInt32(cmbPais.SelectedValue);
                 clienteDelForm.NumeroDireccion = Convert.ToInt32(txtNumero.Text);
                 clienteDelForm.DeptoDireccion = txtDepto.Text;
                 if (!String.IsNullOrEmpty(txtPiso.Text)) clienteDelForm.PisoDireccion = -1;
                 clienteDelForm.PisoDireccion = Int32.Parse(txtPiso.Text);
-                clienteDelForm.FechaNacimiento = DateTime.Parse(dateTimePicker.Text);
+                clienteDelForm.FechaNacimiento = dateTimePicker.Value.Date;
                 clienteDelForm.Mail = txtMail.Text;
                 clienteDelForm.estado = chkActivo.Checked;
-                
-                unClienteNuevo.Usuario = new Usuario();
-                unClienteNuevo.Usuario.CrearDefault(Convert.ToString(unClienteNuevo.Documento));
-                unClienteNuevo.estado = true;
+
+
+                Usuario unUsuarioNuevo = new Usuario();
+                unClienteNuevo.Usuario = unUsuarioNuevo;
+                unUsuarioNuevo.Respuesta_Secreta =  Encryptor.GetSHA256(txtRespuesta.Text);
+                unUsuarioNuevo.Pregunta_Secreta = txtPregunta.Text;
+                unUsuarioNuevo.Username = txtDNI.Text;
+                unUsuarioNuevo.NombreApellido = txtNombre.Text + " " + txtApellido.Text;
+                unUsuarioNuevo.FechaCreacion = Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]);               
+                unUsuarioNuevo.FechaModificacion = Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]);
+                unUsuarioNuevo.Password = Encryptor.GetSHA256(txtPassword.Text);
 
                 // se instancio un nuevo Cliente y se le setearon todos los atributos segun los datos
                 // ingresados. Ahora le pido al cliente que guarde e inserte sus datos en la BD.
+                // Creo su usuario asociado
 
-                unClienteNuevo.guardarDatosDeClienteNuevo();
-                DialogResult dr = MessageBox.Show("El Cliente ha sido creado. Usuario y contraseña del nuevo usuario = " + Convert.ToString(unClienteNuevo.Documento), "Perfecto!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                if (dr == DialogResult.OK)
-                {
-                    this.Close();
-                    /*frmPadre.BringToFront();*/
-                }
+                unClienteNuevo.guardarDatosDeClienteNuevo(unUsuarioNuevo);
+                this.Close();
 
                 //se actualiza la grilla
                 frmPadre.CargarListadoDeClientes();
@@ -477,6 +302,15 @@ namespace PagoElectronico.ABM_Cliente
         {
             Validator.SoloLetras(e);
         }
+
+
+
+
+
+
+
+
+
     }
 }
 

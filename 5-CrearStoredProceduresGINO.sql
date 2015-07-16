@@ -43,6 +43,7 @@ BEGIN TRANSACTION
      AND (@cliente_numero_documento is null OR @cliente_numero_documento = 0 OR CONVERT(VARCHAR(10), cliente_numero_documento) LIKE '%' + CONVERT(VARCHAR(10), @cliente_numero_documento) + '%')
      AND cliente_mail LIKE (CASE WHEN @cliente_mail <> '' THEN '%' + @cliente_mail + '%' ELSE cliente_mail END)
      AND cliente_estado = 1
+     AND cliente_eliminado = 0
 COMMIT;
 GO
 
@@ -53,32 +54,26 @@ GO
 
 CREATE PROCEDURE [OOZMA_KAPPA].[updateCliente]
    @cliente_id numeric(18,0),
-   @Tipo_Dni numeric(18,0),
-   @Dni numeric(18,0),
-   @Apellido varchar(255),
-   @Nombre varchar(255),
-   @Fecha_nac datetime,
-   @Mail varchar(255),
-   @Pais_id numeric(18,0),
-   @Numero_calle varchar(255),
-   @Calle varchar(255),
-   @Dom_piso numeric(18,0),
-   @Dom_depto varchar(10),
-   @Estado bit
+   @cliente_apellido varchar(255),
+   @cliente_nombre varchar(255),
+   @cliente_mail varchar(255),
+   @cliente_pais_id numeric(18,0),
+   @cliente_numero varchar(255),
+   @cliente_calle varchar(255),
+   @cliente_direccion numeric(18,0),
+   @cliente_depto varchar(10),
+   @cliente_estado bit
 AS
 BEGIN TRANSACTION
-  UPDATE OOZMA_KAPPA.Cliente SET cliente_tipo_documento_id = @Tipo_Dni, 
-                                 cliente_numero_documento = @Dni, 
-                                 cliente_apellido = @Apellido, 
-                                 cliente_nombre = @Nombre, 
-                                 cliente_fecha_nacimiento = @Fecha_nac,
-                                 cliente_mail = @Mail, 
-                                 cliente_pais_residente_id = @Pais_id, 
-                                 cliente_numero = @Numero_calle, 
-                                 cliente_calle = @Calle,
-                                 cliente_piso = @Dom_piso, 
-                                 cliente_depto = @Dom_depto, 
-                                 cliente_estado = @Estado
+  UPDATE OOZMA_KAPPA.Cliente SET cliente_apellido = @cliente_apellido, 
+                                 cliente_nombre = @cliente_nombre, 
+                                 cliente_mail = @cliente_mail, 
+                                 cliente_pais_residente_id = @cliente_pais_id, 
+                                 cliente_numero = @cliente_numero, 
+                                 cliente_calle = @cliente_calle,
+                                 cliente_piso = @cliente_direccion, 
+                                 cliente_depto = @cliente_depto, 
+                                 cliente_estado = @cliente_estado
   WHERE cliente_id = @cliente_id
 COMMIT;
 GO
@@ -88,7 +83,7 @@ GO
 CREATE PROCEDURE  [OOZMA_KAPPA].[deleteCliente]  
    @cliente_id numeric(18,0)
 AS
-UPDATE OOZMA_KAPPA.Cliente SET cliente_eliminado = 1
+UPDATE OOZMA_KAPPA.Cliente SET cliente_estado = 1
 WHERE cliente_id = @cliente_id
 GO
 
@@ -96,8 +91,7 @@ GO
 
 -- INSERTAR UN NUEVO CLIENTE --
 
-CREATE PROCEDURE [OOZMA_KAPPA].insertCliente
-   @cliente_id numeric(18,0), 
+CREATE PROCEDURE [OOZMA_KAPPA].insertCliente 
    @cliente_usuario_id numeric(18,0), 
    @Tipo_Dni numeric(18,0), 
    @Dni numeric(18,0),
@@ -113,10 +107,10 @@ CREATE PROCEDURE [OOZMA_KAPPA].insertCliente
    @Estado bit
 AS
 BEGIN TRANSACTION
-  INSERT INTO OOZMA_KAPPA.Cliente (cliente_id,cliente_usuario_id,cliente_tipo_documento_id,cliente_numero_documento,
+  INSERT INTO OOZMA_KAPPA.Cliente (cliente_usuario_id,cliente_tipo_documento_id,cliente_numero_documento,
   cliente_apellido, cliente_nombre,cliente_fecha_nacimiento,cliente_mail,cliente_pais_residente_id,cliente_numero,
   cliente_calle,cliente_piso, cliente_depto, cliente_estado)
-  VALUES(@cliente_id, @cliente_usuario_id, @Tipo_Dni,@Dni,@Apellido,@Nombre,@Fecha_nac,@Mail,@Pais_id,@Numero_calle,
+  VALUES(@cliente_usuario_id, @Tipo_Dni,@Dni,@Apellido,@Nombre,@Fecha_nac,@Mail,@Pais_id,@Numero_calle,
   @Calle,@Dom_piso,@Dom_depto,@Estado);
 COMMIT;
 GO
@@ -126,49 +120,32 @@ GO
 -- VALIDAR DNI EN CLIENTE --
 
 CREATE PROCEDURE [OOZMA_KAPPA].validarDniEnCliente
-   @cliente_id numeric(18,0) = null,
-   @cliente_usuario_id numeric(18,0) = null,
-   @Tipo_Dni numeric(18,0) = null,
-   @Dni numeric(18,0) = null,
-   @Apellido varchar(255) = null,
-   @Nombre varchar(255) = null,
-   @Fecha_nac datetime = null,
-   @Mail varchar(255) = null,
-   @Pais_id numeric(18,0) = null,
-   @Numero_calle varchar(255) = null,
-   @Calle varchar(255) = null,
-   @Dom_piso numeric(18,0) = null,
-   @Dom_depto varchar(10) = null,
-   @Estado bit
+	@cliente_dni numeric(18,0)
 AS
 BEGIN TRANSACTION
 
    SELECT * FROM OOZMA_KAPPA.Cliente 
-   WHERE cliente_numero_documento = @Dni AND (cliente_id <> @cliente_id OR @cliente_id IS NULL) 
-                                         AND (cliente_usuario_id <> @cliente_id OR @cliente_usuario_id IS NULL)
-
+   WHERE cliente_numero_documento = @cliente_dni;
 
 COMMIT;
 GO
 
-CREATE PROCEDURE [OOZMA_KAPPA].TraerListadoPaises
-AS
-BEGIN TRANSACTION
 
-select pais_nombre from OOZMA_KAPPA.Pais
-order by pais_nombre asc
-COMMIT;
+CREATE PROCEDURE [OOZMA_KAPPA].[InsertUsuario_RetornarID]
+    @Username numeric(18,0),
+    @Clave nvarchar(64),
+    @Pregunta nvarchar(64),
+    @Respuesta nvarchar(64),
+    @Modificacion datetime,
+    @Creacion datetime,
+    @Nombre nvarchar(255)
+AS
+BEGIN 
+
+	INSERT INTO OOZMA_KAPPA.Usuario (usuario_username, usuario_nombreYapellido, usuario_password, usuario_fecha_creacion, usuario_fecha_ultima_modificacion, usuario_pregunta_secreta, usuario_respuesta_secreta)
+	VALUES(@Username, @Nombre, @Clave,@Creacion, @Modificacion, @Pregunta, @Respuesta);
+	
+	SELECT @@IDENTITY as usuario_id;
+
+END
 GO
-
-
-CREATE PROCEDURE  [OOZMA_KAPPA].[deleteCliente]  
-   @cliente_id numeric(18,0)
-AS
-UPDATE OOZMA_KAPPA.Cliente SET cliente_eliminado = 1
-WHERE cliente_id = @cliente_id
-
-CREATE PROCEDURE [OOZMA_KAPPA].[TraerListadoPaises]
-AS
-BEGIN
-   SELECT pais_id as pais_id, pais_nombre as pais_nombre FROM OOZMA_KAPPA.Pais
-END  
