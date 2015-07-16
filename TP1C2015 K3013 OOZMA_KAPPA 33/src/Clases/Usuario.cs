@@ -24,10 +24,13 @@ namespace Clases
         //Defino los atributos que a mi entender son necesarios para la aplicacion. 
         private int _usuario_id;
         private string _username;
+        private string _nombreYApellido;
         private string _password;
         private bool _estado;
         private string _preguntaSecreta;
         private string _respuestaSecreta;
+        private DateTime _fechaCreacion;
+        private DateTime _fechaUltimaModificacion;
         private Rol _rol;  //el rol que se le asignada al usuario al momento de loguearse
 
         #endregion
@@ -36,13 +39,6 @@ namespace Clases
         public Usuario()
         {
 
-        }
-
-        public void CrearDefault(string unNombreDeUsuario)
-        {
-            this.Username = unNombreDeUsuario;
-            this.Password = Encryptor.GetSHA256(unNombreDeUsuario);
-            this.Estado = true;
         }
 
 
@@ -55,6 +51,25 @@ namespace Clases
             get { return _usuario_id; }
             set { _usuario_id = value; }
         }
+        
+        public DateTime FechaCreacion
+        {
+            get { return _fechaCreacion; }
+            set { _fechaCreacion = value; }
+        }
+
+            public DateTime FechaModificacion
+        {
+            get { return _fechaUltimaModificacion; }
+            set { _fechaUltimaModificacion = value; }
+        }
+
+         public string NombreApellido
+        {
+            get { return _nombreYApellido; }
+            set { _nombreYApellido = value; }
+        }
+
         public string Username
         {
             get { return _username; }
@@ -115,25 +130,6 @@ namespace Clases
             this.Estado = Convert.ToBoolean(dr["usuario_estado"]);
         }
 
-        private bool esClaveAutoGenerada(DataRow dr)
-        {
-            string @claveAutoGenerada = "ECE6128060FCDA0AFC43C2D59109C410E89DE2BEF602D70ED62C0640FD795970";
-            bool @boolClave = false;
-            if (claveAutoGenerada == dr["usuario_password"].ToString())
-            {
-                @boolClave = true;
-            }
-            return boolClave;
-        }
-
-        public int GuardarYObtenerID()
-        {
-            setearListaDeParametros();
-            DataSet dsNuevoUsuario = this.GuardarYObtenerID(parameterList);
-            this.usuario_id = Convert.ToInt32(dsNuevoUsuario.Tables[0].Rows[0]["id_Usuario"]);
-            return this.usuario_id;
-        }
-
 
         #endregion
 
@@ -167,6 +163,19 @@ namespace Clases
             parameterList.Add(new SqlParameter("@Clave", this.Password));
             parameterList.Add(new SqlParameter("@Estado", this.Estado));
         }
+
+        private void setearListaDeParametrosCompletaSinID()
+        {
+            parameterList.Add(new SqlParameter("@Username", this.Username));
+            parameterList.Add(new SqlParameter("@Clave", this.Password));
+            parameterList.Add(new SqlParameter("@Pregunta", this.Pregunta_Secreta));
+            parameterList.Add(new SqlParameter("@Respuesta", this.Respuesta_Secreta));
+            parameterList.Add(new SqlParameter("@Modificacion", this.FechaModificacion));
+            parameterList.Add(new SqlParameter("@Creacion", this.FechaCreacion));
+            parameterList.Add(new SqlParameter("@Nombre", this.NombreApellido));
+        }
+
+
         #endregion
 
         #region Busquedas en la base
@@ -234,9 +243,21 @@ namespace Clases
             return false;
         }
 
+
+        public int GuardarYObtenerID()
+        {
+            setearListaDeParametrosCompletaSinID();
+            DataSet dsNuevoUsuario = this.GuardarYObtenerID(parameterList);
+            this.usuario_id = Convert.ToInt32(dsNuevoUsuario.Tables[0].Rows[0]["usuario_id"]);
+            return this.usuario_id;
+        }
+
+
         #endregion
 
 
-        
+
+
+
     }
 }

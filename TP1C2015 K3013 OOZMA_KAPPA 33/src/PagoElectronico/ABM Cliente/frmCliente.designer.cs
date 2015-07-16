@@ -49,7 +49,7 @@
             this.txtDepto = new System.Windows.Forms.TextBox();
             this.cmbDNI = new System.Windows.Forms.ComboBox();
             this.chkActivo = new System.Windows.Forms.CheckBox();
-            this.label12 = new System.Windows.Forms.Label();
+            this.lblestado = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.cmbPais = new System.Windows.Forms.ComboBox();
@@ -61,7 +61,7 @@
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.txtRespuesta = new System.Windows.Forms.TextBox();
             this.txtPregunta = new System.Windows.Forms.TextBox();
-            this.btnAceptarMCliente = new System.Windows.Forms.Button();
+            this.btnModificar = new System.Windows.Forms.Button();
             this.linkTarjetas = new System.Windows.Forms.LinkLabel();
             this.btnAceptarACliente = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
@@ -255,21 +255,21 @@
             this.chkActivo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chkActivo.UseVisualStyleBackColor = true;
             // 
-            // label12
+            // lblestado
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(302, 148);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(55, 15);
-            this.label12.TabIndex = 28;
-            this.label12.Text = "ESTADO";
+            this.lblestado.AutoSize = true;
+            this.lblestado.Location = new System.Drawing.Point(302, 148);
+            this.lblestado.Name = "lblestado";
+            this.lblestado.Size = new System.Drawing.Size(55, 15);
+            this.lblestado.TabIndex = 28;
+            this.lblestado.Text = "ESTADO";
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.dateTimePicker);
             this.groupBox1.Controls.Add(this.cmbPais);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.label12);
+            this.groupBox1.Controls.Add(this.lblestado);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.chkActivo);
             this.groupBox1.Controls.Add(this.label3);
@@ -290,6 +290,7 @@
             // 
             // dateTimePicker
             // 
+            this.dateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dateTimePicker.Location = new System.Drawing.Point(444, 105);
             this.dateTimePicker.Name = "dateTimePicker";
             this.dateTimePicker.Size = new System.Drawing.Size(189, 21);
@@ -382,15 +383,15 @@
             this.txtPregunta.TabIndex = 34;
             this.txtPregunta.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPregunta_KeyPress);
             // 
-            // btnAceptarMCliente
+            // btnModificar
             // 
-            this.btnAceptarMCliente.Location = new System.Drawing.Point(535, 405);
-            this.btnAceptarMCliente.Name = "btnAceptarMCliente";
-            this.btnAceptarMCliente.Size = new System.Drawing.Size(112, 27);
-            this.btnAceptarMCliente.TabIndex = 40;
-            this.btnAceptarMCliente.Text = "Aceptar";
-            this.btnAceptarMCliente.UseVisualStyleBackColor = true;
-            this.btnAceptarMCliente.Click += new System.EventHandler(this.btnAceptarMCliente_Click_1);
+            this.btnModificar.Location = new System.Drawing.Point(535, 405);
+            this.btnModificar.Name = "btnModificar";
+            this.btnModificar.Size = new System.Drawing.Size(112, 27);
+            this.btnModificar.TabIndex = 40;
+            this.btnModificar.Text = "Modificar";
+            this.btnModificar.UseVisualStyleBackColor = true;
+            this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
             // 
             // linkTarjetas
             // 
@@ -412,19 +413,19 @@
             this.btnAceptarACliente.TabIndex = 38;
             this.btnAceptarACliente.Text = "Aceptar";
             this.btnAceptarACliente.UseVisualStyleBackColor = true;
-            this.btnAceptarACliente.Click += new System.EventHandler(this.btnAceptarACliente_Click_1);
+            this.btnAceptarACliente.Click += new System.EventHandler(this.btnAceptarACliente_Click);
             // 
             // frmCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(656, 440);
-            this.Controls.Add(this.btnAceptarMCliente);
-            this.Controls.Add(this.btnAceptarACliente);
             this.Controls.Add(this.linkTarjetas);
             this.Controls.Add(this.gbUsuario);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.btnModificar);
+            this.Controls.Add(this.btnAceptarACliente);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.Name = "frmCliente";
             this.Text = "Pago Electrónico - ABM Cliente";
@@ -462,7 +463,7 @@
         private System.Windows.Forms.TextBox txtDepto;
         private System.Windows.Forms.ComboBox cmbDNI;
         private System.Windows.Forms.CheckBox chkActivo;
-        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label lblestado;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label13;
@@ -474,7 +475,7 @@
         private System.Windows.Forms.TextBox txtPregunta;
         private System.Windows.Forms.LinkLabel linkTarjetas;
         private System.Windows.Forms.Button btnAceptarACliente;
-        private System.Windows.Forms.Button btnAceptarMCliente;
+        private System.Windows.Forms.Button btnModificar;
         private System.Windows.Forms.ComboBox cmbPais;
         private System.Windows.Forms.DateTimePicker dateTimePicker;
     }

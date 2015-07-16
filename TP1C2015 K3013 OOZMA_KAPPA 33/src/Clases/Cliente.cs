@@ -26,7 +26,7 @@ namespace Clases
         private string _nombre;
         private string _apellido;
         private DateTime _fecha_nacimiento;
-        private string _tipo_documento_id;
+        private Int64 _tipo_documento_id;
         private Int64 _documento;
         private Int64 _pais_residente_id;
         private Usuario _usuario;
@@ -62,7 +62,7 @@ namespace Clases
         }
 
         //SOLO CON LOS FILTROS
-        public Cliente(string unNombre, string unApellido, string unTipoDni, Int64 unDni, string unMail, DateTime fechaNacimiento, Int64 paisResidente, string calle, Int64 numero, Int64 piso, string depto)
+        public Cliente(string unNombre, string unApellido, Int64 unTipoDni, Int64 unDni, string unMail, DateTime fechaNacimiento, Int64 paisResidente, string calle, Int64 numero, Int64 piso, string depto)
         {
             this.Apellido = unApellido;
             this.Nombre = unNombre;
@@ -78,7 +78,7 @@ namespace Clases
         }
 
         //TODOS LOS DATOS
-        public Cliente(string unNombre, string unApellido, string unTipoDni, Int64 unDni, string unMail)
+        public Cliente(string unNombre, string unApellido, Int64 unTipoDni, Int64 unDni, string unMail)
         {
             this.Apellido = unApellido;
             this.Nombre = unNombre;
@@ -140,7 +140,7 @@ namespace Clases
             set { _usuario = value; }
         }
 
-        public string TipoDocumento
+        public Int64 TipoDocumento
         {
             get { return _tipo_documento_id; }
             set { _tipo_documento_id = value; }
@@ -217,7 +217,7 @@ namespace Clases
         {
             // Esto es tal cual lo devuelve el stored de la DB
             this.cliente_id = Convert.ToInt64(dr["cliente_id"]);
-            this.TipoDocumento = dr["cliente_tipo_documento_id"].ToString();
+            this.TipoDocumento = Convert.ToInt64(dr["cliente_tipo_documento_id"]);
             this.Documento = Convert.ToInt64(dr["cliente_numero_documento"]);
             this.Apellido = dr["cliente_apellido"].ToString();
             this.Nombre = dr["cliente_nombre"].ToString();
@@ -246,7 +246,21 @@ namespace Clases
             this.parameterList.Clear();
             parameterList.Add(new SqlParameter("@cliente_id", this.cliente_id));
         }
-       
+
+        public void setearListaDeParametrosCompletaParaModificar()
+        {
+            this.parameterList.Clear();
+            parameterList.Add(new SqlParameter("@cliente_id", this.cliente_id));
+            parameterList.Add(new SqlParameter("@cliente_apellido", this.Apellido));
+            parameterList.Add(new SqlParameter("@cliente_nombre", this.Nombre));
+            parameterList.Add(new SqlParameter("@cliente_mail", this.Mail));
+            parameterList.Add(new SqlParameter("@cliente_pais_id", this.PaisResidente));
+            parameterList.Add(new SqlParameter("@cliente_numero", this.NumeroDireccion));
+            parameterList.Add(new SqlParameter("@cliente_calle", this.Calle));
+            parameterList.Add(new SqlParameter("@cliente_direccion", this.PisoDireccion));
+            parameterList.Add(new SqlParameter("@cliente_depto", this.DeptoDireccion));
+            parameterList.Add(new SqlParameter("@cliente_estado", this.estado));
+        }
         
         private void setearListaDeParametrosConClienteIDYCuentaID(Int64 cliente_id, Int64 cuenta_id)
         {
@@ -258,6 +272,7 @@ namespace Clases
 
         private void setearListaDeParametrosConFiltros(string Nombre, string Apellido, int TipoDni, string Dni, string Mail)
         {
+            parameterList.Clear();
             parameterList.Add(new SqlParameter("@cliente_nombre", Nombre));
             parameterList.Add(new SqlParameter("@cliente_apellido", Apellido));
             parameterList.Add(new SqlParameter("@cliente_tipo_documento_id", TipoDni));
@@ -265,9 +280,15 @@ namespace Clases
             parameterList.Add(new SqlParameter("@cliente_mail", Mail));
         }
 
-        private void setearListaDeParametros()
+        private void setearListaDeParametrosConDNI()
         {
-            parameterList.Add(new SqlParameter("@cliente_id", this.cliente_id));
+            parameterList.Clear();
+            parameterList.Add(new SqlParameter("@cliente_dni", this.Documento));
+        }
+
+        private void setearListaDeParametrosCompletaSinID()
+        {
+            parameterList.Clear();
             parameterList.Add(new SqlParameter("@cliente_tipo_documento_id", this.TipoDocumento));
             parameterList.Add(new SqlParameter("@cliente_numero_documento", this.Documento));
             parameterList.Add(new SqlParameter("@cliente_apellido", this.Apellido));
@@ -305,19 +326,19 @@ namespace Clases
         }
 
 
-        public void guardarDatosDeClienteNuevo()
+        public void guardarDatosDeClienteNuevo(Usuario unUsuarioNuevo)
         {
-            setearListaDeParametros();
-            //Guardo tambien en la lista de parametros el id_rol (variable privada de la clase)
-            //Para que tambien se inserte la relacio id_rol id_usuario en la BD
-
+            //Valido que el dni que ingrese no corresponda a otro cliente ya existente.
+            setearListaDeParametrosConDNI();
+            MessageBox.Show("4", "");
             DataSet ds2 = SQLHelper.ExecuteDataSet("validarDniEnCliente", CommandType.StoredProcedure, parameterList);
             if ((ds2.Tables[0].Rows.Count == 0))
             {
                 // y otro que me trae los clientes where dni = DniIngresado
                 // solo si los dos ds estan vacios se inserta el usuarioDefault y el cliente en la BD
-                this.Usuario.usuario_id = this.Usuario.GuardarYObtenerID();
-                setearListaDeParametrosConUsuarioID(this.Usuario.usuario_id);
+                this.Usuario.usuario_id = unUsuarioNuevo.GuardarYObtenerID();
+
+                setearListaDeParametrosCompletaSinID();
                 this.Guardar(parameterList);
             }
             else
@@ -330,40 +351,20 @@ namespace Clases
 
         public void ModificarDatos()
         {
-            /*parameterList.Clear(); VER GINO LO COMENTE PORQUE SE REPETIA CODIGO CREO
-            setearListaDeParametros();*/
-            setearListaDeParametrosConClienteID(this.cliente_id);
-            DataSet ds2 = SQLHelper.ExecuteDataSet("validarDniEnCliente", CommandType.StoredProcedure, parameterList);
-            if ((ds2.Tables[0].Rows.Count == 0))
-            {
-                // se ejecuto un procedure que me traia los clientes where telefono = telfonoIngresado
-                // solo si el ds esta vacio se inserta el usuarioDefault y el cliente en la BD
-
-                if (this.Modificar(parameterList))
-                {
-                    parameterList.Clear();
-                }
-            }
-            else
-            {
-                if (ds2.Tables[0].Rows.Count != 0) throw new Exception("Ya existe un Cliente con este Dni. Por favor, ingrese otro.");
-            }
-            parameterList.Clear();
-
+            setearListaDeParametrosCompletaParaModificar();
+            this.Modificar(parameterList);
         }
 
         public void Eliminar()
         {
             setearListaDeParametrosConClienteID(this.cliente_id);
             this.Eliminar(parameterList);
-            parameterList.Clear();
         }
 
         public DataSet ObtenerClientesPorUsuarioID(Int64 unUsuarioID)
         {
             this.setearListaDeParametrosConUsuarioID(unUsuarioID);
             DataSet ds = this.TraerListado(this.parameterList, "PorUsuarioID");
-            this.parameterList.Clear();
             return ds;
         }
 
@@ -383,7 +384,6 @@ namespace Clases
             {
                 this.DataRowToObject(ds.Tables[0].Rows[0]);
             }
-            this.parameterList.Clear();
             return ds;
         }
 
@@ -418,28 +418,6 @@ namespace Clases
                 return Convert.ToInt64(ds.Tables[0].Rows[0]["cantidadSuscripciones"]);
             };
         }
-
-        public void guardarDatosDeClienteNuevoRegistrado(int id_usuario)
-        {
-            setearListaDeParametros();
-            //Guardo tambien en la lista de parametros el id_rol (variable privada de la clase)
-            //Para que tambien se inserte la relacio id_rol id_usuario en la BD
-            setearListaDeParametrosConUsuarioID(id_usuario);
-            DataSet ds2 = SQLHelper.ExecuteDataSet("validarDniEnCliente", CommandType.StoredProcedure, parameterList);
-            if ((ds2.Tables[0].Rows.Count == 0))
-            {
-                // se ejecuto un procedure que me traia los clientes where telefono = telfonoIngresado
-                // y otro que me trae los clientes where dni = DniIngresado
-                // solo si los dos ds estan vacios se inserta el cliente en la BD                
-                this.Guardar(parameterList); //el sp, esta en Base.cs//
-            }
-            else
-            {
-                if (ds2.Tables[0].Rows.Count != 0) throw new Exception("Ya existe un Cliente con este Dni. Por favor, ingrese otro.");
-            }
-            parameterList.Clear();
-        }
-
         #endregion        
        
         public void CargarObjetoClienteConId()
@@ -447,7 +425,7 @@ namespace Clases
             //Con el id del cliente me traigo de la BD todos los datos del Cliente
             setearListaDeParametrosConIdCliente();
             DataSet ds = SQLHelper.ExecuteDataSet("traerClienteConId", CommandType.StoredProcedure, parameterList);
-            parameterList.Clear();
+            
             if (ds.Tables[0].Rows.Count == 1)
             {
                 DataRowToObject(ds.Tables[0].Rows[0]);

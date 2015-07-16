@@ -49,7 +49,7 @@ namespace PagoElectronico.ABM_Cliente
             {
                 unCliente.Nombre = Convert.ToString(txtNombre.Text);
                 unCliente.Apellido = Convert.ToString(txtApellido.Text);
-                unCliente.TipoDocumento = Convert.ToString(cmbTipoDoc.SelectedIndex);
+                unCliente.TipoDocumento = Convert.ToInt64(cmbTipoDoc.SelectedValue);
                 unCliente.Mail = Convert.ToString(txtMail.Text);
                 if (txtDNI.Text == "") { unCliente.Documento = 0; } else { unCliente.Documento = Convert.ToInt64(txtDNI.Text); }
                 CargarListadoDeClientesConFiltros();
@@ -207,20 +207,14 @@ namespace PagoElectronico.ABM_Cliente
             DialogResult dr = MessageBox.Show("¿Está seguro que desea dar de baja el Cliente?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dr == DialogResult.Yes)
             {
-                Cliente unCliente = new Cliente(valorIdSeleccionado());
+                unCliente.cliente_id = valorIdSeleccionado();
                 unCliente.Eliminar();
                 MessageBox.Show("El Cliente ha sido eliminado", "Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 DataSet ds = ObtenerClientes();
                 cargarGrilla(ds);
 
-                //Cargar combo tipo dni
-                DataSet dsTipoDNI = SQLHelper.ExecuteDataSet("TraerListadoTipoDocumento");
-                DropDownListManager.CargarCombo(cmbTipoDoc, dsTipoDNI.Tables[0], "td_id", "td_descripcion", false, "");
                 cmbTipoDoc.SelectedIndex = -1;
-                
-                
-                /*CargarListadoDeClientes();  agregue el codigo de mas arriba, desde DataSet ds hasta -1;*/
             }
         }
 

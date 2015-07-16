@@ -82,7 +82,7 @@ namespace PagoElectronico.ABM_Cuenta
             {
                 unaCuenta.Cliente.Nombre = Convert.ToString(txtNombre.Text);
                 unaCuenta.Cliente.Apellido = Convert.ToString(txtApellido.Text);
-                unaCuenta.Cliente.TipoDocumento = Convert.ToString(cmbTipoDNI.SelectedIndex);
+                unaCuenta.Cliente.TipoDocumento = Convert.ToInt64(cmbTipoDNI.SelectedValue);
                 if (txtDNI.Text == "") {unaCuenta.Cliente.Documento = 0; } else { unaCuenta.Cliente.Documento = Convert.ToInt64(txtDNI.Text); }
                 DataSet ds = unaCuenta.TraerCuentaPorFiltrosCliente();
                 cargarGrilla(ds);
