@@ -5,7 +5,7 @@
 CREATE PROCEDURE [OOZMA_KAPPA].[TraerListadoClienteConTodo]
 AS
 BEGIN TRANSACTION
-SELECT * FROM OOZMA_KAPPA.Cliente
+SELECT * FROM OOZMA_KAPPA.Cliente where cliente_eliminado = 0
 COMMIT;
 GO
 
@@ -159,3 +159,16 @@ select pais_id from OOZMA_KAPPA.Pais
 
 COMMIT;
 GO
+
+
+CREATE PROCEDURE  [OOZMA_KAPPA].[deleteCliente]  
+   @cliente_id numeric(18,0)
+AS
+UPDATE OOZMA_KAPPA.Cliente SET cliente_eliminado = 1
+WHERE cliente_id = @cliente_id
+
+CREATE PROCEDURE [OOZMA_KAPPA].[TraerListadoPaises]
+AS
+BEGIN
+   SELECT pais_id as pais_id, pais_nombre as pais_nombre FROM OOZMA_KAPPA.Pais
+END  

@@ -79,8 +79,14 @@ namespace PagoElectronico.ABM_Cliente
             txtRespuesta.Visible = false;
             gbUsuario.Visible = false;
             chkActivo.Visible = true;
-            
 
+            //Cargar combo tipo dni y combo pais
+            DataSet dsTipoDNI = SQLHelper.ExecuteDataSet("TraerListadoTipoDocumento");
+            DataSet dsPais = SQLHelper.ExecuteDataSet("TraerListadoPaises");
+            DropDownListManager.CargarCombo(cmbDNI, dsTipoDNI.Tables[0], "td_id", "td_descripcion", false, "");
+            cmbDNI.SelectedIndex = -1;
+            DropDownListManager.CargarCombo(cmbPais, dsPais.Tables[0], "pais_id", "pais_nombre", false, "");
+            cmbPais.SelectedIndex = -1;
 
             frmPadre = frmEnviador;
             clienteDelForm = unCliente;
@@ -471,7 +477,6 @@ namespace PagoElectronico.ABM_Cliente
         {
             Validator.SoloLetras(e);
         }
-
     }
 }
 
