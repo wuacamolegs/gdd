@@ -83,7 +83,7 @@ GO
 CREATE PROCEDURE  [OOZMA_KAPPA].[deleteCliente]  
    @cliente_id numeric(18,0)
 AS
-UPDATE OOZMA_KAPPA.Cliente SET cliente_estado = 1
+UPDATE OOZMA_KAPPA.Cliente SET cliente_eliminado = 1
 WHERE cliente_id = @cliente_id
 GO
 

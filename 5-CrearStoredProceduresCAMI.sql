@@ -1,4 +1,4 @@
------ DROP STORED PROCEDURES ------
+t----- DROP STORED PROCEDURES ------
 
 USE [GD1C2015]
 GO
@@ -411,6 +411,7 @@ CREATE PROCEDURE OOZMA_KAPPA.traerListadoPaisesCompleto
 AS
 BEGIN
 	SELECT pais_id, pais_nombre FROM OOZMA_KAPPA.Pais
+	ORDER BY pais_nombre ASC
 END
 GO
 
