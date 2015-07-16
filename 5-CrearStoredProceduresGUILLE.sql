@@ -8,7 +8,7 @@ AS
 Begin	
 	SELECT cuenta_id as cuenta_numero, cuenta_estado, cuenta_saldo, cuenta_fecha_apertura as fecha_apertura, cuenta_fecha_cierre as fecha_cierre 
 	   FROM OOZMA_KAPPA.Cuenta 
-	   WHERE cuenta_cliente_id = @cliente_id And CONVERT(varchar(10), cuenta_fecha_cierre, 103) > CONVERT(varchar(10), @fecha, 103)
+	   WHERE cuenta_cliente_id = @cliente_id and cuenta_cerrada = 0 and cuenta_estado = 1
 End	                                         	                                        
 GO
 

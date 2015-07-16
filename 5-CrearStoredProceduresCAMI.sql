@@ -474,7 +474,7 @@ CREATE PROCEDURE OOZMA_KAPPA.DeleteCuenta
 	@cuenta_id numeric(18,0)
 AS
 BEGIN
-	UPDATE OOZMA_KAPPA.Cuenta SET cuenta_cerrada = 0 WHERE cuenta_id = @cuenta_id;
+	UPDATE OOZMA_KAPPA.Cuenta SET cuenta_cerrada = 1 WHERE cuenta_id = @cuenta_id;
 END
 GO
 
