@@ -47,15 +47,7 @@ COMMIT;
 GO
 
 
--- VALIDAR DNI EN CLIENTE --
 
-CREATE PROCEDURE [OOZMA_KAPPA].[validarDniEnCliente]
-   @nro_doc numeric(18,0)
-AS
-BEGIN TRANSACTION
-  SELECT cliente_numero_documento FROM OOZMA_KAPPA.Cliente WHERE cliente_numero_documento = @nro_doc
-COMMIT;
-GO
 
 -- MODIFICAR CLIENTE --
 
