@@ -151,7 +151,7 @@ namespace PagoElectronico.ABM_Cliente
 
            btnAceptarMCliente.Visible = false;
            btnAceptarACliente.Visible = false;
-           btnVolver.Visible = false;
+          /* btnVolver.Visible = false; */
            btnAceptarRCliente.Visible = true;
         }
 
@@ -352,6 +352,108 @@ namespace PagoElectronico.ABM_Cliente
             frmTarjeta.abrirConCliente(clienteDelForm);
             frmTarjeta.Show();
 
+        }
+
+        private void btnAceptarMCliente_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                ValidarCampos();
+
+                clienteDelForm.Apellido = txtApellido.Text;
+                clienteDelForm.Nombre = txtNombre.Text;
+                clienteDelForm.Documento = Int32.Parse(txtDNI.Text);
+                clienteDelForm.TipoDocumento = cmbDNI.Text;
+                clienteDelForm.Calle = txtCalle.Text;
+                clienteDelForm.PaisResidente = Convert.ToInt32(txtPais.Text);
+                clienteDelForm.NumeroDireccion = Convert.ToInt32(txtNumero.Text);
+                clienteDelForm.DeptoDireccion = txtDepto.Text;
+                if (!String.IsNullOrEmpty(txtPiso.Text)) clienteDelForm.PisoDireccion = -1;
+                clienteDelForm.PisoDireccion = Int32.Parse(txtPiso.Text);
+                clienteDelForm.FechaNacimiento = DateTime.Parse(txtFechaNac.Text);
+                clienteDelForm.Mail = txtMail.Text;
+                clienteDelForm.estado = chkActivo.Checked;
+
+                // despues de setear los atributos al clienteDelForm segun los datos ingresados
+                // le pido al cliente se encargue de modificar los datos.
+
+                clienteDelForm.ModificarDatos();
+                DialogResult dr = MessageBox.Show("El Cliente ha sido modificado", "Perfecto!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (dr == DialogResult.OK)
+                {
+                    this.Close();
+                    /*frmPadre.BringToFront();*/
+                }
+
+                //se vuelve a actualizar la grilla
+                frmPadre.CargarListadoDeClientes();
+            }
+            catch (ErrorConsultaException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (BadInsertException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnAceptarACliente_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                ValidarCampos();
+                Cliente unClienteNuevo = new Cliente();
+
+                clienteDelForm.Apellido = txtApellido.Text;
+                clienteDelForm.Nombre = txtNombre.Text;
+                clienteDelForm.Documento = Int32.Parse(txtDNI.Text);
+                clienteDelForm.TipoDocumento = cmbDNI.Text;
+                clienteDelForm.Calle = txtCalle.Text;
+                clienteDelForm.PaisResidente = Convert.ToInt32(txtPais.Text);
+                clienteDelForm.NumeroDireccion = Convert.ToInt32(txtNumero.Text);
+                clienteDelForm.DeptoDireccion = txtDepto.Text;
+                if (!String.IsNullOrEmpty(txtPiso.Text)) clienteDelForm.PisoDireccion = -1;
+                clienteDelForm.PisoDireccion = Int32.Parse(txtPiso.Text);
+                clienteDelForm.FechaNacimiento = DateTime.Parse(txtFechaNac.Text);
+                clienteDelForm.Mail = txtMail.Text;
+                clienteDelForm.estado = chkActivo.Checked;
+                
+                unClienteNuevo.Usuario = new Usuario();
+                unClienteNuevo.Usuario.CrearDefault(Convert.ToString(unClienteNuevo.Documento));
+                unClienteNuevo.estado = true;
+
+                // se instancio un nuevo Cliente y se le setearon todos los atributos segun los datos
+                // ingresados. Ahora le pido al cliente que guarde e inserte sus datos en la BD.
+
+                unClienteNuevo.guardarDatosDeClienteNuevo();
+                DialogResult dr = MessageBox.Show("El Cliente ha sido creado. Usuario y contraseña del nuevo usuario = " + Convert.ToString(unClienteNuevo.Documento), "Perfecto!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (dr == DialogResult.OK)
+                {
+                    this.Close();
+                    /*frmPadre.BringToFront();*/
+                }
+
+                //se actualiza la grilla
+                frmPadre.CargarListadoDeClientes();
+
+            }
+            catch (ErrorConsultaException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (BadInsertException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
     }

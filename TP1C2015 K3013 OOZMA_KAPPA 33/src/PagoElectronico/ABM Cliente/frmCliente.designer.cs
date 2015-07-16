@@ -50,7 +50,6 @@
             this.txtDepto = new System.Windows.Forms.TextBox();
             this.txtFechaNac = new System.Windows.Forms.TextBox();
             this.cmbDNI = new System.Windows.Forms.ComboBox();
-            this.btnVolver = new System.Windows.Forms.Button();
             this.chkActivo = new System.Windows.Forms.CheckBox();
             this.label12 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -63,8 +62,6 @@
             this.txtRespuesta = new System.Windows.Forms.TextBox();
             this.txtPregunta = new System.Windows.Forms.TextBox();
             this.btnAceptarMCliente = new System.Windows.Forms.Button();
-            this.btnNuevoCliente = new System.Windows.Forms.Button();
-            this.btnModificar = new System.Windows.Forms.Button();
             this.linkTarjetas = new System.Windows.Forms.LinkLabel();
             this.btnAceptarACliente = new System.Windows.Forms.Button();
             this.btnAceptarRCliente = new System.Windows.Forms.Button();
@@ -261,15 +258,6 @@
             this.cmbDNI.Size = new System.Drawing.Size(189, 23);
             this.cmbDNI.TabIndex = 22;
             // 
-            // btnVolver
-            // 
-            this.btnVolver.Location = new System.Drawing.Point(553, 405);
-            this.btnVolver.Name = "btnVolver";
-            this.btnVolver.Size = new System.Drawing.Size(87, 27);
-            this.btnVolver.TabIndex = 26;
-            this.btnVolver.Text = "Volver";
-            this.btnVolver.UseVisualStyleBackColor = true;
-            // 
             // chkActivo
             // 
             this.chkActivo.AutoSize = true;
@@ -393,31 +381,13 @@
             // 
             // btnAceptarMCliente
             // 
-            this.btnAceptarMCliente.Location = new System.Drawing.Point(273, 405);
+            this.btnAceptarMCliente.Location = new System.Drawing.Point(320, 372);
             this.btnAceptarMCliente.Name = "btnAceptarMCliente";
             this.btnAceptarMCliente.Size = new System.Drawing.Size(112, 27);
             this.btnAceptarMCliente.TabIndex = 40;
             this.btnAceptarMCliente.Text = "Aceptar";
             this.btnAceptarMCliente.UseVisualStyleBackColor = true;
-            // 
-            // btnNuevoCliente
-            // 
-            this.btnNuevoCliente.Location = new System.Drawing.Point(401, 405);
-            this.btnNuevoCliente.Name = "btnNuevoCliente";
-            this.btnNuevoCliente.Size = new System.Drawing.Size(131, 27);
-            this.btnNuevoCliente.TabIndex = 35;
-            this.btnNuevoCliente.Text = "Nuevo Cliente";
-            this.btnNuevoCliente.UseVisualStyleBackColor = true;
-            // 
-            // btnModificar
-            // 
-            this.btnModificar.Location = new System.Drawing.Point(401, 405);
-            this.btnModificar.Name = "btnModificar";
-            this.btnModificar.Size = new System.Drawing.Size(131, 27);
-            this.btnModificar.TabIndex = 36;
-            this.btnModificar.Text = "Modificar";
-            this.btnModificar.UseVisualStyleBackColor = true;
-            this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
+            this.btnAceptarMCliente.Click += new System.EventHandler(this.btnAceptarMCliente_Click_1);
             // 
             // linkTarjetas
             // 
@@ -439,10 +409,11 @@
             this.btnAceptarACliente.TabIndex = 38;
             this.btnAceptarACliente.Text = "Aceptar";
             this.btnAceptarACliente.UseVisualStyleBackColor = true;
+            this.btnAceptarACliente.Click += new System.EventHandler(this.btnAceptarACliente_Click_1);
             // 
             // btnAceptarRCliente
             // 
-            this.btnAceptarRCliente.Location = new System.Drawing.Point(273, 405);
+            this.btnAceptarRCliente.Location = new System.Drawing.Point(183, 381);
             this.btnAceptarRCliente.Name = "btnAceptarRCliente";
             this.btnAceptarRCliente.Size = new System.Drawing.Size(112, 27);
             this.btnAceptarRCliente.TabIndex = 39;
@@ -459,12 +430,9 @@
             this.Controls.Add(this.btnAceptarRCliente);
             this.Controls.Add(this.btnAceptarACliente);
             this.Controls.Add(this.linkTarjetas);
-            this.Controls.Add(this.btnModificar);
-            this.Controls.Add(this.btnNuevoCliente);
             this.Controls.Add(this.gbUsuario);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.btnVolver);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.Name = "frmCliente";
             this.Text = "Pago Electrónico - ABM Cliente";
@@ -504,7 +472,6 @@
         private System.Windows.Forms.TextBox txtDepto;
         private System.Windows.Forms.TextBox txtFechaNac;
         private System.Windows.Forms.ComboBox cmbDNI;
-        private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.CheckBox chkActivo;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -516,8 +483,6 @@
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.TextBox txtRespuesta;
         private System.Windows.Forms.TextBox txtPregunta;
-        private System.Windows.Forms.Button btnNuevoCliente;
-        private System.Windows.Forms.Button btnModificar;
         private System.Windows.Forms.LinkLabel linkTarjetas;
         private System.Windows.Forms.Button btnAceptarACliente;
         private System.Windows.Forms.Button btnAceptarRCliente;
