@@ -62,6 +62,7 @@ CREATE PROCEDURE [OOZMA_KAPPA].[updateCliente]
    @cliente_calle varchar(255),
    @cliente_direccion numeric(18,0),
    @cliente_depto varchar(10),
+   @Tipo_Dni numeric(18,0),
    @cliente_estado bit
 AS
 BEGIN TRANSACTION
@@ -73,7 +74,8 @@ BEGIN TRANSACTION
                                  cliente_calle = @cliente_calle,
                                  cliente_piso = @cliente_direccion, 
                                  cliente_depto = @cliente_depto, 
-                                 cliente_estado = @cliente_estado
+                                 cliente_estado = @cliente_estado,
+                                 cliente_tipo_documento_id = @Tipo_Dni
   WHERE cliente_id = @cliente_id
 COMMIT;
 GO
