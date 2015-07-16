@@ -310,10 +310,9 @@ namespace Clases
             //Guardo tambien en la lista de parametros el id_rol (variable privada de la clase)
             //Para que tambien se inserte la relacio id_rol id_usuario en la BD
 
-            DataSet ds2 = SQLHelper.ExecuteDataSet("validarDniEnClienteAlta", CommandType.StoredProcedure, parameterList);
+            DataSet ds2 = SQLHelper.ExecuteDataSet("validarDniEnCliente", CommandType.StoredProcedure, parameterList);
             if ((ds2.Tables[0].Rows.Count == 0))
             {
-                // se ejecuto un procedure que me traia los clientes where telefono = telfonoIngresado
                 // y otro que me trae los clientes where dni = DniIngresado
                 // solo si los dos ds estan vacios se inserta el usuarioDefault y el cliente en la BD
                 this.Usuario.usuario_id = this.Usuario.GuardarYObtenerID();
@@ -333,7 +332,7 @@ namespace Clases
             /*parameterList.Clear(); VER GINO LO COMENTE PORQUE SE REPETIA CODIGO CREO
             setearListaDeParametros();*/
             setearListaDeParametrosConClienteID(this.cliente_id);
-            DataSet ds2 = SQLHelper.ExecuteDataSet("validarDniEnClienteModificar", CommandType.StoredProcedure, parameterList);
+            DataSet ds2 = SQLHelper.ExecuteDataSet("validarDniEnCliente", CommandType.StoredProcedure, parameterList);
             if ((ds2.Tables[0].Rows.Count == 0))
             {
                 // se ejecuto un procedure que me traia los clientes where telefono = telfonoIngresado
