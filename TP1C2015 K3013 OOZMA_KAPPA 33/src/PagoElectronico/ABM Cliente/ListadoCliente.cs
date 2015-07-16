@@ -209,7 +209,7 @@ namespace PagoElectronico.ABM_Cliente
             {
                 Cliente unCliente = new Cliente(valorIdSeleccionado());
                 unCliente.Eliminar();
-                MessageBox.Show("El Cliente ha sido eliminada", "Eliminada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("El Cliente ha sido eliminado", "Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 DataSet ds = ObtenerClientes();
                 cargarGrilla(ds);
