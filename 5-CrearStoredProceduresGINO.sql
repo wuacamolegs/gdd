@@ -96,37 +96,38 @@ GO
 CREATE PROCEDURE  [OOZMA_KAPPA].[deleteCliente]  
    @cliente_id numeric(18,0)
 AS
-BEGIN TRANSACTION
-DELETE FROM OOZMA_KAPPA.Cliente WHERE cliente_id = @cliente_id
-COMMIT;
+UPDATE OOZMA_KAPPA.Cliente SET cliente_estado = 0
+WHERE cliente_id = @cliente_id
 GO
+
 
 
 -- INSERTAR UN NUEVO CLIENTE --
 
 CREATE PROCEDURE [OOZMA_KAPPA].insertCliente
-   @cliente_id numeric(18,0),
-   @cliente_usuario_id numeric(18,0),
-   @Tipo_Dni numeric(18,0),
+   @cliente_id numeric(18,0), 
+   @cliente_usuario_id numeric(18,0), 
+   @Tipo_Dni numeric(18,0), 
    @Dni numeric(18,0),
-   @Apellido varchar(255),
-   @Nombre varchar(255),
-   @Fecha_nac datetime,
+   @Apellido varchar(255), 
+   @Nombre varchar(255), 
+   @Fecha_nac datetime, 
    @Mail varchar(255),
    @Pais_id numeric(18,0),
-   @Numero_calle varchar(255),
-   @Calle varchar(255),
+   @Numero_calle varchar(255), 
+   @Calle varchar(255), 
    @Dom_piso numeric(18,0),
    @Dom_depto varchar(10),
    @Estado bit
-
 AS
 BEGIN TRANSACTION
-  INSERT INTO OOZMA_KAPPA.Cliente VALUES(@cliente_id,@cliente_usuario_id,@Apellido,@Nombre,@Fecha_nac,@Tipo_Dni,@Dni,@Pais_id,@Calle,@Numero_calle,@Dom_piso,@Dom_depto,@Mail,@Estado)
+  INSERT INTO OOZMA_KAPPA.Cliente (cliente_id,cliente_usuario_id,cliente_tipo_documento_id,cliente_numero_documento,
+  cliente_apellido, cliente_nombre,cliente_fecha_nacimiento,cliente_mail,cliente_pais_residente_id,cliente_numero,
+  cliente_calle,cliente_piso, cliente_depto, cliente_estado)
+  VALUES(@cliente_id, @cliente_usuario_id, @Tipo_Dni,@Dni,@Apellido,@Nombre,@Fecha_nac,@Mail,@Pais_id,@Numero_calle,
+  @Calle,@Dom_piso,@Dom_depto,@Estado);
 COMMIT;
 GO
-
-
 
 
 
