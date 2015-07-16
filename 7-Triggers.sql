@@ -69,26 +69,6 @@ AS BEGIN TRANSACTION
 	COMMIT;
 GO
 
--- update TRANSACCIONES AFTER DEPOSITO: agregar deposito a transacciones pendientes
-
-CREATE TRIGGER OOZMA_KAPPA.updateTransaccionesAfterDeposito ON OOZMA_KAPPA.Deposito
-AFTER INSERT
-AS BEGIN TRANSACTION
-
-	DECLARE @Cliente numeric(18,0);
-	DECLARE @Cuenta numeric(18,0);
-	DECLARE @Fecha DateTime;
-	DECLARE @Costo int = 0;
-
-	SELECT TOP 1 @Cuenta = deposito_cuenta_id, @Cliente = deposito_cliente_id, @Fecha = deposito_fecha
-	FROM inserted 
-	ORDER BY deposito_id DESC;
-		
-	INSERT INTO OOZMA_KAPPA.Transacciones_Pendientes (transaccion_pendiente_importe, transaccion_pendiente_descr, transaccion_pendiente_cliente_id, transaccion_pendiente_fecha, transaccion_pendiente_cuenta_id)
-	VALUES (@Costo, 'Comisión por Deposito', @Cliente, @Fecha, @Cuenta);
-
-COMMIT;
-GO
 
 -- update TRANSACCIONES AFTER MODIFICACION TIPO CUENTA: agregar modificacion cuenta a transacciones pendientes
 

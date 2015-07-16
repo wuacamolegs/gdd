@@ -136,16 +136,6 @@ INSERT INTO[OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUE
 INSERT INTO[OOZMA_KAPPA].[Funcionalidades_rol] (funcionalidad_id, rol_id)  VALUES (10,1);
 
 
---- TABLA ITEM_FACTURA ---
-
-CREATE TABLE [OOZMA_KAPPA].[Item_factura](
-	[item_factura_id] numeric(18, 0) IDENTITY (1,1),
-	[item_factura_desc] [varchar](255) NOT NULL,
-	[item_factura_costo] numeric(18, 2) NOT NULL,
-	[item_factura_numero_factura] numeric(18,0) NOT NULL,
-	[item_factura_cantidad] numeric(18,0) NOT NULL,
-)
-
 --- TABLA LOGIN ---
 
 CREATE TABLE [OOZMA_KAPPA].[Login](
@@ -257,6 +247,7 @@ CREATE TABLE [OOZMA_KAPPA].Transacciones_Pendientes(
 	[transaccion_pendiente_cliente_id] numeric(18,0) NOT NULL,
 	[transaccion_pendiente_fecha] datetime NOT NULL,
 	[transaccion_pendiente_cuenta_id] numeric (18,0),
+	[transaccion_pendiente_transaccion_id] numeric (18,0),
 )
 
 
@@ -270,6 +261,20 @@ CREATE TABLE [OOZMA_KAPPA].[Transferencia](
 	[transferencia_costo] numeric(18, 2)NOT NULL,
 	[transferencia_fecha] datetime NOT NULL,
 )
+
+
+--- TABLA ITEM_FACTURA ---
+
+CREATE TABLE [OOZMA_KAPPA].[Item_factura](
+	[item_factura_id] numeric(18, 0) IDENTITY (1,1),
+	[item_factura_desc] [varchar](255) NOT NULL,
+	[item_factura_costo] numeric(18, 2) NOT NULL,
+	[item_factura_numero_factura] numeric(18,0) NOT NULL,
+	[item_factura_cantidad] numeric(18,0) NOT NULL,
+	[item_factura_transaccion_id] numeric (18,0) NOT NULL
+	
+)
+
 
 --- TABLA USUARIO ---
 

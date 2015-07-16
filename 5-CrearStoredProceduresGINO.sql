@@ -88,7 +88,7 @@ GO
 CREATE PROCEDURE  [OOZMA_KAPPA].[deleteCliente]  
    @cliente_id numeric(18,0)
 AS
-UPDATE OOZMA_KAPPA.Cliente SET cliente_estado = 0
+UPDATE OOZMA_KAPPA.Cliente SET cliente_eliminado = 1
 WHERE cliente_id = @cliente_id
 GO
 
@@ -155,8 +155,8 @@ CREATE PROCEDURE [OOZMA_KAPPA].TraerListadoPaises
 AS
 BEGIN TRANSACTION
 
-select pais_id from OOZMA_KAPPA.Pais
-
+select pais_nombre from OOZMA_KAPPA.Pais
+order by pais_nombre asc
 COMMIT;
 GO
 
