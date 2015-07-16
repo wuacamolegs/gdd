@@ -37,24 +37,28 @@ Go
 
 -- LISTADO ESTADISTICO (1) : Clientes que alguna de sus cuentas fueron inhabilitadas por no pagar los costos de transacción --
 
-Create Procedure [OOZMA_KAPPA].TraerListadoClientesCuentasDeshabilitadasPorPendientesDeActivacion 
+CREATE PROCEDURE [OOZMA_KAPPA].TraerListadoClientesCuentasDeshabilitadasPorPendientesDeActivacion 
 (@fechaDES date, @fechaHAS date)
-As
-Begin
-  Select distinct TOP 5 cliente_apellido+','+cliente_nombre as cliente_nombre, cuenta_id as Cuenta
-	From OOZMA_KAPPA.Cliente Join OOZMA_KAPPA.Transacciones_Pendientes On (transaccion_pendiente_cliente_id = cliente_id)
-	                         Join OOZMA_KAPPA.Cuenta On (cuenta_id = transaccion_pendiente_cuenta_id)
-	Where cuenta_estado = 0 And CONVERT(varchar(10), transaccion_pendiente_fecha, 103) Between CONVERT(varchar(10), @fechaDES, 103) And CONVERT(varchar(10), @fechaHAS, 103)
-End
-Go
-
+AS
+BEGIN
+  SELECT DISTINCT TOP 5 cliente_apellido+','+cliente_nombre AS Cliente, COUNT (*) AS Cantidad
+	FROM OOZMA_KAPPA.Cliente, OOZMA_KAPPA.Transacciones_Pendientes, OOZMA_KAPPA.Cuenta 
+	WHERE transaccion_pendiente_cliente_id = cliente_id                 
+	AND cuenta_id = transaccion_pendiente_cuenta_id
+	AND cuenta_cliente_id = cliente_id 
+	AND cuenta_estado = 0 
+	AND CONVERT(varchar(10), transaccion_pendiente_fecha, 103) BETWEEN CONVERT(varchar(10), @fechaDES, 103) AND CONVERT(varchar(10), @fechaHAS, 103)
+	GROUP BY cliente_apellido, cliente_nombre
+	ORDER BY Cantidad DESC
+END
+GO
 -- LISTADO ESTADISTICO (2) : Clientes con mayor cantidad de comisiones facturadas en todas sus cuentas
 
 Create Procedure [OOZMA_KAPPA].TraerListadoClientesConMayorCantidadDeComisionesFacturadasEnTodasSusCuentas 
 (@fechaDES date, @fechaHAS date)
 As
 Begin
-Select TOP 5 cliente_apellido+', '+cliente_nombre as cliente_nombre, COUNT(*) as Cantidad
+Select TOP 5 cliente_apellido+', '+cliente_nombre as Cliente, COUNT(*) as Cantidad
 	From OOZMA_KAPPA.Cliente, OOZMA_KAPPA.Factura, OOZMA_KAPPA.Item_factura 
 	where cliente_id = factura_cliente_id and factura_numero = item_factura_numero_factura and
     item_factura_desc like 'Comisión%' and
@@ -71,7 +75,7 @@ CREATE PROCEDURE [OOZMA_KAPPA].TraerListadoClientesConMayorCantidadDeTransaccion
 (@fechaDES DATE, @fechaHAS DATE)
 AS
 BEGIN
-SELECT TOP 5 cliente_apellido+', '+cliente_nombre AS cliente_nombre, COUNT(*) AS Cantidad
+SELECT TOP 5 cliente_apellido+', '+cliente_nombre AS Cliente, COUNT(*) AS Cantidad
 FROM OOZMA_KAPPA.Cliente, OOZMA_KAPPA.Cuenta C1, OOZMA_KAPPA.Cuenta C2, OOZMA_KAPPA.Transferencia
 WHERE cliente_id = c1.cuenta_cliente_id
 AND cliente_id = C2.cuenta_cliente_id  
