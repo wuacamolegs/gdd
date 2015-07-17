@@ -194,6 +194,26 @@ namespace PagoElectronico.ABM_Cliente
             }
         }
 
+        private void ValidarCamposModificar()
+        {
+            // lo primero que se hace Luego de ejecutarse el evento Click en los botones "Aceptar"
+            // ya sea para alta o modificacion es la validacion de datos
+            string strErrores = "";
+            strErrores += Validator.ValidarNulo(txtNombre.Text, "Nombre");
+            strErrores += Validator.ValidarNulo(txtApellido.Text, "Apellido");
+            strErrores += Validator.ValidarNulo(txtMail.Text, "Mail");
+            strErrores += Validator.ValidarNulo(cmbPais.Text, "Pais");
+            strErrores += Validator.ValidarNulo(txtCalle.Text, "Calle");
+            strErrores += Validator.ValidarNulo(txtNumero.Text, "Numero");
+            strErrores += Validator.SoloNumerosPeroOpcional(txtPiso.Text, "Piso");
+            strErrores += Validator.ValidarNulo(txtDepto.Text, "Depto");
+            if (strErrores.Length > 0)
+            {
+                throw new Exception(strErrores);
+            }
+            
+        }
+
         private void linkTarjetas_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             abm_tarjetas frmTarjeta = new abm_tarjetas();
@@ -206,21 +226,16 @@ namespace PagoElectronico.ABM_Cliente
         {
             try
             {
-                ValidarCampos();
+                ValidarCamposModificar();
 
-
-                Cliente unClienteNuevo = new Cliente();
                 clienteDelForm.Apellido = txtApellido.Text;
                 clienteDelForm.Nombre = txtNombre.Text;
-                clienteDelForm.Documento = Int32.Parse(txtDNI.Text);
-                clienteDelForm.TipoDocumento = Convert.ToInt64(cmbDNI.SelectedValue);
                 clienteDelForm.Calle = txtCalle.Text;
                 clienteDelForm.PaisResidente = Convert.ToInt32(cmbPais.SelectedValue);
                 clienteDelForm.NumeroDireccion = Convert.ToInt32(txtNumero.Text);
                 clienteDelForm.DeptoDireccion = txtDepto.Text;
                 if (!String.IsNullOrEmpty(txtPiso.Text)) clienteDelForm.PisoDireccion = -1;
                 clienteDelForm.PisoDireccion = Int32.Parse(txtPiso.Text);
-                clienteDelForm.FechaString = cmbAnio.Text + "/" + cmbMes.Text + "/" +  cmbDia.Text;
 
                 clienteDelForm.Mail = txtMail.Text;
                 clienteDelForm.estado = chkActivo.Checked;
@@ -260,21 +275,19 @@ namespace PagoElectronico.ABM_Cliente
                 ValidarCampos();
 
                 Cliente unClienteNuevo = new Cliente();
-                clienteDelForm.Apellido = txtApellido.Text;
-                clienteDelForm.Nombre = txtNombre.Text;
-                clienteDelForm.Documento = Int32.Parse(txtDNI.Text);
-                clienteDelForm.TipoDocumento = Convert.ToInt64(cmbDNI.SelectedValue);
-                clienteDelForm.Calle = txtCalle.Text;
-                clienteDelForm.PaisResidente = Convert.ToInt32(cmbPais.SelectedValue);
-                clienteDelForm.NumeroDireccion = Convert.ToInt32(txtNumero.Text);
-                clienteDelForm.DeptoDireccion = txtDepto.Text;
+                unClienteNuevo.Apellido = txtApellido.Text;
+                unClienteNuevo.Nombre = txtNombre.Text;
+                unClienteNuevo.Documento = Int32.Parse(txtDNI.Text);
+                unClienteNuevo.TipoDocumento = Convert.ToInt64(cmbDNI.SelectedValue);
+                unClienteNuevo.Calle = txtCalle.Text;
+                unClienteNuevo.PaisResidente = Convert.ToInt32(cmbPais.SelectedValue);
+                unClienteNuevo.NumeroDireccion = Convert.ToInt32(txtNumero.Text);
+                unClienteNuevo.DeptoDireccion = txtDepto.Text;
                 if (!String.IsNullOrEmpty(txtPiso.Text)) clienteDelForm.PisoDireccion = -1;
-                clienteDelForm.PisoDireccion = Int32.Parse(txtPiso.Text);
-                clienteDelForm.Mail = txtMail.Text;
-                clienteDelForm.estado = chkActivo.Checked;
-  
-
-                clienteDelForm.FechaString = cmbAnio.Text + "/" + cmbMes.Text + "/" + cmbDia.Text;
+                unClienteNuevo.PisoDireccion = Int32.Parse(txtPiso.Text);
+                unClienteNuevo.Mail = txtMail.Text;
+                unClienteNuevo.estado = chkActivo.Checked;
+                unClienteNuevo.FechaString = cmbAnio.Text + "/" + cmbMes.Text + "/" + cmbDia.Text;
 
                 Usuario unUsuarioNuevo = new Usuario();
                 unClienteNuevo.Usuario = unUsuarioNuevo;

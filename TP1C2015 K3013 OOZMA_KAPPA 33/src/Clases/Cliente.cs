@@ -345,7 +345,7 @@ namespace Clases
                 // y otro que me trae los clientes where dni = DniIngresado
                 // solo si los dos ds estan vacios se inserta el usuarioDefault y el cliente en la BD
                 this.Usuario.usuario_id = unUsuarioNuevo.GuardarYObtenerID();
-
+                MessageBox.Show("dni " + this.TipoDocumento, "");
                 setearListaDeParametrosCompletaSinID();
                 this.Guardar(parameterList);
             }

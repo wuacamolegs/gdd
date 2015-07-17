@@ -51,6 +51,9 @@
             this.chkActivo = new System.Windows.Forms.CheckBox();
             this.lblestado = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cmbDia = new System.Windows.Forms.ComboBox();
+            this.cmbMes = new System.Windows.Forms.ComboBox();
+            this.cmbAnio = new System.Windows.Forms.ComboBox();
             this.cmbPais = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -63,9 +66,6 @@
             this.btnModificar = new System.Windows.Forms.Button();
             this.linkTarjetas = new System.Windows.Forms.LinkLabel();
             this.btnAceptarACliente = new System.Windows.Forms.Button();
-            this.cmbAnio = new System.Windows.Forms.ComboBox();
-            this.cmbMes = new System.Windows.Forms.ComboBox();
-            this.cmbDia = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.gbUsuario.SuspendLayout();
@@ -293,6 +293,135 @@
             this.groupBox1.TabIndex = 29;
             this.groupBox1.TabStop = false;
             // 
+            // cmbDia
+            // 
+            this.cmbDia.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbDia.FormattingEnabled = true;
+            this.cmbDia.Items.AddRange(new object[] {
+            "01",
+            "02",
+            "03",
+            "04",
+            "05",
+            "06",
+            "07",
+            "08",
+            "09",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20",
+            "21",
+            "22",
+            "23",
+            "24",
+            "25",
+            "26",
+            "27",
+            "28",
+            "29",
+            "30",
+            "31"});
+            this.cmbDia.Location = new System.Drawing.Point(579, 104);
+            this.cmbDia.Name = "cmbDia";
+            this.cmbDia.Size = new System.Drawing.Size(54, 23);
+            this.cmbDia.TabIndex = 32;
+            // 
+            // cmbMes
+            // 
+            this.cmbMes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbMes.FormattingEnabled = true;
+            this.cmbMes.Items.AddRange(new object[] {
+            "01",
+            "02",
+            "03",
+            "04",
+            "05",
+            "06",
+            "07",
+            "08",
+            "09",
+            "10",
+            "11",
+            "12"});
+            this.cmbMes.Location = new System.Drawing.Point(516, 104);
+            this.cmbMes.Name = "cmbMes";
+            this.cmbMes.Size = new System.Drawing.Size(57, 23);
+            this.cmbMes.TabIndex = 31;
+            // 
+            // cmbAnio
+            // 
+            this.cmbAnio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbAnio.FormattingEnabled = true;
+            this.cmbAnio.Items.AddRange(new object[] {
+            "1960",
+            "1961",
+            "1962",
+            "1963",
+            "1964",
+            "1965",
+            "1966",
+            "1967",
+            "1968",
+            "1969",
+            "1970",
+            "1971",
+            "1972",
+            "1973",
+            "1974",
+            "1975",
+            "1976",
+            "1977",
+            "1978",
+            "1979",
+            "1980",
+            "1981",
+            "1982",
+            "1983",
+            "1984",
+            "1985",
+            "1986",
+            "1987",
+            "1988",
+            "1989",
+            "1990",
+            "1991",
+            "1992",
+            "1993",
+            "1994",
+            "1995",
+            "1996",
+            "1997",
+            "1998",
+            "1999",
+            "2000",
+            "2001",
+            "2002",
+            "2003",
+            "2004",
+            "2005",
+            "2006",
+            "2007",
+            "2008",
+            "2009",
+            "2010",
+            "2011",
+            "2012",
+            "2013",
+            "2014",
+            "2015"});
+            this.cmbAnio.Location = new System.Drawing.Point(444, 104);
+            this.cmbAnio.Name = "cmbAnio";
+            this.cmbAnio.Size = new System.Drawing.Size(67, 23);
+            this.cmbAnio.TabIndex = 30;
+            // 
             // cmbPais
             // 
             this.cmbPais.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -412,135 +541,6 @@
             this.btnAceptarACliente.Text = "Aceptar";
             this.btnAceptarACliente.UseVisualStyleBackColor = true;
             this.btnAceptarACliente.Click += new System.EventHandler(this.btnAceptarACliente_Click);
-            // 
-            // cmbAnio
-            // 
-            this.cmbAnio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbAnio.FormattingEnabled = true;
-            this.cmbAnio.Items.AddRange(new object[] {
-            "1960",
-            "1961",
-            "1962",
-            "1963",
-            "1964",
-            "1965",
-            "1966",
-            "1967",
-            "1968",
-            "1969",
-            "1970",
-            "1971",
-            "1972",
-            "1973",
-            "1974",
-            "1975",
-            "1976",
-            "1977",
-            "1978",
-            "1979",
-            "1980",
-            "1981",
-            "1982",
-            "1983",
-            "1984",
-            "1985",
-            "1986",
-            "1987",
-            "1988",
-            "1989",
-            "1990",
-            "1991",
-            "1992",
-            "1993",
-            "1994",
-            "1995",
-            "1996",
-            "1997",
-            "1998",
-            "1999",
-            "2000",
-            "2001",
-            "2002",
-            "2003",
-            "2004",
-            "2005",
-            "2006",
-            "2007",
-            "2008",
-            "2009",
-            "2010",
-            "2011",
-            "2012",
-            "2013",
-            "2014",
-            "2015"});
-            this.cmbAnio.Location = new System.Drawing.Point(444, 104);
-            this.cmbAnio.Name = "cmbAnio";
-            this.cmbAnio.Size = new System.Drawing.Size(67, 23);
-            this.cmbAnio.TabIndex = 30;
-            // 
-            // cmbMes
-            // 
-            this.cmbMes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbMes.FormattingEnabled = true;
-            this.cmbMes.Items.AddRange(new object[] {
-            "01",
-            "02",
-            "03",
-            "04",
-            "05",
-            "06",
-            "07",
-            "08",
-            "09",
-            "10",
-            "11",
-            "12"});
-            this.cmbMes.Location = new System.Drawing.Point(516, 104);
-            this.cmbMes.Name = "cmbMes";
-            this.cmbMes.Size = new System.Drawing.Size(57, 23);
-            this.cmbMes.TabIndex = 31;
-            // 
-            // cmbDia
-            // 
-            this.cmbDia.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbDia.FormattingEnabled = true;
-            this.cmbDia.Items.AddRange(new object[] {
-            "01",
-            "02",
-            "03",
-            "04",
-            "05",
-            "06",
-            "07",
-            "08",
-            "09",
-            "10",
-            "11",
-            "12",
-            "13",
-            "14",
-            "15",
-            "16",
-            "17",
-            "18",
-            "19",
-            "20",
-            "21",
-            "22",
-            "23",
-            "24",
-            "25",
-            "26",
-            "27",
-            "28",
-            "29",
-            "30",
-            "31"});
-            this.cmbDia.Location = new System.Drawing.Point(579, 104);
-            this.cmbDia.Name = "cmbDia";
-            this.cmbDia.Size = new System.Drawing.Size(54, 23);
-            this.cmbDia.TabIndex = 32;
             // 
             // frmCliente
             // 
