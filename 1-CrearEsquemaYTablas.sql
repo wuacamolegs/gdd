@@ -216,7 +216,7 @@ CREATE TABLE [OOZMA_KAPPA].[Tipo_cuenta](
 )
 
 
--- los costos se los puse yo (CAMI) --
+-- los costos se los puse yo --
 INSERT INTO[OOZMA_KAPPA].[Tipo_cuenta](tipo_cuenta_nombre, tipo_cuenta_costo_transferencia,tipo_cuenta_costo_apertura, tipo_cuenta_dias_vigencia, tipo_cuenta_costo_modificacion) 
 VALUES ('ORO',0.1,500,120,100);
 INSERT INTO[OOZMA_KAPPA].[Tipo_cuenta](tipo_cuenta_nombre, tipo_cuenta_costo_transferencia,tipo_cuenta_costo_apertura, tipo_cuenta_dias_vigencia, tipo_cuenta_costo_modificacion) 
@@ -271,10 +271,10 @@ CREATE TABLE [OOZMA_KAPPA].[Item_factura](
 	[item_factura_costo] numeric(18, 2) NOT NULL,
 	[item_factura_numero_factura] numeric(18,0) NOT NULL,
 	[item_factura_cantidad] numeric(18,0) NOT NULL,
-	[item_factura_transaccion_id] numeric (18,0) NOT NULL
+	[item_factura_transferencia_id] numeric (18,0),
+	[item_factura_numero_cuenta] numeric (18,0) 
 	
 )
-
 
 --- TABLA USUARIO ---
 
@@ -306,7 +306,8 @@ CREATE TABLE [OOZMA_KAPPA].[Usuario_rol](
 CREATE TYPE [OOZMA_KAPPA].[TVP_SuscripcionesABorrar] AS TABLE(
  [tvp_cliente_id] numeric(18,0) NOT NULL,
  [tvp_cuenta_id] numeric(18,0) NOT NULL ,
- [tvp_cantidad_Suscripciones] numeric(18,0) NOT NULL
+ [tvp_cantidad_Suscripciones] numeric(18,0) NOT NULL,
+ [tvp_costo] numeric(18,0) NOT NULL
 )
 GO
 
