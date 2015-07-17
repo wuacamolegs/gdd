@@ -212,6 +212,7 @@ GO
 
 CREATE PROCEDURE [OOZMA_KAPPA].[insertHistorial] 
 AS
+BEGIN TRANSACTION
 	INSERT INTO OOZMA_KAPPA.Historial_cuentas(historial_cliente_id, 
 	historial_cuenta_id,
 	historial_fecha, 
