@@ -206,7 +206,7 @@ namespace PagoElectronico.Facturacion
                    //Detemerminamos que cuando se seleccionan X suscripciones de una cuenta se pagaran las mas antiguas. le mando a la base el cliente, la cuenta y la cantidad de suscripciones.
                    //ACA VOY CARGANDO LAS SUSCRIPCIONES A UNA VARIABLE TIPO TABLA. luego cuando en la pantalla Factura ponga aceptar le mando esta tabla.
 
-                   unaFactura.tablaSuscripciones.Rows.Add(unaFactura.Cliente.cliente_id, Convert.ToInt64(cmbCuenta.SelectedValue), Convert.ToInt64(txtSuscripcionesAPagar.Text), Convert.ToDouble(txtCostoUnitario.Text));
+                   unaFactura.tablaSuscripciones.Rows.Add(unaFactura.Cliente.cliente_id, Convert.ToInt64(cmbCuenta.SelectedValue), Convert.ToInt64(txtSuscripcionesAPagar.Text), Convert.ToDouble(txtCostoUnitario.Text) * Convert.ToInt64(txtSuscripcionesAPagar.Text));
 
                }
                txtSuscripcionesPendientes.Text = (Convert.ToInt64(txtSuscripcionesPendientes.Text) - Convert.ToInt64(txtSuscripcionesAPagar.Text)).ToString();

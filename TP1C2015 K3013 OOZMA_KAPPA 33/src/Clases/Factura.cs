@@ -139,15 +139,7 @@ namespace Clases
 
         #endregion
 
-        public void AñadirItems(Int64 numeroFactura, decimal CantTrans, decimal totalTrans, decimal CantMod, decimal totalMod, decimal cantSusc, decimal totalSusc)
-        {
-            ItemFactura unItem = new ItemFactura(this);
-           // unItem.crearItem(CantTrans,totalTrans,1);  //1 = "Comision por transferencia"
-           // unItem.crearItem(CantMod, totalMod,2);  // 2 = "Modificaciones Tipo Cuenta"
-            unItem.crearItem(cantSusc, totalSusc,3); // 3 = "Suscripciones por Apertura Cuenta"
-            unItem.Factura.Numero = numeroFactura;
-            unItem.InsertItem();
-        }
+        
 
     }
 }

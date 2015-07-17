@@ -324,6 +324,7 @@ BEGIN TRANSACTION
 			
 			INSERT INTO [OOZMA_KAPPA].[Item_Factura] (item_factura_numero_factura, item_factura_desc, item_factura_costo, item_factura_cantidad, item_factura_transferencia_id, item_factura_numero_cuenta)
 			VALUES (@Factura,@Descripcion,@Costo, 1,@Transferencia,@Cuenta);
+			
 		    FETCH NEXT FROM transaccionesCursor INTO @Cliente, @Cuenta, @Descripcion, @Transferencia, @Costo;
 		END
 		CLOSE transaccionesCursor;

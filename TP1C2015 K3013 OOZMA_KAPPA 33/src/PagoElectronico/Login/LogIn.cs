@@ -41,6 +41,10 @@ namespace PagoElectronico.Login
             lblRol.Visible = false;     //oculto botones de eleccion Rol. una vez que se loguea correctamente elije el rol.
             cmbRol.Visible = false;
             btnCrearCliente.Visible = false;
+
+            //ACTUALIZAR DATOS BASE DE DATOS ANTES DE EMPEZAR
+            SQLHelper.ExecuteNonQuery("insertHistorial", CommandType.StoredProcedure);
+
         }
 
         #endregion

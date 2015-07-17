@@ -264,48 +264,8 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [OOZMA_KAPPA].[InsertItem_Factura]
-	@item_factura_numero numeric(18,0),
-	@item_factura_tabla_items TVP_Item READONLY
-	AS
-BEGIN
-	 DECLARE @item_descr varchar(255)
-	 DECLARE @item_cantidad numeric(18,0)
-	 DECLARE @item_costo numeric(18,2)
-	 DECLARE itemsCursor CURSOR FOR (SELECT * FROM @item_factura_tabla_items)
-	 
-	 OPEN itemsCursor;
-	 
-	 FETCH NEXT FROM itemsCursor INTO @item_descr, @item_cantidad, @item_costo;
-	 
-	 WHILE @@FETCH_STATUS = 0
-	 BEGIN
-		
-	/*	IF(@item_descr = 1)
-		BEGIN
-		SET @item_descr= 'Comision por transferencia'
-		END
-		ELSE IF(@item_descr = 2)
-		BEGIN
-		SET @item_descr = 'Modificaciones Tipo Cuenta'
-		END
-		ELSE*/ IF(@item_descr = 3)
-		BEGIN 
-		SET @item_descr = 'Suscripciones por Apertura Cuenta'
-		END
-		
-		INSERT INTO OOZMA_KAPPA.Item_factura (item_factura_numero_factura, item_factura_desc, item_factura_cantidad, item_factura_costo)
-		VALUES (@item_factura_numero, @item_descr, @item_cantidad, @item_costo);
-		
-		FETCH NEXT FROM itemsCursor INTO @item_descr, @item_cantidad, @item_costo;
-	 END
-	 
-	 CLOSE itemsCursor;
-	 DEALLOCATE itemsCursor;
-END
-GO
 
-CREATE PROCEDURE [OOZMA_KAPPA].[InsertFactura]
+alter PROCEDURE [OOZMA_KAPPA].[InsertFactura]
 	@factura_importe numeric(18,2),
 	@factura_fecha datetime,
 	@factura_cliente_id numeric(18,0),
@@ -317,13 +277,13 @@ BEGIN TRANSACTION
 	 DECLARE @CantidadSuscripciones int
 	 DECLARE @Costo numeric(18,2)
 	 DECLARE @Factura numeric(18,0)
-	 DECLARE itemsSuscripciones CURSOR FOR (SELECT * FROM @tablaSuscripciones)
+	 DECLARE itemsSuscripciones CURSOR FOR (SELECT tvp_cliente_id, tvp_cuenta_id, tvp_cantidad_Suscripciones FROM @tablaSuscripciones)
 	 
 	 OPEN itemsSuscripciones;
 	 
 	 INSERT INTO OOZMA_KAPPA.Factura (factura_importe, factura_fecha, factura_cliente_id)
 	 VALUES (@factura_importe, @factura_fecha, @factura_cliente_id);
-	 SET @Factura = @@IDENTITY;
+	 SET @Factura = (SELECT TOP 1 factura_numero FROM OOZMA_KAPPA.Factura ORDER BY factura_numero DESC);
 	 
 	 FETCH NEXT FROM itemsSuscripciones INTO @Cliente, @Cuenta, @CantidadSuscripciones, @Costo;
 	 
@@ -339,7 +299,7 @@ BEGIN TRANSACTION
 		UPDATE OOZMA_KAPPA.Cuenta SET cuenta_estado = 1, cuenta_pendiente_activacion = 0 WHERE cuenta_id = @Cuenta
 		
 		INSERT INTO OOZMA_KAPPA.Item_factura(item_factura_numero_cuenta,item_factura_numero_factura, item_factura_cantidad, item_factura_costo, item_factura_desc)
-		VALUES (@Cuenta, @Factura, @CantidadSuscripciones, @Costo * @CantidadSuscripciones, 'Suscripciones por Apertura Cuenta');
+		VALUES (@Cuenta, @Factura, @CantidadSuscripciones, @Costo, 'Suscripciones por Apertura Cuenta');
 		
 		FETCH NEXT FROM itemsSuscripciones INTO @Cliente, @Cuenta, @CantidadSuscripciones, @Costo;
 		
