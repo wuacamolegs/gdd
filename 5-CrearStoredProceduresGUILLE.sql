@@ -40,7 +40,7 @@ CREATE PROCEDURE [OOZMA_KAPPA].TraerListadoClientesCuentasDeshabilitadasPorPendi
 (@fechaDES date, @fechaHAS date)
 AS
 BEGIN
-  SELECT DISTINCT TOP 5 cliente_apellido+','+cliente_nombre AS Cliente, COUNT (*) AS Cantidad
+  SELECT DISTINCT TOP 5 cliente_apellido+','+cliente_nombre AS cliente_nombre, COUNT (*) AS Cantidad
 	FROM OOZMA_KAPPA.Historial_cuentas, OOZMA_KAPPA.Cliente 
 	WHERE historial_falta_de_pago = 1
 	AND cliente_id = historial_cliente_id
@@ -57,7 +57,7 @@ Create Procedure [OOZMA_KAPPA].TraerListadoClientesConMayorCantidadDeComisionesF
 (@fechaDES date, @fechaHAS date)
 As
 Begin
-Select TOP 5 cliente_apellido+', '+cliente_nombre as Cliente, COUNT(*) as Cantidad
+Select TOP 5 cliente_apellido+', '+cliente_nombre as cliente_nombre, COUNT(*) as Cantidad
 	From OOZMA_KAPPA.Cliente, OOZMA_KAPPA.Factura, OOZMA_KAPPA.Item_factura 
 	where cliente_id = factura_cliente_id and factura_numero = item_factura_numero_factura and
     item_factura_desc like 'Comisión%' 
@@ -76,7 +76,7 @@ CREATE PROCEDURE [OOZMA_KAPPA].TraerListadoClientesConMayorCantidadDeTransaccion
 (@fechaDES DATE, @fechaHAS DATE)
 AS
 BEGIN
-SELECT TOP 5 cliente_apellido+', '+cliente_nombre AS Cliente, COUNT(*) AS Cantidad
+SELECT TOP 5 cliente_apellido+', '+cliente_nombre AS cliente_nombre, COUNT(*) AS Cantidad
 FROM OOZMA_KAPPA.Cliente, OOZMA_KAPPA.Cuenta C1, OOZMA_KAPPA.Cuenta C2, OOZMA_KAPPA.Transferencia
 WHERE cliente_id = c1.cuenta_cliente_id
 AND cliente_id = C2.cuenta_cliente_id  
