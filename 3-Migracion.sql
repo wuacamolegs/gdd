@@ -276,7 +276,6 @@ COMMIT
 GO
 
 -- un usuario con username ADMIN y contrase;a w23e
--- y varios admin mas por lo que dice el enunciado. tomamos los primeros 5 usuarios de la tabla usuario y los hacemos administradores tambien.
 
 BEGIN TRANSACTION   
 
@@ -301,7 +300,6 @@ INSERT INTO [OOZMA_KAPPA].Usuario_rol(usuario_id,usuario_username,rol_id) (SELEC
 COMMIT
 
 
+INSERT INTO [OOZMA_KAPPA].Administrador(administrador_username, administrador_usuario_id)(SELECT TOP 5 usuario_username,usuario_id FROM OOZMA_KAPPA.Usuario);
 
-
-
-
+INSERT INTO [OOZMA_KAPPA].Administrador(administrador_username, administrador_usuario_id)(SELECT usuario_username, usuario_id FROM OOZMA_KAPPA.Usuario WHERE usuario_username = 123);

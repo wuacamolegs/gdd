@@ -159,8 +159,9 @@ AS BEGIN TRANSACTION
 	DECLARE @Cuenta numeric(18,0);
 	DECLARE @Fecha DateTime;
 	DECLARE @Costo int;
+	DECLARE @Transferencia numeric(18,0);
 	
-	SELECT TOP 1 @Cuenta = transferencia_origen_cuenta_id, @Fecha = transferencia_fecha, @Costo = transferencia_costo
+	SELECT TOP 1 @Cuenta = transferencia_origen_cuenta_id, @Fecha = transferencia_fecha, @Costo = transferencia_costo,@Transferencia = transferencia_id
 	FROM inserted 
 	ORDER BY transferencia_id DESC;
 
@@ -168,8 +169,8 @@ AS BEGIN TRANSACTION
 	FROM OOZMA_KAPPA.Cuenta 
 	WHERE cuenta_id = @Cuenta;
 		
-	INSERT INTO OOZMA_KAPPA.Transacciones_Pendientes (transaccion_pendiente_importe, transaccion_pendiente_descr, transaccion_pendiente_cliente_id, transaccion_pendiente_fecha, transaccion_pendiente_cuenta_id)
-	VALUES (@Costo, 'Comisión por transferencia', @Cliente, @Fecha, @Cuenta);
+	INSERT INTO OOZMA_KAPPA.Transacciones_Pendientes (transaccion_pendiente_importe, transaccion_pendiente_descr, transaccion_pendiente_cliente_id, transaccion_pendiente_fecha, transaccion_pendiente_cuenta_id, transaccion_pendiente_transferencia_id)
+	VALUES (@Costo, 'Comisión por transferencia', @Cliente, @Fecha, @Cuenta, @Transferencia);
 
 COMMIT;
 GO
