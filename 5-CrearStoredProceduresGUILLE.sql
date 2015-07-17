@@ -36,24 +36,21 @@ End
 Go
 
 -- LISTADO ESTADISTICO (1) : Clientes que alguna de sus cuentas fueron inhabilitadas por no pagar los costos de transacción --
-
 CREATE PROCEDURE [OOZMA_KAPPA].TraerListadoClientesCuentasDeshabilitadasPorPendientesDeActivacion 
 (@fechaDES date, @fechaHAS date)
 AS
 BEGIN
   SELECT DISTINCT TOP 5 cliente_apellido+','+cliente_nombre AS Cliente, COUNT (*) AS Cantidad
-	FROM OOZMA_KAPPA.Cliente, OOZMA_KAPPA.Transacciones_Pendientes, OOZMA_KAPPA.Cuenta 
-	WHERE transaccion_pendiente_cliente_id = cliente_id                 
-	AND cuenta_id = transaccion_pendiente_cuenta_id
-	AND cuenta_cliente_id = cliente_id 
-	AND cuenta_estado = 0 
-	--AND CONVERT(varchar(10), transaccion_pendiente_fecha, 103) BETWEEN CONVERT(varchar(10), @fechaDES, 103) AND CONVERT(varchar(10), @fechaHAS, 103)--
-	AND MONTH(transaccion_pendiente_fecha) BETWEEN MONTH(@fechaDES) AND MONTH(@fechaHAS)
-    AND YEAR(transaccion_pendiente_fecha) = YEAR(@fechaDES)
+	FROM OOZMA_KAPPA.Historial_cuentas, OOZMA_KAPPA.Cliente 
+	WHERE historial_falta_de_pago = 1
+	AND cliente_id = historial_cliente_id
+	AND MONTH(historial_fecha) BETWEEN MONTH(@fechaDES) AND MONTH(@fechaHAS)
+    AND YEAR(historial_fecha) = YEAR(@fechaDES)
 	GROUP BY cliente_apellido, cliente_nombre
 	ORDER BY Cantidad DESC
 END
 GO
+
 -- LISTADO ESTADISTICO (2) : Clientes con mayor cantidad de comisiones facturadas en todas sus cuentas
 
 Create Procedure [OOZMA_KAPPA].TraerListadoClientesConMayorCantidadDeComisionesFacturadasEnTodasSusCuentas 
