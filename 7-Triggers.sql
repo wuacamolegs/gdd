@@ -194,6 +194,14 @@ BEGIN TRANSACTION
 	BEGIN
 	UPDATE OOZMA_KAPPA.Cuenta SET cuenta_estado = 0 WHERE cuenta_id = @cuenta
 	END
+	
+	IF(@contador = 5)
+	BEGIN
+	UPDATE OOZMA_KAPPA.Historial_cuentas SET historial_transacciones_superadas = 1, 
+	historial_pendientes_de_activacion = 0, historial_falta_de_pago = 0, historial_cliente_id = @cliente,
+	historial_cuenta_id = @cuenta, historial_fecha = GETDATE ()	
+	END 
+	
 COMMIT
 GO
 	
@@ -266,5 +274,21 @@ BEGIN TRANSACTION
     UPDATE OOZMA_KAPPA.Administrador SET administrador_estado = @estado;
 COMMIT
 GO
-  
-  
+
+
+----TRIGGER UPDATEHISTORIAL_CUENTAS para que cuando se crea una cuenta nueva, se actualice el historial por estar pendiente de activacion---
+
+
+CREATE TRIGGER OOZMA_KAPPA.updateHistorial ON OOZMA_KAPPA.Cuenta
+AFTER INSERT
+AS BEGIN TRANSACTION
+
+	UPDATE OOZMA_KAPPA.Historial_cuentas
+	SET historial_pendientes_de_activacion = 1,
+	historial_transacciones_superadas = 0,
+	historial_falta_de_pago = 0,
+	historial_cliente_id = (SELECT cuenta_cliente_id FROM INSERTED),
+	historial_cuenta_id = (SELECT cuenta_id FROM INSERTED),
+	historial_fecha = (SELECT cuenta_fecha_apertura FROM INSERTED)
+	COMMIT;
+GO
