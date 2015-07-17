@@ -61,7 +61,7 @@ namespace PagoElectronico.ABM_Cliente
             DataGridViewTextBoxColumn clmID = new DataGridViewTextBoxColumn();
             clmID.Width = 150;
             clmID.ReadOnly = true;
-            clmID.DataPropertyName = "tarjeta_numero";
+            clmID.DataPropertyName = "tarjeta_visible";
             clmID.HeaderText = "NUMERO DE TARJETA";
             dtgTarjetas.Columns.Add(clmID);
 
@@ -111,7 +111,6 @@ namespace PagoElectronico.ABM_Cliente
         private void btnModificar_Click(object sender, EventArgs e)
         {
             formTarjeta formTarjeta = new formTarjeta();
-            MessageBox.Show("TARJETA ID: " + valorIdSeleccionado() + "\nEMISOR: " + valorEmisorSeleccionado() + "\nESTADO: " + valorEstadoSeleccionado(), "");
             unaTarjeta.tarjeta_id = valorIdSeleccionado();
             unaTarjeta.Emisor = valorEmisorSeleccionado();
             unaTarjeta.Estado = valorEstadoSeleccionado();

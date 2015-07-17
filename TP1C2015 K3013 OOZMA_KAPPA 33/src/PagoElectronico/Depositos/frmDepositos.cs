@@ -86,7 +86,7 @@ namespace PagoElectronico.Depositos
                 }
                 else
                 {
-                    DropDownListManager.CargarCombo(cmbTarjeta, dsTarjetas.Tables[0], "tarjeta_numero", "tarjeta_numero", false, "");
+                    DropDownListManager.CargarCombo(cmbTarjeta, dsTarjetas.Tables[0], "tarjeta_numero","tarjeta_visible", false, "");
                     cmbCuenta.SelectedIndex = -1;
                     cmbMoneda.SelectedIndex = -1;
                     cmbTarjeta.SelectedIndex = -1;
