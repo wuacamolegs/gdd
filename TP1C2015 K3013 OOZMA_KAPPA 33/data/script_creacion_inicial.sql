@@ -257,7 +257,7 @@ CREATE TABLE [OOZMA_KAPPA].Transacciones_Pendientes(
 	[transaccion_pendiente_cliente_id] numeric(18,0) NOT NULL,
 	[transaccion_pendiente_fecha] datetime NOT NULL,
 	[transaccion_pendiente_cuenta_id] numeric (18,0),
-	[transaccion_pendiente_transaccion_id] numeric (18,0),
+	[transaccion_pendiente_transferencia_id] numeric (18,0),
 )
 
 
@@ -1695,7 +1695,7 @@ END
 GO
 
 
-alter PROCEDURE [OOZMA_KAPPA].[InsertFactura]
+CREATE PROCEDURE [OOZMA_KAPPA].[InsertFactura]
 	@factura_importe numeric(18,2),
 	@factura_fecha datetime,
 	@factura_cliente_id numeric(18,0),
