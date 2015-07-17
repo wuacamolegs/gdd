@@ -43,7 +43,6 @@ namespace PagoElectronico.Listados
 
         private void btnListar_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("ANIO: " + cmbAnio.Text, "anio");
             gridListados.Columns.Clear();
             if (ValidarCampos())
             {
@@ -246,6 +245,7 @@ namespace PagoElectronico.Listados
             Fecha_Desde = new DateTime(Convert.ToInt32(Año), 01, 01);
             Fecha_Hasta = new DateTime(Convert.ToInt32(Año), 03, 31);
         }
+
 
 
 

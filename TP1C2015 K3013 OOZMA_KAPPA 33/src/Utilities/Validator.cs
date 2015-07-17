@@ -69,9 +69,10 @@ namespace Utilities
         public static string EsAño(string año, string nombreCampo)
         {
             Int64 unAño = Convert.ToInt64(año);
-            MessageBox.Show("ANIO: " + unAño, "anio");
-            if (unAño < 1900 || unAño > 2020)
-                return "Tiene que ingresar un año válido, entre 1900 y 2016, para el campo " + nombreCampo + "\n";
+            Int64 unAñoActual = Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]).Year;
+
+            if (unAño < 1900 || unAño > unAñoActual)
+                return "Tiene que ingresar un año válido, entre 1900 y " + unAñoActual + ", para el campo " + nombreCampo + "\n";
 
             return string.Empty;
 

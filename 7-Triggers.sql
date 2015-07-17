@@ -151,7 +151,7 @@ GO
 
 -- update TRANSACCIONES AFTER TRANSFERENCIA: agregar deposito a transacciones pendientes
 
-CREATE TRIGGER OOZMA_KAPPA.updateTransaccionesAfterTransferencia ON OOZMA_KAPPA.Transferencia
+ALTER TRIGGER OOZMA_KAPPA.updateTransaccionesAfterTransferencia ON OOZMA_KAPPA.Transferencia
 AFTER INSERT
 AS BEGIN TRANSACTION
 
