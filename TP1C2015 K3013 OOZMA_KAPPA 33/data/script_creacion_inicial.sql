@@ -1273,7 +1273,6 @@ CREATE PROCEDURE [OOZMA_KAPPA].[updateCliente]
    @cliente_calle varchar(255),
    @cliente_direccion numeric(18,0),
    @cliente_depto varchar(10),
-   @Tipo_Dni numeric(18,0),
    @cliente_estado bit
 AS
 BEGIN TRANSACTION
@@ -1285,8 +1284,7 @@ BEGIN TRANSACTION
                                  cliente_calle = @cliente_calle,
                                  cliente_piso = @cliente_direccion, 
                                  cliente_depto = @cliente_depto, 
-                                 cliente_estado = @cliente_estado,
-                                 cliente_tipo_documento_id = @Tipo_Dni
+                                 cliente_estado = @cliente_estado
   WHERE cliente_id = @cliente_id
 COMMIT;
 GO
@@ -1323,7 +1321,7 @@ BEGIN TRANSACTION
   INSERT INTO OOZMA_KAPPA.Cliente (cliente_usuario_id,cliente_tipo_documento_id,cliente_numero_documento,
   cliente_apellido, cliente_nombre,cliente_fecha_nacimiento,cliente_mail,cliente_pais_residente_id,cliente_numero,
   cliente_calle,cliente_piso, cliente_depto, cliente_estado)
-  VALUES(@cliente_usuario_id, @cliente_tipo_documento_id,@cliente_numero_documento,@cliente_apellido,@cliente_nombre,@cliente_fecha_nacimiento,@cliente_mail,@cliente_pais_id,@cliente_numero,
+  VALUES(@cliente_usuario_id, @cliente_tipo_documento_id,@cliente_numero_documento,@cliente_apellido,@cliente_nombre,Convert(datetime,@cliente_fecha_nacimiento),@cliente_mail,@cliente_pais_id,@cliente_numero,
   @cliente_calle,@cliente_direccion,@cliente_depto,@cliente_estado);
 COMMIT;
 GO
