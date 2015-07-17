@@ -207,3 +207,24 @@ AS
 	
 GO	
 
+---SP QUE CUANDO HAYA TRANSACCIONES PENDIENTES A FACTURAR DE HACE 45 DÌAS LA CUENTA SE BLOQUEE POR FALTA DE PAGO--
+---CUANDO SE INICIA SESION SE USA ESTE PROCEDIMIENTO PARA SABER SI HAY CUENTAS PARA INHABILITAR POR FALTA DE PAGO--
+
+CREATE PROCEDURE [OOZMA_KAPPA].[insertHistorial] 
+AS
+	INSERT INTO OOZMA_KAPPA.Historial_cuentas(historial_cliente_id, 
+	historial_cuenta_id,
+	historial_fecha, 
+	historial_falta_de_pago, 
+	historial_pendientes_de_activacion, 
+	historial_transacciones_superadas)
+	(SELECT transaccion_pendiente_cliente_id, 
+	transaccion_pendiente_cuenta_id, 
+	GETDATE(), 
+	1, 
+	0, 
+	0
+	FROM OOZMA_KAPPA.Transacciones_Pendientes
+	WHERE DATEDIFF(day, transaccion_pendiente_fecha, GETDATE()) > 45 ) 
+COMMIT
+GO	

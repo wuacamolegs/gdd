@@ -332,3 +332,18 @@ BEGIN TRANSACTION
 GO
 
 >>>>>>> origin/master
+
+
+
+----Despues de que el procedimiento insertHistorial registro que habia transacciones impagas hacia mas de 45 dìas,
+----actualizo el historial de cuentas para cuentas cerradas por falta de pago. Aca, se deshabilita la cuenta
+---propiamente dicha
+
+CREATE TRIGGER OOZMA_KAPPA.updateCuenta_estado ON [OOZMA_KAPPA].[Historial_cuentas]
+AFTER INSERT
+AS BEGIN TRANSACTION
+	UPDATE OOZMA_KAPPA.Cuenta
+	SET cuenta_estado = 0 
+	WHERE cuenta_id = (SELECT historial_cuenta_id FROM INSERTED)
+	COMMIT;
+GO
