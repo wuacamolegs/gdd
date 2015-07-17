@@ -222,11 +222,11 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [OOZMA_KAPPA].[TraerListadoClienteTransferenciasAFacturar]
+ALTER PROCEDURE [OOZMA_KAPPA].[TraerListadoClienteTransferenciasAFacturar]
 	@cliente_id numeric(18,0)
 AS
 BEGIN	
-	SELECT transaccion_pendiente_id , transaccion_pendiente_cliente_id, transaccion_pendiente_fecha, transaccion_pendiente_importe FROM OOZMA_KAPPA.Transacciones_Pendientes WHERE transaccion_pendiente_cliente_id = @cliente_id AND (transaccion_pendiente_descr = 'Comisión por transferencia');
+	SELECT transaccion_pendiente_id ,transaccion_pendiente_transferencia_id, transaccion_pendiente_cliente_id, transaccion_pendiente_fecha, transaccion_pendiente_importe FROM OOZMA_KAPPA.Transacciones_Pendientes WHERE transaccion_pendiente_cliente_id = @cliente_id AND (transaccion_pendiente_descr = 'Comisión por transferencia');
 END
 GO
 
@@ -243,7 +243,7 @@ CREATE PROCEDURE [OOZMA_KAPPA].[TraerListadoClienteModificacionesTCAFacturar]
 	@cliente_id numeric(18,0)
 AS
 BEGIN
-	SELECT transaccion_pendiente_id ,transaccion_pendiente_cliente_id,transaccion_pendiente_fecha, transaccion_pendiente_importe FROM OOZMA_KAPPA.Transacciones_Pendientes WHERE transaccion_pendiente_cliente_id = @cliente_id AND (transaccion_pendiente_descr = 'Modificaciones Tipo Cuenta');
+	SELECT transaccion_pendiente_id ,transaccion_pendiente_cliente_id,transaccion_pendiente_fecha, transaccion_pendiente_importe, transaccion_pendiente_cuenta_id FROM OOZMA_KAPPA.Transacciones_Pendientes WHERE transaccion_pendiente_cliente_id = @cliente_id AND (transaccion_pendiente_descr = 'Modificaciones Tipo Cuenta');
 END
 GO
 
@@ -281,7 +281,7 @@ BEGIN
 	 WHILE @@FETCH_STATUS = 0
 	 BEGIN
 		
-		IF(@item_descr = 1)
+	/*	IF(@item_descr = 1)
 		BEGIN
 		SET @item_descr= 'Comision por transferencia'
 		END
@@ -289,7 +289,7 @@ BEGIN
 		BEGIN
 		SET @item_descr = 'Modificaciones Tipo Cuenta'
 		END
-		ELSE IF(@item_descr = 3)
+		ELSE*/ IF(@item_descr = 3)
 		BEGIN 
 		SET @item_descr = 'Suscripciones por Apertura Cuenta'
 		END
@@ -315,11 +315,17 @@ BEGIN TRANSACTION
 	 DECLARE @Cliente numeric(18,0)
 	 DECLARE @Cuenta numeric(18,0)
 	 DECLARE @CantidadSuscripciones int
+	 DECLARE @Costo numeric(18,2)
+	 DECLARE @Factura numeric(18,0)
 	 DECLARE itemsSuscripciones CURSOR FOR (SELECT * FROM @tablaSuscripciones)
 	 
 	 OPEN itemsSuscripciones;
 	 
-	 FETCH NEXT FROM itemsSuscripciones INTO @Cliente, @Cuenta, @CantidadSuscripciones;
+	 INSERT INTO OOZMA_KAPPA.Factura (factura_importe, factura_fecha, factura_cliente_id)
+	 VALUES (@factura_importe, @factura_fecha, @factura_cliente_id);
+	 SET @Factura = @@IDENTITY;
+	 
+	 FETCH NEXT FROM itemsSuscripciones INTO @Cliente, @Cuenta, @CantidadSuscripciones, @Costo;
 	 
 	 WHILE @@FETCH_STATUS = 0
 	 BEGIN
@@ -332,19 +338,18 @@ BEGIN TRANSACTION
 		
 		UPDATE OOZMA_KAPPA.Cuenta SET cuenta_estado = 1, cuenta_pendiente_activacion = 0 WHERE cuenta_id = @Cuenta
 		
-		FETCH NEXT FROM itemsSuscripciones INTO @Cliente, @Cuenta, @CantidadSuscripciones;
+		INSERT INTO OOZMA_KAPPA.Item_factura(item_factura_numero_cuenta,item_factura_numero_factura, item_factura_cantidad, item_factura_costo, item_factura_desc)
+		VALUES (@Cuenta, @Factura, @CantidadSuscripciones, @Costo * @CantidadSuscripciones, 'Suscripciones por Apertura Cuenta');
 		
-	 END
+		FETCH NEXT FROM itemsSuscripciones INTO @Cliente, @Cuenta, @CantidadSuscripciones, @Costo;
+		
+	END
 	 	
 	
  	DELETE FROM OOZMA_KAPPA.Transacciones_Pendientes WHERE transaccion_pendiente_cliente_id = @factura_cliente_id AND transaccion_pendiente_descr <> 'Suscripciones por Apertura Cuenta';
 	 
 	CLOSE itemsSuscripciones;
 	DEALLOCATE itemsSuscripciones;
-	
-
-	INSERT INTO OOZMA_KAPPA.Factura (factura_importe, factura_fecha, factura_cliente_id)
-	VALUES (@factura_importe, @factura_fecha, @factura_cliente_id);
 	
 COMMIT
 GO
@@ -485,8 +490,6 @@ BEGIN
 	SELECT DISTINCT cliente_id as cliente_id,(cliente_apellido +' '+ cliente_nombre) as cliente_nombre, cliente_numero_documento as cliente_documento FROM Transacciones_Pendientes, Cliente WHERE transaccion_pendiente_cliente_id = cliente_id;
 END
 GO
-
-
 
 CREATE PROCEDURE OOZMA_KAPPA.TraerListadoClienteConCosasAFacturarPorUsuarioID
 	@usuario_id numeric(18,0)

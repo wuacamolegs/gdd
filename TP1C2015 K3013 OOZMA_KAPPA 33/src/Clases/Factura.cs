@@ -36,6 +36,7 @@ namespace Clases
             tablaSuscripciones.Columns.Add("tvp_cliente_id", typeof(Int64));
             tablaSuscripciones.Columns.Add("tvp_cuenta_id", typeof(Int64));
             tablaSuscripciones.Columns.Add("tvp_cantidad_Suscripciones", typeof(Int64));
+            tablaSuscripciones.Columns.Add("tvp_costo", typeof(Double));
         }
 
         #endregion
@@ -141,8 +142,8 @@ namespace Clases
         public void AñadirItems(Int64 numeroFactura, decimal CantTrans, decimal totalTrans, decimal CantMod, decimal totalMod, decimal cantSusc, decimal totalSusc)
         {
             ItemFactura unItem = new ItemFactura(this);
-            unItem.crearItem(CantTrans,totalTrans,1);  //1 = "Comision por transferencia"
-            unItem.crearItem(CantMod, totalMod,2);  // 2 = "Modificaciones Tipo Cuenta"
+           // unItem.crearItem(CantTrans,totalTrans,1);  //1 = "Comision por transferencia"
+           // unItem.crearItem(CantMod, totalMod,2);  // 2 = "Modificaciones Tipo Cuenta"
             unItem.crearItem(cantSusc, totalSusc,3); // 3 = "Suscripciones por Apertura Cuenta"
             unItem.Factura.Numero = numeroFactura;
             unItem.InsertItem();

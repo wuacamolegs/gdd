@@ -110,13 +110,19 @@ COMMIT
 
   -- TABLA ITEM FACTURA --  	
  
- BEGIN TRANSACTION
-	INSERT INTO [OOZMA_KAPPA].[Item_factura] (item_factura_desc,item_factura_costo, item_factura_numero_factura,item_factura_cantidad)(
-	SELECT Item_Factura_Descr,						   
-	Item_Factura_Importe, Factura_Numero, 1 FROM gd_esquema.Maestra WHERE Item_Factura_Descr is not null AND Cuenta_Numero != Cuenta_Dest_Numero );
- COMMIT
- 
- 
+BEGIN TRANSACTION
+	INSERT INTO [OOZMA_KAPPA].[Item_factura] (item_factura_desc,item_factura_costo, item_factura_numero_factura,item_factura_cantidad, item_factura_numero_cuenta ,item_factura_transferencia_id)(
+	SELECT DISTINCT Item_Factura_Descr, 				
+					Item_Factura_Importe,
+					Factura_Numero, 
+					1,
+					Cuenta_Numero,
+					t.transferencia_id 
+	FROM gd_esquema.Maestra m LEFT JOIN OOZMA_KAPPA.Transferencia t ON t.transferencia_fecha = m.Transf_Fecha AND t.transferencia_costo = m.Trans_Costo_Trans AND t.transferencia_importe = m.Trans_Importe AND  t.transferencia_origen_cuenta_id = m.Cuenta_Numero AND t.transferencia_destino_cuenta_id = m.Cuenta_Dest_Numero
+	WHERE Item_Factura_Descr IS NOT NULL);
+GO
+
+
   -- TABLA DEPOSITO--  
   
  BEGIN TRANSACTION

@@ -258,7 +258,7 @@ BEGIN TRANSACTION
 COMMIT
 GO
 
--- TRIGGER DESHABILITAR --
+-- TRIGGER DESHABILITAR/HABILITAR CLIENTE POR CAMBIO ESTADO ROL --
 
 CREATE TRIGGER deshabilitar_clientes_porRol
 ON [OOZMA_KAPPA].[Rol]
@@ -274,6 +274,7 @@ BEGIN TRANSACTION
     UPDATE OOZMA_KAPPA.Administrador SET administrador_estado = @estado;
 COMMIT
 GO
+<<<<<<< HEAD
 
 
 ----TRIGGER UPDATEHISTORIAL_CUENTAS para que cuando se crea una cuenta nueva, se actualice el historial por estar pendiente de activacion---
@@ -292,3 +293,42 @@ AS BEGIN TRANSACTION
 	historial_fecha = (SELECT cuenta_fecha_apertura FROM INSERTED)
 	COMMIT;
 GO
+=======
+  
+ 
+-- TRIGGER INSERT ITEM AFTER DELETE TRANSACCION --
+
+CREATE TRIGGER insertItemAfterDeleteTransaccion
+ON [OOZMA_KAPPA].[Transacciones_Pendientes]
+AFTER DELETE
+AS
+BEGIN TRANSACTION
+
+	DECLARE @Cliente numeric(18,0)
+	DECLARE @Cuenta numeric(18,0)
+	DECLARE @Descripcion varchar(255)
+	DECLARE @Transferencia numeric(18,0)
+	DECLARE @Factura numeric(18,0)
+	DECLARE @Costo numeric(18,2)
+	
+	DECLARE transaccionesCursor CURSOR FOR (SELECT transaccion_pendiente_cliente_id, transaccion_pendiente_cuenta_id, transaccion_pendiente_descr,transaccion_pendiente_transferencia_id, transaccion_pendiente_importe FROM DELETED
+											WHERE transaccion_pendiente_descr != 'Suscripciones por Apertura Cuenta');
+	
+	OPEN transaccionesCursor;
+	
+	FETCH NEXT FROM transaccionesCursor INTO @Cliente, @Cuenta, @Descripcion, @Transferencia, @Costo;
+	
+	WHILE @@FETCH_STATUS = 0
+		BEGIN
+			SET @Factura = (SELECT TOP 1 factura_numero FROM OOZMA_KAPPA.Factura WHERE factura_cliente_id = @Cliente ORDER BY factura_cliente_id DESC);
+			
+			INSERT INTO [OOZMA_KAPPA].[Item_Factura] (item_factura_numero_factura, item_factura_desc, item_factura_costo, item_factura_cantidad, item_factura_transferencia_id, item_factura_numero_cuenta)
+			VALUES (@Factura,@Descripcion,@Costo, 1,@Transferencia,@Cuenta);
+		    FETCH NEXT FROM transaccionesCursor INTO @Cliente, @Cuenta, @Descripcion, @Transferencia, @Costo;
+		END
+		CLOSE transaccionesCursor;
+	    DEALLOCATE transaccionesCursor;
+	    COMMIT;
+GO
+
+>>>>>>> origin/master
