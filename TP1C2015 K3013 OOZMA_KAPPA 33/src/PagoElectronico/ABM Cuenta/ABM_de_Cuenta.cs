@@ -129,11 +129,14 @@ namespace PagoElectronico.ABM_Cuenta
 
         private void btnCrear_Click(object sender, EventArgs e)
         {
-            unaCuenta.Cliente.cliente_id = Convert.ToInt64(cmbCliente.SelectedValue);
-            bindToUnaCuenta();
-            unaCuenta.InsertCuenta();
-            MessageBox.Show("Se creó correctamente la Cuenta: " + txtCuenta.Text + "\nPais: " + cmbPais.Text + "\nMoneda: " + cmbMoneda.Text + "\nTipo Cuenta: " + cmbTipoCuenta.Text, "Nueva Cuenta");
-            this.Close();
+            if (ValidarCampos())
+            {
+                unaCuenta.Cliente.cliente_id = Convert.ToInt64(cmbCliente.SelectedValue);
+                bindToUnaCuenta();
+                unaCuenta.InsertCuenta();
+                MessageBox.Show("Se creó correctamente la Cuenta: " + txtCuenta.Text + "\nPais: " + cmbPais.Text + "\nMoneda: " + cmbMoneda.Text + "\nTipo Cuenta: " + cmbTipoCuenta.Text, "Nueva Cuenta");
+                this.Close();
+            }
         }
 
 
@@ -177,6 +180,28 @@ namespace PagoElectronico.ABM_Cuenta
             unaCuenta.Moneda = Convert.ToInt64(cmbMoneda.SelectedValue);
             unaCuenta.Pais = Convert.ToInt64(cmbPais.SelectedValue);
             unaCuenta.tipoCuenta = Convert.ToInt64(cmbTipoCuenta.SelectedValue);
+        }
+
+        private bool ValidarCampos()
+        {
+            if (cmbPais.SelectedIndex == -1) 
+            {
+                MessageBox.Show("Debe seleccionar un pais", "Datos Faltantes");
+                return false;
+            }
+
+            if (cmbMoneda.SelectedIndex == -1)
+            {
+                MessageBox.Show("Debe seleccionar una moneda", "Datos Faltantes");
+                return false;
+            }
+
+            if (cmbTipoCuenta.SelectedIndex == -1)
+            {
+                MessageBox.Show("Debe seleccionar un tipo de cuenta", "Datos Faltantes");
+                return false;
+            }
+            return true;
         }
 
         #endregion  
