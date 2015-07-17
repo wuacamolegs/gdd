@@ -40,7 +40,7 @@ CREATE TABLE [OOZMA_KAPPA].[Cliente](
 	[cliente_usuario_id] numeric(18, 0)NOT NULL,
 	[cliente_apellido] [varchar](255) NOT NULL,
 	[cliente_nombre] [varchar](255) NOT NULL,
-	[cliente_fecha_nacimiento] [datetime] NOT NULL,
+	[cliente_fecha_nacimiento] Date NOT NULL,
 	[cliente_tipo_documento_id] numeric(18, 0)NOT NULL,
 	[cliente_numero_documento] numeric(18, 0)NOT NULL,
 	[cliente_pais_residente_id] numeric(18, 0)NOT NULL,
