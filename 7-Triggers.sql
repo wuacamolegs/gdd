@@ -323,7 +323,6 @@ BEGIN TRANSACTION
 	    COMMIT;
 GO
 
-select * from OOZMA_KAPPA.Transacciones_Pendientes
 
 ----Despues de que el procedimiento insertHistorial registro que habia transacciones impagas hacia mas de 45 dìas,
 ----actualizo el historial de cuentas para cuentas cerradas por falta de pago. Aca, se deshabilita la cuenta
