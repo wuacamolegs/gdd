@@ -1,19 +1,16 @@
 
-USE [GD1C2015]
-GO
-
-
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------CREACION TABLAS--------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 
+USE [GD1C2015]
+GO
 
 CREATE SCHEMA [OOZMA_KAPPA] AUTHORIZATION [gd];
 GO
 
-USE [GD1C2015]
 
 
 --- TABLA ADMINISTRADOR ---
@@ -1027,7 +1024,7 @@ COMMIT
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-
+GO
 CREATE PROCEDURE [OOZMA_KAPPA].traerListadoRolesCompleto
 AS 
 	SELECT rol_id , rol_nombre FROM OOZMA_KAPPA.Rol where rol_eliminado = 0;  ---rol_eliminado = 0 está activo (no eliminado)
@@ -1652,7 +1649,7 @@ BEGIN
 END
 GO
 
-ALTER PROCEDURE [OOZMA_KAPPA].[TraerListadoClienteTransferenciasAFacturar]
+CREATE PROCEDURE [OOZMA_KAPPA].[TraerListadoClienteTransferenciasAFacturar]
 	@cliente_id numeric(18,0)
 AS
 BEGIN	
@@ -2067,7 +2064,7 @@ GO
 
 -- update TRANSACCIONES AFTER TRANSFERENCIA: agregar deposito a transacciones pendientes
 
-ALTER TRIGGER OOZMA_KAPPA.updateTransaccionesAfterTransferencia ON OOZMA_KAPPA.Transferencia
+CREATE TRIGGER OOZMA_KAPPA.updateTransaccionesAfterTransferencia ON OOZMA_KAPPA.Transferencia
 AFTER INSERT
 AS BEGIN TRANSACTION
 
