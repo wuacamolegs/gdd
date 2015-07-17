@@ -211,8 +211,8 @@ CREATE TABLE [OOZMA_KAPPA].[Tipo_cuenta](
 	[tipo_cuenta_nombre] [varchar](255) NOT NULL,
 	[tipo_cuenta_dias_vigencia] numeric(18,0) NOT NULL,
 	[tipo_cuenta_costo_transferencia] numeric(18, 2)NOT NULL,
-	[tipo_cuenta_costo_apertura] numeric(18, 0)NOT NULL,   
-	[tipo_cuenta_costo_modificacion] numeric(18, 0)NOT NULL,
+	[tipo_cuenta_costo_apertura] numeric(18, 2)NOT NULL,   
+	[tipo_cuenta_costo_modificacion] numeric(18, 2)NOT NULL,
 )
 
 

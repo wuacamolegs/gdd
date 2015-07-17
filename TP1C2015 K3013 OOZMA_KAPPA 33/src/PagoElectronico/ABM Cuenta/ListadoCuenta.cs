@@ -41,6 +41,8 @@ namespace PagoElectronico.ABM_Cuenta
         private void ListadoCuenta_Load(object sender, EventArgs e)
         {
 
+            if (unUsuario.Rol.rol_id == 2) { gbFiltrar.Visible = false; }
+
             //CARGAMOS GRILLA CON TODAS LAS CUENTAS QUE HAY.
             DataSet dsCuenta = ObtenerCuentas();
             cargarGrilla(dsCuenta);
@@ -108,6 +110,7 @@ namespace PagoElectronico.ABM_Cuenta
 
             abmCuenta.AbrirParaModificar(unaCuenta);
             abmCuenta.Show();
+            this.Close();
         }
 
 
@@ -117,6 +120,7 @@ namespace PagoElectronico.ABM_Cuenta
             ABM_de_Cuenta abmCuenta = new ABM_de_Cuenta(unUsuario);
             abmCuenta.AbrirParaCrear();
             abmCuenta.Show();
+            this.Close();
         }
 
         #endregion

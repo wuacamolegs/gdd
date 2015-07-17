@@ -42,9 +42,9 @@
             this.gridCuentas = new System.Windows.Forms.DataGridView();
             this.btnModificar = new System.Windows.Forms.Button();
             this.btnEliminar = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.gbFiltrar = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.gridCuentas)).BeginInit();
-            this.groupBox1.SuspendLayout();
+            this.gbFiltrar.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblNombre
@@ -179,23 +179,23 @@
             this.btnEliminar.UseVisualStyleBackColor = true;
             this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
-            // groupBox1
+            // gbFiltrar
             // 
-            this.groupBox1.Controls.Add(this.btnLimpiarFiltros);
-            this.groupBox1.Controls.Add(this.btnFiltrar);
-            this.groupBox1.Controls.Add(this.txtDNI);
-            this.groupBox1.Controls.Add(this.lblDNI);
-            this.groupBox1.Controls.Add(this.lblTipoDNI);
-            this.groupBox1.Controls.Add(this.cmbTipoDNI);
-            this.groupBox1.Controls.Add(this.txtApellido);
-            this.groupBox1.Controls.Add(this.lblApellido);
-            this.groupBox1.Controls.Add(this.txtNombre);
-            this.groupBox1.Controls.Add(this.lblNombre);
-            this.groupBox1.Location = new System.Drawing.Point(11, 12);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(719, 121);
-            this.groupBox1.TabIndex = 14;
-            this.groupBox1.TabStop = false;
+            this.gbFiltrar.Controls.Add(this.btnLimpiarFiltros);
+            this.gbFiltrar.Controls.Add(this.btnFiltrar);
+            this.gbFiltrar.Controls.Add(this.txtDNI);
+            this.gbFiltrar.Controls.Add(this.lblDNI);
+            this.gbFiltrar.Controls.Add(this.lblTipoDNI);
+            this.gbFiltrar.Controls.Add(this.cmbTipoDNI);
+            this.gbFiltrar.Controls.Add(this.txtApellido);
+            this.gbFiltrar.Controls.Add(this.lblApellido);
+            this.gbFiltrar.Controls.Add(this.txtNombre);
+            this.gbFiltrar.Controls.Add(this.lblNombre);
+            this.gbFiltrar.Location = new System.Drawing.Point(11, 12);
+            this.gbFiltrar.Name = "gbFiltrar";
+            this.gbFiltrar.Size = new System.Drawing.Size(719, 121);
+            this.gbFiltrar.TabIndex = 14;
+            this.gbFiltrar.TabStop = false;
             // 
             // ListadoCuenta
             // 
@@ -203,7 +203,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(739, 452);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.gbFiltrar);
             this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnModificar);
             this.Controls.Add(this.gridCuentas);
@@ -212,8 +212,8 @@
             this.Text = "PAGO ELECTRONICO -ABM CUENTAS";
             this.Load += new System.EventHandler(this.ListadoCuenta_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gridCuentas)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.gbFiltrar.ResumeLayout(false);
+            this.gbFiltrar.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -234,6 +234,6 @@
         private System.Windows.Forms.DataGridView gridCuentas;
         private System.Windows.Forms.Button btnModificar;
         private System.Windows.Forms.Button btnEliminar;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox gbFiltrar;
     }
 }

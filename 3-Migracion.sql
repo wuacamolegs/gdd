@@ -250,7 +250,24 @@ COMMIT
  COMMIT
 
 
--- CREACION DE USUARIOS DEFAULT ADMIN --
+-- CREACION DE USUARIOS DEFAULT  --
+
+--HAGO QUE TODOS LOS USUARIOS SEAN CLIENTES, Y QUE SOLO LOS PRIMEROS 5 SEAN TAMBIEN ADMINS
+
+BEGIN TRANSACTION
+
+INSERT INTO [OOZMA_KAPPA].Usuario_rol(usuario_id,usuario_username, rol_id)(
+SELECT usuario_id, usuario_username, rol_id FROM OOZMA_KAPPA.Usuario, OOZMA_KAPPA.Rol WHERE rol_nombre = 'Cliente' );
+
+COMMIT
+GO
+
+BEGIN TRANSACTION
+
+INSERT INTO [OOZMA_KAPPA].Usuario_rol(usuario_id,usuario_username,rol_id) (SELECT TOP 5 usuario_id,usuario_username,1 FROM OOZMA_KAPPA.Usuario);
+
+COMMIT
+GO
 
 -- un usuario con username ADMIN y contrase;a w23e
 -- y varios admin mas por lo que dice el enunciado. tomamos los primeros 5 usuarios de la tabla usuario y los hacemos administradores tambien.
@@ -277,22 +294,7 @@ INSERT INTO [OOZMA_KAPPA].Usuario_rol(usuario_id,usuario_username,rol_id) (SELEC
 
 COMMIT
 
---HAGO QUE TODOS LOS USUARIOS SEAN CLIENTES, Y QUE SOLO LOS PRIMEROS 5 SEAN TAMBIEN ADMINS
 
-BEGIN TRANSACTION
-
-INSERT INTO [OOZMA_KAPPA].Usuario_rol(usuario_id,usuario_username, rol_id)(
-SELECT usuario_id, usuario_username, rol_id FROM OOZMA_KAPPA.Usuario, OOZMA_KAPPA.Rol WHERE rol_nombre = 'Cliente' );
-
-COMMIT
-GO
-
-BEGIN TRANSACTION
-
-INSERT INTO [OOZMA_KAPPA].Usuario_rol(usuario_id,usuario_username,rol_id) (SELECT TOP 5 usuario_id,usuario_username,1 FROM OOZMA_KAPPA.Usuario);
-
-COMMIT
-GO
 
 
 

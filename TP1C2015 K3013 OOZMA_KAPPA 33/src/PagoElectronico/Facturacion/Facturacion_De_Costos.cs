@@ -56,7 +56,7 @@ namespace PagoElectronico.Facturacion
             }
             else 
             {
-                MessageBox.Show("No se encuentran Clientes con transacciones pendientes a Facturar", "");
+                MessageBox.Show("No se encuentran Transacciones A Facturar", "");
             }
         }
 

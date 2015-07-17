@@ -158,9 +158,9 @@ AS BEGIN TRANSACTION
 	DECLARE @Cliente numeric(18,0);
 	DECLARE @Cuenta numeric(18,0);
 	DECLARE @Fecha DateTime;
-	DECLARE @Costo int = 0;
+	DECLARE @Costo int;
 	
-	SELECT TOP 1 @Cuenta = transferencia_origen_cuenta_id, @Fecha = transferencia_fecha
+	SELECT TOP 1 @Cuenta = transferencia_origen_cuenta_id, @Fecha = transferencia_fecha, @Costo = transferencia_costo
 	FROM inserted 
 	ORDER BY transferencia_id DESC;
 
