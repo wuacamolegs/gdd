@@ -55,7 +55,10 @@ namespace PagoElectronico.ABM_Cliente
             txtPiso.Text = unCliente.PisoDireccion.ToString();
             txtNumero.Text = unCliente.NumeroDireccion.ToString();
             cmbPais.SelectedValue = unCliente.PaisResidente;
-            dateTimePicker.Text = unCliente.FechaNacimiento.ToString();
+            cmbAnio.SelectedValue = unCliente.FechaNacimiento.Year.ToString();
+            cmbMes.SelectedValue = unCliente.FechaNacimiento.Month.ToString();
+            cmbDia.SelectedValue = unCliente.FechaNacimiento.Day.ToString();
+
 
             txtNombre.Enabled = false;
             txtApellido.Enabled = false;
@@ -67,7 +70,9 @@ namespace PagoElectronico.ABM_Cliente
             txtPiso.Enabled = false;
             txtNumero.Enabled = false;
             cmbPais.Enabled = false;
-            dateTimePicker.Enabled = false;
+            cmbAnio.Enabled = false;
+            cmbDia.Enabled = false;
+            cmbMes.Enabled = false;
 
             btnAceptarACliente.Visible = false;
             btnModificar.Visible = false;
@@ -80,7 +85,9 @@ namespace PagoElectronico.ABM_Cliente
             gbUsuario.Visible = false;
             chkActivo.Visible = true;
             txtDNI.Enabled = false;
-            dateTimePicker.Enabled = false;
+            cmbAnio.Enabled = false;
+            cmbDia.Enabled = false;
+            cmbMes.Enabled = false;
             cmbDNI.Enabled = false;
            
 
@@ -106,7 +113,13 @@ namespace PagoElectronico.ABM_Cliente
             txtPiso.Text = Convert.ToString(unCliente.PisoDireccion);
             txtNumero.Text = Convert.ToString(unCliente.NumeroDireccion);
             cmbPais.SelectedValue = unCliente.PaisResidente;
-            dateTimePicker.Text = unCliente.FechaNacimiento.ToString();
+
+            cmbPais.SelectedValue = unCliente.PaisResidente;
+            cmbAnio.SelectedValue = unCliente.FechaNacimiento.Year.ToString();
+            cmbMes.SelectedValue = unCliente.FechaNacimiento.Month.ToString();
+            cmbDia.SelectedValue = unCliente.FechaNacimiento.Day.ToString();
+
+
             cmbDNI.SelectedValue = unCliente.TipoDocumento;
             cmbPais.SelectedValue = Convert.ToInt32(unCliente.PaisResidente);
 
@@ -134,7 +147,9 @@ namespace PagoElectronico.ABM_Cliente
             txtDepto.Text = "";
             txtPiso.Text = "";
             txtNumero.Text = "";
-            dateTimePicker.Text = Convert.ToString(DateTime.Today);
+            cmbAnio.SelectedIndex = -1;
+            cmbDia.SelectedIndex = -1;
+            cmbMes.SelectedIndex = -1;
             cmbPais.SelectedIndex = -1;
             lblestado.Visible = false;
 
@@ -166,10 +181,16 @@ namespace PagoElectronico.ABM_Cliente
             strErrores += Validator.ValidarNulo(txtNumero.Text, "Numero");
             strErrores += Validator.SoloNumerosPeroOpcional(txtPiso.Text, "Piso");
             strErrores += Validator.ValidarNulo(txtDepto.Text, "Depto");
-            strErrores += Validator.ValidarNulo(dateTimePicker.Text, "Fecha de nacimiento");
-            if (strErrores.Length > 0)
+            if (cmbMes.SelectedIndex == -1 || cmbAnio.SelectedIndex == -1 || cmbDia.SelectedIndex == -1)
             {
-                throw new Exception(strErrores);
+                MessageBox.Show("Ingrese una fecha valida", "Error Fechas");
+            }
+            else
+            {
+                if (strErrores.Length > 0)
+                {
+                    throw new Exception(strErrores);
+                }
             }
         }
 
@@ -199,7 +220,8 @@ namespace PagoElectronico.ABM_Cliente
                 clienteDelForm.DeptoDireccion = txtDepto.Text;
                 if (!String.IsNullOrEmpty(txtPiso.Text)) clienteDelForm.PisoDireccion = -1;
                 clienteDelForm.PisoDireccion = Int32.Parse(txtPiso.Text);
-                clienteDelForm.FechaNacimiento = dateTimePicker.Value.Date;
+                clienteDelForm.FechaString = cmbAnio.Text + "/" + cmbMes.Text + "/" +  cmbDia.Text;
+
                 clienteDelForm.Mail = txtMail.Text;
                 clienteDelForm.estado = chkActivo.Checked;
 
@@ -248,10 +270,11 @@ namespace PagoElectronico.ABM_Cliente
                 clienteDelForm.DeptoDireccion = txtDepto.Text;
                 if (!String.IsNullOrEmpty(txtPiso.Text)) clienteDelForm.PisoDireccion = -1;
                 clienteDelForm.PisoDireccion = Int32.Parse(txtPiso.Text);
-                clienteDelForm.FechaNacimiento = dateTimePicker.Value.Date;
                 clienteDelForm.Mail = txtMail.Text;
                 clienteDelForm.estado = chkActivo.Checked;
+  
 
+                clienteDelForm.FechaString = cmbAnio.Text + "/" + cmbMes.Text + "/" + cmbDia.Text;
 
                 Usuario unUsuarioNuevo = new Usuario();
                 unClienteNuevo.Usuario = unUsuarioNuevo;

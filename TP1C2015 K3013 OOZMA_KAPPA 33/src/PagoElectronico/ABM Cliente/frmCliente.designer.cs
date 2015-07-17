@@ -51,7 +51,6 @@
             this.chkActivo = new System.Windows.Forms.CheckBox();
             this.lblestado = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.cmbPais = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -64,6 +63,9 @@
             this.btnModificar = new System.Windows.Forms.Button();
             this.linkTarjetas = new System.Windows.Forms.LinkLabel();
             this.btnAceptarACliente = new System.Windows.Forms.Button();
+            this.cmbAnio = new System.Windows.Forms.ComboBox();
+            this.cmbMes = new System.Windows.Forms.ComboBox();
+            this.cmbDia = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.gbUsuario.SuspendLayout();
@@ -143,7 +145,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.label8.Location = new System.Drawing.Point(6, 69);
+            this.label8.Location = new System.Drawing.Point(6, 107);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(35, 15);
             this.label8.TabIndex = 7;
@@ -153,7 +155,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.label9.Location = new System.Drawing.Point(6, 107);
+            this.label9.Location = new System.Drawing.Point(6, 68);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(62, 15);
             this.label9.TabIndex = 8;
@@ -218,14 +220,14 @@
             // 
             // txtPiso
             // 
-            this.txtPiso.Location = new System.Drawing.Point(82, 67);
+            this.txtPiso.Location = new System.Drawing.Point(82, 105);
             this.txtPiso.Name = "txtPiso";
             this.txtPiso.Size = new System.Drawing.Size(183, 21);
             this.txtPiso.TabIndex = 18;
             // 
             // txtNumero
             // 
-            this.txtNumero.Location = new System.Drawing.Point(82, 105);
+            this.txtNumero.Location = new System.Drawing.Point(82, 66);
             this.txtNumero.Name = "txtNumero";
             this.txtNumero.Size = new System.Drawing.Size(183, 21);
             this.txtNumero.TabIndex = 19;
@@ -239,6 +241,7 @@
             // 
             // cmbDNI
             // 
+            this.cmbDNI.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbDNI.FormattingEnabled = true;
             this.cmbDNI.Location = new System.Drawing.Point(444, 24);
             this.cmbDNI.Name = "cmbDNI";
@@ -266,7 +269,9 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.dateTimePicker);
+            this.groupBox1.Controls.Add(this.cmbDia);
+            this.groupBox1.Controls.Add(this.cmbMes);
+            this.groupBox1.Controls.Add(this.cmbAnio);
             this.groupBox1.Controls.Add(this.cmbPais);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.lblestado);
@@ -288,16 +293,9 @@
             this.groupBox1.TabIndex = 29;
             this.groupBox1.TabStop = false;
             // 
-            // dateTimePicker
-            // 
-            this.dateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker.Location = new System.Drawing.Point(444, 105);
-            this.dateTimePicker.Name = "dateTimePicker";
-            this.dateTimePicker.Size = new System.Drawing.Size(189, 21);
-            this.dateTimePicker.TabIndex = 30;
-            // 
             // cmbPais
             // 
+            this.cmbPais.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbPais.FormattingEnabled = true;
             this.cmbPais.Location = new System.Drawing.Point(82, 103);
             this.cmbPais.Name = "cmbPais";
@@ -311,9 +309,9 @@
             this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Controls.Add(this.txtCalle);
-            this.groupBox2.Controls.Add(this.txtPiso);
             this.groupBox2.Controls.Add(this.txtDepto);
             this.groupBox2.Controls.Add(this.txtNumero);
+            this.groupBox2.Controls.Add(this.txtPiso);
             this.groupBox2.Location = new System.Drawing.Point(7, 204);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(288, 183);
@@ -415,6 +413,135 @@
             this.btnAceptarACliente.UseVisualStyleBackColor = true;
             this.btnAceptarACliente.Click += new System.EventHandler(this.btnAceptarACliente_Click);
             // 
+            // cmbAnio
+            // 
+            this.cmbAnio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbAnio.FormattingEnabled = true;
+            this.cmbAnio.Items.AddRange(new object[] {
+            "1960",
+            "1961",
+            "1962",
+            "1963",
+            "1964",
+            "1965",
+            "1966",
+            "1967",
+            "1968",
+            "1969",
+            "1970",
+            "1971",
+            "1972",
+            "1973",
+            "1974",
+            "1975",
+            "1976",
+            "1977",
+            "1978",
+            "1979",
+            "1980",
+            "1981",
+            "1982",
+            "1983",
+            "1984",
+            "1985",
+            "1986",
+            "1987",
+            "1988",
+            "1989",
+            "1990",
+            "1991",
+            "1992",
+            "1993",
+            "1994",
+            "1995",
+            "1996",
+            "1997",
+            "1998",
+            "1999",
+            "2000",
+            "2001",
+            "2002",
+            "2003",
+            "2004",
+            "2005",
+            "2006",
+            "2007",
+            "2008",
+            "2009",
+            "2010",
+            "2011",
+            "2012",
+            "2013",
+            "2014",
+            "2015"});
+            this.cmbAnio.Location = new System.Drawing.Point(444, 104);
+            this.cmbAnio.Name = "cmbAnio";
+            this.cmbAnio.Size = new System.Drawing.Size(67, 23);
+            this.cmbAnio.TabIndex = 30;
+            // 
+            // cmbMes
+            // 
+            this.cmbMes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbMes.FormattingEnabled = true;
+            this.cmbMes.Items.AddRange(new object[] {
+            "01",
+            "02",
+            "03",
+            "04",
+            "05",
+            "06",
+            "07",
+            "08",
+            "09",
+            "10",
+            "11",
+            "12"});
+            this.cmbMes.Location = new System.Drawing.Point(516, 104);
+            this.cmbMes.Name = "cmbMes";
+            this.cmbMes.Size = new System.Drawing.Size(57, 23);
+            this.cmbMes.TabIndex = 31;
+            // 
+            // cmbDia
+            // 
+            this.cmbDia.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbDia.FormattingEnabled = true;
+            this.cmbDia.Items.AddRange(new object[] {
+            "01",
+            "02",
+            "03",
+            "04",
+            "05",
+            "06",
+            "07",
+            "08",
+            "09",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20",
+            "21",
+            "22",
+            "23",
+            "24",
+            "25",
+            "26",
+            "27",
+            "28",
+            "29",
+            "30",
+            "31"});
+            this.cmbDia.Location = new System.Drawing.Point(579, 104);
+            this.cmbDia.Name = "cmbDia";
+            this.cmbDia.Size = new System.Drawing.Size(54, 23);
+            this.cmbDia.TabIndex = 32;
+            // 
             // frmCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -424,8 +551,8 @@
             this.Controls.Add(this.gbUsuario);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.btnModificar);
             this.Controls.Add(this.btnAceptarACliente);
+            this.Controls.Add(this.btnModificar);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.Name = "frmCliente";
             this.Text = "Pago Electrónico - ABM Cliente";
@@ -477,6 +604,8 @@
         private System.Windows.Forms.Button btnAceptarACliente;
         private System.Windows.Forms.Button btnModificar;
         private System.Windows.Forms.ComboBox cmbPais;
-        private System.Windows.Forms.DateTimePicker dateTimePicker;
+        private System.Windows.Forms.ComboBox cmbMes;
+        private System.Windows.Forms.ComboBox cmbAnio;
+        private System.Windows.Forms.ComboBox cmbDia;
     }
 }

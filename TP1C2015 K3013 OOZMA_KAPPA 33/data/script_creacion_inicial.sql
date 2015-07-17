@@ -1306,25 +1306,25 @@ GO
 
 CREATE PROCEDURE [OOZMA_KAPPA].insertCliente 
    @cliente_usuario_id numeric(18,0), 
-   @Tipo_Dni numeric(18,0), 
-   @Dni numeric(18,0),
-   @Apellido varchar(255), 
-   @Nombre varchar(255), 
-   @Fecha_nac datetime, 
-   @Mail varchar(255),
-   @Pais_id numeric(18,0),
-   @Numero_calle varchar(255), 
-   @Calle varchar(255), 
-   @Dom_piso numeric(18,0),
-   @Dom_depto varchar(10),
-   @Estado bit
+   @cliente_tipo_documento_id numeric(18,0), 
+   @cliente_numero_documento numeric(18,0),
+   @cliente_apellido varchar(255), 
+   @cliente_nombre varchar(255), 
+   @cliente_fecha_nacimiento varchar(20), 
+   @cliente_mail varchar(255),
+   @cliente_pais_id numeric(18,0),
+   @cliente_numero varchar(255), 
+   @cliente_calle varchar(255), 
+   @cliente_direccion numeric(18,0),
+   @cliente_depto varchar(10),
+   @cliente_estado bit
 AS
 BEGIN TRANSACTION
   INSERT INTO OOZMA_KAPPA.Cliente (cliente_usuario_id,cliente_tipo_documento_id,cliente_numero_documento,
   cliente_apellido, cliente_nombre,cliente_fecha_nacimiento,cliente_mail,cliente_pais_residente_id,cliente_numero,
   cliente_calle,cliente_piso, cliente_depto, cliente_estado)
-  VALUES(@cliente_usuario_id, @Tipo_Dni,@Dni,@Apellido,@Nombre,@Fecha_nac,@Mail,@Pais_id,@Numero_calle,
-  @Calle,@Dom_piso,@Dom_depto,@Estado);
+  VALUES(@cliente_usuario_id, @cliente_tipo_documento_id,@cliente_numero_documento,@cliente_apellido,@cliente_nombre,@cliente_fecha_nacimiento,@cliente_mail,@cliente_pais_id,@cliente_numero,
+  @cliente_calle,@cliente_direccion,@cliente_depto,@cliente_estado);
 COMMIT;
 GO
 
@@ -1704,12 +1704,13 @@ BEGIN TRANSACTION
 	 DECLARE @CantidadSuscripciones int
 	 DECLARE @Costo numeric(18,2)
 	 DECLARE @Factura numeric(18,0)
-	 DECLARE itemsSuscripciones CURSOR FOR (SELECT tvp_cliente_id, tvp_cuenta_id, tvp_cantidad_Suscripciones FROM @tablaSuscripciones)
+	 DECLARE itemsSuscripciones CURSOR FOR (SELECT tvp_cliente_id, tvp_cuenta_id, tvp_cantidad_Suscripciones, tvp_costo FROM @tablaSuscripciones)
 	 
 	 OPEN itemsSuscripciones;
 	 
 	 INSERT INTO OOZMA_KAPPA.Factura (factura_importe, factura_fecha, factura_cliente_id)
 	 VALUES (@factura_importe, @factura_fecha, @factura_cliente_id);
+	 
 	 SET @Factura = (SELECT TOP 1 factura_numero FROM OOZMA_KAPPA.Factura ORDER BY factura_numero DESC);
 	 
 	 FETCH NEXT FROM itemsSuscripciones INTO @Cliente, @Cuenta, @CantidadSuscripciones, @Costo;
@@ -2060,7 +2061,6 @@ AS BEGIN TRANSACTION
 
 COMMIT;
 GO
-
 
 -- update TRANSACCIONES AFTER TRANSFERENCIA: agregar deposito a transacciones pendientes
 

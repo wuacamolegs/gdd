@@ -176,7 +176,6 @@
             this.Controls.Add(this.gridListados);
             this.Name = "Listado_Estadistico";
             this.Text = "PAGO ELECTRONICO - LISTADO ESTADISTICO";
-            this.Load += new System.EventHandler(this.Listado_Estadistico_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gridListados)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

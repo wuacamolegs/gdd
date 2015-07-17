@@ -152,7 +152,7 @@ namespace PagoElectronico.Listados
             DataGridViewTextBoxColumn clmCliente = new DataGridViewTextBoxColumn();
             clmCliente.Width = 120;
             clmCliente.ReadOnly = true;
-            clmCliente.DataPropertyName = "cliente_nombre";
+            clmCliente.DataPropertyName = "Cliente";
             clmCliente.HeaderText = "CLIENTE";
             gridListados.Columns.Add(clmCliente);
 
@@ -187,7 +187,7 @@ namespace PagoElectronico.Listados
             DataGridViewTextBoxColumn clmCliente = new DataGridViewTextBoxColumn();
             clmCliente.Width = 120;
             clmCliente.ReadOnly = true;
-            clmCliente.DataPropertyName = "cliente_nombre";
+            clmCliente.DataPropertyName = "Cliente";
             clmCliente.HeaderText = "CLIENTE";
             gridListados.Columns.Add(clmCliente);
 

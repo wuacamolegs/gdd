@@ -36,7 +36,8 @@ namespace Clases
         private string _depto;
         private string _mail;
         private bool _estado;
-        /*private bool _eliminado;*/
+        private bool _eliminado;
+        private string _fechaString;
 
 
         #endregion
@@ -115,11 +116,17 @@ namespace Clases
             get { return _nombre; }
             set { _nombre = value; }
         }
-
+        
         public string Apellido
         {
             get { return _apellido; }
             set { _apellido = value; }
+        }
+
+        public string FechaString
+        {
+            get { return _fechaString; }
+            set { _fechaString = value; }
         }
 
         public DateTime FechaNacimiento
@@ -293,7 +300,7 @@ namespace Clases
             parameterList.Add(new SqlParameter("@cliente_numero_documento", this.Documento));
             parameterList.Add(new SqlParameter("@cliente_apellido", this.Apellido));
             parameterList.Add(new SqlParameter("@cliente_nombre", this.Nombre));
-            parameterList.Add(new SqlParameter("@cliente_fecha_nacimiento", this.FechaNacimiento));
+            parameterList.Add(new SqlParameter("@cliente_fecha_nacimiento", this.FechaString));
             parameterList.Add(new SqlParameter("@cliente_mail", this.Mail));
             parameterList.Add(new SqlParameter("@cliente_pais_id", this.PaisResidente));
             parameterList.Add(new SqlParameter("@cliente_numero", this.NumeroDireccion));
@@ -301,7 +308,9 @@ namespace Clases
             parameterList.Add(new SqlParameter("@cliente_direccion", this.PisoDireccion));
             parameterList.Add(new SqlParameter("@cliente_depto", this.DeptoDireccion));
             parameterList.Add(new SqlParameter("@cliente_estado", this.estado));
+            parameterList.Add(new SqlParameter("@cliente_usuario_id", this.Usuario.usuario_id));
         }
+
 
         #endregion
 
@@ -330,7 +339,6 @@ namespace Clases
         {
             //Valido que el dni que ingrese no corresponda a otro cliente ya existente.
             setearListaDeParametrosConDNI();
-            MessageBox.Show("4", "");
             DataSet ds2 = SQLHelper.ExecuteDataSet("validarDniEnCliente", CommandType.StoredProcedure, parameterList);
             if ((ds2.Tables[0].Rows.Count == 0))
             {
