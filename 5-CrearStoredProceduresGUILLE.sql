@@ -83,7 +83,9 @@ AND cliente_id = C2.cuenta_cliente_id
 AND C1.cuenta_id != C2.cuenta_id
 AND transferencia_destino_cuenta_id = C1.cuenta_id 
 AND transferencia_origen_cuenta_id = C2.cuenta_id
-AND CONVERT(varchar(10), transferencia_fecha, 103)Between CONVERT(varchar(10), @fechaDES, 103) And CONVERT(varchar(10), @fechaHAS, 103)
+-- AND CONVERT(varchar(10), transferencia_fecha, 103)Between CONVERT(varchar(10), @fechaDES, 103) And CONVERT(varchar(10), @fechaHAS, 103) --
+AND MONTH(transferencia_fecha) BETWEEN MONTH(@fechaDES) AND MONTH(@fechaHAS)
+AND YEAR(transferencia_fecha) = YEAR(@fechaDES)
 GROUP BY cliente_apellido, cliente_nombre
 ORDER BY Cantidad DESC							  
 END
@@ -99,20 +101,20 @@ Begin
 Select TOP 5 pais_nombre, (Depositados+Retirados+TransferenciasEnviadas+TransferenciasRecibidas) as cantidad_movimientos
 	From (Select cliente_pais_residente_id as Pais, COUNT(deposito_importe) as Depositados
 	         From OOZMA_KAPPA.Cliente Join OOZMA_KAPPA.Deposito On (cliente_id = deposito_cliente_id)
-	         Where CONVERT(varchar(10), deposito_fecha, 103) Between CONVERT(varchar(10), @fechaDES, 103) And CONVERT(varchar(10), @fechaHAS, 103)
+	         Where 	MONTH(deposito_fecha) BETWEEN MONTH(@fechaDES) AND MONTH(@fechaHAS) AND YEAR(deposito_fecha) = YEAR(@fechaDES)
 	         Group By cliente_pais_residente_id) d Join (Select cuenta_pais_id as Pais, COUNT(retiro_importe)Retirados
 	                                                        From OOZMA_KAPPA.Cuenta Join OOZMA_KAPPA.Retiro On (cuenta_id = retiro_cuenta_id)
-	                                                        Where CONVERT(varchar(10), retiro_fecha, 103) Between CONVERT(varchar(10), @fechaDES, 103) And CONVERT(varchar(10), @fechaHAS, 103)
+	                                                        Where MONTH(retiro_fecha) BETWEEN MONTH(@fechaDES) AND MONTH(@fechaHAS) AND YEAR(retiro_fecha) = YEAR(@fechaDES)
 	                                                        Group By cuenta_pais_id) r On (d.Pais = r.Pais)
 	                                               Join (Select c1.cuenta_pais_id as Pais, COUNT(transferencia_importe)TransferenciasEnviadas
 	                                                        From OOZMA_KAPPA.Transferencia Join OOZMA_KAPPA.Cuenta c1 On (transferencia_origen_cuenta_id = c1.cuenta_id)
 	                                                                                       Join OOZMA_KAPPA.Cuenta c2 On (transferencia_destino_cuenta_id = c2.cuenta_id)
-	                                                        Where c1.cuenta_pais_id != c2.cuenta_pais_id And (CONVERT(varchar(10), transferencia_fecha, 103) Between CONVERT(varchar(10), @fechaDES, 103) And CONVERT(varchar(10), @fechaHAS, 103))
+	                                                        Where c1.cuenta_pais_id != c2.cuenta_pais_id And MONTH(transferencia_fecha) BETWEEN MONTH(@fechaDES) AND MONTH(@fechaHAS) AND YEAR(transferencia_fecha) = YEAR(@fechaDES)
 	                                                        Group By c1.cuenta_pais_id) te On (d.Pais = te.Pais)
 	                                               Join (Select c2.cuenta_pais_id as Pais, COUNT(transferencia_importe)TransferenciasRecibidas
 	                                                        From OOZMA_KAPPA.Transferencia Join OOZMA_KAPPA.Cuenta c1 On (transferencia_origen_cuenta_id = c1.cuenta_id)
 	                                                                                       Join OOZMA_KAPPA.Cuenta c2 On (transferencia_destino_cuenta_id = c2.cuenta_id)
-	                                                        Where c1.cuenta_pais_id != c2.cuenta_pais_id And (CONVERT(varchar(10), transferencia_fecha, 103) Between CONVERT(varchar(10), @fechaDES, 103) And CONVERT(varchar(10), @fechaHAS, 103))
+	                                                        Where c1.cuenta_pais_id != c2.cuenta_pais_id And MONTH(transferencia_fecha) BETWEEN MONTH(@fechaDES) AND MONTH(@fechaHAS) AND YEAR(transferencia_fecha) = YEAR(@fechaDES)
 	                                                        Group By c2.cuenta_pais_id) tr On (d.Pais = tr.Pais)
 	                                               Join Pais On (d.Pais = pais_id)
 	  Order By cantidad_movimientos DESC
@@ -129,7 +131,7 @@ Begin
    Select cuenta_tipo_cuenta_id, SUM(factura_importe) as TotalFacturado
       From OOZMA_KAPPA.Cuenta Join OOZMA_KAPPA.Cliente On (cliente_id = cuenta_cliente_id)
                            Join OOZMA_KAPPA.Factura On (cliente_id = factura_cliente_id)
-      Where CONVERT(varchar(10), factura_fecha, 103) Between CONVERT(varchar(10), @fechaDES, 103) And CONVERT(varchar(10), @fechaHAS, 103)
+      Where MONTH(factura_fecha) BETWEEN MONTH(@fechaDES) AND MONTH(@fechaHAS) AND YEAR(factura_fecha) = YEAR(@fechaDES)
       Group By cuenta_tipo_cuenta_id
 End
 Go    
